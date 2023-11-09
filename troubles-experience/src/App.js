@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from './pages/home';
-import Scales from './pages/scales';
+import Scales from './pages/scales/scales';
 
 function App() {
   return (
