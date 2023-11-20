@@ -24,7 +24,7 @@ export default class ScalesObject {
   
     placeOnUnionist(issue) {
         if (this.unionistIssues.indexOf(issue) > -1) {
-            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight + issue.weight, this.nationalistWeight);
+            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
         } else {
             const updatedUnionistIssues = [...this.unionistIssues, issue];
             const updatedUnionistWeight = this.unionistWeight + issue.weight;
@@ -41,7 +41,7 @@ export default class ScalesObject {
   
     placeOnNationalist(issue) {
         if (this.nationalistIssues.indexOf(issue) > -1) {
-            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight + issue.weight, this.nationalistWeight);
+            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
         } else {
             const updatedNationalistIssues = [...this.nationalistIssues, issue];
             const updatedNationalistWeight = this.nationalistWeight + issue.weight;
