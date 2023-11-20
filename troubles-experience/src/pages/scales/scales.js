@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ScalesObject from '../../classes/scales';
 import Issue from '../../classes/issue';
 
+import './scales.css';
+
 const Scales = () => {
   const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], 0, 0));
   const [draggedIssue, setDraggedIssue] = useState(null);
@@ -10,6 +12,11 @@ const Scales = () => {
     initialiseScales();
     initialiseIssues();
   }, []); 
+
+  function resetScales() {
+    initialiseScales();
+    initialiseIssues();
+  }
 
   function initialiseScales() {
     setPeaceScales(new ScalesObject([], [], 0, 0));
@@ -24,6 +31,10 @@ const Scales = () => {
     setPeaceScales(new ScalesObject([], [northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue, decommissioningIssue], 0, 40));
   }
 
+  function displayIssueInfo(issue) {
+    alert(issue.name + '\n' + issue.description);
+  }
+
   const handleDragStart = (issue) => {
     setDraggedIssue(issue);
   };
@@ -36,22 +47,13 @@ const Scales = () => {
     event.preventDefault();
   
     if (draggedIssue) {
-      // Get the mouse position relative to the drop zone
-      const { clientX, clientY } = event;
-  
-      // Get the drop zone's bounding box
-      const dropZoneRect = event.target.getBoundingClientRect();
-  
-      // Calculate the horizontal midpoint of the drop zone
-      const dropZoneMidpointX = dropZoneRect.left + dropZoneRect.width / 2;
-  
-      // Determine if the drop occurred on the Unionist or Nationalist side
-      const isOnUnionistSide = clientX < dropZoneMidpointX;
+      const isOnUnionistSide = event.target.className.includes('unionistSide');
+      const isOnNationalistSide = event.target.className.includes('nationalistSide');
   
       // Update the scales accordingly
       if (isOnUnionistSide) {
         setPeaceScales((prevScales) => prevScales.placeOnUnionist(draggedIssue));
-      } else {
+      } else if (isOnNationalistSide) {
         setPeaceScales((prevScales) => prevScales.placeOnNationalist(draggedIssue));
       }
   
@@ -60,19 +62,53 @@ const Scales = () => {
     }
   };
 
+  // const handleDrop = (event) => {
+  //   event.preventDefault();
+  
+  //   if (draggedIssue) {
+  //     // Get the mouse position relative to the drop zone
+  //     const { clientX, clientY } = event;
+  
+  //     // Get the drop zone's bounding box
+  //     const dropZoneRect = event.target.getBoundingClientRect();
+  
+  //     // Calculate the horizontal midpoint of the drop zone
+  //     const dropZoneMidpointX = dropZoneRect.left + dropZoneRect.width / 2;
+  
+  //     // Determine if the drop occurred on the Unionist or Nationalist side
+  //     const isOnUnionistSide = clientX < dropZoneMidpointX;
+  
+  //     // Update the scales accordingly
+  //     if (isOnUnionistSide) {
+  //       setPeaceScales((prevScales) => prevScales.placeOnUnionist(draggedIssue));
+  //     } else {
+  //       setPeaceScales((prevScales) => prevScales.placeOnNationalist(draggedIssue));
+  //     }
+  
+  //     // Clear the dragged issue state after the drop
+  //     setDraggedIssue(null);
+  //   }
+  // };
+
   return (
     <div>
       <h1>Scales</h1>
+      <div>
+        <button onClick={resetScales.bind(this)}>Reset Scales</button>
+      </div>
       <div
+        className="drop-zone"
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
       >
-        <div>
+        <div className = 'unionistSide'>
           <h2>Unionist Side</h2>
-          <h4>{peaceScales?.getUnionistWeight()}</h4>
+          <h4>{peaceScales.getUnionistWeight()}</h4>
           {peaceScales.getUnionistIssues().map((issue) => (
             <div
+              className = 'unionistIssue'
+              onClick={displayIssueInfo.bind(this, issue)}
               key={issue.id}
               draggable
               onDragStart={() => handleDragStart(issue)}
@@ -82,11 +118,13 @@ const Scales = () => {
             </div>
           ))}
         </div>
-        <div>
-          <h2>Nationalist Side</h2>
-          <h4>{peaceScales?.getNationalistWeight()}</h4>
+        <div className = 'nationalistSide'>
+          <h2>Nationalist Side </h2>
+          <h4>{peaceScales.getNationalistWeight()}</h4>
           {peaceScales.getNationalistIssues().map((issue) => (
             <div
+              className = 'nationalistIssue'
+              onClick={displayIssueInfo.bind(this, issue)}
               key={issue.id}
               draggable
               onDragStart={() => handleDragStart(issue)}
