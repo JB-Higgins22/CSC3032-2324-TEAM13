@@ -1,0 +1,55 @@
+.parent {
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+  }
+  .child {
+    display: inline-block;
+    border: 1px solid red;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+  }
+
+.unionistSide {
+  background-color: blue;
+  width: 700px;
+  height: 1000px;
+  border: 2px dashed #aaa;
+  padding: 10px;
+  margin: 10px;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.nationalistSide {
+  background-color: green;
+  width: 700px;
+  height: 1000px;
+  border: 2px dashed #aaa;
+  padding: 10px;
+  margin: 10px;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.unionistIssue {
+  background-color: red;
+  width: 200px;
+  height: 75px;
+  border: 2px dashed #aaa;
+  padding: 10px;
+  margin: 10px;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.nationalistIssue {
+  background-color: orange;
+  width: 200px;
+  height: 75px;
+  border: 2px dashed #aaa;
+  padding: 10px;
+  margin: 10px;
+  min-height: 100px;
+  overflow: hidden;
+}
