@@ -13,7 +13,7 @@
 .unionistSide {
   background-color: blue;
   width: 700px;
-  height: 1000px;
+  height: 500px;
   border: 2px dashed #aaa;
   padding: 10px;
   margin: 10px;
@@ -24,7 +24,7 @@
 .nationalistSide {
   background-color: green;
   width: 700px;
-  height: 1000px;
+  height: 500px;
   border: 2px dashed #aaa;
   padding: 10px;
   margin: 10px;
@@ -52,4 +52,10 @@
   margin: 10px;
   min-height: 100px;
   overflow: hidden;
+}
+
+.quitButton {
+  position:absolute;
+     top:0;
+     right:0;
 }
