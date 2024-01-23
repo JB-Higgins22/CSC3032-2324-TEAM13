@@ -1,0 +1,64 @@
+.Container {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100vh;
+  background-color: #0b6ea5;
+  background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
+  position: relative;
+}
+
+.Container .SettingsIcon {
+  font-size: 32px;
+  color: #F0FFFF;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+
+.Header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Header h1 {
+  color: #F0FFFF;
+}
+
+.Section {
+  margin-bottom: 40px;
+}
+
+.Section h2 {
+  color: #F0FFFF;
+}
+
+.Section p {
+  color: #F0FFFF;
+  line-height: 1.5;
+}
+
+.Section button {
+  background-color: #F0FFFF;
+  color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-style: ridge;
+  border-color: #007bff;
+  border-radius: 4px;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: #F8F8FF;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+  color: #F8F8FF;
+}

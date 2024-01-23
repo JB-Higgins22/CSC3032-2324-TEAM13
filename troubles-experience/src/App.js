@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from './pages/home';
+import HomePage from './pages/home/home';
 import Scales from './pages/scales/scales';
+import Settings from './pages/settings/settingsPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route path='/scales' element={<Scales />} />
+        <Route path='/settings' element={<Settings />} />
       </Routes>
     </Router>
       </header>
