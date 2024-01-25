@@ -27,9 +27,20 @@ const IssueDialog = ({ isOpen, handleClose, issue, handlePlaceUnionist, handlePl
             PaperProps={{ style: { ...dialogStyles } }}>
       <DialogTitle>{issue && issue.name}</DialogTitle>
       <DialogContent>
-        <DialogContentText style={{ fontFamily: 'Lucida Console, cursive' }}>
-          {issue && issue.description}
+        <DialogContentText >
+          {issue && issue.descriptionOne}
           </DialogContentText>
+          <br />
+          <DialogContentText >
+          {issue && issue.descriptionTwo}
+          </DialogContentText>
+          <br />
+          <img src={process.env.PUBLIC_URL + issue?.imageURL}
+          alt="British & Irish Passports"
+          style={{ width: '70%', 
+                    height: 'auto',
+                    display: 'block',
+                    margin: 'auto' }} />
       </DialogContent>
       <DialogActions>
         <ButtonGroup variant="outlined" 

@@ -40,18 +40,26 @@ const Scales = () => {
   function initialiseIssues() {
     const decommissioningIssue = new Issue('Decommissioning', 
                                             'Decommissioning in Northern Ireland was a process in the Belfast Agreement as part of the Northern Ireland peace process. Under the Good Friday Agreement/ Belfast Agreement, all paramilitary groups fighting in the Troubles would be subject to decommission. Decommissioning was a defining issue in the effort to negotiate peace in Northern Ireland.', 
+                                            'The Independent International Commission on Decommissioning (IICD) was established to oversee the decommissioning. Its objective was to facilitate the decommissioning of firearms, ammunition and explosives.',
+                                            '/guns.avif',
                                             10);
 
     const northSouthCouncilIssue = new Issue('North/South Council', 
                                               'The North/South Ministerial Council (NSMC) is a body established under the Good Friday Agreement to co-ordinate activity and exercise certain governmental powers across the whole island of Ireland. The Council takes the form of meetings between ministers from both the Republic of Ireland and Northern Ireland and is responsible for twelve policy areas. Six of these areas are the responsibility of corresponding North/South Implementation Bodies. The body is based in the city of Armagh in Northern Ireland.', 
+                                              'The North/South Ministerial Council and the Northern Ireland Assembly are "mutually inter-dependent" institutions: one cannot exist without the other.',
+                                              '/north-south-council.jpeg',
                                               10);
 
     const britishIrishCouncilIssue = new Issue('British/Irish Council', 
                                               'The British and Irish governments, and political parties in Northern Ireland, agreed to form a council under the British–Irish Agreement, part of the Good Friday Agreement reached in 1998. The council was formally established on 2 December 1999, when the Agreement came into effect. The councils stated aim is to "promote the harmonious and mutually beneficial development of the totality of relationships among the peoples of these islands".', 
+                                              'At its June 2010 summit, the Council decided to move forward on recommendations to enhance the relationship between it and the British-Irish Parliamentary Assembly (BIPA).',
+                                              '/british-irish-council.jpeg',
                                               10);
 
     const selfDeterminationIssue = new Issue('The Right to Self-Determination', 
                                             'Under the terms of the British-Irish Agreement, both governments Recognised that it was the right of all persons born in Northern Ireland to identify as Irish or British, or both, and to hold both Irish and British citizenship if they so choose. This right is to continue regardless of any change in the status of Northern Ireland', 
+                                            'Desc Two',
+                                            '/self-determination.webp',
                                             10);
 
     setPeaceScales(new ScalesObject([], [northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue, decommissioningIssue], 0, 40));
@@ -114,6 +122,7 @@ const Scales = () => {
 
   return (
     <div>
+      <script src="https://cdn.jsdelivr.net/npm/please-rotate@1.0.1/index.min.js"></script>
 
         <Button variant="outlined" color="error" className="quitButton" onClick={displayConfirmQuitDialog}>
           Quit
