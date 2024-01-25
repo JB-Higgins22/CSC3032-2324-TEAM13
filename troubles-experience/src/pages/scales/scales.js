@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ScalesObject from '../../classes/scales';
+import BookshelfObject from '../../classes/bookshelf';
 import Issue from '../../classes/issue';
 import IssueDialog from '../../dialogs/issueDialog/issueDialog';
 import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
@@ -16,15 +17,17 @@ import './scales.css';
 
 const Scales = () => {
   const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], 0, 0));
+  const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
   const [draggedIssue, setDraggedIssue] = useState(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState(null);
-  //MUI
+  //MUI 
   const [checked, setChecked] = React.useState(false);
 
   useEffect(() => {
     initialiseScales();
+    initialiseBookshelfObject();
     initialiseIssues();
   }, []); 
 
@@ -35,6 +38,10 @@ const Scales = () => {
 
   function initialiseScales() {
     setPeaceScales(new ScalesObject([], [], 0, 0));
+  }
+
+  function initialiseBookshelfObject() {
+    setBookshelfObject(new BookshelfObject([]));
   }
 
   function initialiseIssues() {
@@ -62,7 +69,8 @@ const Scales = () => {
                                             '/self-determination.webp',
                                             10);
 
-    setPeaceScales(new ScalesObject([], [northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue, decommissioningIssue], 0, 40));
+    setPeaceScales(new ScalesObject([], [], 0, 40));
+    setBookshelfObject(new BookshelfObject([decommissioningIssue, northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue]));
   }
 
   const displayIssueInfo = (issue) => {
@@ -121,74 +129,105 @@ const Scales = () => {
   };
 
   return (
-    <div>
-      <script src="https://cdn.jsdelivr.net/npm/please-rotate@1.0.1/index.min.js"></script>
+    <body>
+      <div>
+          <Button variant="outlined" color="error" className="quitButton" onClick={displayConfirmQuitDialog}>
+            Quit
+          </Button>
 
-        <Button variant="outlined" color="error" className="quitButton" onClick={displayConfirmQuitDialog}>
-          Quit
-        </Button>
+        <Slide direction="down" in={true} mountOnEnter unmountOnExit timeout={1000}>
+          <h1>Scales</h1>
+        </Slide>
 
-      <Slide direction="down" in={true} mountOnEnter unmountOnExit timeout={1000}>
-        <h1>Scales</h1>
-      </Slide>
-      <div
-        className="drop-zone"
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
-      >
-        <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={1000}>
-          <div className="unionistSide">
-            <h2>Unionist Side</h2>
-            <h4>{peaceScales.getUnionistWeight()}</h4>
-            {peaceScales.getUnionistIssues().map((issue) => (
-              <div
-                className="unionistIssue"
-                onClick={displayIssueInfo.bind(this, issue)}
-                key={issue.id}
-                draggable
-                onDragStart={() => handleDragStart(issue)}
-                style={{ marginBottom: '10px', cursor: 'move' }}
-              >
-                {issue.name}
+        <div className="shelf-and-scale-wrapper">
+
+          <div className="shelf-zone">
+
+            <div className='books'>
+            {bookshelfObject.getIssues().map((issue) => (
+              <div className='bookOnShelf'
+              onClick={displayIssueInfo.bind(this, issue)}>
+                <img
+                  src={process.env.PUBLIC_URL + '/single-book.png'}
+                    alt="Bookshelf"
+                    style={{ width: '40px', 
+                              height: 'auto',
+                              display: 'block',
+                              margin: 'auto' }} />
               </div>
             ))}
+            </div>
+
+            <div className = "shelf" >
+              <img
+              src={process.env.PUBLIC_URL + '/shelf.png'}
+                alt="Bookshelf"
+                style={{ width: '400px', 
+                          height: 'auto',
+                          display: 'block',
+                          margin: 'auto' }} />
+            </div>
+
+
           </div>
-        </Slide>
-        <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-          <div className="nationalistSide">
-            <h2>Nationalist Side </h2>
-            <h4>{peaceScales.getNationalistWeight()}</h4>
-            {peaceScales.getNationalistIssues().map((issue) => (
-              <div
-                className="nationalistIssue"
-                onClick={displayIssueInfo.bind(this, issue)}
-                key={issue.id}
-                draggable
-                onDragStart={() => handleDragStart(issue)}
-                style={{ marginBottom: '10px', cursor: 'move' }}
-              >
-                {issue.name}
+          <div
+            className="drop-zone"
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
+          >
+            <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={1000}>
+              <div className="unionistSide">
+                <h4>{peaceScales.getUnionistWeight()}</h4>
+                {peaceScales.getUnionistIssues().map((issue) => (
+                  <div
+                    className="unionistIssue"
+                    onClick={displayIssueInfo.bind(this, issue)}
+                    key={issue.id}
+                    draggable
+                    onDragStart={() => handleDragStart(issue)}
+                    style={{ marginBottom: '10px', cursor: 'move' }}
+                  >
+                    {issue.name}
+                  </div>
+                ))}
               </div>
-            ))}
+            </Slide>
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+              <div className="nationalistSide">
+                <h4>{peaceScales.getNationalistWeight()}</h4>
+                {peaceScales.getNationalistIssues().map((issue) => (
+                  <div
+                    className="nationalistIssue"
+                    onClick={displayIssueInfo.bind(this, issue)}
+                    key={issue.id}
+                    draggable
+                    onDragStart={() => handleDragStart(issue)}
+                    style={{ marginBottom: '10px', cursor: 'move' }}
+                  >
+                    {issue.name}
+                  </div>
+                ))}
+              </div>
+            </Slide>
           </div>
-        </Slide>
+        </div>
+    
+        <IssueDialog
+          isOpen={isDialogOpen}
+          handleClose={handleCloseDialog}
+          handlePlaceUnionist={placeOnUnionistSide}
+          handlePlaceNationalist={placeOnNationalistSide}
+          issue={selectedIssue}
+        />
+
+        <ConfirmQuitDialog 
+          isOpen={isConfirmQuitDialogOpen}
+          handleClose={handleCloseConfirmQuitDialog}/>
+
+
       </div>
-  
-      <IssueDialog
-        isOpen={isDialogOpen}
-        handleClose={handleCloseDialog}
-        handlePlaceUnionist={placeOnUnionistSide}
-        handlePlaceNationalist={placeOnNationalistSide}
-        issue={selectedIssue}
-      />
-
-      <ConfirmQuitDialog 
-        isOpen={isConfirmQuitDialogOpen}
-        handleClose={handleCloseConfirmQuitDialog}/>
-
-
-    </div>
+    </body>
   );
 };
 

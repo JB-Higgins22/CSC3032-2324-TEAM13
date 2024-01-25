@@ -12,8 +12,8 @@
 
 .unionistSide {
   background-color: blue;
-  width: 500px;
-  height: 500px;
+  width: 80%;
+  height: auto;
   border: 2px dashed #aaa;
   padding: 10px;
   margin: 10px;
@@ -23,8 +23,8 @@
 
 .nationalistSide {
   background-color: green;
-  width: 500px;
-  height: 500px;
+  width: 80%;
+  height: auto;
   border: 2px dashed #aaa;
   padding: 10px;
   margin: 10px;
@@ -56,4 +56,39 @@
   position:absolute;
      top:0;
      right:0;
+}
+
+.shelf-and-scale-wrapper {
+  display: flex;
+  width: 100%;
+  border: 2px dashed #f51515;
+}
+
+.shelf-zone {
+  border: 2px dashed #aaa;
+  flex: 1;
+  width: 1000px;
+  height: 500px;
+}
+
+.books {
+  border: 2px dashed rgb(6, 199, 61);
+  margin-top: 30%;
+  display: flex;
+  height: auto;
+  width: auto;
+  justify-content: center;
+}
+
+.shelf {
+  border: 2px dashed rgb(170, 170, 170);
+  margin: auto;
+  height: auto;
+}
+
+.drop-zone {
+  border: 2px dashed #aaa;
+  flex: 1;
+  width: 100%;
+  height: auto;
 }
