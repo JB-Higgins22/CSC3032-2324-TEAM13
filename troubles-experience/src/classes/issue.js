@@ -1,7 +1,9 @@
 export default class Issue{
-    constructor(name, description, weight) {
+    constructor(name, descriptionOne, descriptionTwo, imageURL, weight) {
         this.name = name;
-        this.description = description;
+        this.descriptionOne = descriptionOne;
+        this.descriptionTwo = descriptionTwo;
+        this.imageURL = imageURL;
         this.weight = weight;
     }
 }
