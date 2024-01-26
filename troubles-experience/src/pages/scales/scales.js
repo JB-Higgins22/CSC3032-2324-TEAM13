@@ -22,8 +22,15 @@ const Scales = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState(null);
+
+  const [unionistHeight, setUnionistHeight] = useState(10); // Initial height
+  const [nationalistHeight, setNationalistHeight] = useState(10); // Initial height
+
+  const [balancePercentage, setBalancePercentage] = useState(100); // Initial Balance
+
   //MUI 
   const [checked, setChecked] = React.useState(false);
+
 
   useEffect(() => {
     initialiseScales();
@@ -69,7 +76,7 @@ const Scales = () => {
                                             '/self-determination.webp',
                                             10);
 
-    setPeaceScales(new ScalesObject([], [], 0, 40));
+    setPeaceScales(new ScalesObject([], [], 0, 0));
     setBookshelfObject(new BookshelfObject([decommissioningIssue, northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue]));
   }
 
@@ -87,13 +94,56 @@ const Scales = () => {
   };
 
   const placeOnUnionistSide = () => {
-    setPeaceScales((prevScales) => prevScales.placeOnUnionist(selectedIssue));
+    const updatedScales = peaceScales.placeOnUnionist(selectedIssue);
+    const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
+    setPeaceScales(updatedScales);
+    setBookshelfObject(updatedBookshelf);
+    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     handleCloseDialog();
-  }
-
+  };
+  
   const placeOnNationalistSide = () => {
-    setPeaceScales((prevScales) => prevScales.placeOnNationalist(selectedIssue));
+    const updatedScales = peaceScales.placeOnNationalist(selectedIssue);
+    const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
+    setPeaceScales(updatedScales);
+    setBookshelfObject(updatedBookshelf);
+    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     handleCloseDialog();
+  };
+
+  const updateHeight = (scales) => {
+    const imageHeight = 20; // Example height of the image
+    const unionistHeight = scales.getUnionistIssues().length * imageHeight;
+    const nationalistHeight = scales.getNationalistIssues().length * imageHeight;
+    setUnionistHeight(unionistHeight);
+    setNationalistHeight(nationalistHeight);
+  };
+
+  const updateBalance = (scales) => {
+    const unionistWeight = scales.getUnionistWeight;
+    const nationalistWeight = scales.getNationalistWeight;
+
+    const totalWeight = nationalistWeight + unionistWeight;
+
+    // Calculate percentages
+    let unionistPercentage = 0;
+    let nationalistPercentage = 0;
+
+    if (unionistWeight !== 0) {
+      unionistPercentage = (unionistWeight / totalWeight) * 100;
+    }
+
+    if (nationalistWeight !== 0) {
+      nationalistPercentage = (nationalistWeight / totalWeight) * 100;
+    }
+    
+    // Calculate balance percentage
+    const balancePercentage = Math.abs(nationalistPercentage - unionistPercentage);
+
+    setBalancePercentage(balancePercentage);
+
   }
 
   const handleCloseDialog = () => {
@@ -129,7 +179,7 @@ const Scales = () => {
   };
 
   return (
-    <body>
+    <div>
       <div>
           <Button variant="outlined" color="error" className="quitButton" onClick={displayConfirmQuitDialog}>
             Quit
@@ -141,6 +191,7 @@ const Scales = () => {
 
         <div className="shelf-and-scale-wrapper">
 
+        <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={1000}>
           <div className="shelf-zone">
 
             <div className='books'>
@@ -170,46 +221,74 @@ const Scales = () => {
 
 
           </div>
+          </Slide>
+
+          <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
           <div
             className="drop-zone"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
           >
-            <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={1000}>
               <div className="unionistSide">
-                <h4>{peaceScales.getUnionistWeight()}</h4>
-                {peaceScales.getUnionistIssues().map((issue) => (
-                  <div
-                    className="unionistIssue"
-                    onClick={displayIssueInfo.bind(this, issue)}
-                    key={issue.id}
-                    draggable
-                    onDragStart={() => handleDragStart(issue)}
-                    style={{ marginBottom: '10px', cursor: 'move' }}
-                  >
-                    {issue.name}
+
+                <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
+                    {peaceScales.getUnionistIssues().map((issue) => (
+                      <div
+                        className="unionistIssue"
+                        onClick={displayIssueInfo.bind(this, issue)}
+                        key={issue.id}
+                        draggable
+                        onDragStart={() => handleDragStart(issue)}
+                        style={{ marginBottom: '10px', cursor: 'move' }}
+                      >
+                        <img
+                  src={process.env.PUBLIC_URL + '/single-book.png'}
+                    alt="Bookshelf"
+                    style={{ width: '40px', 
+                              height: 'auto',
+                              display: 'block',
+                              margin: 'auto' }} />
+                      </div>
+                  ))}
                   </div>
-                ))}
-              </div>
-            </Slide>
-            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <div className="nationalistSide">
-                <h4>{peaceScales.getNationalistWeight()}</h4>
-                {peaceScales.getNationalistIssues().map((issue) => (
-                  <div
-                    className="nationalistIssue"
-                    onClick={displayIssueInfo.bind(this, issue)}
-                    key={issue.id}
-                    draggable
-                    onDragStart={() => handleDragStart(issue)}
-                    style={{ marginBottom: '10px', cursor: 'move' }}
-                  >
-                    {issue.name}
+
+                  <div className = "unionistPlatform">
+                    <h4>{peaceScales.getUnionistWeight()}</h4>
                   </div>
-                ))}
               </div>
-            </Slide>
+
+
+              <div className="nationalistSide" >
+
+                <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+                    {peaceScales.getNationalistIssues().map((issue) => (
+                      <div
+                        className="nationalistIssue"
+                        onClick={displayIssueInfo.bind(this, issue)}
+                        key={issue.id}
+                        draggable
+                        onDragStart={() => handleDragStart(issue)}
+                        style={{ marginBottom: '10px', cursor: 'move' }}
+                      >
+                        <img
+                  src={process.env.PUBLIC_URL + '/single-book.png'}
+                    alt="Bookshelf"
+                    style={{ width: '40px', 
+                              height: 'auto',
+                              display: 'block',
+                              margin: 'auto' }} />
+                      </div>
+                  ))}
+                  </div>
+
+                  <div className = "nationalistPlatform">
+                    <h4>{peaceScales.getNationalistWeight()}</h4>
+                  </div>
+              </div>
+
+              </div>
+              </Slide>
           </div>
         </div>
     
@@ -227,7 +306,6 @@ const Scales = () => {
 
 
       </div>
-    </body>
   );
 };
 
