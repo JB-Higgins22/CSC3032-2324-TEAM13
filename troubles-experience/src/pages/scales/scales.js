@@ -4,6 +4,8 @@ import BookshelfObject from '../../classes/bookshelf';
 import Issue from '../../classes/issue';
 import IssueDialog from '../../dialogs/issueDialog/issueDialog';
 import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
+import RotateDeviceMessage from '../../components/rotate-device-message';
+
 //MUI IMPORTS
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
@@ -180,6 +182,7 @@ const Scales = () => {
 
   return (
     <div>
+
       <div>
           <Button variant="outlined" color="error" className="quitButton" onClick={displayConfirmQuitDialog}>
             Quit
@@ -304,7 +307,7 @@ const Scales = () => {
           isOpen={isConfirmQuitDialogOpen}
           handleClose={handleCloseConfirmQuitDialog}/>
 
-
+        <RotateDeviceMessage />
       </div>
   );
 };
