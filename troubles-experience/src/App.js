@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from './pages/home/home';
 import Scales from './pages/scales/scales';
@@ -49,7 +50,7 @@ function App() {
           <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange}/>} />
           <Route path='/results' element={<ResultsPage />} />
         <Route path='/pre-game-info' element={<PreGameInfo />} />
-</Routes>
+        </Routes>
       </Router>
     </div>
   );
