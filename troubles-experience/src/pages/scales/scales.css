@@ -9,3 +9,98 @@
     padding: 1rem 1rem;
     vertical-align: middle;
   }
+
+.unionistSide {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.unionistPlatform {
+  background-color: blue;
+  border: 2px dashed #aaa;
+  margin: auto;
+}
+
+.unionistBooks {
+  margin-top: 30%;
+  display: flex;
+  height: auto;
+  width: auto;
+  justify-content: center;
+}
+
+.nationalistSide {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.nationalistPlatform {
+  background-color: rgb(39, 157, 3);
+  border: 2px dashed #aaa;
+  margin: auto;
+}
+
+.nationalistBooks {
+  margin-top: 30%;
+  display: flex;
+  height: auto;
+  width: auto;
+  justify-content: center;
+}
+
+.quitButton {
+  position:absolute;
+     top:0;
+     right:0;
+}
+
+.shelf-and-scale-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.shelf-zone {
+  flex: 1;
+  width: 1000px;
+  height: 500px;
+}
+
+.books {
+  margin-top: 30%;
+  display: flex;
+  height: auto;
+  width: auto;
+  justify-content: center;
+  bottom: 0;
+}
+
+.booksOnShelf {
+  display: flex;
+  align-items: flex-end;
+}
+
+.shelf {
+  margin: auto;
+  height: auto;
+}
+
+.drop-zone {
+  flex: 1;
+  width: 100%;
+  height: auto;
+}
+
+.unionistBooks, .nationalistBooks {
+  transition: height 0.5s ease; /* Add transition property for height */
+}
+
+.unionistBooks,
+.nationalistBooks {
+  display: flex;
+  flex-direction: row; /* Display items side-by-side */
+  justify-content: center; /* Center items horizontally */
+  align-items: flex-end; /* Align items to the bottom */
+  height: auto; /* Ensure height adjusts based on content */
+}

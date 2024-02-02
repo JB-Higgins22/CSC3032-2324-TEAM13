@@ -24,7 +24,7 @@ export default class ScalesObject {
   
     placeOnUnionist(issue) {
         if (this.unionistIssues.indexOf(issue) > -1) {
-            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight + issue.weight, this.nationalistWeight);
+            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
         } else {
             const updatedUnionistIssues = [...this.unionistIssues, issue];
             const updatedUnionistWeight = this.unionistWeight + issue.weight;
@@ -41,7 +41,7 @@ export default class ScalesObject {
   
     placeOnNationalist(issue) {
         if (this.nationalistIssues.indexOf(issue) > -1) {
-            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight + issue.weight, this.nationalistWeight);
+            return new ScalesObject(this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
         } else {
             const updatedNationalistIssues = [...this.nationalistIssues, issue];
             const updatedNationalistWeight = this.nationalistWeight + issue.weight;
@@ -73,28 +73,3 @@ export default class ScalesObject {
     }
   }
 
-
-// export default class ScalesObject{
-//     constructor(unionistIssues, nationalistIssues, unionistWeight, nationalistWeight) {
-//         this.unionistIssues = unionistIssues;
-//         this.nationalistIssues = nationalistIssues;
-//         this.unionistWeight = unionistWeight;
-//         this.nationalistWeight = nationalistWeight;
-//     }
-
-//     getUnionistIssues() {
-//          return this.unionistIssues;
-//     }
-
-//     placeOnUnionist(issue) {
-//         const currentIssue = [issue];
-//         this.unionistIssues = this.unionistIssues.concat(currentIssue);
-//         this.unionistWeight = this.unionistWeight + issue.weight;
-//     }
-
-//     placeOnNationalist(issue) {
-//         const currentIssue = [issue];
-//         this.nationalistIssues = this.nationalistIssues.concat(currentIssue);
-//         this.nationalistWeight = this.nationalistWeight + issue.weight;
-//     }
-// }
