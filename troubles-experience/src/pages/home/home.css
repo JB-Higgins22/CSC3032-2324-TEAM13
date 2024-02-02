@@ -21,26 +21,17 @@
 .Header {
   text-align: center;
   margin-bottom: 20px;
-}
-
-.Header h1 {
   color: #F0FFFF;
 }
 
 .Section {
+  color: #F0FFFF;
+  text-align: center;
   margin-bottom: 40px;
 }
 
-.Section h2 {
-  color: #F0FFFF;
-}
-
-.Section p {
-  color: #F0FFFF;
-  line-height: 1.5;
-}
-
 .Section button {
+  text-align: center;
   background-color: #F0FFFF;
   color: #007bff;
   padding: 10px 20px;
@@ -53,12 +44,14 @@
 
 a:link,
 a:visited {
+  text-align: center;
   text-decoration: none;
   color: #F8F8FF;
 }
 
 a:hover,
 a:active {
+  text-align: center;
   text-decoration: underline;
   color: #F8F8FF;
 }

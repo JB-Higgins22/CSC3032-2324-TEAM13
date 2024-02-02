@@ -27,9 +27,9 @@ const HomePage = () => {
           <button>Start Puzzle</button>
         </Link>
       </section>
-      <section>
-        <h2>Contact Us</h2>
-        <p>Have questions or feedback? Reach out to us!</p>
+      <section className="Section">
+        <h2 className='h2'>Contact Us</h2>
+        <p className='p'>Have questions or feedback? Reach out to us!</p>
         <a href="http://museumofthetroubles.org/" target="_blank" rel="noopener noreferrer">
           Museum Of The Troubles and Peace Process Home Page
         </a>

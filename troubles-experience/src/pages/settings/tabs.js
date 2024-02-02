@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -10,6 +10,8 @@ import ContrastIcon from '@mui/icons-material/Contrast';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import PanToolIcon from '@mui/icons-material/PanTool';
+import AbcIcon from '@mui/icons-material/Abc';
+import Radio from '@mui/material/Radio';
 
 function accessabilityProps(index) {
   return {
@@ -49,7 +51,7 @@ function ContinuousSlider({ label }) {
   return (
     <Box sx={{ width: 200 }}>
       <Box sx={{ mb: 1, alignItems: 'center' }}>
-        <Typography variant="subtitle1" sx={{ mb: 1, color: '#fff' }}>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>
           {label}
         </Typography>
         <Slider aria-label={label} value={value} onChange={handleChange} />
@@ -57,7 +59,7 @@ function ContinuousSlider({ label }) {
     </Box>
   );
 }
-export default function BasicTabs() {
+export default function BasicTabs({ onFontSizeChange }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -75,24 +77,29 @@ export default function BasicTabs() {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-      {/* Content within General tab   */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-      <VolumeUp />
-        <ContinuousSlider label="Volume" />
+        {/* Content within General tab   */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <VolumeUp />
+          <ContinuousSlider label="Volume" />
         </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-      <ContrastIcon />
-        <ContinuousSlider label="Contrast" />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <ContrastIcon />
+          <ContinuousSlider label="Contrast" />
+        </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <AbcIcon />
+          <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
         </Box>
         
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-      <PanToolIcon/>
-        <Typography variant="subtitle1" sx={{ marginLeft: 7 }}>Drag and Drop</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <PanToolIcon/>
+          <Typography variant="subtitle1" sx={{ marginLeft: 7 }}>Drag and Drop</Typography>
         </Box>
         
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px'}}>
-      <FormControlLabel control={<Switch defaultChecked/>} />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px'}}>
+          <FormControlLabel control={<Switch defaultChecked/>} />
         </Box>
 
       </CustomTabPanel>
@@ -103,7 +110,7 @@ export default function BasicTabs() {
 
       <CustomTabPanel value={value} index={2}>
         {/* Content within Admin tab   */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
           <Button variant="contained">Login</Button>
         </Box>
       </CustomTabPanel>
@@ -111,4 +118,35 @@ export default function BasicTabs() {
   );
 }
 
+const marks = [
+  { value: 10, label: 'Small' },
+  { value: 18, label: 'Medium' },
+  { value: 25, label: 'Large' },
+];
 
+function FontSizeRadioButtons({ onFontSizeChange }) {
+  const [selectedValue, setSelectedValue] = React.useState(15); // Default to Medium
+
+  const handleChange = (event) => {
+    const newValue = parseInt(event.target.value);
+    setSelectedValue(newValue);
+    onFontSizeChange(newValue); // Call the parent function to change font size
+    document.body.style.fontSize = `${newValue}px`; // Apply font size globally
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item.value,
+    onChange: handleChange,
+    value: item.value,
+    name: 'fontSize-radio-button',
+    inputProps: { 'aria-label': item.label },
+  });
+
+  return (
+    <div>
+      {marks.map((mark, index) => (
+        <Radio key={index} {...controlProps(mark)} /> 
+      ))}
+    </div>
+  );
+}

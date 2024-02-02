@@ -19,7 +19,17 @@
   border: 2px solid rgb(255, 255, 255);
   border-radius: 12px;
   padding: 5px;
+  color: #F0FFFF
 
+}
+
+.background .homeIcon {
+  font-size: 32px;
+  color: #F0FFFF;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
 }
 /*
 .flexContainer {
