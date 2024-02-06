@@ -10,6 +10,11 @@
     vertical-align: middle;
   }
 
+.page {
+  width: 100vw;
+  height: auto;
+}
+
 .unionistSide {
   width: 80%;
   padding: 10px;
@@ -20,6 +25,8 @@
   background-color: blue;
   border: 2px dashed #aaa;
   margin: auto;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .unionistBooks {
@@ -40,6 +47,8 @@
   background-color: rgb(39, 157, 3);
   border: 2px dashed #aaa;
   margin: auto;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .nationalistBooks {
@@ -50,11 +59,14 @@
   justify-content: center;
 }
 
-.quitButton {
-  position:absolute;
-     top:0;
-     right:0;
+
+.homeButton:hover {
+  cursor: pointer;
 }
+
+.settingsButton:hover {
+  cursor: pointer;
+} 
 
 .shelf-and-scale-wrapper {
   display: flex;
@@ -78,7 +90,7 @@
 
 .booksOnShelf {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .shelf {
