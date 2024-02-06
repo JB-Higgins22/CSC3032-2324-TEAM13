@@ -5,6 +5,7 @@ import Issue from '../../classes/issue';
 import IssueDialog from '../../dialogs/issueDialog/issueDialog';
 import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 import RotateDeviceMessage from '../../components/rotate-device-message';
+import { Link } from 'react-router-dom';
 
 //MUI IMPORTS
 import Slide from '@mui/material/Slide';
@@ -14,6 +15,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 import './scales.css';
 
@@ -32,7 +35,6 @@ const Scales = () => {
 
   //MUI 
   const [checked, setChecked] = React.useState(false);
-
 
   useEffect(() => {
     initialiseScales();
@@ -81,6 +83,32 @@ const Scales = () => {
     setPeaceScales(new ScalesObject([], [], 0, 0));
     setBookshelfObject(new BookshelfObject([decommissioningIssue, northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue]));
   }
+
+  const containerStyle = {
+    position: 'relative',
+    height: '100vh',
+    overflow: 'hidden',
+  };
+
+  const imageStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    filter: 'brightness(50%)', // Adjust brightness to darken the image (50% is just an example)
+    zIndex: 0
+  };
+
+  const overlayStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+  };
 
   const displayIssueInfo = (issue) => {
     setSelectedIssue(issue);
@@ -181,119 +209,125 @@ const Scales = () => {
   };
 
   return (
-    <div>
+    <div className="page" style={containerStyle}>
+      <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />
+        <div style={{ position: 'relative', zIndex: 2 }}>
 
-      <div>
-          <Button variant="outlined" color="error" className="quitButton" onClick={displayConfirmQuitDialog}>
-            Quit
-          </Button>
+        <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+          <HomeIcon className="homeButton" sx={{ fontSize: 60, marginRight: '10px' }} onClick={displayConfirmQuitDialog} />
 
-        <Slide direction="down" in={true} mountOnEnter unmountOnExit timeout={1000}>
-          <h1>Scales</h1>
-        </Slide>
-
-        <div className="shelf-and-scale-wrapper">
-
-        <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={1000}>
-          <div className="shelf-zone">
-
-            <div className='books'>
-            {bookshelfObject.getIssues().map((issue) => (
-              <div className='bookOnShelf'
-              onClick={displayIssueInfo.bind(this, issue)}>
-                <img
-                  src={process.env.PUBLIC_URL + '/single-book.png'}
-                    alt="Bookshelf"
-                    style={{ width: '40px', 
-                              height: 'auto',
-                              display: 'block',
-                              margin: 'auto' }} />
-              </div>
-            ))}
-            </div>
-
-            <div className = "shelf" >
-              <img
-              src={process.env.PUBLIC_URL + '/shelf.png'}
-                alt="Bookshelf"
-                style={{ width: '400px', 
-                          height: 'auto',
-                          display: 'block',
-                          margin: 'auto' }} />
-            </div>
+          <Link to="..\settings">
+          <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} />
+          </Link>
+        </div>
 
 
-          </div>
+          <Slide direction="down" in={true} mountOnEnter unmountOnExit timeout={1000}>
+            <h1>Scales</h1>
           </Slide>
 
-          <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-          <div
-            className="drop-zone"
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
-          >
-              <div className="unionistSide">
+          <div className="shelf-and-scale-wrapper">
 
-                <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
-                    {peaceScales.getUnionistIssues().map((issue) => (
-                      <div
-                        className="unionistIssue"
-                        onClick={displayIssueInfo.bind(this, issue)}
-                        key={issue.id}
-                        draggable
-                        onDragStart={() => handleDragStart(issue)}
-                        style={{ marginBottom: '10px', cursor: 'move' }}
-                      >
-                        <img
-                  src={process.env.PUBLIC_URL + '/single-book.png'}
-                    alt="Bookshelf"
-                    style={{ width: '40px', 
-                              height: 'auto',
-                              display: 'block',
-                              margin: 'auto' }} />
-                      </div>
-                  ))}
-                  </div>
+          <Slide direction="right" in={true} mountOnEnter unmountOnExit timeout={1000}>
+            <div className="shelf-zone">
 
-                  <div className = "unionistPlatform">
-                    <h4>{peaceScales.getUnionistWeight()}</h4>
-                  </div>
+              <div className='books'>
+              {bookshelfObject.getIssues().map((issue) => (
+                <div className='bookOnShelf'
+                onClick={displayIssueInfo.bind(this, issue)}>
+                  <img
+                    src={process.env.PUBLIC_URL + '/single-book.png'}
+                      alt="Bookshelf"
+                      style={{ width: '2em', 
+                                height: 'auto',
+                                display: 'block',
+                                margin: 'auto' }} />
+                </div>
+              ))}
+              </div>
+
+              <div className = "shelf" >
+                <img
+                src={process.env.PUBLIC_URL + '/shelf.png'}
+                  alt="Bookshelf"
+                  style={{ width: '80%', 
+                            height: 'auto',
+                            display: 'block',
+                            margin: 'auto' }} />
               </div>
 
 
-              <div className="nationalistSide" >
+            </div>
+            </Slide>
 
-                <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
-                    {peaceScales.getNationalistIssues().map((issue) => (
-                      <div
-                        className="nationalistIssue"
-                        onClick={displayIssueInfo.bind(this, issue)}
-                        key={issue.id}
-                        draggable
-                        onDragStart={() => handleDragStart(issue)}
-                        style={{ marginBottom: '10px', cursor: 'move' }}
-                      >
-                        <img
-                  src={process.env.PUBLIC_URL + '/single-book.png'}
-                    alt="Bookshelf"
-                    style={{ width: '40px', 
-                              height: 'auto',
-                              display: 'block',
-                              margin: 'auto' }} />
-                      </div>
-                  ))}
-                  </div>
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+            <div
+              className="drop-zone"
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
+            >
+                <div className="unionistSide">
 
-                  <div className = "nationalistPlatform">
-                    <h4>{peaceScales.getNationalistWeight()}</h4>
-                  </div>
-              </div>
+                  <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
+                      {peaceScales.getUnionistIssues().map((issue) => (
+                        <div
+                          className="unionistIssue"
+                          onClick={displayIssueInfo.bind(this, issue)}
+                          key={issue.id}
+                          draggable
+                          onDragStart={() => handleDragStart(issue)}
+                          style={{ marginBottom: '10px', cursor: 'move' }}
+                        >
+                          <img
+                    src={process.env.PUBLIC_URL + '/single-book.png'}
+                      alt="Bookshelf"
+                      style={{ width: '2em', 
+                                height: 'auto',
+                                display: 'block',
+                                margin: 'auto' }} />
+                        </div>
+                    ))}
+                    </div>
 
-              </div>
-              </Slide>
+                    <div className = "unionistPlatform">
+                      <h4>{peaceScales.getUnionistWeight()}</h4>
+                    </div>
+                </div>
+
+
+                <div className="nationalistSide" >
+
+                  <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+                      {peaceScales.getNationalistIssues().map((issue) => (
+                        <div
+                          className="nationalistIssue"
+                          onClick={displayIssueInfo.bind(this, issue)}
+                          key={issue.id}
+                          draggable
+                          onDragStart={() => handleDragStart(issue)}
+                          style={{ marginBottom: '10px', cursor: 'move' }}
+                        >
+                          <img
+                    src={process.env.PUBLIC_URL + '/single-book.png'}
+                      alt="Bookshelf"
+                      style={{ width: '2em', 
+                                height: 'auto',
+                                display: 'block',
+                                margin: 'auto' }} />
+                        </div>
+                    ))}
+                    </div>
+
+                    <div className = "nationalistPlatform">
+                      <h4>{peaceScales.getNationalistWeight()}</h4>
+                    </div>
+                </div>
+
+                </div>
+                </Slide>
+            </div>
           </div>
-        </div>
     
         <IssueDialog
           isOpen={isDialogOpen}
@@ -308,7 +342,7 @@ const Scales = () => {
           handleClose={handleCloseConfirmQuitDialog}/>
 
         <RotateDeviceMessage />
-      </div>
+    </div>
   );
 };
 
