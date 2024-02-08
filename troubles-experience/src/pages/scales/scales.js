@@ -7,6 +7,8 @@ import IssueDialog from '../../dialogs/issueDialog/issueDialog';
 import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 import RotateDeviceMessage from '../../components/rotate-device-message';
 import { Link, useNavigate } from 'react-router-dom';
+import AnimatedNumber from "animated-number-react";
+
 
 // MUI IMPORTS
 import Slide from '@mui/material/Slide';
@@ -258,9 +260,14 @@ const Scales = () => {
             <h1>{pageTitle}</h1>
           </Slide>
 
-        <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-          <h3 className="balance-percentage">{balancePercentage}% Balance Achieved</h3>
-        </Slide>
+          <h3>
+            <AnimatedNumber
+              value={balancePercentage}
+              formatValue={(value) => value.toFixed(2)}
+              duration={1000} // Duration in milliseconds
+            />
+            % Balance Achieved
+          </h3>
 
           <div className="shelf-and-scale-wrapper">
 
