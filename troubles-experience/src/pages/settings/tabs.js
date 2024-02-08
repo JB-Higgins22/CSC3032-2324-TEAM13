@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import '../../styles/global.css';
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -40,7 +43,7 @@ function CustomTabPanel(props) {
   );
 }
 
-//Slider Function - left general for use on both Volume and Contrast
+//Slider Function - left general for now
 function ContinuousSlider({ label }) {
   const [value, setValue] = React.useState(30);
 
@@ -59,13 +62,52 @@ function ContinuousSlider({ label }) {
     </Box>
   );
 }
+
+//Styling functions - applies styling from global.css to the root contained in index.js
+function applyBlackAndWhiteStyling() {
+  const root = document.getElementById('root');
+  root.classList.toggle('black-white-mode');
+}
+
+function applyHighContrastStyling() {
+  const root = document.getElementById('root');
+  root.classList.toggle('high-contrast-mode');
+}
+
+function applyFontStyling() {
+  const root = document.getElementById('root');
+  root.classList.toggle('font-increase');
+}
+
 export default function BasicTabs({ onFontSizeChange }) {
   const [value, setValue] = React.useState(0);
+  
+  //Defining state variables
+    const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(false); 
+    const [highContrastMode, setHighContrastMode] = useState(false);
+    const [fontIncrease, setFontIncrease] = useState(false);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
+    //Toggling states 'on' and calling relevant functions
+    const toggleBlackAndWhiteMode = () => {
+      setBlackAndWhiteMode(!blackAndWhiteMode); // Toggle blackAndWhiteMode state
+      applyBlackAndWhiteStyling(); // Apply black and white styles
+    };
+    
+    const toggleHighContrastMode = () => {
+      setHighContrastMode(!highContrastMode);
+      applyHighContrastStyling(); 
+    };
 
+    const toggleFontIncrease = () => {
+      setFontIncrease(!fontIncrease);
+      applyFontStyling(); 
+    };
+    
+  //Tabs 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -78,34 +120,51 @@ export default function BasicTabs({ onFontSizeChange }) {
 
       <CustomTabPanel value={value} index={0}>
         {/* Content within General tab   */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <VolumeUp />
-          <ContinuousSlider label="Volume" />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '20px' }}>
+          <VolumeUp sx={{ marginRight: 2 }}/>
+          <ContinuousSlider label="Volume"  />
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
           <ContrastIcon />
-          <ContinuousSlider label="Contrast" />
+          <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>Black and White (Dark) Mode</Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <AbcIcon />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
+          <FormControlLabel  control={<Switch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
+            sx={{ marginLeft: 2 }}
+          />
+        </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '20px' }}>
+          <AbcIcon sx={{ marginTop: 1 }}/>
           <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
         </Box>
         
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
           <PanToolIcon/>
-          <Typography variant="subtitle1" sx={{ marginLeft: 7 }}>Drag and Drop</Typography>
+          <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>Drag and Drop</Typography>
         </Box>
         
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px'}}>
-          <FormControlLabel control={<Switch defaultChecked/>} />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
+        <FormControlLabel  control={<Switch checked={fontIncrease} onChange={toggleFontIncrease} />}
+        sx={{ marginLeft: 2 }}
+        />
         </Box>
 
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
-        {/* Content within Accessibility tab   */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+          <ContrastIcon />
+          <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
+          <FormControlLabel  control={<Switch checked={highContrastMode} onChange={toggleHighContrastMode} />} 
+            sx={{ marginLeft: 2 }}
+          />
+        </Box>
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={2}>
@@ -118,6 +177,7 @@ export default function BasicTabs({ onFontSizeChange }) {
   );
 }
 
+//Font sizes and labels for use on radio buttons
 const marks = [
   { value: 10, label: 'Small' },
   { value: 18, label: 'Medium' },
