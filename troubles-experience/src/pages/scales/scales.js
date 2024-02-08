@@ -1,3 +1,4 @@
+// REACT IMPORTS
 import React, { useState, useEffect } from 'react';
 import ScalesObject from '../../classes/scales';
 import BookshelfObject from '../../classes/bookshelf';
@@ -7,7 +8,7 @@ import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 import RotateDeviceMessage from '../../components/rotate-device-message';
 import { Link, useNavigate } from 'react-router-dom';
 
-//MUI IMPORTS
+// MUI IMPORTS
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -21,27 +22,32 @@ import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
+// IMPORT CSS
 import './scales.css';
 
 const Scales = () => {
+  // STATE OF SCALES/BOOKSHELF/ISSUES
   const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], 0, 0));
   const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
-  const [draggedIssue, setDraggedIssue] = useState(null);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [balancePercentage, setBalancePercentage] = useState(100);
+
+  // STATE OF SCALE HEIGHTS/WEIGHTS
+  const [unionistHeight, setUnionistHeight] = useState(10);
+  const [nationalistHeight, setNationalistHeight] = useState(10);
+
+  // STATE OF PHASE
+  const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
+  const [showContents, setShowContents] = useState(true); // Transitions
+
+  // STATE OF DIALOGS
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
-  const [selectedIssue, setSelectedIssue] = useState(null);
-
-  const [unionistHeight, setUnionistHeight] = useState(10); // Initial height
-  const [nationalistHeight, setNationalistHeight] = useState(10); // Initial height
-
-  const [balancePercentage, setBalancePercentage] = useState(100); // Initial Balance
-  const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
-
-  const [showContents, setShowContents] = useState(true); // Transitions
 
   //MUI 
   const [checked, setChecked] = React.useState(false);
 
+  // NAVIGATOR CONFIGURATION
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,12 +56,8 @@ const Scales = () => {
     initialiseIssues(currentPhase);
   }, []); 
 
-  function resetScales() {
-    initialiseScales();
-    initialiseIssues();
-  }
-
-  function initialiseScales() {
+  // Initialise Scales & Bookshelf & Issues
+  function initialiseScales() {           
     setPeaceScales(new ScalesObject([], [], 0, 0));
   }
 
@@ -69,6 +71,24 @@ const Scales = () => {
     pageTitle = phaseNames[currentPhase];
   }
 
+  // Level Progression
+  function SubmitScales() {
+    console.log(currentPhase);
+
+    if (currentPhase === 1) {
+      navigate('/results');
+    } else {
+      setShowContents(prevShowContents => !prevShowContents); // Make the Contents Disappear
+
+      setTimeout(() => {
+        setCurrentPhase(prevPhase => prevPhase + 1);
+        initialiseIssues(currentPhase + 1);
+        setUnionistHeight(10);
+        setNationalistHeight(10);
+        setShowContents(prevShowContents => !prevShowContents); // Make the Contents Re-appear
+      }, 1000);
+    }
+  }
 
   //1998 PHASE ISSUES
   const decommissioningIssue = new Issue('Decommissioning', 
@@ -111,6 +131,7 @@ const Scales = () => {
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
   let pageTitle = phaseNames[currentPhase];
 
+  // Page Styling
   const containerStyle = {
     position: 'relative',
     height: '100vh',
@@ -124,7 +145,7 @@ const Scales = () => {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    filter: 'brightness(50%)', // Adjust brightness to darken the image (50% is just an example)
+    filter: 'brightness(50%)', // Adjust brightness to darken the image
     zIndex: 0
   };
 
@@ -137,6 +158,7 @@ const Scales = () => {
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
   };
 
+  // Dialog Handling
   const displayIssueInfo = (issue) => {
     setSelectedIssue(issue);
     setDialogOpen(true);
@@ -150,6 +172,12 @@ const Scales = () => {
     setConfirmQuitDialogOpen(false);
   };
 
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+
+  // Scale Handling
   const placeOnUnionistSide = () => {
     const updatedScales = peaceScales.placeOnUnionist(selectedIssue);
     const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
@@ -201,56 +229,6 @@ const Scales = () => {
 
     setBalancePercentage(balancePercentage);
 
-  }
-
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
-
-
-  const handleDragStart = (issue) => {
-    setDraggedIssue(issue);
-  };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (event) => {
-    event.preventDefault();
-  
-    if (draggedIssue) {
-      const isOnUnionistSide = event.target.className.includes('unionistSide');
-      const isOnNationalistSide = event.target.className.includes('nationalistSide');
-  
-      // Update the scales accordingly
-      if (isOnUnionistSide) {
-        setPeaceScales((prevScales) => prevScales.placeOnUnionist(draggedIssue));
-      } else if (isOnNationalistSide) {
-        setPeaceScales((prevScales) => prevScales.placeOnNationalist(draggedIssue));
-      }
-  
-      // Clear the dragged issue state after the drop
-      setDraggedIssue(null);
-    }
-  };
-
-  function SubmitScales() {
-    console.log(currentPhase);
-
-    if (currentPhase === 1) {
-      navigate('/results');
-    } else {
-      setShowContents(prevShowContents => !prevShowContents); // Make the Contents Disappear
-
-      setTimeout(() => {
-        setCurrentPhase(prevPhase => prevPhase + 1);
-        initialiseIssues(currentPhase + 1);
-        setUnionistHeight(10);
-        setNationalistHeight(10);
-        setShowContents(prevShowContents => !prevShowContents); // Make the Contents Re-appear
-      }, 1000);
-    }
   }
 
   return (
@@ -310,8 +288,6 @@ const Scales = () => {
             <Slide direction="left" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
             <div
               className="drop-zone"
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
               style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
             >
                 <div className="unionistSide">
@@ -322,9 +298,6 @@ const Scales = () => {
                           className="unionistIssue"
                           onClick={displayIssueInfo.bind(this, issue)}
                           key={issue.id}
-                          draggable
-                          onDragStart={() => handleDragStart(issue)}
-                          style={{ marginBottom: '10px', cursor: 'move' }}
                         >
                           <img
                     src={process.env.PUBLIC_URL + '/single-book.png'}
@@ -351,9 +324,6 @@ const Scales = () => {
                           className="nationalistIssue"
                           onClick={displayIssueInfo.bind(this, issue)}
                           key={issue.id}
-                          draggable
-                          onDragStart={() => handleDragStart(issue)}
-                          style={{ marginBottom: '10px', cursor: 'move' }}
                         >
                           <img
                     src={process.env.PUBLIC_URL + '/single-book.png'}
@@ -394,3 +364,33 @@ const Scales = () => {
 };
 
 export default Scales;
+
+
+  // ================= OLD DRAG & DROP LOGIC  =================
+  // const handleDragStart = (issue) => {
+  //   setDraggedIssue(issue);
+  // };
+
+  // const handleDragOver = (event) => {
+  //   event.preventDefault();
+  // };
+
+  // const handleDrop = (event) => {
+  //   event.preventDefault();
+  
+  //   if (draggedIssue) {
+  //     const isOnUnionistSide = event.target.className.includes('unionistSide');
+  //     const isOnNationalistSide = event.target.className.includes('nationalistSide');
+  
+  //     // Update the scales accordingly
+  //     if (isOnUnionistSide) {
+  //       setPeaceScales((prevScales) => prevScales.placeOnUnionist(draggedIssue));
+  //     } else if (isOnNationalistSide) {
+  //       setPeaceScales((prevScales) => prevScales.placeOnNationalist(draggedIssue));
+  //     }
+  
+  //     // Clear the dragged issue state after the drop
+  //     setDraggedIssue(null);
+  //   }
+  // };
+  //  =================  =================  =================
