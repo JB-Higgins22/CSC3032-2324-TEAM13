@@ -31,6 +31,7 @@ const Scales = () => {
   const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [balancePercentage, setBalancePercentage] = useState(100);
+  const [prevBalancePercentage, setPrevBalancePercentage] = useState(0);
 
   // STATE OF SCALE HEIGHTS/WEIGHTS
   const [unionistHeight, setUnionistHeight] = useState(10);
@@ -55,6 +56,11 @@ const Scales = () => {
     initialiseBookshelfObject();
     initialiseIssues(currentPhase);
   }, []); 
+
+  useEffect(() => {
+    // Update prevBalancePercentage whenever balancePercentage changes
+    setPrevBalancePercentage(balancePercentage);
+  }, [balancePercentage]);
 
   // Initialise Scales & Bookshelf & Issues
   function initialiseScales() {           
@@ -86,7 +92,7 @@ const Scales = () => {
         setUnionistHeight(10);
         setNationalistHeight(10);
         setShowContents(prevShowContents => !prevShowContents); // Make the Contents Re-appear
-      }, 1000);
+      }, 1200);
     }
   }
 
@@ -207,8 +213,8 @@ const Scales = () => {
   };
 
   const updateBalance = (scales) => {
-    const unionistWeight = scales.getUnionistWeight;
-    const nationalistWeight = scales.getNationalistWeight;
+    const unionistWeight = scales.getUnionistWeight();
+    const nationalistWeight = scales.getNationalistWeight();
 
     const totalWeight = nationalistWeight + unionistWeight;
 
@@ -226,8 +232,9 @@ const Scales = () => {
     
     // Calculate balance percentage
     const balancePercentage = Math.abs(nationalistPercentage - unionistPercentage);
+    const roundedBalancePercentage = parseFloat(balancePercentage.toFixed(2)); // Rounding to 2 decimal places
 
-    setBalancePercentage(balancePercentage);
+    setBalancePercentage(roundedBalancePercentage);
 
   }
 
@@ -250,6 +257,10 @@ const Scales = () => {
           <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
             <h1>{pageTitle}</h1>
           </Slide>
+
+        <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+          <h3 className="balance-percentage">{balancePercentage}% Balance Achieved</h3>
+        </Slide>
 
           <div className="shelf-and-scale-wrapper">
 
