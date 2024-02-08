@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from './pages/home/home';
 import Scales from './pages/scales/scales';
 import Settings from './pages/settings/settingsPage';
+import ResultsPage from './pages/results/results';
 
 //Imports needed to use sound, functionality for playing sound on loop below
 /*
