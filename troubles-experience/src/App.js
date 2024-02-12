@@ -5,14 +5,14 @@ import Scales from './pages/scales/scales';
 import Settings from './pages/settings/settingsPage';
 
 function App() {
-  const [fontSize, setFontSize] = useState(18); // Initial font size
+  const [fontSize, setFontSize] = useState(100); // Initial font size
 
   const handleFontSizeChange = (newSize) => {
     setFontSize(newSize);
   };
 
   return (
-    <div className="App" style={{ fontSize: `${fontSize}px` }}>
+    <div className="App" style={{ fontSize: `${fontSize}%` }}>
       <Router>
         <Routes>
           <Route exact path='/' element={<HomePage />} />

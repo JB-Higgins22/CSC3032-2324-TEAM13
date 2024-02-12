@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import '../../styles/global.css';
+import './settingsPage.css';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -54,7 +55,7 @@ function ContinuousSlider({ label }) {
   return (
     <Box sx={{ width: 200 }}>
       <Box sx={{ mb: 1, alignItems: 'center' }}>
-        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+        <Typography className="fontSize" variant="subtitle1" sx={{ mb: 1 }}>
           {label}
         </Typography>
         <Slider aria-label={label} value={value} onChange={handleChange} />
@@ -127,7 +128,7 @@ export default function BasicTabs({ onFontSizeChange }) {
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
           <ContrastIcon />
-          <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>Black and White (Dark) Mode</Typography>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>Black and White (Dark) Mode</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
@@ -140,24 +141,12 @@ export default function BasicTabs({ onFontSizeChange }) {
           <AbcIcon sx={{ marginTop: 1 }}/>
           <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
         </Box>
-        
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
-          <PanToolIcon/>
-          <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>Drag and Drop</Typography>
-        </Box>
-        
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-        <FormControlLabel  control={<Switch checked={fontIncrease} onChange={toggleFontIncrease} />}
-        sx={{ marginLeft: 2 }}
-        />
-        </Box>
-
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
           <ContrastIcon />
-          <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
@@ -179,19 +168,19 @@ export default function BasicTabs({ onFontSizeChange }) {
 
 //Font sizes and labels for use on radio buttons
 const marks = [
-  { value: 10, label: 'Small' },
-  { value: 18, label: 'Medium' },
-  { value: 25, label: 'Large' },
+  { value: 75 , label: 'Small' },
+  { value: 100, label: 'Medium' },
+  { value: 125, label: 'Large' },
 ];
 
 function FontSizeRadioButtons({ onFontSizeChange }) {
-  const [selectedValue, setSelectedValue] = React.useState(15); // Default to Medium
+  const [selectedValue, setSelectedValue] = React.useState(100); // Default to Medium
 
   const handleChange = (event) => {
     const newValue = parseInt(event.target.value);
     setSelectedValue(newValue);
     onFontSizeChange(newValue); // Call the parent function to change font size
-    document.body.style.fontSize = `${newValue}px`; // Apply font size globally
+    document.body.style.fontSize = `${newValue}%`; // Apply font size globally
   };
 
   const controlProps = (item) => ({

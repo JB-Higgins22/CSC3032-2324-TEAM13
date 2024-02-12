@@ -10,24 +10,30 @@
 
 .foreground {
   width:50%;
-  height: 80vh;
-  position: absolute;
-  top: 50%;
+  height: 80%;
+  position: relative;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #094565;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 12px;
   padding: 5px;
-  color: #F0FFFF
-
+  color: #F0FFFF;
+  overflow: auto;
+  white-space: normal; 
 }
 
 .background .homeIcon {
   font-size: 32px;
   color: #F0FFFF;
-  position: absolute;
+  position: relative;
   top: 10px;
   left: 10px;
   cursor: pointer;
 }
+
+.foreground .fontSize{
+  font-size: 100%;
+}
+ 
