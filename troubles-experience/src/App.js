@@ -47,6 +47,8 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route path='/scales' element={<Scales />} />
           <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange}/>} />
+          <Route path='/results' element={<ResultsPage />} />
+        <Route path='/pre-game-info' element={<PreGameInfo />} />
 </Routes>
       </Router>
     </div>
