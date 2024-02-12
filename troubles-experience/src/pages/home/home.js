@@ -23,7 +23,7 @@ const HomePage = () => {
         <h2>Peace Process Puzzle Game</h2>
         <p>Explore the history and events of Northern Ireland through our interactive puzzle game.</p>
         <p>Can you find the balance to make a successful Peace Process?</p>
-        <Link to="..\scales">
+        <Link to="..\pre-game-info">
           <button>Start Puzzle</button>
         </Link>
       </section>
