@@ -18,7 +18,7 @@
   background-color: #094565;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 12px;
-  padding: 5px;
+  padding: 10px;
   color: #F0FFFF;
   overflow: auto;
   white-space: normal; 
@@ -34,6 +34,6 @@
 }
 
 .foreground .fontSize{
-  font-size: 100%;
+  font-size: 90%;
 }
  

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BasicTabs from './tabs.js';
 import HomeIcon from '@mui/icons-material/Home';
 
-const Settings = ({ onFontSizeChange }) => {
+const Settings = ({ onFontSizeChange}) => {
   return (
     <div className="background">
       <Link to="..\">
@@ -12,7 +12,7 @@ const Settings = ({ onFontSizeChange }) => {
       </Link>
       <div className="foreground">
         <h1>Settings</h1>
-        <BasicTabs onFontSizeChange={onFontSizeChange} />
+        <BasicTabs onFontSizeChange={onFontSizeChange}/>
       </div>
     </div>
   );

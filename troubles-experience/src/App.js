@@ -4,12 +4,40 @@ import HomePage from './pages/home/home';
 import Scales from './pages/scales/scales';
 import Settings from './pages/settings/settingsPage';
 
-function App() {
-  const [fontSize, setFontSize] = useState(100); // Initial font size
+//Imports needed to use sound, functionality for playing sound on loop below
+/*
+import useSound from "use-sound";
+import { useEffect } from 'react';
+import clickSound from "./sounds/";
+*/
 
+function App() {
+  const [fontSize, setFontSize] = useState(90); // Initial font size
+ /*
+  const [playSound, { stop }] = useSound(clickSound, { volume: 1, loop: true }); // Initialize the playSound function with loop option set to true
+*/
   const handleFontSizeChange = (newSize) => {
     setFontSize(newSize);
   };
+
+  /*
+  useEffect(() => {
+    // Cleanup function to stop the sound and clear the interval when component unmounts
+    return () => {
+      stop();
+    };
+  }, [stop]);
+
+  useEffect(() => {
+    playSound();
+    
+    // Cleanup function to stop the sound and clear the interval when component unmounts
+    return () => {
+      stop();
+    };
+  }, [playSound, stop]); // Run this effect whenever playSound or stop change
+*/
+
 
   return (
     <div className="App" style={{ fontSize: `${fontSize}%` }}>
@@ -17,8 +45,8 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route path='/scales' element={<Scales />} />
-          <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange} />} />
-        </Routes>
+          <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange}/>} />
+</Routes>
       </Router>
     </div>
   );

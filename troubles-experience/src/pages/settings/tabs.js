@@ -6,14 +6,13 @@ import './settingsPage.css';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
-import PanToolIcon from '@mui/icons-material/PanTool';
 import AbcIcon from '@mui/icons-material/Abc';
 import Radio from '@mui/material/Radio';
 
@@ -44,26 +43,6 @@ function CustomTabPanel(props) {
   );
 }
 
-//Slider Function - left general for now
-function ContinuousSlider({ label }) {
-  const [value, setValue] = React.useState(30);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  return (
-    <Box sx={{ width: 200 }}>
-      <Box sx={{ mb: 1, alignItems: 'center' }}>
-        <Typography className="fontSize" variant="subtitle1" sx={{ mb: 1 }}>
-          {label}
-        </Typography>
-        <Slider aria-label={label} value={value} onChange={handleChange} />
-      </Box>
-    </Box>
-  );
-}
-
 //Styling functions - applies styling from global.css to the root contained in index.js
 function applyBlackAndWhiteStyling() {
   const root = document.getElementById('root');
@@ -75,12 +54,14 @@ function applyHighContrastStyling() {
   root.classList.toggle('high-contrast-mode');
 }
 
+//Potential to change backend functionality of font increase to apply styling via global.css
+/*
 function applyFontStyling() {
   const root = document.getElementById('root');
   root.classList.toggle('font-increase');
 }
-
-export default function BasicTabs({ onFontSizeChange }) {
+*/
+export default function BasicTabs({ onFontSizeChange}) {
   const [value, setValue] = React.useState(0);
   
   //Defining state variables
@@ -103,10 +84,13 @@ export default function BasicTabs({ onFontSizeChange }) {
       applyHighContrastStyling(); 
     };
 
+//Potential to change backend functionality of font increase to apply styling via global.css
+    /*
     const toggleFontIncrease = () => {
       setFontIncrease(!fontIncrease);
       applyFontStyling(); 
     };
+    */
     
   //Tabs 
   return (
@@ -120,10 +104,13 @@ export default function BasicTabs({ onFontSizeChange }) {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        {/* Content within General tab   */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '20px' }}>
-          <VolumeUp sx={{ marginRight: 2 }}/>
-          <ContinuousSlider label="Volume"  />
+      {/* Content within General tab   */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <VolumeUp sx={{ marginRight: 2 }} />
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1 }}>Mute Volume</Typography>
+         </Box>
+         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
+          <FormControlLabel  control={<Switch />} sx={{ marginLeft: 2 }}/>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
@@ -137,8 +124,12 @@ export default function BasicTabs({ onFontSizeChange }) {
           />
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '20px' }}>
-          <AbcIcon sx={{ marginTop: 1 }}/>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <AbcIcon/>
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1 }}>Adjust Font Size</Typography>
+         </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
           <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
         </Box>
       </CustomTabPanel>
@@ -166,15 +157,15 @@ export default function BasicTabs({ onFontSizeChange }) {
   );
 }
 
-//Font sizes and labels for use on radio buttons
+// Font sizes for use on radio buttons
 const marks = [
-  { value: 75 , label: 'Small' },
-  { value: 100, label: 'Medium' },
-  { value: 125, label: 'Large' },
+  { value: 75, label: 'Small', size: 15 },
+  { value: 90, label: 'Medium', size: 20 },
+  { value: 125, label: 'Large', size: 25},
 ];
 
 function FontSizeRadioButtons({ onFontSizeChange }) {
-  const [selectedValue, setSelectedValue] = React.useState(100); // Default to Medium
+  const [selectedValue, setSelectedValue] = React.useState(90); // Default to Medium
 
   const handleChange = (event) => {
     const newValue = parseInt(event.target.value);
@@ -183,19 +174,20 @@ function FontSizeRadioButtons({ onFontSizeChange }) {
     document.body.style.fontSize = `${newValue}%`; // Apply font size globally
   };
 
-  const controlProps = (item) => ({
-    checked: selectedValue === item.value,
-    onChange: handleChange,
-    value: item.value,
-    name: 'fontSize-radio-button',
-    inputProps: { 'aria-label': item.label },
-  });
-
   return (
-    <div>
+    <FormGroup style={{ display: 'flex', flexDirection: 'row' }}>
       {marks.map((mark, index) => (
-        <Radio key={index} {...controlProps(mark)} /> 
+        <FormControlLabel
+          key={index}
+          value={mark.value.toString()}
+          control={<Radio sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size } }} />}
+          label=""
+          onChange={handleChange}
+          checked={selectedValue === mark.value}
+          name="size-radio-button"
+        />
       ))}
-    </div>
+    </FormGroup>
   );
 }
+
