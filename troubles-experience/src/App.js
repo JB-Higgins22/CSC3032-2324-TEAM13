@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from './pages/home/home';
 import Scales from './pages/scales/scales';
 import Settings from './pages/settings/settingsPage';
+import Reflection from './pages/reflection/reflection';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path='/' element={<HomePage />} />
         <Route path='/scales' element={<Scales />} />
         <Route path='/settings' element={<Settings />} />
+        <Route path='/reflection' element={<Reflection />} />
       </Routes>
     </Router>
       </header>

@@ -26,6 +26,9 @@ const HomePage = () => {
         <Link to="..\scales">
           <button>Start Puzzle</button>
         </Link>
+        <Link to="..\reflection">
+          <button>Add reflections</button>
+        </Link>
       </section>
       <section>
         <h2>Contact Us</h2>
