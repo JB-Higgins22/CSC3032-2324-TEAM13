@@ -378,7 +378,6 @@ const Scales = () => {
 
         <RotateDeviceMessage />
     </div>
-    </div>
   );
 };
 
