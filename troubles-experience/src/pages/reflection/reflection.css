@@ -1,0 +1,56 @@
+.background {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    height: 100vh; 
+    background-color: #0b6ea5;
+    background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
+    position: relative; 
+  }
+  
+  .reflection-container {
+    max-width: 600px; 
+    margin: 0 auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .reflection-container h1 {
+    text-align: center; 
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .reflection-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .reflection-container input,
+  .reflection-container textarea,
+  .reflection-container button {
+    margin-bottom: 15px;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 90%;
+  }
+  
+  .reflection-container textarea {
+    height: 150px; 
+  }
+  
+  .reflection-container button {
+    background-color: #0b6ea5;
+    color: #fff; 
+    border: none;
+    cursor: pointer;
+  }
+  
+  .reflection-container button:hover {
+    background-color: #094565;
+  }
+  

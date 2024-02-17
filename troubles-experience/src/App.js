@@ -5,6 +5,7 @@ import Scales from './pages/scales/scales';
 import Settings from './pages/settings/settingsPage';
 import ResultsPage from './pages/results/results';
 import PreGameInfo from './pages/pre-game-info/pre-game-info';
+import Reflection from './pages/reflection/reflection';
 
 //Imports needed to use sound, functionality for playing sound on loop below
 /*
@@ -49,7 +50,8 @@ function App() {
           <Route path='/scales' element={<Scales />} />
           <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange}/>} />
           <Route path='/results' element={<ResultsPage />} />
-        <Route path='/pre-game-info' element={<PreGameInfo />} />
+          <Route path='/pre-game-info' element={<PreGameInfo />} />
+          <Route path='/reflection' element={<Reflection />} />
         </Routes>
       </Router>
     </div>
