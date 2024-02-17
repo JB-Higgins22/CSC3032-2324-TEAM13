@@ -1,7 +1,6 @@
 import React from "react";
 import './settingsPage.css';
 import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import BasicTabs from './tabs.js';
 import HomeIcon from '@mui/icons-material/Home';
 
