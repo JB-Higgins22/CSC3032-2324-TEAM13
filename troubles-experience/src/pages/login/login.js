@@ -23,7 +23,7 @@ const Login = () => {
     // This line is for the initial commit to the branch
     if (username === 'admin' && password === 'password') {
       alert('Login successful!');
-      // Redirect to homepage
+      // Redirect to admin page
       navigate('/');
     } else {
       setError('Invalid username or password. Please try again.');
