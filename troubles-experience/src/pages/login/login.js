@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
-import CssBaseline from '@mui/material/CssBaseline';
 import './login.css';
 
 const Login = () => {
@@ -20,9 +19,10 @@ const Login = () => {
 
     // Ideally read valid admin username and password from database
     // For now assume the username is "admin" and password is "password"
+    // This line is for the initial commit to the branch
     if (username === 'admin' && password === 'password') {
       alert('Login successful!');
-      // Redirect to homepage
+      // Redirect to admin page
       navigate('/');
     } else {
       setError('Invalid username or password. Please try again.');
@@ -30,8 +30,8 @@ const Login = () => {
   };
 
   return (
-    <div>
-    <CssBaseline />
+    <div className = "loginBackground">
+    <div className = "loginContainer">
     <Link to="..\settings">
     <SettingsIcon className="SettingsIcon"/></Link>
       <h2>Login</h2>
@@ -59,6 +59,7 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+    </div>
     </div>
   );
 };
