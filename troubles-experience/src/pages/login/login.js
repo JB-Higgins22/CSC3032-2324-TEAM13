@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
-import CssBaseline from '@mui/material/CssBaseline';
 import './login.css';
 
 const Login = () => {
@@ -31,8 +30,8 @@ const Login = () => {
   };
 
   return (
-    <div>
-    <CssBaseline />
+    <div className = "loginBackground">
+    <div className = "loginContainer">
     <Link to="..\settings">
     <SettingsIcon className="SettingsIcon"/></Link>
       <h2>Login</h2>
@@ -60,6 +59,7 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+    </div>
     </div>
   );
 };

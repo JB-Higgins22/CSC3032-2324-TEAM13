@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import '../../styles/global.css';
 import './settingsPage.css';
@@ -150,7 +151,9 @@ export default function BasicTabs({ onFontSizeChange}) {
       <CustomTabPanel value={value} index={2}>
         {/* Content within Admin tab   */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Button variant="contained">Login</Button>
+        <Link to="..\login">
+            <Button variant="contained">Login</Button>
+          </Link>
         </Box>
       </CustomTabPanel>
     </Box>

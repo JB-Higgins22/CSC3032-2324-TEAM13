@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './home.css';
-import CssBaseline from '@mui/material/CssBaseline';
-
 
 const HomePage = () => {
   //const [settingsVisible, setSettingsVisible] = useState(false);
@@ -11,7 +9,6 @@ const HomePage = () => {
   
   return (
     <div className="Container">
-      <CssBaseline />
       <Link to="..\settings">
       <SettingsIcon className="SettingsIcon"/></Link>
       <header className="Header">
