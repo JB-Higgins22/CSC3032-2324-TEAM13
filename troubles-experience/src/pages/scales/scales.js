@@ -38,6 +38,8 @@ const Scales = () => {
   // STATE OF SCALE HEIGHTS/WEIGHTS
   const [unionistHeight, setUnionistHeight] = useState(10);
   const [nationalistHeight, setNationalistHeight] = useState(10);
+  const [phaseOneResult, setPhaseOneResult] = useState(0);
+  const [phaseTwoResult, setPhaseTwoResult] = useState(0);
 
   // STATE OF PHASE
   const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
@@ -84,8 +86,10 @@ const Scales = () => {
     console.log(currentPhase);
 
     if (currentPhase === 1) {
-      navigate('/results');
+      setPhaseTwoResult(balancePercentage);
+      navigate('/results', { state: { balancePercentages: [phaseOneResult, phaseTwoResult] } });
     } else {
+      setPhaseOneResult(balancePercentage);
       setShowContents(prevShowContents => !prevShowContents); // Make the Contents Disappear
 
       setTimeout(() => {
@@ -138,6 +142,9 @@ const Scales = () => {
   const phaseIssues = [phase1998Issues, phase2020Issues];
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
   let pageTitle = phaseNames[currentPhase];
+
+  // RESULTS ARRAY
+  let resultsArray = [0, 0];
 
   // Page Styling
   const containerStyle = {
@@ -255,7 +262,7 @@ const Scales = () => {
           <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={SubmitScales} />
         </div>
 
-
+        <div className="titleAndBalanceContainer">
           <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
             <h1>{pageTitle}</h1>
           </Slide>
@@ -268,6 +275,7 @@ const Scales = () => {
             />
             % Balance Achieved
           </h3>
+        </div>
 
           <div className="shelf-and-scale-wrapper">
 
