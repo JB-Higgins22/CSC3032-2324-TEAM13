@@ -19,7 +19,7 @@ const Reflection = () => {
       userReflection: thoughts
     };
 
-    // Make an HTTP POST request to your server
+    // POST REQUEST
     fetch('http://localhost:4000/addreflection', {
       method: 'POST',
       headers: {
@@ -50,7 +50,7 @@ const Reflection = () => {
 
   // Function to fetch reflections from the server
   const fetchReflections = () => {
-    fetch('http://localhost:4000/reflections')
+    fetch('http://localhost:4000/getapprovedreflections')
       .then(response => {
         if (response.ok) {
           return response.json();

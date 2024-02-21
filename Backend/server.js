@@ -42,4 +42,65 @@ app.get("/reflections", (req, res) => {
         });
 });
 
+app.post("/approvereflection", (req, res) => {
+    const reflectionUsername = req.body["userName"];
+    const reflectionLocation = req.body["userLocation"];
+    const reflectionContent = req.body["userReflection"];
+
+    // Use parameterized queries to prevent SQL injection
+    const insertReflectionCommand = `INSERT INTO approvedReflections (username, location, content) VALUES ($1, $2, $3) RETURNING *`;
+    
+    pool
+        .query(insertReflectionCommand, [reflectionUsername, reflectionLocation, reflectionContent])
+        .then((response) => {
+            console.log("Reflection Saved");
+            console.log(response.rows[0]); // Assuming you want to log the inserted reflection data
+            res.status(201).json(response.rows[0]); // Send the inserted reflection data back as response
+        })
+        .catch((err) => {
+            console.error("Error saving reflection:", err);
+            res.status(500).send("Error saving reflection");
+        });
+});
+
+app.get("/getapprovedreflections", (req, res) => {
+    pool
+        .query("SELECT * FROM approvedReflections")
+        .then((response) => {
+            res.status(200).json(response.rows); // Send the retrieved reflections as response
+        })
+        .catch((err) => {
+            console.error("Error retrieving reflections:", err);
+            res.status(500).send("Error retrieving reflections");
+        });
+});
+
+
+app.delete("/deletereflection/:reflectionId", (req, res) => {
+    const reflectionId = req.params.reflectionId;
+
+    // Use parameterized queries to prevent SQL injection
+    const deleteReflectionCommand = `DELETE FROM reflections WHERE id = $1 RETURNING *`;
+    
+    pool
+        .query(deleteReflectionCommand, [reflectionId])
+        .then((response) => {
+            if (response.rows.length === 0) {
+                // If no reflection was found with the provided ID
+                res.status(404).send("Reflection not found");
+            } else {
+                console.log("Reflection Deleted");
+                console.log(response.rows[0]); // Assuming you want to log the deleted reflection data
+                res.status(200).json(response.rows[0]); // Send the deleted reflection data back as response
+            }
+        })
+        .catch((err) => {
+            console.error("Error deleting reflection:", err);
+            res.status(500).send("Error deleting reflection");
+        });
+});
+
+
+
+
 app.listen(4000, () => console.log("Server on localhost:4000"));
