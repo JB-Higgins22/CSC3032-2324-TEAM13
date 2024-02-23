@@ -56,16 +56,16 @@ const PreGameInfo = () => {
         fontFamily: 'Anton, sans-serif',
     };
 
-    const titleStyle = {
-        fontSize: '7vw',
-        color: 'white',
-        textAlign: 'left',
-    };
-
     const informationWrapperStyle = {
         fontSize: '2vw',
         textAlign: 'left',
         color: 'white',
+    };
+    
+    const titleStyle = {
+        fontSize: '7vw',
+        color: 'white',
+        textAlign: 'left',
     };
 
     return ( 
