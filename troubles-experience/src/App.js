@@ -7,6 +7,7 @@ import ResultsPage from './pages/results/results';
 import PreGameInfo from './pages/pre-game-info/pre-game-info';
 import Reflection from './pages/reflection/reflection';
 import Login from './pages/login/login';
+import Tutorial from './pages/tutorial/tutorial';
 import SettingsDialog from './dialogs/settingsDialog';
 
 //Imports needed to use sound, functionality for playing sound on loop below
@@ -52,6 +53,7 @@ function App() {
           <Route path='/pre-game-info' element={<PreGameInfo />} />
           <Route path='/reflection' element={<Reflection />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/tutorial' element={<Tutorial />} />
         </Routes>
       </Router>
     </div>
