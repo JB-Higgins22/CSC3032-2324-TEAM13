@@ -16,6 +16,8 @@ import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
 import AbcIcon from '@mui/icons-material/Abc';
 import Radio from '@mui/material/Radio';
+import { green } from '@mui/material/colors';
+import { alpha, styled } from '@mui/material/styles';
 
 function accessabilityProps(index) {
   return {
@@ -83,7 +85,20 @@ export default function BasicTabs({ onFontSizeChange}) {
     const toggleHighContrastMode = () => {
       setHighContrastMode(!highContrastMode);
       applyHighContrastStyling(); 
+
     };
+
+    const GreenSwitch = styled(Switch)(({ theme }) => ({
+      '& .MuiSwitch-switchBase.Mui-checked': {
+        color: green[600],
+        '&:hover': {
+          backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
+        },
+      },
+      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: green[600],
+      },
+    }));
 
 //Potential to change backend functionality of font increase to apply styling via global.css
     /*
@@ -119,7 +134,7 @@ export default function BasicTabs({ onFontSizeChange}) {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<Switch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
+          <FormControlLabel  control={<GreenSwitch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
             sx={{ marginLeft: 2 }}
           />
         </Box>
@@ -130,7 +145,7 @@ export default function BasicTabs({ onFontSizeChange}) {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<Switch checked={highContrastMode} onChange={toggleHighContrastMode} />} 
+          <FormControlLabel  control={<GreenSwitch checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
             sx={{ marginLeft: 2 }}
           />
         </Box>
@@ -147,9 +162,9 @@ export default function BasicTabs({ onFontSizeChange}) {
 
       <CustomTabPanel value={value} index={1}>
         {/* Content within Admin tab   */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
         <Link to="..\login">
-            <Button variant="contained">Login</Button>
+            <Button className = "loginButton" variant="contained">Login</Button>
           </Link>
         </Box>
       </CustomTabPanel>
@@ -180,7 +195,7 @@ function FontSizeRadioButtons({ onFontSizeChange }) {
         <FormControlLabel
           key={index}
           value={mark.value.toString()}
-          control={<Radio sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size } }} />}
+          control={<Radio  className = "Mui" sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size} }} />}
           label=""
           onChange={handleChange}
           checked={selectedValue === mark.value}
