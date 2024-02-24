@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS approvedReflections (
 
 // Execute the table creation SQL script
 pool.query(createTableQueryReflections)
+pool.query(createTableQueryReflections)
     .then(() => {
         console.log("Table 'reflections' created successfully");
     })
