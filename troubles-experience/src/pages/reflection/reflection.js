@@ -1,25 +1,56 @@
-import React, { useState, useEffect } from "react"; // Import useState and useEffect
+import React, { useState, useEffect } from "react";
 import './reflection.css';
+import { scaleLog } from '@visx/scale';
+
+import Example from "../../components/word-cloud";
 
 const Reflection = () => {
-  // Define state variables to store user inputs
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [thoughts, setThoughts] = useState("");
-  const [reflections, setReflections] = useState([]); // Define reflections state variable
+  const [words, setWords] = useState([{ text: 'hello', value: 1 }]);
+  const [fontScale, setFontScale] = useState([1, 1]);
+  const [reflections, setReflections] = useState([]);
+  const [dataFetched, setDataFetched] = useState(false); // New state variable
+  const [showWordCloud, setShowWordCloud] = useState(false);
 
-  // Function to handle form submission
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchReflections();
+      setDataFetched(true);
+    };
+
+    fetchData();
+  }, []);
+
+  const wordFreq = (text) => {
+    const wordsArray = text.replace(/\./g, '').split(/\s/);
+    const freqMap = {};
+  
+    for (const w of wordsArray) {
+      if (!freqMap[w]) freqMap[w] = 0;
+      freqMap[w] += 1;
+    }
+
+    return Object.keys(freqMap).map((word) => ({ text: word, value: freqMap[word] }));
+  }
+
+  const fontSizeSetter = async (datum) => {
+    if (!fontScale) {
+      return 0; // Return a default font size
+    }
+    const scaledFontSize = await fontScale(datum.value);
+    return scaledFontSize;
+  };
+
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    // Prepare the reflection data object
+    event.preventDefault();
     const reflectionData = {
       userName: name,
       userLocation: location,
       userReflection: thoughts
     };
 
-    // POST REQUEST
     fetch('http://localhost:4000/addreflection', {
       method: 'POST',
       headers: {
@@ -30,7 +61,6 @@ const Reflection = () => {
     .then(response => {
       if (response.ok) {
         console.log('Reflection submitted successfully');
-        // Optionally, reset the form fields after successful submission
         setName("");
         setLocation("");
         setThoughts("");
@@ -43,55 +73,67 @@ const Reflection = () => {
     });
   };
 
-  // Fetch reflections from the server when the component mounts
-  useEffect(() => {
-    fetchReflections();
-  }, []);
-
-  // Function to fetch reflections from the server
-  const fetchReflections = () => {
-    fetch('http://localhost:4000/getapprovedreflections')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
+  const fetchReflections = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/getapprovedreflections');
+      if (!response.ok) {
         throw new Error('Failed to fetch reflections');
-      })
-      .then(data => {
-        setReflections(data);
-      })
-      .catch(error => {
-        console.error('Error fetching reflections:', error);
+      }
+      const data = await response.json();
+  
+      let concatenatedContent = "";
+      data.forEach(reflection => {
+        concatenatedContent += reflection.content + " ";
       });
+  
+      const wordsToSet = wordFreq(concatenatedContent);
+      setWords(wordsToSet);
+      setReflections(data);
+    } catch (error) {
+      console.error('Error fetching reflections:', error);
+    }
   };
 
   return (
     <div className="background">
       <div className="reflection-container">
         <h1>Share Your Reflections</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)} // Update name state onChange
-            placeholder="Your Name"
-            required
-          />
-          <input
-            type="text"
-            value={location}
-            onChange={(event) => setLocation(event.target.value)} // Update location state onChange
-            placeholder="Where are you from?"
-            required
-          />
-          <textarea
-            value={thoughts}
-            onChange={(event) => setThoughts(event.target.value)} // Update thoughts state onChange
-            placeholder="Share your thoughts..."
-            required
-          ></textarea>
-          <button type="submit">Submit</button>
-        </form>
+        {!showWordCloud && (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Your Name"
+              required
+            />
+            <input
+              type="text"
+              value={location}
+              onChange={(event) => setLocation(event.target.value)}
+              placeholder="Where are you from?"
+              required
+            />
+            <textarea
+              value={thoughts}
+              onChange={(event) => setThoughts(event.target.value)}
+              placeholder="Share your thoughts..."
+              required
+            ></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        )}
+        <div>
+          <label>
+            Show Word Cloud:
+            <input
+              type="checkbox"
+              checked={showWordCloud}
+              onChange={() => setShowWordCloud(!showWordCloud)}
+            />
+          </label>
+        </div>
+        {dataFetched && showWordCloud && <Example words={words} width={400} height={400} />}
       </div>
 
       <div className="reflections-container">
