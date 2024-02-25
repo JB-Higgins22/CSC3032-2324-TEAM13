@@ -1,61 +1,50 @@
+// REACT IMPORT
 import React, { useState, useEffect } from "react";
-import './reflection.css';
-import { scaleLog } from '@visx/scale';
-import RotateDeviceMessage from "../../components/rotate-device-message";
-import { Slide } from "@mui/material";
 
-import BadWordsFilter from 'bad-words'; // Importing bad-words library
-import Example from "../../components/word-cloud";
+// COMPONENT IMPORTS
+import WordCloudComponent from "../../components/word-cloud";
+import RotateDeviceMessage from "../../components/rotate-device-message";
+
+// EXTERNAL LIBRARIES
+import { Slide } from "@mui/material";
+import BadWordsFilter from 'bad-words';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 
+// CSS IMPORT
+import './reflection.css';
 
 
 const Reflection = () => {
+
+  // REFLECTION DATA
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [thoughts, setThoughts] = useState("");
+
+  // WORD CLOUD STATES
   const [words, setWords] = useState([{ text: 'hello', value: 1 }]);
-  const [fontScale, setFontScale] = useState([1, 1]);
   const [reflections, setReflections] = useState([]);
-  const [dataFetched, setDataFetched] = useState(false); // New state variable
+  const [dataFetched, setDataFetched] = useState(false);
+
+  // ANIMATION STATES
+  const [showReflectionForm, setShowReflectionForm] = useState(true);
   const [showWordCloud, setShowWordCloud] = useState(false);
 
-  //ANIMATION STATES
-  const [showReflectionForm, setShowReflectionForm] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchReflections();
+      await fetchReflections();     // Wait for reflections to be retrieved from DB
       setDataFetched(true);
     };
 
     fetchData();
   }, []);
 
-  const wordFreq = (text) => {
-    const wordsArray = text.replace(/\./g, '').split(/\s/);
-    const freqMap = {};
-  
-    for (const w of wordsArray) {
-      if (!freqMap[w]) freqMap[w] = 0;
-      freqMap[w] += 1;
-    }
 
-    return Object.keys(freqMap).map((word) => ({ text: word, value: freqMap[word] }));
-  }
-
-  const fontSizeSetter = async (datum) => {
-    if (!fontScale) {
-      return 0; // Return a default font size
-    }
-    const scaledFontSize = await fontScale(datum.value);
-    return scaledFontSize;
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (event) => {     // Handle submission of reflection
     event.preventDefault();
     
-    // Filtering out bad words from the user's input
+    // Filter out bad words
     const filter = new BadWordsFilter();
     const filteredThoughts = filter.clean(thoughts);
 
@@ -65,6 +54,7 @@ const Reflection = () => {
       userReflection: filteredThoughts // Using the filtered thoughts
     };
 
+    // Hit addreflection endpoint in backend
     fetch('http://localhost:4000/addreflection', {
       method: 'POST',
       headers: {
@@ -86,6 +76,7 @@ const Reflection = () => {
       console.error('Error submitting reflection:', error);
     });
 
+    // Change page contents
     setShowReflectionForm(false);
 
     setTimeout(() => {
@@ -93,7 +84,7 @@ const Reflection = () => {
     }, 1200);
   };
 
-  const fetchReflections = async () => {
+  const fetchReflections = async () => {  // retrive the reflections from the DB
     try {
       const response = await fetch('http://localhost:4000/getapprovedreflections');
       if (!response.ok) {
@@ -106,7 +97,7 @@ const Reflection = () => {
         concatenatedContent += reflection.content + " ";
       });
 
-      // Define a list of stop words to exclude from the word cloud
+      // words to exclude from the word cloud
       const stopWords = new Set(["the", "a", "I", "an", "you", "me", "on", "in", "at", "by", "with",
                                 "this", "that", "these", "those",
                                 "and", "but", "or", "nor",
@@ -117,7 +108,7 @@ const Reflection = () => {
       // Split the concatenated content into words
       const wordsArray = concatenatedContent.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
 
-      // Calculate word frequencies while excluding stop words
+      // Calculate word occurence values
       const freqMap = {};
       wordsArray.forEach(word => {
         if (!stopWords.has(word)) {
@@ -127,6 +118,7 @@ const Reflection = () => {
       });
 
       const wordsToSet = Object.keys(freqMap).map(word => ({ text: word, value: freqMap[word] }));
+
       setWords(wordsToSet);
       setReflections(data);
     } catch (error) {
@@ -134,13 +126,9 @@ const Reflection = () => {
     }
 };
 
-const columns = [
-  { field: 'username', headerName: 'Username', width: 150 },
-  { field: 'location', headerName: 'Location', width: 150 },
-  { field: 'content', headerName: 'Content', width: 300 },
-];
 
-  const containerStyle = {
+// STYLE CONSTANTS
+const containerStyle = {
     position: 'relative',
     height: '100vh',
     overflow: 'hidden',
@@ -157,20 +145,6 @@ const imageStyle = {
     zIndex: -1
 };
 
-const titleWrapperStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 2,
-    fontFamily: 'Anton, sans-serif',
-};
-
-const titleStyle = {
-    fontSize: '7vw',
-    color: 'white',
-    textAlign: 'left',
-};
-
 const reflectionContainerStyle = {
     fontSize: '2vw',
     textAlign: 'left',
@@ -182,6 +156,7 @@ const reflectionContainerStyle = {
   return (
     <div style = {{containerStyle}} >
       <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" style={imageStyle} />
+
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>
         <div className="reflection-container" style = {{reflectionContainerStyle}}>
           <h1>Share Your Reflections</h1>
@@ -204,7 +179,7 @@ const reflectionContainerStyle = {
                 value={thoughts}
                 onChange={(event) => setThoughts(event.target.value)}
                 placeholder="Share your thoughts..."
-                maxLength={250} // Set the maximum character limit to 250
+                maxLength={250}
                 required
               ></textarea>
               <button type="submit">Submit</button>
@@ -222,7 +197,7 @@ const reflectionContainerStyle = {
                                                   alignItems: 'center', 
                                                   width: '400px', 
                                                   height: '400px' }}>
-                  <Example words={words} width={400} height={400} />
+                  <WordCloudComponent words={words} width={400} height={400} />
               </div>
           </div>
 

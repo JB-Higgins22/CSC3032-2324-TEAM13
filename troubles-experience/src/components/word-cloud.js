@@ -19,7 +19,7 @@ const fontSizeSetter = (datum) => fontScale(datum.value);
 
 const fixedValueGenerator = () => 0.5;
 
-export default function Example({ words, width, height }) {
+export default function WordCloudComponent({ words, width, height }) {
   const [withRotation, setWithRotation] = useState(false);
 
   return (
