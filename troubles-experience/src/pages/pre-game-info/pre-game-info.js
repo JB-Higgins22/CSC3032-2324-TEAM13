@@ -38,14 +38,13 @@ const PreGameInfo = () => {
     };
 
     const imageStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
+        position: 'relative',
+        overflow: 'auto',
+        whiteSpace: 'normal',
         width: '100%',
-        height: '100%',
+        height: '100vh',
         objectFit: 'cover',
-        filter: 'brightness(20%)',
-        zIndex: 0
+        zIndex: 0,
     };
 
     const titleWrapperStyle = {
@@ -60,17 +59,23 @@ const PreGameInfo = () => {
         fontSize: '2vw',
         textAlign: 'left',
         color: 'white',
+        padding: '12px',
     };
     
     const titleStyle = {
-        fontSize: '7vw',
+        fontSize: '6vw',
         color: 'white',
         textAlign: 'left',
+        padding: '12px',
     };
+
+    const buttonStyle = {
+        color: '#fff'
+    }
 
     return ( 
         <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -81,8 +86,8 @@ const PreGameInfo = () => {
                             <p>{allContent[currentContent]}</p>
                         </Slide>
 
-                        <Button disabled={currentContent === 2} onClick={nextInfo}>Next</Button>
-                        <Button disabled={currentContent !== 2} onClick={playTutorial}>How to Play Game</Button>
+                        <Button style={buttonStyle} disabled={currentContent === 2} onClick={nextInfo}>Next</Button>
+                        <Button style={buttonStyle} disabled={currentContent !== 2} onClick={playTutorial}>How to Play Game</Button>
                     </div>       
                 </div>
             </div>

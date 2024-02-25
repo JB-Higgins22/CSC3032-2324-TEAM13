@@ -27,9 +27,9 @@ const Tutorial = () => {
         navigate('/scales');
     }
 
-    const allContent = ["Step 1 - Select an issue by clicking on a book",
-                        "Step 2 - Choose which solution you think is best for each issue",
-                        "Step 3 - Balance the issues on the scales - click on books to repoen them and change which side they're on"]
+    const allContent = ["Step 1 - Select an issue by clicking on a book - tutorial tutorial tutorial tutorial tutorial tutorial tutorial tutorial",
+                        "Step 2 - Choose which solution you think is best for each issue tutorial tutorial tutorial tutorial tutorial",
+                        "Step 3 - Balance the issues on the scales - click on books to repoen them and change which side they're on tutorial tutorial tutorial tutorial tutorial"]
 
     const images = [`${process.env.PUBLIC_URL}/Tutorial_Step1.png`,
                     `${process.env.PUBLIC_URL}/Tutorial_Step2.png`,
@@ -44,21 +44,20 @@ const Tutorial = () => {
     };
 
     const imageStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
+        position: 'relative',
+        overflow: 'auto',
+        whiteSpace: 'normal',
         width: '100%',
-        height: '100%',
+        height: '100vh',
         objectFit: 'cover',
-        filter: 'brightness(20%)',
-        zIndex: 0
+        zIndex: 0,
     };
 
     const tutorialImageStyle = {
         filter: 'brightness(100%)',
         width: '85%',
         height: '80%',
-        padding: '9px 0'
+        padding: '4px'
     };
 
     const titleWrapperStyle = {
@@ -72,7 +71,7 @@ const Tutorial = () => {
     const informationWrapperStyle = {
         fontSize: '2vw',
         textAlign: 'left',
-        padding: '9px',
+        padding: '12px',
         color: 'white',
     };
     
@@ -80,6 +79,7 @@ const Tutorial = () => {
         fontSize: '6vw',
         color: 'white',
         textAlign: 'left',
+        padding: '12px',
     };
 
     const column = {
@@ -95,9 +95,10 @@ const Tutorial = () => {
     };
 
 
+
     return ( 
         <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
             
             <div style={titleWrapperStyle}>
                 
