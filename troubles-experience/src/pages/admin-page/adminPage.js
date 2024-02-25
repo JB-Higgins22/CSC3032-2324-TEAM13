@@ -74,12 +74,26 @@ const handleApproveReflection = (reflection) => {
     handleDeleteReflection(reflection.id)
 }
 
-
-
+const handleClearApprovedReflections = () => {
+  fetch('http://localhost:4000/removeapprovedreflections', {
+      method: 'DELETE',
+  })
+  .then(response => {
+      if (response.ok) {
+          console.log('All approved reflections cleared successfully');
+      } else {
+          console.error('Failed to clear approved reflections');
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
+};
 
   return (
     <div className="background">
       <h1 className="title">ADMIN</h1>
+      <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
       <table>
                 <thead>
                     <tr>
