@@ -73,3 +73,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 npm i @visx/visx
+
+
+npm i bad-words
+
+
+npm install @mui/x-data-grid

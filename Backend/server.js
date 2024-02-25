@@ -75,6 +75,21 @@ app.get("/getapprovedreflections", (req, res) => {
         });
 });
 
+app.delete("/removeapprovedreflections", (req, res) => {
+    const deleteAllApprovedReflectionsCommand = `DELETE FROM approvedReflections`;
+    
+    pool
+        .query(deleteAllApprovedReflectionsCommand)
+        .then(() => {
+            console.log("All approved reflections deleted");
+            res.status(200).send("All approved reflections deleted");
+        })
+        .catch((err) => {
+            console.error("Error deleting all approved reflections:", err);
+            res.status(500).send("Error deleting all approved reflections");
+        });
+});
+
 
 app.delete("/deletereflection/:reflectionId", (req, res) => {
     const reflectionId = req.params.reflectionId;
