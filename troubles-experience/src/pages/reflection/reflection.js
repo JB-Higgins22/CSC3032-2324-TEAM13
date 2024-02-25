@@ -6,7 +6,8 @@ import { Slide } from "@mui/material";
 
 import BadWordsFilter from 'bad-words'; // Importing bad-words library
 import Example from "../../components/word-cloud";
-import { DataGrid } from '@mui/x-data-grid';
+import { Card, CardContent, Typography, Grid } from '@mui/material';
+
 
 
 const Reflection = () => {
@@ -229,18 +230,26 @@ const reflectionContainerStyle = {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
-  <div style={{ width: '100%', backgroundColor: 'white', height: '80vh', marginTop: '20px' }}>
-    <DataGrid
-      rows={reflections}
-      columns={columns}
-      pageSize={10} // Increase the number of rows per page
-      rowsPerPageOptions={[10, 20, 50, 100]} // Adjust the rows per page options
-      checkboxSelection
-      disableSelectionOnClick
-      autoHeight // Set autoHeight to true
-    />
-  </div>
-</Slide>
+      <Grid container spacing={2}>
+                {reflections.map(reflection => (
+                  <Grid item xs={12} sm={6} md={4} key={reflection.id}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          {reflection.username}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          Location: {reflection.location}
+                        </Typography>
+                        <Typography variant="body1">
+                          {reflection.content}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+      </Slide>
 
 
       <RotateDeviceMessage />
