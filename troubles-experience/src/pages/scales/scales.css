@@ -23,6 +23,7 @@
 
 .unionistPlatform {
   background-color: blue;
+  font-family: 'Anton';
   border: 2px dashed #aaa;
   margin: auto;
   border-bottom-left-radius: 50%;
@@ -47,6 +48,7 @@
   background-color: rgb(39, 157, 3);
   border: 2px dashed #aaa;
   margin: auto;
+  font-family: 'Anton';
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
 }
@@ -123,3 +125,10 @@
   align-items: center
 }
 
+h1 {
+  font-family: 'Anton';
+}
+
+h3 {
+  font-family: 'Anton';
+}

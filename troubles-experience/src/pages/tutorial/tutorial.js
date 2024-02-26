@@ -65,7 +65,7 @@ const Tutorial = () => {
         top: 0,
         left: 0,
         zIndex: 2,
-        fontFamily: 'Anton, sans-serif',
+        fontFamily: 'Anton',
     };
 
     const informationWrapperStyle = {
@@ -94,6 +94,9 @@ const Tutorial = () => {
         alignItems: 'flex-start',
     };
 
+    const buttonStyle = {
+        color: '#fff'
+    }
 
 
     return ( 
@@ -113,8 +116,8 @@ const Tutorial = () => {
                                 <div className="informationWrapper" style={informationWrapperStyle}>
                         
                                     {allContent[currentContent]}<br/>
-                                    <Button disabled={currentContent === 2} onClick={nextInfo}>Next</Button><br/>
-                                    <Button disabled={currentContent !== 2} onClick={playGame}>Play Game</Button>
+                                    <Button style={buttonStyle} disabled={currentContent === 2} onClick={nextInfo}>Next</Button><br/>
+                                    <Button style={buttonStyle} disabled={currentContent !== 2} onClick={playGame}>Play Game</Button>
                                 </div>
                                 
                             </div>

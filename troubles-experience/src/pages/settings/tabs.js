@@ -110,8 +110,8 @@ export default function BasicTabs({ onFontSizeChange}) {
     
   //Tabs 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ width: '100%', fontFamily: 'Anton' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', fontFamily: 'Anton'}}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs" textColor="white">
           <Tab label="General" {...accessabilityProps(0)} />
           <Tab label="Admin" {...accessabilityProps(1)} />
@@ -128,9 +128,9 @@ export default function BasicTabs({ onFontSizeChange}) {
           <FormControlLabel  control={<Switch />} sx={{ marginLeft: 2 }}/>
         </Box>
 */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
           <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>Black and White (Dark) Mode</Typography>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton' }}>Black and White (Dark) Mode</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
@@ -139,20 +139,20 @@ export default function BasicTabs({ onFontSizeChange}) {
           />
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px', fontFamily: 'Anton' }}>
           <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton'  }}>High Contrast</Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px', fontFamily: 'Anton'}}>
           <FormControlLabel  control={<GreenSwitch checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
-            sx={{ marginLeft: 2 }}
+            sx={{ marginLeft: 2, fontFamily: 'Anton'  }}
           />
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
         <AbcIcon/>
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1 }}>Adjust Font Size</Typography>
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton'  }}>Adjust Font Size</Typography>
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
@@ -190,7 +190,7 @@ function FontSizeRadioButtons({ onFontSizeChange }) {
   };
 
   return (
-    <FormGroup style={{ display: 'flex', flexDirection: 'row' }}>
+    <FormGroup style={{ display: 'flex', flexDirection: 'row', fontFamily: 'Anton'}}>
       {marks.map((mark, index) => (
         <FormControlLabel
           key={index}
