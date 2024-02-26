@@ -2,6 +2,10 @@
 
 .backGround {
   background-image: url("../../../public/newspaperDark.jpeg");
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.backGround {
+  background-image: url("../../../public/newspaperDark.jpeg");
   width: 100%;
   overflow: hidden;
   margin: 0 auto;
