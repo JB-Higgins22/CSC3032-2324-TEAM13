@@ -84,6 +84,7 @@ const ButtonStyle = {
   return (
     <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -100,6 +101,7 @@ const ButtonStyle = {
                             <h3>{averageResult}% Balance Achieved Overall</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1800}>
+                      <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
                       <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
                     </Slide>
                     </div>       
