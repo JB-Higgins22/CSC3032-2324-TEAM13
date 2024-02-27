@@ -1,12 +1,15 @@
 .background {
-    position: relative;
-    height: 100vh;
+    width: 100%;
     overflow: hidden;
+    margin: 0 auto;
+    height: 100vh; 
+    background-color: #0b6ea5;
+    background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
+    position: relative; 
   }
   
   .reflection-container {
-    width: 40vw; 
-    height: auto;
+    max-width: 600px; 
     margin: 0 auto;
     padding-left: 2%;
     padding-right: 2%;
@@ -37,7 +40,7 @@
   }
   
   .reflection-container textarea {
-    height: 100px; 
+    height: 150px; 
   }
   
   .reflection-container button {
@@ -46,30 +49,8 @@
     border: none;
     cursor: pointer;
   }
-
-  .reflectionContentContainer h1 {
-    color: white;
-    text-align: center;
-    font-size: 3vw;
-  }
   
   .reflection-container button:hover {
     background-color: #094565;
   }
-
-  .wordCloud {
-    background-color: white;
-    align-content: center;
-    height: 400;
-    width: 400;
-  }
-
-  .wordCloudContainer {
-    width: 100vw; /* Make the container span the entire viewport width */
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 3vw;
-}
   
