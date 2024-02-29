@@ -92,7 +92,8 @@ const Reflection = () => {
           ></textarea>
           <button type="submit">Submit</button>
         </form>
-      </div>
+        <br/>
+      </div><br/>
 
       <div className="reflections-container">
         <h2>Recent Reflections</h2>

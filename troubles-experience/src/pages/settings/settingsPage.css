@@ -30,13 +30,17 @@
   font-family: 'Anton';
 }
 
-.background .homeIcon {
+.backGround .HomeIcon {
   font-size: 32px;
   color: #F0FFFF;
   position: relative;
   top: 10px;
   left: 10px;
   cursor: pointer;
+}
+
+.backGround .HomeIcon:hover {
+  color: #F0FFFF; 
 }
 
 .foreground .fontSize{
@@ -60,6 +64,8 @@
 .foreground .loginButton:hover {
   background-color: #04aa23; 
   color: white;
+  border-style: ridge;
+  border-color: white;
 }
 
 .foreground .Mui

@@ -37,7 +37,7 @@
   font-family: 'Anton';
 }
 
-.Section button {
+.Section .Button {
   text-align: center;
   background-color: #F0FFFF;
   color: #007bff;
@@ -48,6 +48,12 @@
   border-color: #007bff;
   border-radius: 4px;
   font-family: 'Anton';
+}
+
+.Section .Button:hover {
+  background-color: #04aa23; 
+  color: #F0FFFF;
+  border-color: #F0FFFF;
 }
 
 a:link,
@@ -61,6 +67,7 @@ a:hover,
 a:active {
   text-align: center;
   text-decoration: underline;
+  background-color: #04aa23;
   color: #F8F8FF;
 }
 

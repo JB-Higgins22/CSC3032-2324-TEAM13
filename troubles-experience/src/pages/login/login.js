@@ -31,9 +31,8 @@ const Login = () => {
 
   return (
     <div className = "loginBackground">
-    <div className = "loginContainer">
-    <Link to="..\settings">
-    <SettingsIcon className="SettingsIcon"/></Link>
+    <Link to="..\settings"><SettingsIcon className="SettingsIcon"/></Link>
+    <div className = "loginContainer">   
       <h2>Login</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>

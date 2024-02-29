@@ -68,7 +68,17 @@ const informationWrapperStyle = {
 };
 
 const ButtonStyle = {
-    color: 'white'
+  fontFamily: 'Anton',
+  padding: '10px',
+  fontSize: '16px',
+  borderRadius: '4px',
+  backgroundColor: '#F0FFFF',
+  color: '#007bff',
+  border: '1px solid #007bff',
+  '&:hover': {
+      backgroundColor: '#04aa23',
+      color: '#fff',
+  }
 }
 
   return (
@@ -87,7 +97,7 @@ const ButtonStyle = {
                             <h3>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1500}>
-                            <h2>{averageResult}% Balance Achieved Overall</h2>
+                            <h3>{averageResult}% Balance Achieved Overall</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1800}>
                       <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>

@@ -59,19 +59,53 @@ const PreGameInfo = () => {
         fontSize: '2vw',
         textAlign: 'left',
         color: 'white',
-        padding: '12px',
+        padding: '15px',
     };
     
     const titleStyle = {
         fontSize: '6vw',
         color: 'white',
         textAlign: 'left',
-        padding: '12px',
+        padding: '15px',
     };
 
-    const buttonStyle = {
-        color: '#fff'
-    }
+    const buttonstyle = {
+        fontFamily: 'Anton',
+        padding: '10px',
+        fontSize: '16px',
+        borderRadius: '4px',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const buttonNextstyle = {
+        ...buttonstyle,
+        backgroundColor: '#F0FFFF',
+        color: '#007bff',
+        border: '1px solid #007bff',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const buttonPlaystyle = {
+        ...buttonstyle,
+        backgroundColor: '#F0FFFF',
+        color: '#007bff',
+        border: '1px solid #007bff',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const invisibleButtonstyle = {
+        ...buttonstyle,
+        visibility: 'hidden',
+    };
 
     return ( 
         <div className="page" style={containerStyle}>
@@ -84,10 +118,20 @@ const PreGameInfo = () => {
                     <div className="informationWrapper" style={informationWrapperStyle}>
                         <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
                             <p>{allContent[currentContent]}</p>
+                            
                         </Slide>
-
-                        <Button style={buttonStyle} disabled={currentContent === 2} onClick={nextInfo}>Next</Button>
-                        <Button style={buttonStyle} disabled={currentContent !== 2} onClick={playTutorial}>How to Play Game</Button>
+                        <Button 
+                            style={currentContent !== 2 ? buttonNextstyle : invisibleButtonstyle} 
+                            disabled={currentContent === 2} 
+                            onClick={nextInfo}>
+                            Next
+                        </Button><br/>
+                        <Button 
+                            style={currentContent === 2 ? buttonPlaystyle : invisibleButtonstyle} 
+                            disabled={currentContent !== 2} 
+                            onClick={playTutorial}>
+                            How to Play Game
+                        </Button>
                     </div>       
                 </div>
             </div>
