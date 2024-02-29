@@ -21,7 +21,7 @@ const HomePage = () => {
         <p>Explore the history and events of Northern Ireland through our interactive puzzle game.</p>
         <p>Can you find the balance to make a successful Peace Process?</p>
         <Link to="..\pre-game-info">
-          <button>Start Puzzle</button>
+          <button className='Button'>Start Puzzle</button>
         </Link>
       </section>
       <section className="Section">

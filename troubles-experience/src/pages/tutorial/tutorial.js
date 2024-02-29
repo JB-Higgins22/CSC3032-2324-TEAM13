@@ -33,8 +33,7 @@ const Tutorial = () => {
 
     const images = [`${process.env.PUBLIC_URL}/Tutorial_Step1.png`,
                     `${process.env.PUBLIC_URL}/Tutorial_Step2.png`,
-                    `${process.env.PUBLIC_URL}/Tutorial_Step3.png`
-                    ];
+                    `${process.env.PUBLIC_URL}/Tutorial_Step3.png`];
 
 
     const containerStyle = {
@@ -71,7 +70,7 @@ const Tutorial = () => {
     const informationWrapperStyle = {
         fontSize: '2vw',
         textAlign: 'left',
-        padding: '12px',
+        padding: '15px',
         color: 'white',
     };
     
@@ -79,7 +78,7 @@ const Tutorial = () => {
         fontSize: '6vw',
         color: 'white',
         textAlign: 'left',
-        padding: '12px',
+        padding: '15px',
     };
 
     const column = {
@@ -94,9 +93,43 @@ const Tutorial = () => {
         alignItems: 'flex-start',
     };
 
-    const buttonStyle = {
-        color: '#fff'
-    }
+    const buttonstyle = {
+        fontFamily: 'Anton',
+        padding: '10px',
+        fontSize: '16px',
+        borderRadius: '4px',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const buttonNextstyle = {
+        ...buttonstyle,
+        backgroundColor: '#F0FFFF',
+        color: '#007bff',
+        border: '1px solid #007bff',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const buttonPlaystyle = {
+        ...buttonstyle,
+        backgroundColor: '#F0FFFF',
+        color: '#007bff',
+        border: '1px solid #007bff',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const invisibleButtonstyle = {
+        ...buttonstyle,
+        visibility: 'hidden',
+    };
 
 
     return ( 
@@ -113,11 +146,20 @@ const Tutorial = () => {
                                 <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
                                     <h1 style={titleStyle}>HOW TO PLAY GAME</h1>
                                 </Slide>
-                                <div className="informationWrapper" style={informationWrapperStyle}>
-                        
+                                <div className="informationWrapper" style={informationWrapperStyle}>    
                                     {allContent[currentContent]}<br/>
-                                    <Button style={buttonStyle} disabled={currentContent === 2} onClick={nextInfo}>Next</Button><br/>
-                                    <Button style={buttonStyle} disabled={currentContent !== 2} onClick={playGame}>Play Game</Button>
+                                    <Button 
+                                        style={currentContent !== 2 ? buttonNextstyle : invisibleButtonstyle} 
+                                        disabled={currentContent === 2} 
+                                        onClick={nextInfo}>
+                                        Next
+                                    </Button><br/>
+                                    <Button 
+                                        style={currentContent === 2 ? buttonPlaystyle : invisibleButtonstyle} 
+                                        disabled={currentContent !== 2} 
+                                        onClick={playGame}>
+                                        Play Game
+                                    </Button>
                                 </div>
                                 
                             </div>
