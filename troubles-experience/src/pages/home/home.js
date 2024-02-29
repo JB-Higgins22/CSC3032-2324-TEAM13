@@ -15,9 +15,6 @@ const HomePage = () => {
         <h1>
           Museum Of The Troubles and Peace Process
         </h1>
-        <h1>
-          TEST TEST TEST
-        </h1>
       </header>
       <section className="Section">
         <h2>Peace Process Puzzle Game</h2>
