@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .loginContainer{
   width: 35%;
   margin: 0 auto;
@@ -21,12 +25,16 @@
   text-align: center;
   margin-bottom: 20px;
   color: #F0FFFF;
+  font-family: 'Anton';
+  font-family: 'Anton';
 }
 
 .Section {
   color: #F0FFFF;
   text-align: center;
   margin-bottom: 40px;
+  font-family: 'Anton';
+  font-family: 'Anton';
 }
 
 .Section button {
@@ -37,8 +45,15 @@
   font-size: 16px;
   cursor: pointer;
   border-style: ridge;
+  font-family: 'Anton';
+  font-family: 'Anton';
   border-color: #007bff;
   border-radius: 4px;
+}
+
+.FormHeader {
+  color: #F0FFFF;
+  font-family: 'Anton';
 }
 
 a:link,
@@ -61,7 +76,8 @@ a:active {
   margin: 0 auto;
   height: 100vh;
   background-color: #0b6ea5;
-  background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
+  background-image: url("../../../public/newspaperDark.jpeg");
+  background-image: url("../../../public/newspaperDark.jpeg");
   position: relative;
 }
 
@@ -71,6 +87,8 @@ a:active {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
+    font-family: 'Anton';
+    font-family: 'Anton';
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
@@ -80,6 +98,8 @@ a:active {
     margin: 8px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-family: 'Anton';
+    font-family: 'Anton';
     box-sizing: border-box;
   }
   
@@ -92,6 +112,8 @@ a:active {
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
+    font-family: 'Anton';
+    font-family: 'Anton';
   }
   
   button[type="submit"]:hover {
@@ -99,15 +121,20 @@ a:active {
   }
   
   .SettingsIcon {
+    font-size: 32px;
+    width: 100%;
+    height: 100%;
+    color: #F0FFFF;
     position: absolute;
     top: 10px;
-    right: 10px;
-    color: #555;
+    left: 10px;
     cursor: pointer;
   }
   
   h2 {
     margin-bottom: 20px;
+    font-family: 'Anton';
+    color: #F0FFFF;
   }
   
   .error-message {

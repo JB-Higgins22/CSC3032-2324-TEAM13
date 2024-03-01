@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .Container {
   width: 100%;
   margin: 0 auto;
   padding: 20px;
   height: 100vh;
   background-color: #0b6ea5;
-  background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
+  background-image: url("../../../public/newspaperDark.jpeg");
   position: relative;
   overflow: auto;
   white-space: normal;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .Container .SettingsIcon {
@@ -21,6 +25,7 @@
 
 .Header {
   text-align: center;
+  font-family: 'Anton';
   margin-bottom: 20px;
   color: #F0FFFF;
 }
@@ -29,9 +34,10 @@
   color: #F0FFFF;
   text-align: center;
   margin-bottom: 40px;
+  font-family: 'Anton';
 }
 
-.Section button {
+.Section .Button {
   text-align: center;
   background-color: #F0FFFF;
   color: #007bff;
@@ -41,6 +47,13 @@
   border-style: ridge;
   border-color: #007bff;
   border-radius: 4px;
+  font-family: 'Anton';
+}
+
+.Section .Button:hover {
+  background-color: #04aa23; 
+  color: #F0FFFF;
+  border-color: #F0FFFF;
 }
 
 a:link,
@@ -54,5 +67,16 @@ a:hover,
 a:active {
   text-align: center;
   text-decoration: underline;
+  background-color: #04aa23;
   color: #F8F8FF;
+}
+
+h1 {
+  font-size: 75px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 35px;
+  font-weight: bold;
 }

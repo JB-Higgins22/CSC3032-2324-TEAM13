@@ -4,8 +4,10 @@ Styling that is to be applied globally if enabled in settings
 
 .black-white-mode * {
     filter: grayscale(100%);
+    font-family: 'Anton';
   }
 
   .high-contrast-mode * {
     filter: contrast(200%);
+    font-family: 'Anton';
   }

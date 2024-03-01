@@ -41,7 +41,6 @@ const imageStyle = {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    filter: 'brightness(20%)',
     zIndex: 0
 };
 
@@ -68,9 +67,24 @@ const informationWrapperStyle = {
     paddingLeft: '5%'
 };
 
+const ButtonStyle = {
+  fontFamily: 'Anton',
+  padding: '10px',
+  fontSize: '16px',
+  borderRadius: '4px',
+  backgroundColor: '#F0FFFF',
+  color: '#007bff',
+  border: '1px solid #007bff',
+  '&:hover': {
+      backgroundColor: '#04aa23',
+      color: '#fff',
+  }
+}
+
   return (
     <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -84,10 +98,11 @@ const informationWrapperStyle = {
                             <h3>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1500}>
-                            <h2>{averageResult}% Balance Achieved Overall</h2>
+                            <h3>{averageResult}% Balance Achieved Overall</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1800}>
-                      <Button onClick={leaveReflection}>Leave a Reflection</Button>
+                      <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
+                      <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
                     </Slide>
                     </div>       
                 </div>

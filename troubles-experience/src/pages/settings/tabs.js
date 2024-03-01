@@ -16,6 +16,8 @@ import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
 import AbcIcon from '@mui/icons-material/Abc';
 import Radio from '@mui/material/Radio';
+import { green } from '@mui/material/colors';
+import { alpha, styled } from '@mui/material/styles';
 
 function accessabilityProps(index) {
   return {
@@ -83,7 +85,20 @@ export default function BasicTabs({ onFontSizeChange}) {
     const toggleHighContrastMode = () => {
       setHighContrastMode(!highContrastMode);
       applyHighContrastStyling(); 
+
     };
+
+    const GreenSwitch = styled(Switch)(({ theme }) => ({
+      '& .MuiSwitch-switchBase.Mui-checked': {
+        color: green[600],
+        '&:hover': {
+          backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
+        },
+      },
+      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: green[600],
+      },
+    }));
 
 //Potential to change backend functionality of font increase to apply styling via global.css
     /*
@@ -95,8 +110,8 @@ export default function BasicTabs({ onFontSizeChange}) {
     
   //Tabs 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ width: '100%', fontFamily: 'Anton' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', fontFamily: 'Anton'}}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs" textColor="white">
           <Tab label="General" {...accessabilityProps(0)} />
           <Tab label="Admin" {...accessabilityProps(1)} />
@@ -113,31 +128,31 @@ export default function BasicTabs({ onFontSizeChange}) {
           <FormControlLabel  control={<Switch />} sx={{ marginLeft: 2 }}/>
         </Box>
 */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
           <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>Black and White (Dark) Mode</Typography>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton' }}>Black and White (Dark) Mode</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<Switch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
+          <FormControlLabel  control={<GreenSwitch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
             sx={{ marginLeft: 2 }}
           />
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px', fontFamily: 'Anton' }}>
           <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton'  }}>High Contrast</Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<Switch checked={highContrastMode} onChange={toggleHighContrastMode} />} 
-            sx={{ marginLeft: 2 }}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px', fontFamily: 'Anton'}}>
+          <FormControlLabel  control={<GreenSwitch checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
+            sx={{ marginLeft: 2, fontFamily: 'Anton'  }}
           />
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
         <AbcIcon/>
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1 }}>Adjust Font Size</Typography>
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton'  }}>Adjust Font Size</Typography>
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
@@ -147,9 +162,9 @@ export default function BasicTabs({ onFontSizeChange}) {
 
       <CustomTabPanel value={value} index={1}>
         {/* Content within Admin tab   */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
         <Link to="..\login">
-            <Button variant="contained">Login</Button>
+            <Button className = "loginButton" variant="contained">Login</Button>
           </Link>
         </Box>
       </CustomTabPanel>
@@ -175,12 +190,12 @@ function FontSizeRadioButtons({ onFontSizeChange }) {
   };
 
   return (
-    <FormGroup style={{ display: 'flex', flexDirection: 'row' }}>
+    <FormGroup style={{ display: 'flex', flexDirection: 'row', fontFamily: 'Anton'}}>
       {marks.map((mark, index) => (
         <FormControlLabel
           key={index}
           value={mark.value.toString()}
-          control={<Radio sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size } }} />}
+          control={<Radio  className = "Mui" sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size} }} />}
           label=""
           onChange={handleChange}
           checked={selectedValue === mark.value}

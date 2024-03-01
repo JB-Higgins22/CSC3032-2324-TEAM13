@@ -2,6 +2,10 @@
     position: relative;
     height: 100vh;
     overflow: hidden;
+    margin: 0 auto;
+    background-color: #0b6ea5;
+    background-image: url("../../../public/newspaperDark.jpeg");
+
   }
   
   .reflection-container {

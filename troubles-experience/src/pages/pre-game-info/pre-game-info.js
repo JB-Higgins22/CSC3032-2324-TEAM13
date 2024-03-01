@@ -23,8 +23,10 @@ const PreGameInfo = () => {
           }, 1200);
     }
 
-    function playGame() {
-        navigate('/scales');
+    function playTutorial() {
+        navigate('/tutorial');
+    function playTutorial() {
+        navigate('/tutorial');
     }
 
     const allContent = ["The Troubles were an ethno-nationalist conflict in Northern Ireland that lasted for about 30 years from the late 1960s to 1998. Also known internationally as the Northern Ireland conflict, it is sometimes described as an 'irregular war' or 'low-level war'. The conflict began in the late 1960s and is usually deemed to have ended with the Good Friday Agreement of 1998. Although the Troubles mostly took place in Northern Ireland, at times violence spilled over into parts of the Republic of Ireland, England, and mainland Europe.",
@@ -38,14 +40,13 @@ const PreGameInfo = () => {
     };
 
     const imageStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
+        position: 'relative',
+        overflow: 'auto',
+        whiteSpace: 'normal',
         width: '100%',
-        height: '100%',
+        height: '100vh',
         objectFit: 'cover',
-        filter: 'brightness(20%)',
-        zIndex: 0
+        zIndex: 0,
     };
 
     const titleWrapperStyle = {
@@ -56,21 +57,67 @@ const PreGameInfo = () => {
         fontFamily: 'Anton, sans-serif',
     };
 
+    const informationWrapperStyle = {
+        fontSize: '2vw',
+        textAlign: 'left',
+        color: 'white',
+        padding: '15px',
+    };
+    
+    const titleStyle = {
+        fontSize: '6vw',
+        color: 'white',
+        textAlign: 'left',
+        padding: '15px',
+    };
+
+    const buttonstyle = {
+        fontFamily: 'Anton',
+        padding: '10px',
+        fontSize: '16px',
+        borderRadius: '4px',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const buttonNextstyle = {
+        ...buttonstyle,
+        backgroundColor: '#F0FFFF',
+        color: '#007bff',
+        border: '1px solid #007bff',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const buttonPlaystyle = {
+        ...buttonstyle,
+        backgroundColor: '#F0FFFF',
+        color: '#007bff',
+        border: '1px solid #007bff',
+        '&:hover': {
+            backgroundColor: '#04aa23',
+            color: '#fff',
+        }
+    };
+
+    const invisibleButtonstyle = {
+        ...buttonstyle,
+        visibility: 'hidden',
+    };
+    
     const titleStyle = {
         fontSize: '7vw',
         color: 'white',
         textAlign: 'left',
     };
 
-    const informationWrapperStyle = {
-        fontSize: '2vw',
-        textAlign: 'left',
-        color: 'white',
-    };
-
     return ( 
         <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -79,10 +126,20 @@ const PreGameInfo = () => {
                     <div className="informationWrapper" style={informationWrapperStyle}>
                         <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
                             <p>{allContent[currentContent]}</p>
+                            
                         </Slide>
-
-                        <Button disabled={currentContent === 2} onClick={nextInfo}>Next</Button>
-                        <Button disabled={currentContent !== 2} onClick={playGame}>Play Game</Button>
+                        <Button 
+                            style={currentContent !== 2 ? buttonNextstyle : invisibleButtonstyle} 
+                            disabled={currentContent === 2} 
+                            onClick={nextInfo}>
+                            Next
+                        </Button><br/>
+                        <Button 
+                            style={currentContent === 2 ? buttonPlaystyle : invisibleButtonstyle} 
+                            disabled={currentContent !== 2} 
+                            onClick={playTutorial}>
+                            How to Play Game
+                        </Button>
                     </div>       
                 </div>
             </div>

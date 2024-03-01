@@ -1,10 +1,15 @@
-.background {
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.backGround {
+  background-image: url("../../../public/newspaperDark.jpeg");
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.backGround {
+  background-image: url("../../../public/newspaperDark.jpeg");
   width: 100%;
   overflow: hidden;
   margin: 0 auto;
   height: 100vh;
-  background-color: #0b6ea5;
-  background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
   position: relative;
 }
 
@@ -15,16 +20,21 @@
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #094565;
+  background-color: #094565; 
   border: 2px solid rgb(255, 255, 255);
   border-radius: 12px;
+  font-family: 'Anton';
   padding: 10px;
   color: #F0FFFF;
   overflow: auto;
   white-space: normal; 
 }
 
-.background .homeIcon {
+.tabText {
+  font-family: 'Anton';
+}
+
+.backGround .HomeIcon {
   font-size: 32px;
   color: #F0FFFF;
   position: relative;
@@ -33,7 +43,40 @@
   cursor: pointer;
 }
 
+.backGround .HomeIcon:hover {
+  color: #F0FFFF; 
+}
+
 .foreground .fontSize{
   font-size: 90%;
 }
- 
+
+.foreground .loginButton {
+  text-align: center;
+  background-color: #F0FFFF;
+  color: #094565;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Anton';
+  cursor: pointer;
+  border-style: ridge;
+  border-color: #007bff;
+  border-radius: 4px;
+  
+}
+
+.foreground .loginButton:hover {
+  background-color: #04aa23; 
+  color: white;
+  border-style: ridge;
+  border-color: white;
+}
+
+.foreground .Mui
+{
+color: #F0FFFF;
+}
+
+.foreground .Mui.Mui-checked {
+  color: #04aa23; 
+}

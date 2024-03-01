@@ -36,6 +36,15 @@ pool.query(createTableQueryReflections)
         console.error("Error creating table:", err);
     });
 
+pool.query(createApprovedTableQuery)
+    .then(() => {
+        console.log("Table 'approvedReflections' created successfully");
+    })
+    .catch((err) => {
+        console.error("Error creating table:", err);
+    });
+
+
 // Table creation SQL script
 const createTableQueryLogin = `
 CREATE TABLE IF NOT EXISTS login (

@@ -8,6 +8,8 @@ import PreGameInfo from './pages/pre-game-info/pre-game-info';
 import Reflection from './pages/reflection/reflection';
 import Login from './pages/login/login';
 import AdminPage from './pages/admin-page/adminPage';
+import Tutorial from './pages/tutorial/tutorial';
+
 
 //Imports needed to use sound, functionality for playing sound on loop below
 /*
@@ -56,6 +58,7 @@ function App() {
           <Route path='/reflection' element={<Reflection />} />
           <Route path='/login' element={<Login />} />
           <Route path='/admin' element={<AdminPage />} />
+          <Route path='/tutorial' element={<Tutorial />} />
         </Routes>
       </Router>
     </div>
