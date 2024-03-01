@@ -79,3 +79,9 @@ npm i bad-words
 
 
 npm install @mui/x-data-grid
+
+
+### IMAGE STYLING
+Newspaper image: https://pixabay.com/photos/bundle-jute-rope-newspaper-1853667/
+
+Shelf Image: https://pixabay.com/vectors/shelf-wood-wall-hanging-wooden-575408/ 
