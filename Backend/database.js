@@ -9,7 +9,7 @@ const pool = new Pool ({
 })
 
 // Table creation SQL script
-const createTableQuery = `
+const createTableQueryReflections = `
 CREATE TABLE IF NOT EXISTS reflections (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
@@ -28,13 +28,26 @@ CREATE TABLE IF NOT EXISTS approvedReflections (
 `;
 
 // Execute the table creation SQL script
-pool.query(createTableQuery)
+pool.query(createTableQueryReflections)
     .then(() => {
         console.log("Table 'reflections' created successfully");
     })
     .catch((err) => {
         console.error("Error creating table:", err);
     });
+
+// Table creation SQL script
+const createTableQueryLogin = `
+CREATE TABLE IF NOT EXISTS login (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+`;
+
+pool.query(createTableQueryLogin)
+    .then(() => {
+        console.log("Table 'login' created successfully");
 
 pool.query(createApprovedTableQuery)
     .then(() => {

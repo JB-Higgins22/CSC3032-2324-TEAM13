@@ -42,6 +42,62 @@ app.get("/reflections", (req, res) => {
         });
 });
 
+app.post("/addlogin", (req, res) => {
+    const loginUsername = req.body["loginUsername"];
+    const loginPassword = req.body["loginPassword"];
+
+    // Use parameterized queries to prevent SQL injection
+    const insertLoginCommand = `INSERT INTO login (username, password) VALUES ($1, $2) RETURNING *`;
+    
+    pool
+        .query(insertLoginCommand, [loginUsername, loginPassword])
+        .then((response) => {
+            console.log("Login details Saved");
+            console.log(response.rows[0]); // Assuming you want to log the inserted login data
+            //res.status(201).json(response.rows[0]); // Send the inserted login data back as response
+        })
+        .catch((err) => {
+            console.error("Error saving login:", err);
+            res.status(500).send("Error saving login");
+        });
+});
+
+app.get("/login", (req, res) => {
+    pool
+        .query("SELECT * FROM login")
+        .then((response) => {
+            res.status(200).json(response.rows); // Send the retrieved logins as response
+        })
+        .catch((err) => {
+            console.error("Error retrieving login details:", err);
+            res.status(500).send("Error retrieving login details");
+        });
+});
+
+// Endpoint for user login
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
+
+    // Query the database to check if the username and password match
+    const checkLoginQuery = `SELECT * FROM login WHERE username = $1 AND password = $2`;
+    
+    pool
+        .query(checkLoginQuery, [username, password])
+        .then((response) => {
+            if (response.rows.length > 0) {
+                // If login credentials are valid, send a success message
+                res.status(200).json({ message: 'Login successful' });
+            } else {
+                // If login credentials are invalid, send an error message
+                res.status(401).json({ message: 'Invalid username or password' });
+            }
+        })
+        .catch((err) => {
+            console.error("Error checking login credentials:", err);
+            res.status(500).json({ message: 'Error checking login credentials' });
+        });
+});
+
 app.post("/approvereflection", (req, res) => {
     const reflectionUsername = req.body["userName"];
     const reflectionLocation = req.body["userLocation"];
