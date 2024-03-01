@@ -109,11 +109,6 @@ const PreGameInfo = () => {
         visibility: 'hidden',
     };
     
-    const titleStyle = {
-        fontSize: '7vw',
-        color: 'white',
-        textAlign: 'left',
-    };
 
     return ( 
         <div className="page" style={containerStyle}>
@@ -147,6 +142,7 @@ const PreGameInfo = () => {
             <RotateDeviceMessage />
         </div>
     );
+};
 };
 
 export default PreGameInfo;
