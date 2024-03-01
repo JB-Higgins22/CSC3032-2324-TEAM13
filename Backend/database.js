@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS login (
 pool.query(createTableQueryLogin)
     .then(() => {
         console.log("Table 'login' created successfully");
+    })
 
 pool.query(createApprovedTableQuery)
     .then(() => {
