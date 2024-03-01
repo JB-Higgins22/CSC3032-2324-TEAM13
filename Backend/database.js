@@ -44,6 +44,7 @@ pool.query(createApprovedTableQuery)
         console.error("Error creating table:", err);
     });
 
+
 // Table creation SQL script
 const createTableQueryLogin = `
 CREATE TABLE IF NOT EXISTS login (

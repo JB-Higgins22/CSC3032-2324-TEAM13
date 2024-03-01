@@ -42,6 +42,7 @@ app.get("/reflections", (req, res) => {
         });
 });
 
+
 app.post("/approvereflection", (req, res) => {
     const reflectionUsername = req.body["userName"];
     const reflectionLocation = req.body["userLocation"];
@@ -116,8 +117,6 @@ app.delete("/deletereflection/:reflectionId", (req, res) => {
 });
 
 
-
-
 app.post("/addlogin", (req, res) => {
     const loginUsername = req.body["loginUsername"];
     const loginPassword = req.body["loginPassword"];
@@ -175,3 +174,4 @@ app.post("/login", (req, res) => {
 });
 
 app.listen(4000, () => console.log("Server on localhost:4000"));
+
