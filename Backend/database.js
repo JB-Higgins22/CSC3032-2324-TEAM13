@@ -57,6 +57,11 @@ pool.query(createTableQueryLogin)
     .then(() => {
         console.log("Table 'login' created successfully");
     })
+
+pool.query(createApprovedTableQuery)
+    .then(() => {
+        console.log("Table 'approvedReflections' created successfully");
+    })
     .catch((err) => {
         console.error("Error creating table:", err);
     });
