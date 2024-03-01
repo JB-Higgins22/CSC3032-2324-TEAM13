@@ -18,6 +18,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
 //MUI MATERIAL ICONS IMPORTS
 import HomeIcon from '@mui/icons-material/Home';
@@ -29,11 +31,13 @@ import './scales.css';
 
 const Scales = () => {
   // STATE OF SCALES/BOOKSHELF/ISSUES
-  const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], 0, 0));
+  const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], [], 50, 50));
   const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [balancePercentage, setBalancePercentage] = useState(100);
   const [prevBalancePercentage, setPrevBalancePercentage] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [popoverContent, setPopoverContent] = useState('');
 
   // STATE OF SCALE HEIGHTS/WEIGHTS
   const [unionistHeight, setUnionistHeight] = useState(10);
@@ -67,9 +71,20 @@ const Scales = () => {
     setPrevBalancePercentage(balancePercentage);
   }, [balancePercentage]);
 
+
+  const handlePopoverOpen = (event, content) => {
+    setAnchorEl(event.currentTarget);
+    setPopoverContent(content); // Set the content for this popover
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+
   // Initialise Scales & Bookshelf & Issues
   function initialiseScales() {           
-    setPeaceScales(new ScalesObject([], [], 0, 0));
+    setPeaceScales(new ScalesObject([], [], [], 50, 50));
   }
 
   function initialiseBookshelfObject() {
@@ -77,7 +92,7 @@ const Scales = () => {
   }
 
   function initialiseIssues(currentPhase) {
-    setPeaceScales(new ScalesObject([], [], 0, 0));
+    setPeaceScales(new ScalesObject([], [], [], 50, 50));
     setBookshelfObject(new BookshelfObject(phaseIssues[currentPhase]));
     pageTitle = phaseNames[currentPhase];
   }
@@ -104,38 +119,72 @@ const Scales = () => {
   }
 
   //1998 PHASE ISSUES
-  const decommissioningIssue = new Issue('Decommissioning', 
-                                            'Decommissioning in Northern Ireland was a process in the Belfast Agreement as part of the Northern Ireland peace process. Under the Good Friday Agreement/ Belfast Agreement, all paramilitary groups fighting in the Troubles would be subject to decommission. Decommissioning was a defining issue in the effort to negotiate peace in Northern Ireland.', 
-                                            'The Independent International Commission on Decommissioning (IICD) was established to oversee the decommissioning. Its objective was to facilitate the decommissioning of firearms, ammunition and explosives.',
+  const decommissioningIssue = new Issue('Paramilitary Weapons Decomissioning ', 
+                                            'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
+                                            'For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  ',
                                             '/guns.avif',
-                                            10);
+                                            'Decommission Now',
+                                            -10,
+                                            'Lets go to the peace talks',
+                                            8,
+                                            'Np more IRA - class',
+                                            'Install Commission',
+                                            10,
+                                            'understandable',
+                                            14,
+                                            'ideal folks',
+                                            'No Decommissioning',
+                                            10,
+                                            'no peace talks',
+                                            -5,
+                                            'aw dear',
+                                            3,
+                                            'X'
+                                            );
 
-  const northSouthCouncilIssue = new Issue('North/South Council', 
-                                              'The North/South Ministerial Council (NSMC) is a body established under the Good Friday Agreement to co-ordinate activity and exercise certain governmental powers across the whole island of Ireland. The Council takes the form of meetings between ministers from both the Republic of Ireland and Northern Ireland and is responsible for twelve policy areas. Six of these areas are the responsibility of corresponding North/South Implementation Bodies. The body is based in the city of Armagh in Northern Ireland.', 
-                                              'The North/South Ministerial Council and the Northern Ireland Assembly are "mutually inter-dependent" institutions: one cannot exist without the other.',
-                                              '/north-south-council.jpeg',
-                                              10);
+  // const northSouthCouncilIssue = new Issue('North/South Council', 
+  //                                             'The North/South Ministerial Council (NSMC) is a body established under the Good Friday Agreement to co-ordinate activity and exercise certain governmental powers across the whole island of Ireland. The Council takes the form of meetings between ministers from both the Republic of Ireland and Northern Ireland and is responsible for twelve policy areas. Six of these areas are the responsibility of corresponding North/South Implementation Bodies. The body is based in the city of Armagh in Northern Ireland.', 
+  //                                             'The North/South Ministerial Council and the Northern Ireland Assembly are "mutually inter-dependent" institutions: one cannot exist without the other.',
+  //                                             '/north-south-council.jpeg',
+  //                                             10);
 
-  const britishIrishCouncilIssue = new Issue('British/Irish Council', 
-                                              'The British and Irish governments, and political parties in Northern Ireland, agreed to form a council under the British–Irish Agreement, part of the Good Friday Agreement reached in 1998. The council was formally established on 2 December 1999, when the Agreement came into effect. The councils stated aim is to "promote the harmonious and mutually beneficial development of the totality of relationships among the peoples of these islands".', 
-                                              'At its June 2010 summit, the Council decided to move forward on recommendations to enhance the relationship between it and the British-Irish Parliamentary Assembly (BIPA).',
-                                              '/british-irish-council.jpeg',
-                                              10);
+  // const britishIrishCouncilIssue = new Issue('British/Irish Council', 
+  //                                             'The British and Irish governments, and political parties in Northern Ireland, agreed to form a council under the British–Irish Agreement, part of the Good Friday Agreement reached in 1998. The council was formally established on 2 December 1999, when the Agreement came into effect. The councils stated aim is to "promote the harmonious and mutually beneficial development of the totality of relationships among the peoples of these islands".', 
+  //                                             'At its June 2010 summit, the Council decided to move forward on recommendations to enhance the relationship between it and the British-Irish Parliamentary Assembly (BIPA).',
+  //                                             '/british-irish-council.jpeg',
+  //                                             10);
 
-  const selfDeterminationIssue = new Issue('The Right to Self-Determination', 
-                                            'Under the terms of the British-Irish Agreement, both governments Recognised that it was the right of all persons born in Northern Ireland to identify as Irish or British, or both, and to hold both Irish and British citizenship if they so choose. This right is to continue regardless of any change in the status of Northern Ireland', 
-                                            'Desc Two',
-                                            '/self-determination.webp',
-                                            10);
+  // const selfDeterminationIssue = new Issue('The Right to Self-Determination', 
+  //                                           'Under the terms of the British-Irish Agreement, both governments Recognised that it was the right of all persons born in Northern Ireland to identify as Irish or British, or both, and to hold both Irish and British citizenship if they so choose. This right is to continue regardless of any change in the status of Northern Ireland', 
+  //                                           'Desc Two',
+  //                                           '/self-determination.webp',
+  //                                           10);
 
-  const phase1998Issues = [decommissioningIssue, northSouthCouncilIssue, britishIrishCouncilIssue, selfDeterminationIssue];
+  const phase1998Issues = [decommissioningIssue];
 
   // 2020 PHASE ISSUES
-  const irishSeaBorderIssue = new Issue('Irish Sea Border', 
-                                            'Desc One', 
-                                            'Desc Two',
-                                            '/self-determination.webp',
-                                            10);
+  const irishSeaBorderIssue = new Issue('Paramilitary Weapons Decomissioning ', 
+  'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
+  'For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  ',
+  '/guns.avif',
+  'Decommission Now',
+  -10,
+  'Lets go to the peace talks',
+  10,
+  'Np more IRA - class',
+  'Install Commission',
+  10,
+  'understandable',
+  10,
+  'ideal folks',
+  'No Decommissioning',
+  10,
+  'no peace talks',
+  -10,
+  'aw dear',
+  3,
+  'X'
+  );
 
   const phase2020Issues = [irishSeaBorderIssue];
 
@@ -202,33 +251,62 @@ const Scales = () => {
 
 
   // Scale Handling
-  const placeOnUnionistSide = () => {
-    const updatedScales = peaceScales.placeOnUnionist(selectedIssue);
-    const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
+  const selectOptionA = () => {
+    const updatedScales = peaceScales.selectOptionA(selectedIssue);
     setPeaceScales(updatedScales);
-    setBookshelfObject(updatedBookshelf);
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    handleCloseDialog();
-  };
-  
-  const placeOnNationalistSide = () => {
-    const updatedScales = peaceScales.placeOnNationalist(selectedIssue);
-    const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
-    setPeaceScales(updatedScales);
-    setBookshelfObject(updatedBookshelf);
     updateHeight(updatedScales); // Call updateHeight to recalculate heights
-    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     handleCloseDialog();
-  };
+  }
 
-  const updateHeight = (scales) => {
-    const imageHeight = 20; // Example height of the image
-    const unionistHeight = scales.getUnionistIssues().length * imageHeight;
-    const nationalistHeight = scales.getNationalistIssues().length * imageHeight;
-    setUnionistHeight(unionistHeight);
-    setNationalistHeight(nationalistHeight);
-  };
+  const selectOptionB = () => {
+    const updatedScales = peaceScales.selectOptionB(selectedIssue);
+    setPeaceScales(updatedScales);
+    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    handleCloseDialog();
+  }
+
+  const selectOptionC = () => {
+    const updatedScales = peaceScales.selectOptionC(selectedIssue);
+    setPeaceScales(updatedScales);
+    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    handleCloseDialog();
+  }
+
+  // const placeOnUnionistSide = () => {
+  //   const updatedScales = peaceScales.placeOnUnionist(selectedIssue);
+  //   const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
+  //   setPeaceScales(updatedScales);
+  //   setBookshelfObject(updatedBookshelf);
+  //   updateHeight(updatedScales); // Call updateHeight to recalculate heights
+  //   updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+  //   handleCloseDialog();
+  // };
+  
+  // const placeOnNationalistSide = () => {
+  //   const updatedScales = peaceScales.placeOnNationalist(selectedIssue);
+  //   const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
+  //   setPeaceScales(updatedScales);
+  //   setBookshelfObject(updatedBookshelf);
+  //   updateHeight(updatedScales); // Call updateHeight to recalculate heights
+  //   updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+  //   handleCloseDialog();
+  // };
+
+ const updateHeight = () => {
+    const totalWeight = peaceScales.getUnionistWeight() + peaceScales.getNationalistWeight();
+    
+    // Calculate percentages based on weights
+    const unionistPercentage = (peaceScales.getUnionistWeight() / totalWeight) * 100;
+    const nationalistPercentage = (peaceScales.getNationalistWeight() / totalWeight) * 100;
+
+    setUnionistHeight(unionistPercentage);
+    setNationalistHeight(nationalistPercentage);
+};
+
+
 
   const updateBalance = (scales) => {
     const unionistWeight = scales.getUnionistWeight();
@@ -256,6 +334,12 @@ const Scales = () => {
 
   }
 
+  function logScales() {
+    console.log(peaceScales);
+    console.log(peaceScales.getNationalistIssues);
+    console.log(peaceScales.getUnionistIssues);
+  }
+
   return (
     <div className="page" style={containerStyle}>
       <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />
@@ -268,7 +352,7 @@ const Scales = () => {
           <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} onClick={displaySettingsDialog}/>
           
 
-          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={SubmitScales} />
+          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={logScales} />
         </div>
 
         <div className="titleAndBalanceContainer">
@@ -327,23 +411,46 @@ const Scales = () => {
             >
                 <div className="unionistSide">
 
-                  <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
-                      {peaceScales.getUnionistIssues().map((issue) => (
-                        <div
-                          className="unionistIssue"
-                          onClick={displayIssueInfo.bind(this, issue)}
-                          key={issue.id}
-                        >
-                          <img
-                    src={process.env.PUBLIC_URL + '/single-book.png'}
-                      alt="Bookshelf"
-                      style={{ width: '2em', 
-                                height: 'auto',
-                                display: 'block',
-                                margin: 'auto' }} />
-                        </div>
-                    ))}
+                <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
+                  {peaceScales.getUnionistIssues().map((issue) => (
+                    <div
+                      className="unionistIssue"
+                      key={issue.id}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + '/single-book.png'}
+                        alt="Bookshelf"
+                        style={{ 
+                          width: '2em', 
+                          height: 'auto',
+                          display: 'block',
+                          margin: 'auto',
+                          cursor: 'pointer' // Add cursor pointer for hover effect
+                        }}
+                        aria-describedby={issue.id}
+                        onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                        // onMouseLeave={handlePopoverClose}
+                      />
+                      <Popover
+                        id={issue.id}
+                        open={Boolean(anchorEl)}
+                        anchorEl={anchorEl}
+                        onClose={handlePopoverClose}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
+                      </Popover>
                     </div>
+                  ))}
+                </div>
+
 
                     <div className = "unionistPlatform">
                       <h4>{peaceScales.getUnionistWeight()}</h4>
@@ -353,23 +460,46 @@ const Scales = () => {
 
                 <div className="nationalistSide" >
 
-                  <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
-                      {peaceScales.getNationalistIssues().map((issue) => (
-                        <div
-                          className="nationalistIssue"
-                          onClick={displayIssueInfo.bind(this, issue)}
-                          key={issue.id}
-                        >
-                          <img
-                    src={process.env.PUBLIC_URL + '/single-book.png'}
-                      alt="Bookshelf"
-                      style={{ width: '2em', 
-                                height: 'auto',
-                                display: 'block',
-                                margin: 'auto' }} />
-                        </div>
-                    ))}
+                <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+                  {peaceScales.getNationalistIssues().map((issue) => (
+                    <div
+                      className="nationalistIssue"
+                      key={issue.id}
+                    >
+                      <img
+                        src={process.env.PUBLIC_URL + '/single-book.png'}
+                        alt="Bookshelf"
+                        style={{ 
+                          width: '2em', 
+                          height: 'auto',
+                          display: 'block',
+                          margin: 'auto',
+                          cursor: 'pointer' // Add cursor pointer for hover effect
+                        }}
+                        aria-describedby={issue.id}
+                        onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                        // onMouseLeave={handlePopoverClose}
+                      />
+                      <Popover
+                        id={issue.id}
+                        open={Boolean(anchorEl)}
+                        anchorEl={anchorEl}
+                        onClose={handlePopoverClose}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
+                      </Popover>
                     </div>
+                  ))}
+                </div>
+
 
                     <div className = "nationalistPlatform">
                       <h4>{peaceScales.getNationalistWeight()}</h4>
@@ -383,9 +513,10 @@ const Scales = () => {
     
         <IssueDialog
           isOpen={isDialogOpen}
+          handleOptionA={selectOptionA}
+          handleOptionB={selectOptionB}
+          handleOptionC={selectOptionC}
           handleClose={handleCloseDialog}
-          handlePlaceUnionist={placeOnUnionistSide}
-          handlePlaceNationalist={placeOnNationalistSide}
           issue={selectedIssue}
         />
 
