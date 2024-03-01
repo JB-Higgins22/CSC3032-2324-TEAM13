@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../../styles/global.css';
 import './settingsPage.css';
 import SettingsDialog from '../../dialogs/settingsDialog';
+import SettingsDialog from '../../dialogs/settingsDialog';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -82,7 +83,8 @@ function applyFontSizeLarge() {
   body.style.fontSize = '150%';
 }
 
-export default function BasicTabs({ isOpen, handleClose }) {
+export default function BasicTabs({ isOpen, handleClose, isOpen, handleClose  }) {
+
 
   const [value, setValue] = React.useState(0);
   
@@ -174,7 +176,7 @@ export default function BasicTabs({ isOpen, handleClose }) {
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-        <FontSizeRadioButtons />
+        <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
         </Box>
       </CustomTabPanel>
 
@@ -186,6 +188,9 @@ export default function BasicTabs({ isOpen, handleClose }) {
           </Link>
         </Box>
       </CustomTabPanel>
+
+      <SettingsDialog isOpen={isOpen} handleClose={handleClose} onFontSizeChange={onFontSizeChange} blackAndWhiteMode={blackAndWhiteMode} />
+
 
       <SettingsDialog isOpen={isOpen} handleClose={handleClose} blackAndWhiteMode={blackAndWhiteMode} />
 
