@@ -8,7 +8,7 @@ import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 import RotateDeviceMessage from '../../components/rotate-device-message';
 import { Link, useNavigate } from 'react-router-dom';
 import AnimatedNumber from "animated-number-react";
-
+import SettingsDialog from  '../../dialogs/settingsDialog';
 
 // MUI IMPORTS
 import Slide from '@mui/material/Slide';
@@ -48,6 +48,7 @@ const Scales = () => {
   // STATE OF DIALOGS
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
 
   //MUI 
   const [checked, setChecked] = React.useState(false);
@@ -183,6 +184,14 @@ const Scales = () => {
     setConfirmQuitDialogOpen(true);
   };
 
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
+
   const handleCloseConfirmQuitDialog = () => {
     setConfirmQuitDialogOpen(false);
   };
@@ -255,9 +264,9 @@ const Scales = () => {
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
           <HomeIcon className="homeButton" sx={{ fontSize: 60, marginRight: '10px' }} onClick={displayConfirmQuitDialog} />
 
-          <Link to="..\settings">
-          <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} />
-          </Link>
+          
+          <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} onClick={displaySettingsDialog}/>
+          
 
           <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={SubmitScales} />
         </div>
@@ -383,6 +392,10 @@ const Scales = () => {
         <ConfirmQuitDialog 
           isOpen={isConfirmQuitDialogOpen}
           handleClose={handleCloseConfirmQuitDialog}/>
+
+        <SettingsDialog 
+          isOpen={isSettingsDialogOpen}
+          handleClose={handleCloseSettingsDialog}/>
 
         <RotateDeviceMessage />
     </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import '../../styles/global.css';
 import './settingsPage.css';
+import SettingsDialog from '../../dialogs/settingsDialog';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -62,7 +63,8 @@ function applyFontStyling() {
   root.classList.toggle('font-increase');
 }
 */
-export default function BasicTabs({ onFontSizeChange}) {
+export default function BasicTabs({ isOpen, handleClose, onFontSizeChange }) {
+
   const [value, setValue] = React.useState(0);
   
   //Defining state variables
@@ -141,7 +143,7 @@ export default function BasicTabs({ onFontSizeChange}) {
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-          <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
+        <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
         </Box>
       </CustomTabPanel>
 
@@ -153,6 +155,9 @@ export default function BasicTabs({ onFontSizeChange}) {
           </Link>
         </Box>
       </CustomTabPanel>
+
+      <SettingsDialog isOpen={isOpen} handleClose={handleClose} onFontSizeChange={onFontSizeChange} blackAndWhiteMode={blackAndWhiteMode} />
+
     </Box>
   );
 }
