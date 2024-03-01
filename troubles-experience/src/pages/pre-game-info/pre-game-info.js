@@ -25,8 +25,6 @@ const PreGameInfo = () => {
 
     function playTutorial() {
         navigate('/tutorial');
-    function playTutorial() {
-        navigate('/tutorial');
     }
 
     const allContent = ["The Troubles were an ethno-nationalist conflict in Northern Ireland that lasted for about 30 years from the late 1960s to 1998. Also known internationally as the Northern Ireland conflict, it is sometimes described as an 'irregular war' or 'low-level war'. The conflict began in the late 1960s and is usually deemed to have ended with the Good Friday Agreement of 1998. Although the Troubles mostly took place in Northern Ireland, at times violence spilled over into parts of the Republic of Ireland, England, and mainland Europe.",
@@ -110,7 +108,7 @@ const PreGameInfo = () => {
     };
     
 
-    return ( 
+return ( 
         <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
             <div style={titleWrapperStyle}>
@@ -142,7 +140,6 @@ const PreGameInfo = () => {
             <RotateDeviceMessage />
         </div>
     );
-};
 };
 
 export default PreGameInfo;
