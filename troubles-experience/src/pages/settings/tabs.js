@@ -99,13 +99,12 @@ export default function BasicTabs({ onFontSizeChange}) {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs" textColor="white">
           <Tab label="General" {...accessabilityProps(0)} />
-          <Tab label="Accessibility" {...accessabilityProps(1)} />
-          <Tab label="Admin" {...accessabilityProps(2)} />
+          <Tab label="Admin" {...accessabilityProps(1)} />
         </Tabs>
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-      {/* Content within General tab   */}
+      {/* Unused mute volume UI  
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
         <VolumeUp sx={{ marginRight: 2 }} />
         <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1 }}>Mute Volume</Typography>
@@ -113,7 +112,7 @@ export default function BasicTabs({ onFontSizeChange}) {
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
           <FormControlLabel  control={<Switch />} sx={{ marginLeft: 2 }}/>
         </Box>
-
+*/}
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
           <ContrastIcon />
           <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>Black and White (Dark) Mode</Typography>
@@ -121,6 +120,17 @@ export default function BasicTabs({ onFontSizeChange}) {
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
           <FormControlLabel  control={<Switch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
+            sx={{ marginLeft: 2 }}
+          />
+        </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
+          <ContrastIcon />
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
+          <FormControlLabel  control={<Switch checked={highContrastMode} onChange={toggleHighContrastMode} />} 
             sx={{ marginLeft: 2 }}
           />
         </Box>
@@ -136,19 +146,6 @@ export default function BasicTabs({ onFontSizeChange}) {
       </CustomTabPanel>
 
       <CustomTabPanel value={value} index={1}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
-          <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2 }}>High Contrast</Typography>
-        </Box>
-
-        <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<Switch checked={highContrastMode} onChange={toggleHighContrastMode} />} 
-            sx={{ marginLeft: 2 }}
-          />
-        </Box>
-      </CustomTabPanel>
-
-      <CustomTabPanel value={value} index={2}>
         {/* Content within Admin tab   */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
         <Link to="..\login">

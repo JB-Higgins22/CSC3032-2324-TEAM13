@@ -18,6 +18,15 @@ CREATE TABLE IF NOT EXISTS reflections (
 );
 `;
 
+const createApprovedTableQuery = `
+CREATE TABLE IF NOT EXISTS approvedReflections (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    location VARCHAR(100),
+    content TEXT NOT NULL
+);
+`;
+
 // Execute the table creation SQL script
 pool.query(createTableQueryReflections)
     .then(() => {
@@ -39,6 +48,10 @@ CREATE TABLE IF NOT EXISTS login (
 pool.query(createTableQueryLogin)
     .then(() => {
         console.log("Table 'login' created successfully");
+
+pool.query(createApprovedTableQuery)
+    .then(() => {
+        console.log("Table 'approvedReflections' created successfully");
     })
     .catch((err) => {
         console.error("Error creating table:", err);

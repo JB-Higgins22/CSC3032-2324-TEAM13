@@ -68,3 +68,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+npm i @visx/visx
+
+
+npm i bad-words
+
+
+npm install @mui/x-data-grid
+
+
+### IMAGE STYLING
+Newspaper image: https://pixabay.com/photos/bundle-jute-rope-newspaper-1853667/
+
+Shelf Image: https://pixabay.com/vectors/shelf-wood-wall-hanging-wooden-575408/ 
