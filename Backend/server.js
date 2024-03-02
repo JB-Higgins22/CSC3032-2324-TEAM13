@@ -222,5 +222,22 @@ app.get("/issues", (req, res) => {
         });
 });
 
+// Endpoint to get the number of rows in the issues table
+app.get("/issueCount", (req, res) => {
+    const countQuery = "SELECT COUNT(*) FROM issues";
+    
+    pool
+        .query(countQuery)
+        .then((response) => {
+            // Extract the count from the response
+            const rowCount = response.rows[0].count;
+            res.status(200).json({ count: rowCount });
+        })
+        .catch((err) => {
+            console.error("Error retrieving issue count:", err);
+            res.status(500).send("Error retrieving issue count");
+        });
+});
+
 app.listen(4000, () => console.log("Server on localhost:4000"));
 
