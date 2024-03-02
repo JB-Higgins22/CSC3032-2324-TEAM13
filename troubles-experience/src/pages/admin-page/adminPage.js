@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 const AdminPage = ({ onFontSizeChange}) => {
 
     const [reflections, setReflections] = useState([]);
+    const [showForm, setShowForm] = useState(true);
 
     //ISSUE DATA
     const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const AdminPage = ({ onFontSizeChange}) => {
     const [descriptionTwo, setDescriptionTwo] = useState("");
     const [imageURL, setImageURL] = useState("");
     const [numberOfOptions, setNumberOfOptions] = useState(0);
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState("X");
     const [optionA, setOptionA] = useState("");
     const [optionANationalistWeight, setOptionANationalistWeight] = useState(0);
     const [optionANationalistPerspective, setOptionANationalistPerspective] = useState("");
@@ -114,60 +115,98 @@ const handleClearApprovedReflections = () => {
 };
 
 const handleSubmit = (e) => {
+  setSelectedOption("X");
   e.preventDefault();
 
   // Prepare the issue data object
   const issueData = {
-      name,
-      descriptionOne,
-      descriptionTwo,
-      imageURL,
-      numberOfOptions,
-      selectedOption,
-      optionA,
-      optionANationalistWeight,
-      optionANationalistPerspective,
-      optionAUnionistWeight,
-      optionAUnionistPerspective,
-      optionB,
-      optionBNationalistWeight,
-      optionBNationalistPerspective,
-      optionBUnionistWeight,
-      optionBUnionistPerspective,
-      optionC,
-      optionCNationalistWeight,
-      optionCNationalistPerspective,
-      optionCUnionistWeight,
-      optionCUnionistPerspective
+    name,
+    descriptionOne,
+    descriptionTwo,
+    imageURL,
+    numberOfOptions,
+    selectedOption,
+    optionA,
+    optionANationalistWeight,
+    optionANationalistPerspective,
+    optionAUnionistWeight,
+    optionAUnionistPerspective,
+    optionB,
+    optionBNationalistWeight,
+    optionBNationalistPerspective,
+    optionBUnionistWeight,
+    optionBUnionistPerspective,
+    optionC,
+    optionCNationalistWeight,
+    optionCNationalistPerspective,
+    optionCUnionistWeight,
+    optionCUnionistPerspective,
   };
 
   // Send the issue data to the backend API
-  fetch('http://localhost:4000/addissue', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(issueData)
+  fetch("http://localhost:4000/addissue", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(issueData),
   })
-  .then(response => {
+    .then((response) => {
       if (response.ok) {
-          console.log("Issue added successfully");
-          // Optionally, you can redirect the user to a different page or show a success message
+        console.log("Issue added successfully");
+        // Hide the form if the 8th row has been added
+        fetch("http://localhost:4000/issueCount")
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Failed to fetch issue count");
+          })
+          .then((data) => {
+            if (data.count >= 8) {
+              setShowForm(false);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching issue count:", error);
+          });
       } else {
-          console.error("Failed to add issue");
-          // Handle error cases here
+        console.error("Failed to add issue");
+        // Handle error cases here
       }
-  })
-  .catch(error => {
+    })
+    .catch((error) => {
       console.error("Error:", error);
       // Handle network errors here
-  });
+    });
 };
+
+
+// Render form only if there are less than 8 rows in the issue table
+useEffect(() => {
+  fetch("http://localhost:4000/issueCount")
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Failed to fetch issue count");
+    })
+    .then((data) => {
+      if (data.count >= 8) {
+        setShowForm(false);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching issue count:", error);
+    });
+}, []);
 
   return (
     <div className="background">
       <h1 className="title">ADMIN</h1>
 
+      {showForm && (
+    <div>
       <h2>Issue Form</h2>
             <form onSubmit={handleSubmit}>
                 <input
@@ -199,21 +238,24 @@ const handleSubmit = (e) => {
                     required
                 />
                 <label>Number Of Options:</label>
+                <label>
                 <input
-                    type="number"
-                    value={numberOfOptions}
-                    onChange={(event) => setNumberOfOptions(event.target.value)}
-                    placeholder="Number of Options"
-                    required
+                    type="radio"
+                    value="2"
+                    checked={numberOfOptions === '2'}
+                    onChange={() => setNumberOfOptions('2')}
                 />
-                <input
-                    type="text"
-                    value={selectedOption}
-                    onChange={(event) => setSelectedOption(event.target.value)}
-                    placeholder="Selected Option"
-                    required
-                />
-                
+                2 Options
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="3"
+                        checked={numberOfOptions === '3'}
+                        onChange={() => setNumberOfOptions('3')}
+                    />
+                    3 Options
+                </label>
                 {/* Option A */}
                 <h3>Option A</h3>
                 <input
@@ -336,6 +378,8 @@ const handleSubmit = (e) => {
                 
                 <button type="submit">Submit</button>
             </form>
+      </div>
+      )}
       
       <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
       <table>
