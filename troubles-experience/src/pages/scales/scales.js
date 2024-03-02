@@ -38,6 +38,9 @@ const Scales = () => {
   const [prevBalancePercentage, setPrevBalancePercentage] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverContent, setPopoverContent] = useState('');
+  const [issues, setIssues] = useState([]);
+  const [dataFetched, setDataFetched] = useState(false);
+  const [assetsInitialised, setAssetsInitialised] = useState(false);
 
   // STATE OF SCALE HEIGHTS/WEIGHTS
   const [unionistHeight, setUnionistHeight] = useState(10);
@@ -48,6 +51,7 @@ const Scales = () => {
   // STATE OF PHASE
   const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
   const [showContents, setShowContents] = useState(true); // Transitions
+  const [phaseIssues, setPhaseIssues] = useState();
 
   // STATE OF DIALOGS
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -60,10 +64,21 @@ const Scales = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchData = async () => {
+      await fetchIssues();     // Wait for issues to be retrieved from DB
+      setDataFetched(true);
+    };
+
+    fetchData();
+  }, []); 
+
+  useEffect(() => {
+    console.log(issues);
     initialiseScales();
     initialiseBookshelfObject();
-    initialiseIssues(currentPhase);
-  }, []); 
+    initialiseIssues(issues);
+    setAssetsInitialised(true);
+  }, [issues]);
 
   useEffect(() => {
     // Update prevBalancePercentage whenever balancePercentage changes
@@ -90,9 +105,9 @@ const Scales = () => {
     setBookshelfObject(new BookshelfObject([]));
   }
 
-  function initialiseIssues(currentPhase) {
+  function initialiseIssues(issues) {
     setPeaceScales(new ScalesObject([], [], [], 50, 50));
-    setBookshelfObject(new BookshelfObject(phaseIssues[currentPhase]));
+    setBookshelfObject(new BookshelfObject(issues));
     pageTitle = phaseNames[currentPhase];
   }
 
@@ -116,6 +131,23 @@ const Scales = () => {
       }, 1200);
     }
   }
+
+  // Function to fetch issues from the server
+  const fetchIssues = async () => {
+    fetch('http://localhost:4000/issues')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Failed to fetch issues');
+      })
+      .then(data => {
+        setIssues(data);
+      })
+      .catch(error => {
+        console.error('Error fetching issues:', error);
+      });
+  };
 
   //1998 PHASE ISSUES
   const decommissioningIssue = new Issue('Paramilitary Weapons Decomissioning ', 
@@ -159,8 +191,6 @@ const Scales = () => {
   //                                           '/self-determination.webp',
   //                                           10);
 
-  const phase1998Issues = [decommissioningIssue];
-
   // 2020 PHASE ISSUES
   const irishSeaBorderIssue = new Issue('Paramilitary Weapons Decomissioning ', 
   'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
@@ -188,7 +218,6 @@ const Scales = () => {
   const phase2020Issues = [irishSeaBorderIssue];
 
   // COMPOSITE ARRAY OF PHASES
-  const phaseIssues = [phase1998Issues, phase2020Issues];
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
   let pageTitle = phaseNames[currentPhase];
 
@@ -331,7 +360,7 @@ const Scales = () => {
     console.log(peaceScales.getUnionistIssues);
   }
 
-  return (
+  return assetsInitialised ? (
     <div className="page" style={containerStyle}>
       <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />
         <div style={{ position: 'relative', zIndex: 2 }}>
@@ -346,161 +375,161 @@ const Scales = () => {
           <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={logScales} />
         </div>
 
-        <div className="titleAndBalanceContainer">
-          <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-            <h1>{pageTitle}</h1>
-          </Slide>
+          <div className="titleAndBalanceContainer">
+            <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+              <h1>{pageTitle}</h1>
+            </Slide>
 
-          <h3>
-            <AnimatedNumber
-              value={balancePercentage}
-              formatValue={(value) => value.toFixed(2)}
-              duration={1000} // Duration in milliseconds
-            />
-            % Balance Achieved
-          </h3>
-        </div>
+            <h3>
+              <AnimatedNumber
+                value={balancePercentage}
+                formatValue={(value) => value.toFixed(2)}
+                duration={1000} // Duration in milliseconds
+              />
+              % Balance Achieved
+            </h3>
+          </div>
 
           <div className="shelf-and-scale-wrapper">
 
-          <Slide direction="right" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-            <div className="shelf-zone">
+            <Slide direction="right" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+              <div className="shelf-zone">
+            
+                  <div className='books'>
+                  {bookshelfObject.getIssues().map((issue) => (
+                    <div className='bookOnShelf'
+                    onClick={displayIssueInfo.bind(this, issue)}>
+                      <img
+                        src={process.env.PUBLIC_URL + '/single-book.png'}
+                          alt="Bookshelf"
+                          style={{ width: '2em', 
+                                    height: 'auto',
+                                    display: 'block',
+                                    margin: 'auto' }} />
+                    </div>
+                  ))}
+                  </div>
 
-              <div className='books'>
-              {bookshelfObject.getIssues().map((issue) => (
-                <div className='bookOnShelf'
-                onClick={displayIssueInfo.bind(this, issue)}>
+                <div className = "shelf" >
                   <img
-                    src={process.env.PUBLIC_URL + '/single-book.png'}
-                      alt="Bookshelf"
-                      style={{ width: '2em', 
-                                height: 'auto',
-                                display: 'block',
-                                margin: 'auto' }} />
+                  src={process.env.PUBLIC_URL + '/shelf.png'}
+                    alt="Bookshelf"
+                    style={{ width: '80%', 
+                              height: 'auto',
+                              display: 'block',
+                              margin: 'auto' }} />
                 </div>
-              ))}
-              </div>
 
-              <div className = "shelf" >
-                <img
-                src={process.env.PUBLIC_URL + '/shelf.png'}
-                  alt="Bookshelf"
-                  style={{ width: '80%', 
+
+              </div>
+              </Slide>
+
+              <Slide direction="left" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+              <div
+                className="drop-zone"
+                style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
+              >
+                  <div className="unionistSide">
+
+                  <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
+                    {peaceScales.getUnionistIssues().map((issue) => (
+                      <div
+                        className="unionistIssue"
+                        key={issue.id}
+                      >
+                        <img
+                          src={process.env.PUBLIC_URL + '/single-book.png'}
+                          alt="Bookshelf"
+                          style={{ 
+                            width: '2em', 
                             height: 'auto',
                             display: 'block',
-                            margin: 'auto' }} />
+                            margin: 'auto',
+                            cursor: 'pointer' // Add cursor pointer for hover effect
+                          }}
+                          aria-describedby={issue.id}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                          // onMouseLeave={handlePopoverClose}
+                        />
+                        <Popover
+                          id={issue.id}
+                          open={Boolean(anchorEl)}
+                          anchorEl={anchorEl}
+                          onClose={handlePopoverClose}
+                          anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
+                        </Popover>
+                      </div>
+                    ))}
+                  </div>
+
+
+                      <div className = "unionistPlatform">
+                        <h4>{peaceScales.getUnionistWeight()}</h4>
+                      </div>
+                  </div>
+
+
+                  <div className="nationalistSide" >
+
+                  <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+                    {peaceScales.getNationalistIssues().map((issue) => (
+                      <div
+                        className="nationalistIssue"
+                        key={issue.id}
+                      >
+                        <img
+                          src={process.env.PUBLIC_URL + '/single-book.png'}
+                          alt="Bookshelf"
+                          style={{ 
+                            width: '2em', 
+                            height: 'auto',
+                            display: 'block',
+                            margin: 'auto',
+                            cursor: 'pointer' // Add cursor pointer for hover effect
+                          }}
+                          aria-describedby={issue.id}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                          // onMouseLeave={handlePopoverClose}
+                        />
+                        <Popover
+                          id={issue.id}
+                          open={Boolean(anchorEl)}
+                          anchorEl={anchorEl}
+                          onClose={handlePopoverClose}
+                          anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
+                        </Popover>
+                      </div>
+                    ))}
+                  </div>
+
+
+                      <div className = "nationalistPlatform">
+                        <h4>{peaceScales.getNationalistWeight()}</h4>
+                      </div>
+                  </div>
+
+                  </div>
+                  </Slide>
               </div>
-
-
             </div>
-            </Slide>
-
-            <Slide direction="left" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-            <div
-              className="drop-zone"
-              style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
-            >
-                <div className="unionistSide">
-
-                <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
-                  {peaceScales.getUnionistIssues().map((issue) => (
-                    <div
-                      className="unionistIssue"
-                      key={issue.id}
-                    >
-                      <img
-                        src={process.env.PUBLIC_URL + '/single-book.png'}
-                        alt="Bookshelf"
-                        style={{ 
-                          width: '2em', 
-                          height: 'auto',
-                          display: 'block',
-                          margin: 'auto',
-                          cursor: 'pointer' // Add cursor pointer for hover effect
-                        }}
-                        aria-describedby={issue.id}
-                        onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
-                        // onMouseLeave={handlePopoverClose}
-                      />
-                      <Popover
-                        id={issue.id}
-                        open={Boolean(anchorEl)}
-                        anchorEl={anchorEl}
-                        onClose={handlePopoverClose}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                      >
-                        <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
-                      </Popover>
-                    </div>
-                  ))}
-                </div>
-
-
-                    <div className = "unionistPlatform">
-                      <h4>{peaceScales.getUnionistWeight()}</h4>
-                    </div>
-                </div>
-
-
-                <div className="nationalistSide" >
-
-                <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
-                  {peaceScales.getNationalistIssues().map((issue) => (
-                    <div
-                      className="nationalistIssue"
-                      key={issue.id}
-                    >
-                      <img
-                        src={process.env.PUBLIC_URL + '/single-book.png'}
-                        alt="Bookshelf"
-                        style={{ 
-                          width: '2em', 
-                          height: 'auto',
-                          display: 'block',
-                          margin: 'auto',
-                          cursor: 'pointer' // Add cursor pointer for hover effect
-                        }}
-                        aria-describedby={issue.id}
-                        onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
-                        // onMouseLeave={handlePopoverClose}
-                      />
-                      <Popover
-                        id={issue.id}
-                        open={Boolean(anchorEl)}
-                        anchorEl={anchorEl}
-                        onClose={handlePopoverClose}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                      >
-                        <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
-                      </Popover>
-                    </div>
-                  ))}
-                </div>
-
-
-                    <div className = "nationalistPlatform">
-                      <h4>{peaceScales.getNationalistWeight()}</h4>
-                    </div>
-                </div>
-
-                </div>
-                </Slide>
-            </div>
-          </div>
     
         <IssueDialog
           isOpen={isDialogOpen}
@@ -517,7 +546,7 @@ const Scales = () => {
 
         <RotateDeviceMessage />
     </div>
-  );
+  ): null;
 };
 
 export default Scales;
