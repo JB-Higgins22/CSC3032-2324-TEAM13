@@ -34,14 +34,14 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {issue && issue.descriptionOne}
+          {issue && issue.description_one}
         </DialogContentText>
         <br />
         <DialogContentText>
-          {issue && issue.descriptionTwo}
+          {issue && issue.description_two}
         </DialogContentText>
         <br />
-        <img src={process.env.PUBLIC_URL + issue?.imageURL}
+        <img src={process.env.PUBLIC_URL + issue?.image_url}
              alt="British & Irish Passports"
              style={{
                width: '70%',
@@ -58,9 +58,9 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
                        scale: '100%',
                        paddingBottom: '20px'
                      }}>
-          <Button onClick={handleOptionA}>{issue?.optionA}</Button>
-          <Button onClick={handleOptionB}>{issue?.optionB}</Button>
-          <Button onClick={handleOptionC}>{issue?.optionC}</Button>
+          <Button onClick={handleOptionA}>{issue?.option_a}</Button>
+          <Button onClick={handleOptionB}>{issue?.option_b}</Button>
+          <Button onClick={handleOptionC}>{issue?.option_c}</Button>
         </ButtonGroup>
       </DialogActions>
     </Dialog>
