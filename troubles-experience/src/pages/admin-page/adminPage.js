@@ -8,6 +8,7 @@ const AdminPage = ({ onFontSizeChange}) => {
 
     const [reflections, setReflections] = useState([]);
     const [showForm, setShowForm] = useState(true);
+    const [showSecondForm, setShowSecondForm] = useState(false);
 
     //ISSUE DATA
     const [name, setName] = useState("");
@@ -163,7 +164,12 @@ const handleSubmit = (e) => {
             throw new Error("Failed to fetch issue count");
           })
           .then((data) => {
-            if (data.count >= 8) {
+            console.log(data.count);
+            if (data.count >= 8 && data.count < 16) {
+              setShowForm(false);
+              setShowSecondForm(true);
+            } else if (data.count >= 16) {
+              setShowSecondForm(false);
               setShowForm(false);
             }
           })
@@ -192,7 +198,12 @@ useEffect(() => {
       throw new Error("Failed to fetch issue count");
     })
     .then((data) => {
-      if (data.count >= 8) {
+      console.log(data.count);
+      if (data.count >= 8 && data.count < 16) {
+        setShowForm(false);
+        setShowSecondForm(true);
+      } else if (data.count >= 16) {
+        setShowSecondForm(false);
         setShowForm(false);
       }
     })
@@ -207,7 +218,7 @@ useEffect(() => {
 
       {showForm && (
     <div>
-      <h2>Issue Form</h2>
+      <h2>1998 Issue Form</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -380,7 +391,186 @@ useEffect(() => {
             </form>
       </div>
       )}
-      
+
+
+      {/*SECOND FORM */}
+
+      {showSecondForm && (
+    <div>
+      <h2>POST 1998 Issue Form</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    placeholder="Name"
+                    required
+                />
+                <input
+                    type="text"
+                    value={descriptionOne}
+                    onChange={(event) => setDescriptionOne(event.target.value)}
+                    placeholder="Description One"
+                    required
+                />
+                <input
+                    type="text"
+                    value={descriptionTwo}
+                    onChange={(event) => setDescriptionTwo(event.target.value)}
+                    placeholder="Description Two"
+                    required
+                />
+                <input
+                    type="text"
+                    value={imageURL}
+                    onChange={(event) => setImageURL(event.target.value)}
+                    placeholder="Image URL"
+                    required
+                />
+                <label>Number Of Options:</label>
+                <label>
+                <input
+                    type="radio"
+                    value="2"
+                    checked={numberOfOptions === '2'}
+                    onChange={() => setNumberOfOptions('2')}
+                />
+                2 Options
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="3"
+                        checked={numberOfOptions === '3'}
+                        onChange={() => setNumberOfOptions('3')}
+                    />
+                    3 Options
+                </label>
+                {/* Option A */}
+                <h3>Option A</h3>
+                <input
+                    type="text"
+                    value={optionA}
+                    onChange={(event) => setOptionA(event.target.value)}
+                    placeholder="Option A"
+                    required
+                />
+                <label>Option A Nationalist Weight:</label>
+                <input
+                    type="number"
+                    value={optionANationalistWeight}
+                    onChange={(event) => setOptionANationalistWeight(event.target.value)}
+                    placeholder="Option A Nationalist Weight"
+                    required
+                />
+                <input
+                    type="text"
+                    value={optionANationalistPerspective}
+                    onChange={(event) => setOptionANationalistPerspective(event.target.value)}
+                    placeholder="Option A Nationalist Perspective"
+                    required
+                />
+                <label>Option A Unionist Weight:</label>
+                <input
+                    type="number"
+                    value={optionAUnionistWeight}
+                    onChange={(event) => setOptionAUnionistWeight(event.target.value)}
+                    placeholder="Option A Unionist Weight"
+                    required
+                />
+                <input
+                    type="text"
+                    value={optionAUnionistPerspective}
+                    onChange={(event) => setOptionAUnionistPerspective(event.target.value)}
+                    placeholder="Option A Unionist Perspective"
+                    required
+                />
+                
+                {/* Option B */}
+                <h3>Option B</h3>
+                <input
+                    type="text"
+                    value={optionB}
+                    onChange={(event) => setOptionB(event.target.value)}
+                    placeholder="Option B"
+                    required
+                />
+                <label>Option B Nationalist Weight:</label>
+                <input
+                    type="number"
+                    value={optionBNationalistWeight}
+                    onChange={(event) => setOptionBNationalistWeight(event.target.value)}
+                    placeholder="Option B Nationalist Weight"
+                    required
+                />
+                <input
+                    type="text"
+                    value={optionBNationalistPerspective}
+                    onChange={(event) => setOptionBNationalistPerspective(event.target.value)}
+                    placeholder="Option B Nationalist Perspective"
+                    required
+                />
+                <label>Option B Unionist Weight:</label>
+                <input
+                    type="number"
+                    value={optionBUnionistWeight}
+                    onChange={(event) => setOptionBUnionistWeight(event.target.value)}
+                    placeholder="Option B Unionist Weight"
+                    required
+                />
+                <input
+                    type="text"
+                    value={optionBUnionistPerspective}
+                    onChange={(event) => setOptionBUnionistPerspective(event.target.value)}
+                    placeholder="Option B Unionist Perspective"
+                    required
+                />
+                
+                {/* Option C */}
+                <h3>Option C</h3>
+                <input
+                    type="text"
+                    value={optionC}
+                    onChange={(event) => setOptionC(event.target.value)}
+                    placeholder="Option C"
+                    required
+                />
+                <label>Option C Nationalist Weight:</label>
+                <input
+                    type="number"
+                    value={optionCNationalistWeight}
+                    onChange={(event) => setOptionCNationalistWeight(event.target.value)}
+                    placeholder="Option C Nationalist Weight"
+                    required
+                />
+                <input
+                    type="text"
+                    value={optionCNationalistPerspective}
+                    onChange={(event) => setOptionCNationalistPerspective(event.target.value)}
+                    placeholder="Option C Nationalist Perspective"
+                    required
+                />
+                <label>Option C Unionist Weight:</label>
+                <input
+                    type="number"
+                    value={optionCUnionistWeight}
+                    onChange={(event) => setOptionCUnionistWeight(event.target.value)}
+                    placeholder="Option C Unionist Weight"
+                    required
+                />
+                <input
+                    type="text"
+                    value={optionCUnionistPerspective}
+                    onChange={(event) => setOptionCUnionistPerspective(event.target.value)}
+                    placeholder="Option C Unionist Perspective"
+                    required
+                />
+                
+                <button type="submit">Submit</button>
+            </form>
+      </div>
+      )}
+
       <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
       <table>
                 <thead>

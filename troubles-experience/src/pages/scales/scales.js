@@ -39,6 +39,7 @@ const Scales = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverContent, setPopoverContent] = useState('');
   const [issues, setIssues] = useState([]);
+  const [phaseTwoIssues, setPhaseTwoIssues] = useState([]);
   const [dataFetched, setDataFetched] = useState(false);
   const [assetsInitialised, setAssetsInitialised] = useState(false);
 
@@ -125,7 +126,8 @@ const Scales = () => {
 
       setTimeout(() => {
         setCurrentPhase(prevPhase => prevPhase + 1);
-        initialiseIssues(currentPhase + 1);
+        setIssues(phaseTwoIssues);
+        initialiseIssues(issues);
         setUnionistHeight(10);
         setNationalistHeight(10);
         setShowContents(prevShowContents => !prevShowContents); // Make the Contents Re-appear
@@ -134,21 +136,48 @@ const Scales = () => {
   }
 
   // Function to fetch issues from the server
-  const fetchIssues = async () => {
-    fetch('http://localhost:4000/issues')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Failed to fetch issues');
-      })
-      .then(data => {
-        setIssues(data);
-      })
-      .catch(error => {
-        console.error('Error fetching issues:', error);
+const fetchIssues = async () => {
+  fetch('http://localhost:4000/issues')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Failed to fetch issues');
+    })
+    .then(data => {
+      // Create Issue objects for each issue received
+      const parsedIssues = data.map(issue => {
+        return new Issue(
+          issue.name,
+          issue.description_one,
+          issue.description_two,
+          issue.image_url,
+          issue.option_a,
+          issue.option_a_nationalist_weight,
+          issue.option_a_nationalist_perspective,
+          issue.option_a_unionist_weight,
+          issue.option_a_unionist_perspective,
+          issue.option_b,
+          issue.option_b_nationalist_weight,
+          issue.option_b_nationalist_perspective,
+          issue.option_b_unionist_weight,
+          issue.option_b_unionist_perspective,
+          issue.option_c,
+          issue.option_c_nationalist_weight,
+          issue.option_c_nationalist_perspective,
+          issue.option_c_unionist_weight,
+          issue.option_c_unionist_perspective,
+          "X"
+        );
       });
-  };
+      setPhaseTwoIssues(parsedIssues.slice(8));
+      setIssues(parsedIssues.slice(0,8));
+    })
+    .catch(error => {
+      console.error('Error fetching issues:', error);
+    });
+};
+
 
   //1998 PHASE ISSUES
   const decommissioningIssue = new Issue('Paramilitary Weapons Decomissioning ', 
@@ -304,25 +333,6 @@ const Scales = () => {
     handleCloseDialog();
   }
 
-  // const placeOnUnionistSide = () => {
-  //   const updatedScales = peaceScales.placeOnUnionist(selectedIssue);
-  //   const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
-  //   setPeaceScales(updatedScales);
-  //   setBookshelfObject(updatedBookshelf);
-  //   updateHeight(updatedScales); // Call updateHeight to recalculate heights
-  //   updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-  //   handleCloseDialog();
-  // };
-  
-  // const placeOnNationalistSide = () => {
-  //   const updatedScales = peaceScales.placeOnNationalist(selectedIssue);
-  //   const updatedBookshelf = bookshelfObject.removeBook(selectedIssue);
-  //   setPeaceScales(updatedScales);
-  //   setBookshelfObject(updatedBookshelf);
-  //   updateHeight(updatedScales); // Call updateHeight to recalculate heights
-  //   updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-  //   handleCloseDialog();
-  // };
 
  const updateHeight = () => {
     const totalWeight = peaceScales.getUnionistWeight() + peaceScales.getNationalistWeight();
@@ -381,7 +391,7 @@ const Scales = () => {
           <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} onClick={displaySettingsDialog}/>
           
 
-          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={logScales} />
+          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={SubmitScales} />
         </div>
 
           <div className="titleAndBalanceContainer">
