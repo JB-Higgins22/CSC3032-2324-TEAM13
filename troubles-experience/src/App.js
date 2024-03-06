@@ -17,15 +17,11 @@ import clickSound from "./sounds/";
 */
 
 function App() {
-  const [fontSize, setFontSize] = useState(90); // Initial font size
- /*
-  const [playSound, { stop }] = useSound(clickSound, { volume: 1, loop: true }); // Initialize the playSound function with loop option set to true
-*/
-  const handleFontSizeChange = (newSize) => {
-    setFontSize(newSize);
-  };
-
+ 
   /*
+  const [playSound, { stop }] = useSound(clickSound, { volume: 1, loop: true }); // Initialize the playSound function with loop option set to true
+
+  
   useEffect(() => {
     // Cleanup function to stop the sound and clear the interval when component unmounts
     return () => {
@@ -45,12 +41,13 @@ function App() {
 
 
   return (
-    <div className="App" style={{ fontSize: `${fontSize}%` }}>
+    <div className="App">
       <Router>
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route path='/scales' element={<Scales />} />
-          <Route path='/settingsDialog' element={<SettingsDialog onFontSizeChange={handleFontSizeChange}/>} />
+          <Route path='/settingsDialog' element={<SettingsDialog/>} />
+          <Route path='/settings' element={<Settings/>} />
           <Route path='/results' element={<ResultsPage />} />
           <Route path='/pre-game-info' element={<PreGameInfo />} />
           <Route path='/reflection' element={<Reflection />} />

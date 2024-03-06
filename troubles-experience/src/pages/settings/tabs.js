@@ -45,32 +45,48 @@ function CustomTabPanel(props) {
   );
 }
 
-//Styling functions - applies styling from global.css to the root contained in index.js
-function applyBlackAndWhiteStyling() {
-  const root = document.getElementById('root');
-  root.classList.toggle('black-white-mode');
+//Styling functions - applies styling directly to .body in index.css 
+function applyBlackAndWhiteStyling(apply) {
+  const body = document.body;
+  if (apply) {
+    body.style.filter = 'grayscale(100%)';
+  } else {
+    body.style.filter = 'none';
+  }
 }
 
-function applyHighContrastStyling() {
-  const root = document.getElementById('root');
-  root.classList.toggle('high-contrast-mode');
+function applyHighContrastStyling(apply) {
+  const body = document.body;
+  if (apply) {
+    body.style.filter = 'contrast(200%)';
+  } else {
+    body.style.filter = 'none';
+  }
 }
 
-//Potential to change backend functionality of font increase to apply styling via global.css
-/*
-function applyFontStyling() {
-  const root = document.getElementById('root');
-  root.classList.toggle('font-increase');
+function applyFontSizeSmall() {
+  const body = document.body;
+  body.style.fontSize = '75%';
+   
 }
-*/
-export default function BasicTabs({ isOpen, handleClose, onFontSizeChange }) {
+
+function applyFontSizeMedium() {
+  const body = document.body;
+  body.style.fontSize = '90%';
+}
+
+function applyFontSizeLarge() {
+  const body = document.body;
+  body.style.fontSize = '150%';
+}
+
+export default function BasicTabs({ isOpen, handleClose }) {
 
   const [value, setValue] = React.useState(0);
   
   //Defining state variables
     const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(false); 
     const [highContrastMode, setHighContrastMode] = useState(false);
-    const [fontIncrease, setFontIncrease] = useState(false);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -79,21 +95,14 @@ export default function BasicTabs({ isOpen, handleClose, onFontSizeChange }) {
     //Toggling states 'on' and calling relevant functions
     const toggleBlackAndWhiteMode = () => {
       setBlackAndWhiteMode(!blackAndWhiteMode); // Toggle blackAndWhiteMode state
-      applyBlackAndWhiteStyling(); // Apply black and white styles
+      applyBlackAndWhiteStyling(!blackAndWhiteMode);
     };
     
     const toggleHighContrastMode = () => {
       setHighContrastMode(!highContrastMode);
-      applyHighContrastStyling(); 
+      applyHighContrastStyling(!highContrastMode);
     };
 
-//Potential to change backend functionality of font increase to apply styling via global.css
-    /*
-    const toggleFontIncrease = () => {
-      setFontIncrease(!fontIncrease);
-      applyFontStyling(); 
-    };
-    */
     
   //Tabs 
   return (
@@ -143,7 +152,7 @@ export default function BasicTabs({ isOpen, handleClose, onFontSizeChange }) {
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-        <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
+        <FontSizeRadioButtons />
         </Box>
       </CustomTabPanel>
 
@@ -156,7 +165,7 @@ export default function BasicTabs({ isOpen, handleClose, onFontSizeChange }) {
         </Box>
       </CustomTabPanel>
 
-      <SettingsDialog isOpen={isOpen} handleClose={handleClose} onFontSizeChange={onFontSizeChange} blackAndWhiteMode={blackAndWhiteMode} />
+      <SettingsDialog isOpen={isOpen} handleClose={handleClose} blackAndWhiteMode={blackAndWhiteMode} />
 
     </Box>
   );
@@ -166,17 +175,29 @@ export default function BasicTabs({ isOpen, handleClose, onFontSizeChange }) {
 const marks = [
   { value: 75, label: 'Small', size: 15 },
   { value: 90, label: 'Medium', size: 20 },
-  { value: 125, label: 'Large', size: 25},
+  { value: 150, label: 'Large', size: 25},
 ];
 
-function FontSizeRadioButtons({ onFontSizeChange }) {
+function FontSizeRadioButtons() {
   const [selectedValue, setSelectedValue] = React.useState(90); // Default to Medium
 
   const handleChange = (event) => {
     const newValue = parseInt(event.target.value);
     setSelectedValue(newValue);
-    onFontSizeChange(newValue); // Call the parent function to change font size
-    document.body.style.fontSize = `${newValue}%`; // Apply font size globally
+   
+    switch (newValue) {
+      case 75:
+        applyFontSizeSmall();
+        break;
+      case 90:
+        applyFontSizeMedium();
+        break;
+      case 150:
+        applyFontSizeLarge();
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -185,6 +206,7 @@ function FontSizeRadioButtons({ onFontSizeChange }) {
         <FormControlLabel
           key={index}
           value={mark.value.toString()}
+          //gives Radio buttons different sizes
           control={<Radio sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size } }} />}
           label=""
           onChange={handleChange}

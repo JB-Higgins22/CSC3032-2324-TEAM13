@@ -19,6 +19,7 @@ const dialogStyles = {
 
 const IssueDialog = ({ isOpen, handleClose, issue, handlePlaceUnionist, handlePlaceNationalist}) => {
   return (
+  
     <Dialog open={isOpen} 
             onClose={handleClose} 
             className = "dialogueBox" 
