@@ -56,6 +56,14 @@ function applyBlackAndWhiteStyling(apply) {
   } else {
     body.style.filter = 'none';
   }
+//Styling functions - applies styling directly to .body in index.css 
+function applyBlackAndWhiteStyling(apply) {
+  const body = document.body;
+  if (apply) {
+    body.style.filter = 'grayscale(100%)';
+  } else {
+    body.style.filter = 'none';
+  }
 }
 
 function applyHighContrastStyling(apply) {
@@ -126,6 +134,7 @@ export default function BasicTabs({ isOpen, handleClose, isOpen, handleClose  })
       setFontIncrease(!fontIncrease);
       applyFontStyling(); 
     };
+    */
 
     
   //Tabs 
@@ -176,7 +185,7 @@ export default function BasicTabs({ isOpen, handleClose, isOpen, handleClose  })
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-        <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
+        <FontSizeRadioButtons />
         </Box>
       </CustomTabPanel>
 
@@ -189,7 +198,7 @@ export default function BasicTabs({ isOpen, handleClose, isOpen, handleClose  })
         </Box>
       </CustomTabPanel>
 
-      <SettingsDialog isOpen={isOpen} handleClose={handleClose} onFontSizeChange={onFontSizeChange} blackAndWhiteMode={blackAndWhiteMode} />
+  
 
 
       <SettingsDialog isOpen={isOpen} handleClose={handleClose} blackAndWhiteMode={blackAndWhiteMode} />
@@ -233,7 +242,8 @@ function FontSizeRadioButtons() {
         <FormControlLabel
           key={index}
           value={mark.value.toString()}
-          control={<Radio  className = "Mui" sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size} }} />}
+          //gives Radio buttons different sizes
+          control={<Radio sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size } }} />}
           label=""
           onChange={handleChange}
           checked={selectedValue === mark.value}
