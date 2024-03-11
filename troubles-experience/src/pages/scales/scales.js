@@ -31,7 +31,7 @@ import './scales.css';
 
 const Scales = () => {
   // STATE OF SCALES/BOOKSHELF/ISSUES
-  const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], [], 50, 50));
+  const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], [], 0, 0));
   const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [balancePercentage, setBalancePercentage] = useState(100);
@@ -101,7 +101,7 @@ const Scales = () => {
 
   // Initialise Scales & Bookshelf & Issues
   function initialiseScales() {           
-    setPeaceScales(new ScalesObject([], [], [], 50, 50));
+    setPeaceScales(new ScalesObject([], [], [], 0, 0));
   }
 
   function initialiseBookshelfObject() {
@@ -109,7 +109,7 @@ const Scales = () => {
   }
 
   function initialiseIssues(issues) {
-    setPeaceScales(new ScalesObject([], [], [], 50, 50));
+    setPeaceScales(new ScalesObject([], [], [], 0, 0));
     setBookshelfObject(new BookshelfObject(issues));
     pageTitle = phaseNames[currentPhase];
   }
@@ -168,6 +168,7 @@ const fetchIssues = async () => {
           issue.option_c_nationalist_perspective,
           issue.option_c_unionist_weight,
           issue.option_c_unionist_perspective,
+          issue.number_of_options,
           "X"
         );
       });
@@ -347,23 +348,20 @@ const fetchIssues = async () => {
 
     const totalWeight = nationalistWeight + unionistWeight;
 
-    // Calculate percentages
-    let unionistPercentage = 0;
-    let nationalistPercentage = 0;
+    let percentage = 0;
+    let roundedPercentage = 0;
 
-    if (unionistWeight !== 0) {
-      unionistPercentage = (unionistWeight / totalWeight) * 100;
+    if (unionistWeight == 0 || nationalistWeight == 0) {
+      setBalancePercentage(0);
+    } else if (unionistWeight >= nationalistWeight) {
+      percentage = (nationalistWeight / unionistWeight) * 100;
+      roundedPercentage = parseFloat(percentage.toFixed(2));
+      setBalancePercentage(roundedPercentage);
+    } else {
+      percentage = (unionistWeight / nationalistWeight) * 100;
+      roundedPercentage = parseFloat(percentage.toFixed(2));
+      setBalancePercentage(roundedPercentage);
     }
-
-    if (nationalistWeight !== 0) {
-      nationalistPercentage = (nationalistWeight / totalWeight) * 100;
-    }
-    
-    // Calculate balance percentage
-    const balancePercentage = Math.abs(nationalistPercentage - unionistPercentage);
-    const roundedBalancePercentage = parseFloat(balancePercentage.toFixed(2)); // Rounding to 2 decimal places
-
-    setBalancePercentage(roundedBalancePercentage);
 
   }
 
@@ -396,7 +394,7 @@ const fetchIssues = async () => {
     
     // Adjust heights inversely based on tilt
     // The side tilting down gets a height boost, the other side gets a reduction
-    const heightAdjustment = tiltRatio * 20; // Max adjustment of 20% for max tilt
+    const heightAdjustment = tiltRatio * 30; // Max adjustment of 20% for max tilt
     
     let newUnionistHeight, newNationalistHeight;
     if (tiltAngle > 0) { // Nationalist side tilts down
@@ -462,7 +460,7 @@ const fetchIssues = async () => {
                     <div className='bookOnShelf'
                     onClick={displayIssueInfo.bind(this, issue)}>
                       <img
-                        src={process.env.PUBLIC_URL + '/single-book.png'}
+                        src={process.env.PUBLIC_URL + '/IMG_2965.png'}
                           alt="Bookshelf"
                           style={{ width: '2em', 
                                     height: 'auto',

@@ -59,7 +59,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
                      }}>
           <Button onClick={handleOptionA}>{issue?.optionA}</Button>
           <Button onClick={handleOptionB}>{issue?.optionB}</Button>
-          { (issue?.number_of_options == 3) && (
+          { (issue?.numberOfOptions === 3) && (
             <Button onClick={handleOptionC}>{issue?.optionC}</Button>
           )}
         </ButtonGroup>

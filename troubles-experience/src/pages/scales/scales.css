@@ -75,17 +75,17 @@
 .shelf-and-scale-wrapper {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 50vh; /* Adjust height as needed */
 }
 
 .shelf-zone {
   flex: 1;
-  width: 1000px;
+  width: 100%;
   height: 500px;
 }
 
 .books {
-  margin-top: 30%;
+  margin-top: 20%;
   display: flex;
   height: auto;
   width: auto;
