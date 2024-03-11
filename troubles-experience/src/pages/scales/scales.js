@@ -44,10 +44,12 @@ const Scales = () => {
   const [assetsInitialised, setAssetsInitialised] = useState(false);
 
   // STATE OF SCALE HEIGHTS/WEIGHTS
-  const [unionistHeight, setUnionistHeight] = useState(10);
-  const [nationalistHeight, setNationalistHeight] = useState(10);
+  const [unionistHeight, setUnionistHeight] = useState(50);
+  const [nationalistHeight, setNationalistHeight] = useState(50);
   const [phaseOneResult, setPhaseOneResult] = useState(0);
   const [phaseTwoResult, setPhaseTwoResult] = useState(0);
+  const [scaleTiltAngle, setScaleTiltAngle] = useState(0); // Angle in degrees
+
 
   // STATE OF PHASE
   const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
@@ -304,7 +306,8 @@ const fetchIssues = async () => {
     const updatedScales = peaceScales.selectOptionA(selectedIssue);
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalanceAndTilt(updatedScales);
+    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
     handleCloseDialog();
   }
 
@@ -312,7 +315,8 @@ const fetchIssues = async () => {
     const updatedScales = peaceScales.selectOptionB(selectedIssue);
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalanceAndTilt(updatedScales);
+    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
     handleCloseDialog();
   }
 
@@ -320,7 +324,8 @@ const fetchIssues = async () => {
     const updatedScales = peaceScales.selectOptionC(selectedIssue);
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalanceAndTilt(updatedScales);
+    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
     handleCloseDialog();
   }
 
@@ -335,8 +340,6 @@ const fetchIssues = async () => {
     setUnionistHeight(unionistPercentage);
     setNationalistHeight(nationalistPercentage);
 };
-
-
 
   const updateBalance = (scales) => {
     const unionistWeight = scales.getUnionistWeight();
@@ -363,6 +366,55 @@ const fetchIssues = async () => {
     setBalancePercentage(roundedBalancePercentage);
 
   }
+
+  const updateBalanceAndTilt = (scales) => {
+    const balanceDifference = Math.abs(scales.getUnionistWeight() - scales.getNationalistWeight());
+    const totalWeight = scales.getUnionistWeight() + scales.getNationalistWeight();
+    const balanceRatio = balanceDifference / totalWeight;
+    
+    // Assuming max tilt of 30 degrees for full imbalance
+    const maxTiltDegrees = 30;
+    let tiltAngle = balanceRatio * maxTiltDegrees;
+  
+    // Adjust direction of tilt based on which side is heavier
+    if (scales.getUnionistWeight() > scales.getNationalistWeight()) {
+      tiltAngle = -tiltAngle; // Tilt to the left for unionist heavier
+    }
+
+    console.log("Tilt Angle: " + tiltAngle);
+    
+    setScaleTiltAngle(tiltAngle);
+    updateHeightsBasedOnTilt(tiltAngle);
+  };
+
+  const updateHeightsBasedOnTilt = (tiltAngle) => {
+    const maxTiltDegrees = 30;
+    const baseHeight = 50; // Assuming both sides start at equal heights when balanced
+
+    const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
+    console.log("Tilt Angle: " + tiltRatio);
+    
+    // Adjust heights inversely based on tilt
+    // The side tilting down gets a height boost, the other side gets a reduction
+    const heightAdjustment = tiltRatio * 20; // Max adjustment of 20% for max tilt
+    
+    let newUnionistHeight, newNationalistHeight;
+    if (tiltAngle > 0) { // Nationalist side tilts down
+      newNationalistHeight = baseHeight + heightAdjustment;
+      newUnionistHeight = baseHeight - heightAdjustment;
+    } else { // Unionist side tilts down
+      newUnionistHeight = baseHeight + heightAdjustment;
+      newNationalistHeight = baseHeight - heightAdjustment;
+    }
+
+    // LOGGING HEIGHTS FOR DEBUGGING
+    console.log(newUnionistHeight);
+    console.log(newNationalistHeight);
+  
+    setUnionistHeight(newUnionistHeight);
+    setNationalistHeight(newNationalistHeight);
+  };
+  
 
   function logScales() {
     console.log(peaceScales);
@@ -560,33 +612,3 @@ const fetchIssues = async () => {
 };
 
 export default Scales;
-
-
-  // ================= OLD DRAG & DROP LOGIC  =================
-  // const handleDragStart = (issue) => {
-  //   setDraggedIssue(issue);
-  // };
-
-  // const handleDragOver = (event) => {
-  //   event.preventDefault();
-  // };
-
-  // const handleDrop = (event) => {
-  //   event.preventDefault();
-  
-  //   if (draggedIssue) {
-  //     const isOnUnionistSide = event.target.className.includes('unionistSide');
-  //     const isOnNationalistSide = event.target.className.includes('nationalistSide');
-  
-  //     // Update the scales accordingly
-  //     if (isOnUnionistSide) {
-  //       setPeaceScales((prevScales) => prevScales.placeOnUnionist(draggedIssue));
-  //     } else if (isOnNationalistSide) {
-  //       setPeaceScales((prevScales) => prevScales.placeOnNationalist(draggedIssue));
-  //     }
-  
-  //     // Clear the dragged issue state after the drop
-  //     setDraggedIssue(null);
-  //   }
-  // };
-  //  =================  =================  =================
