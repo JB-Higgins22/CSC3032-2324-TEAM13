@@ -173,5 +173,71 @@ app.post("/login", (req, res) => {
         });
 });
 
+// Endpoint to add a new issue
+app.post("/addissue", (req, res) => {
+    // Extract issue data from request body
+    const { name, descriptionOne, descriptionTwo, imageURL, numberOfOptions, selectedOption,
+            optionA, optionANationalistWeight, optionANationalistPerspective, optionAUnionistWeight, optionAUnionistPerspective,
+            optionB, optionBNationalistWeight, optionBNationalistPerspective, optionBUnionistWeight, optionBUnionistPerspective,
+            optionC, optionCNationalistWeight, optionCNationalistPerspective, optionCUnionistWeight, optionCUnionistPerspective } = req.body;
+
+    // Use parameterized queries to prevent SQL injection
+    const insertIssueCommand = `
+        INSERT INTO issues (
+            name, description_one, description_two, image_url, number_of_options, selected_option,
+            option_a, option_a_nationalist_weight, option_a_nationalist_perspective, option_a_unionist_weight, option_a_unionist_perspective,
+            option_b, option_b_nationalist_weight, option_b_nationalist_perspective, option_b_unionist_weight, option_b_unionist_perspective,
+            option_c, option_c_nationalist_weight, option_c_nationalist_perspective, option_c_unionist_weight, option_c_unionist_perspective
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING *`;
+
+    // Execute the query
+    pool
+        .query(insertIssueCommand, [
+            name, descriptionOne, descriptionTwo, imageURL, numberOfOptions, selectedOption,
+            optionA, optionANationalistWeight, optionANationalistPerspective, optionAUnionistWeight, optionAUnionistPerspective,
+            optionB, optionBNationalistWeight, optionBNationalistPerspective, optionBUnionistWeight, optionBUnionistPerspective,
+            optionC, optionCNationalistWeight, optionCNationalistPerspective, optionCUnionistWeight, optionCUnionistPerspective
+        ])
+        .then((response) => {
+            console.log("Issue Added");
+            res.status(201).json(response.rows[0]); // Send the inserted issue data back as response
+        })
+        .catch((err) => {
+            console.error("Error adding issue:", err);
+            res.status(500).send("Error adding issue");
+        });
+});
+
+
+// Endpoint to get all issues
+app.get("/issues", (req, res) => {
+    pool
+        .query("SELECT * FROM issues")
+        .then((response) => {
+            res.status(200).json(response.rows); // Send the retrieved issues as response
+        })
+        .catch((err) => {
+            console.error("Error retrieving issues:", err);
+            res.status(500).send("Error retrieving issues");
+        });
+});
+
+// Endpoint to get the number of rows in the issues table
+app.get("/issueCount", (req, res) => {
+    const countQuery = "SELECT COUNT(*) FROM issues";
+    
+    pool
+        .query(countQuery)
+        .then((response) => {
+            // Extract the count from the response
+            const rowCount = response.rows[0].count;
+            res.status(200).json({ count: rowCount });
+        })
+        .catch((err) => {
+            console.error("Error retrieving issue count:", err);
+            res.status(500).send("Error retrieving issue count");
+        });
+});
+
 app.listen(4000, () => console.log("Server on localhost:4000"));
 

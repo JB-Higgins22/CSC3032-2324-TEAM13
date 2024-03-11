@@ -1,4 +1,3 @@
-// IssueDialog.js
 import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -7,8 +6,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import IconButton from '@mui/material/IconButton';
 import Zoom from '@mui/material/Zoom';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 // Define Styles Here For Dialog - Can't Pass Whole StyleSheet to PaperProps
 const dialogStyles = {
@@ -17,38 +17,51 @@ const dialogStyles = {
   height: '29.7cm',
 };
 
-const IssueDialog = ({ isOpen, handleClose, issue, handlePlaceUnionist, handlePlaceNationalist}) => {
+const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB, handleOptionC }) => {
   return (
-    <Dialog open={isOpen} 
-            onClose={handleClose} 
-            className = "dialogueBox" 
-            TransitionComponent={Zoom} 
+    <Dialog open={isOpen}
+            onClose={handleClose}
+            className="dialogueBox"
+            TransitionComponent={Zoom}
             transitionDuration={500}
             PaperProps={{ style: { ...dialogStyles } }}>
-      <DialogTitle>{issue && issue.name}</DialogTitle>
+      <DialogTitle>
+        {issue && issue.name}
+        <IconButton aria-label="close" onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
-        <DialogContentText >
+        <DialogContentText>
           {issue && issue.descriptionOne}
-          </DialogContentText>
-          <br />
-          <DialogContentText >
+        </DialogContentText>
+        <br />
+        <DialogContentText>
           {issue && issue.descriptionTwo}
-          </DialogContentText>
-          <br />
-          <img src={process.env.PUBLIC_URL + issue?.imageURL}
-          alt="British & Irish Passports"
-          style={{ width: '70%', 
-                    height: 'auto',
-                    display: 'block',
-                    margin: 'auto' }} />
+        </DialogContentText>
+        <br />
+        <img src={process.env.PUBLIC_URL + issue?.imageURL}
+             alt="British & Irish Passports"
+             style={{
+               width: '70%',
+               height: 'auto',
+               display: 'block',
+               margin: 'auto'
+             }} />
       </DialogContent>
       <DialogActions>
-        <ButtonGroup variant="outlined" 
-                      aria-label="outlined button group"
-                      style={{ margin: 'auto', scale: '100%', paddingBottom: '20px' }}>
-          <Button onClick={handlePlaceUnionist}>Place On Unionist Side</Button>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handlePlaceNationalist}>Place On Nationalist Side</Button>
+        <ButtonGroup variant="outlined"
+                     aria-label="outlined button group"
+                     style={{
+                       margin: 'auto',
+                       scale: '100%',
+                       paddingBottom: '20px'
+                     }}>
+          <Button onClick={handleOptionA}>{issue?.optionA}</Button>
+          <Button onClick={handleOptionB}>{issue?.optionB}</Button>
+          { (issue?.number_of_options == 3) && (
+            <Button onClick={handleOptionC}>{issue?.optionC}</Button>
+          )}
         </ButtonGroup>
       </DialogActions>
     </Dialog>

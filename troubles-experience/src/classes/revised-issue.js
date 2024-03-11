@@ -1,4 +1,4 @@
-export default class Issue{
+export default class RevisedIssue{
     constructor(name, 
         descriptionOne, 
         descriptionTwo, 
@@ -18,8 +18,7 @@ export default class Issue{
         optionCNationalistPerspective,
         optionCUnionistWeight,
         optionCUnionistPerspective,
-        numberOfOptions,
-        selectedOption) {
+        numberOfOptions) {
 
         // MetaData
         this.name = name;
@@ -27,7 +26,6 @@ export default class Issue{
         this.descriptionTwo = descriptionTwo;
         this.imageURL = imageURL;
         this.numberOfOptions = numberOfOptions;
-        this.selectedOption = selectedOption;
 
         //Option A
         this.optionA = optionA;
@@ -51,37 +49,3 @@ export default class Issue{
         this.optionCUnionistPerspective = optionCUnionistPerspective;
     }
 }
-
-// export default class Issue{
-//     constructor(name, descriptionOne, descriptionTwo, imageURL, weight) {
-//         this.name = name;
-//         this.descriptionOne = descriptionOne;
-//         this.descriptionTwo = descriptionTwo;
-//         this.imageURL = imageURL;
-//         this.weight = weight;
-//     }
-// }
-
-/*
-NAME
-DESCRIPTION ONE
-DESCRIPTION TWO
-IMAGE URL
-
-
-OPTION-A
-OPTION-A-NATIONALIST-WEIGHT
-OPTION-A-NATIONALIST-PERSPECTIVE
-OPTION-A-UNIONIST-WEIGHT
-OPTION-A-UNIONIST-PERSPECTIVE
-
-OPTION-B
-...
-
-OPTION-C
-...
-
-
-NUMBEROFOPTIONS: 3
-
-*/
