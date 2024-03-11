@@ -76,7 +76,6 @@ const Scales = () => {
   }, []); 
 
   useEffect(() => {
-    console.log(issues);
     initialiseScales();
     initialiseBookshelfObject();
     initialiseIssues(issues);
@@ -116,7 +115,6 @@ const Scales = () => {
 
   // Level Progression
   function SubmitScales() {
-    console.log(currentPhase);
 
     if (currentPhase === 1) {
       setPhaseTwoResult(balancePercentage);
@@ -129,8 +127,8 @@ const Scales = () => {
         setCurrentPhase(prevPhase => prevPhase + 1);
         setIssues(phaseTwoIssues);
         initialiseIssues(issues);
-        setUnionistHeight(10);
-        setNationalistHeight(10);
+        setUnionistHeight(50);
+        setNationalistHeight(50);
         setShowContents(prevShowContents => !prevShowContents); // Make the Contents Re-appear
       }, 1200);
     }
@@ -305,6 +303,7 @@ const fetchIssues = async () => {
   // Scale Handling
   const selectOptionA = () => {
     const updatedScales = peaceScales.selectOptionA(selectedIssue);
+
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     updateBalanceAndTilt(updatedScales);
@@ -343,6 +342,7 @@ const fetchIssues = async () => {
 };
 
   const updateBalance = (scales) => {
+
     const unionistWeight = scales.getUnionistWeight();
     const nationalistWeight = scales.getNationalistWeight();
 
@@ -378,8 +378,6 @@ const fetchIssues = async () => {
     if (scales.getUnionistWeight() > scales.getNationalistWeight()) {
       tiltAngle = -tiltAngle; // Tilt to the left for unionist heavier
     }
-
-    console.log("Tilt Angle: " + tiltAngle);
     
     setScaleTiltAngle(tiltAngle);
     updateHeightsBasedOnTilt(tiltAngle);
@@ -390,7 +388,6 @@ const fetchIssues = async () => {
     const baseHeight = 50; // Assuming both sides start at equal heights when balanced
 
     const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
-    console.log("Tilt Angle: " + tiltRatio);
     
     // Adjust heights inversely based on tilt
     // The side tilting down gets a height boost, the other side gets a reduction
@@ -404,10 +401,6 @@ const fetchIssues = async () => {
       newUnionistHeight = baseHeight + heightAdjustment;
       newNationalistHeight = baseHeight - heightAdjustment;
     }
-
-    // LOGGING HEIGHTS FOR DEBUGGING
-    console.log(newUnionistHeight);
-    console.log(newNationalistHeight);
   
     setUnionistHeight(newUnionistHeight);
     setNationalistHeight(newNationalistHeight);
