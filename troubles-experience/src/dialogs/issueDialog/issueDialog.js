@@ -25,7 +25,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
             TransitionComponent={Zoom}
             transitionDuration={500}
             PaperProps={{ style: { ...dialogStyles } }}>
-      <DialogTitle>
+      <DialogTitle style = {{color: 'black'}}>
         {issue && issue.name}
         <IconButton aria-label="close" onClick={handleClose}>
           <CloseIcon />
@@ -41,7 +41,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
         </DialogContentText>
         <br />
         <img src={process.env.PUBLIC_URL + issue?.imageURL}
-             alt="British & Irish Passports"
+             alt="Issue Image"
              style={{
                width: '70%',
                height: 'auto',
@@ -54,13 +54,14 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
                      aria-label="outlined button group"
                      style={{
                        margin: 'auto',
+                       justifyContent: 'center',
                        scale: '100%',
                        paddingBottom: '20px'
                      }}>
-          <Button onClick={handleOptionA}>{issue?.optionA}</Button>
-          <Button onClick={handleOptionB}>{issue?.optionB}</Button>
-          { (issue?.number_of_options == 3) && (
-            <Button onClick={handleOptionC}>{issue?.optionC}</Button>
+          <Button onClick={handleOptionA} style = {{width: '30%'}}>{issue?.optionA}</Button>
+          <Button onClick={handleOptionB} style = {{width: '30%'}} >{issue?.optionB}</Button>
+          { (issue?.numberOfOptions === 3) && (
+            <Button onClick={handleOptionC} style = {{width: '30%'}}>{issue?.optionC}</Button>
           )}
         </ButtonGroup>
       </DialogActions>

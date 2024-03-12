@@ -31,7 +31,7 @@ import './scales.css';
 
 const Scales = () => {
   // STATE OF SCALES/BOOKSHELF/ISSUES
-  const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], [], 50, 50));
+  const [peaceScales, setPeaceScales] = useState(new ScalesObject([], [], [], 0, 0));
   const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [balancePercentage, setBalancePercentage] = useState(100);
@@ -44,10 +44,12 @@ const Scales = () => {
   const [assetsInitialised, setAssetsInitialised] = useState(false);
 
   // STATE OF SCALE HEIGHTS/WEIGHTS
-  const [unionistHeight, setUnionistHeight] = useState(10);
-  const [nationalistHeight, setNationalistHeight] = useState(10);
+  const [unionistHeight, setUnionistHeight] = useState(50);
+  const [nationalistHeight, setNationalistHeight] = useState(50);
   const [phaseOneResult, setPhaseOneResult] = useState(0);
   const [phaseTwoResult, setPhaseTwoResult] = useState(0);
+  const [scaleTiltAngle, setScaleTiltAngle] = useState(0); // Angle in degrees
+
 
   // STATE OF PHASE
   const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
@@ -74,7 +76,6 @@ const Scales = () => {
   }, []); 
 
   useEffect(() => {
-    console.log(issues);
     initialiseScales();
     initialiseBookshelfObject();
     initialiseIssues(issues);
@@ -99,7 +100,7 @@ const Scales = () => {
 
   // Initialise Scales & Bookshelf & Issues
   function initialiseScales() {           
-    setPeaceScales(new ScalesObject([], [], [], 50, 50));
+    setPeaceScales(new ScalesObject([], [], [], 0, 0));
   }
 
   function initialiseBookshelfObject() {
@@ -107,28 +108,28 @@ const Scales = () => {
   }
 
   function initialiseIssues(issues) {
-    setPeaceScales(new ScalesObject([], [], [], 50, 50));
+    setPeaceScales(new ScalesObject([], [], [], 0, 0));
     setBookshelfObject(new BookshelfObject(issues));
     pageTitle = phaseNames[currentPhase];
   }
 
   // Level Progression
   function SubmitScales() {
-    console.log(currentPhase);
 
     if (currentPhase === 1) {
       setPhaseTwoResult(balancePercentage);
-      navigate('/results', { state: { balancePercentages: [phaseOneResult, phaseTwoResult] } });
+      navigate('/results', { state: { balancePercentages: [phaseOneResult, balancePercentage] } });
     } else {
       setPhaseOneResult(balancePercentage);
       setShowContents(prevShowContents => !prevShowContents); // Make the Contents Disappear
 
       setTimeout(() => {
+        setBalancePercentage(100);
         setCurrentPhase(prevPhase => prevPhase + 1);
         setIssues(phaseTwoIssues);
         initialiseIssues(issues);
-        setUnionistHeight(10);
-        setNationalistHeight(10);
+        setUnionistHeight(50);
+        setNationalistHeight(50);
         setShowContents(prevShowContents => !prevShowContents); // Make the Contents Re-appear
       }, 1200);
     }
@@ -166,6 +167,7 @@ const fetchIssues = async () => {
           issue.option_c_nationalist_perspective,
           issue.option_c_unionist_weight,
           issue.option_c_unionist_perspective,
+          issue.number_of_options,
           "X"
         );
       });
@@ -175,76 +177,7 @@ const fetchIssues = async () => {
     .catch(error => {
       console.error('Error fetching issues:', error);
     });
-};
-
-
-  //1998 PHASE ISSUES
-  const decommissioningIssue = new Issue('Paramilitary Weapons Decomissioning ', 
-                                            'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
-                                            'For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  ',
-                                            '/guns.avif',
-                                            'Decommission Now',
-                                            -10,
-                                            'Lets go to the peace talks',
-                                            8,
-                                            'Np more IRA - class',
-                                            'Install Commission',
-                                            10,
-                                            'understandable',
-                                            14,
-                                            'ideal folks',
-                                            'No Decommissioning',
-                                            10,
-                                            'no peace talks',
-                                            -5,
-                                            'aw dear',
-                                            3,
-                                            'X'
-                                            );
-
-  // const northSouthCouncilIssue = new Issue('North/South Council', 
-  //                                             'The North/South Ministerial Council (NSMC) is a body established under the Good Friday Agreement to co-ordinate activity and exercise certain governmental powers across the whole island of Ireland. The Council takes the form of meetings between ministers from both the Republic of Ireland and Northern Ireland and is responsible for twelve policy areas. Six of these areas are the responsibility of corresponding North/South Implementation Bodies. The body is based in the city of Armagh in Northern Ireland.', 
-  //                                             'The North/South Ministerial Council and the Northern Ireland Assembly are "mutually inter-dependent" institutions: one cannot exist without the other.',
-  //                                             '/north-south-council.jpeg',
-  //                                             10);
-
-  // const britishIrishCouncilIssue = new Issue('British/Irish Council', 
-  //                                             'The British and Irish governments, and political parties in Northern Ireland, agreed to form a council under the British–Irish Agreement, part of the Good Friday Agreement reached in 1998. The council was formally established on 2 December 1999, when the Agreement came into effect. The councils stated aim is to "promote the harmonious and mutually beneficial development of the totality of relationships among the peoples of these islands".', 
-  //                                             'At its June 2010 summit, the Council decided to move forward on recommendations to enhance the relationship between it and the British-Irish Parliamentary Assembly (BIPA).',
-  //                                             '/british-irish-council.jpeg',
-  //                                             10);
-
-  // const selfDeterminationIssue = new Issue('The Right to Self-Determination', 
-  //                                           'Under the terms of the British-Irish Agreement, both governments Recognised that it was the right of all persons born in Northern Ireland to identify as Irish or British, or both, and to hold both Irish and British citizenship if they so choose. This right is to continue regardless of any change in the status of Northern Ireland', 
-  //                                           'Desc Two',
-  //                                           '/self-determination.webp',
-  //                                           10);
-
-  // 2020 PHASE ISSUES
-  const irishSeaBorderIssue = new Issue('Paramilitary Weapons Decomissioning ', 
-  'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
-  'For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  ',
-  '/guns.avif',
-  'Decommission Now',
-  -10,
-  'Lets go to the peace talks',
-  10,
-  'Np more IRA - class',
-  'Install Commission',
-  10,
-  'understandable',
-  10,
-  'ideal folks',
-  'No Decommissioning',
-  10,
-  'no peace talks',
-  -10,
-  'aw dear',
-  3,
-  'X'
-  );
-
-  const phase2020Issues = [irishSeaBorderIssue];
+};                                    
 
   // COMPOSITE ARRAY OF PHASES
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
@@ -302,9 +235,11 @@ const fetchIssues = async () => {
   // Scale Handling
   const selectOptionA = () => {
     const updatedScales = peaceScales.selectOptionA(selectedIssue);
+
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalanceAndTilt(updatedScales);
+    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
     handleCloseDialog();
   }
 
@@ -312,7 +247,8 @@ const fetchIssues = async () => {
     const updatedScales = peaceScales.selectOptionB(selectedIssue);
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalanceAndTilt(updatedScales);
+    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
     handleCloseDialog();
   }
 
@@ -320,49 +256,77 @@ const fetchIssues = async () => {
     const updatedScales = peaceScales.selectOptionC(selectedIssue);
     setPeaceScales(updatedScales);
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
-    updateHeight(updatedScales); // Call updateHeight to recalculate heights
+    updateBalanceAndTilt(updatedScales);
+    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
     handleCloseDialog();
   }
 
 
- const updateHeight = () => {
-    const totalWeight = peaceScales.getUnionistWeight() + peaceScales.getNationalistWeight();
-    
-    // Calculate percentages based on weights
-    const unionistPercentage = (peaceScales.getUnionistWeight() / totalWeight) * 100;
-    const nationalistPercentage = (peaceScales.getNationalistWeight() / totalWeight) * 100;
-
-    setUnionistHeight(unionistPercentage);
-    setNationalistHeight(nationalistPercentage);
-};
-
-
-
   const updateBalance = (scales) => {
+
     const unionistWeight = scales.getUnionistWeight();
     const nationalistWeight = scales.getNationalistWeight();
 
     const totalWeight = nationalistWeight + unionistWeight;
 
-    // Calculate percentages
-    let unionistPercentage = 0;
-    let nationalistPercentage = 0;
+    let percentage = 0;
+    let roundedPercentage = 0;
 
-    if (unionistWeight !== 0) {
-      unionistPercentage = (unionistWeight / totalWeight) * 100;
+    if (unionistWeight == 0 || nationalistWeight == 0) {
+      setBalancePercentage(0);
+    } else if (unionistWeight >= nationalistWeight) {
+      percentage = (nationalistWeight / unionistWeight) * 100;
+      roundedPercentage = parseFloat(percentage.toFixed(2));
+      setBalancePercentage(roundedPercentage);
+    } else {
+      percentage = (unionistWeight / nationalistWeight) * 100;
+      roundedPercentage = parseFloat(percentage.toFixed(2));
+      setBalancePercentage(roundedPercentage);
     }
-
-    if (nationalistWeight !== 0) {
-      nationalistPercentage = (nationalistWeight / totalWeight) * 100;
-    }
-    
-    // Calculate balance percentage
-    const balancePercentage = Math.abs(nationalistPercentage - unionistPercentage);
-    const roundedBalancePercentage = parseFloat(balancePercentage.toFixed(2)); // Rounding to 2 decimal places
-
-    setBalancePercentage(roundedBalancePercentage);
 
   }
+
+  const updateBalanceAndTilt = (scales) => {
+    const balanceDifference = Math.abs(scales.getUnionistWeight() - scales.getNationalistWeight());
+    const totalWeight = scales.getUnionistWeight() + scales.getNationalistWeight();
+    const balanceRatio = balanceDifference / totalWeight;
+    
+    // Assuming max tilt of 30 degrees for full imbalance
+    const maxTiltDegrees = 30;
+    let tiltAngle = balanceRatio * maxTiltDegrees;
+  
+    // Adjust direction of tilt based on which side is heavier
+    if (scales.getUnionistWeight() > scales.getNationalistWeight()) {
+      tiltAngle = -tiltAngle; // Tilt to the left for unionist heavier
+    }
+    
+    setScaleTiltAngle(tiltAngle);
+    updateHeightsBasedOnTilt(tiltAngle);
+  };
+
+  const updateHeightsBasedOnTilt = (tiltAngle) => {
+    const maxTiltDegrees = 30;
+    const baseHeight = 50; // Assuming both sides start at equal heights when balanced
+
+    const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
+    
+    // Adjust heights inversely based on tilt
+    // The side tilting down gets a height boost, the other side gets a reduction
+    const heightAdjustment = tiltRatio * 30; // Max adjustment of 20% for max tilt
+    
+    let newUnionistHeight, newNationalistHeight;
+    if (tiltAngle > 0) { // Nationalist side tilts down
+      newNationalistHeight = baseHeight + heightAdjustment;
+      newUnionistHeight = baseHeight - heightAdjustment;
+    } else { // Unionist side tilts down
+      newUnionistHeight = baseHeight + heightAdjustment;
+      newNationalistHeight = baseHeight - heightAdjustment;
+    }
+  
+    setUnionistHeight(newUnionistHeight);
+    setNationalistHeight(newNationalistHeight);
+  };
+  
 
   function logScales() {
     console.log(peaceScales);
@@ -376,13 +340,13 @@ const fetchIssues = async () => {
         <div style={{ position: 'relative', zIndex: 2 }}>
 
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-          <HomeIcon className="homeButton" sx={{ fontSize: 60, marginRight: '10px' }} onClick={displayConfirmQuitDialog} />
+          <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
           <Link to="..\settings">
-          <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} />
+          <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin' }} />
           </Link>
 
-          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={SubmitScales} />
+          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
         </div>
 
           <div className="titleAndBalanceContainer">
@@ -390,6 +354,7 @@ const fetchIssues = async () => {
               <h1>{pageTitle}</h1>
             </Slide>
 
+            <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
             <h3>
               <AnimatedNumber
                 value={balancePercentage}
@@ -398,6 +363,7 @@ const fetchIssues = async () => {
               />
               % Balance Achieved
             </h3>
+            </Slide>
           </div>
 
           <div className="shelf-and-scale-wrapper">
@@ -410,9 +376,9 @@ const fetchIssues = async () => {
                     <div className='bookOnShelf'
                     onClick={displayIssueInfo.bind(this, issue)}>
                       <img
-                        src={process.env.PUBLIC_URL + '/single-book.png'}
+                        src={process.env.PUBLIC_URL + '/IMG_2965.png'}
                           alt="Bookshelf"
-                          style={{ width: '2em', 
+                          style={{ width: '5vmin', 
                                     height: 'auto',
                                     display: 'block',
                                     margin: 'auto' }} />
@@ -424,7 +390,7 @@ const fetchIssues = async () => {
                   <img
                   src={process.env.PUBLIC_URL + '/shelf.png'}
                     alt="Bookshelf"
-                    style={{ width: '80%', 
+                    style={{ width: '70vmin', 
                               height: 'auto',
                               display: 'block',
                               margin: 'auto' }} />
@@ -560,33 +526,3 @@ const fetchIssues = async () => {
 };
 
 export default Scales;
-
-
-  // ================= OLD DRAG & DROP LOGIC  =================
-  // const handleDragStart = (issue) => {
-  //   setDraggedIssue(issue);
-  // };
-
-  // const handleDragOver = (event) => {
-  //   event.preventDefault();
-  // };
-
-  // const handleDrop = (event) => {
-  //   event.preventDefault();
-  
-  //   if (draggedIssue) {
-  //     const isOnUnionistSide = event.target.className.includes('unionistSide');
-  //     const isOnNationalistSide = event.target.className.includes('nationalistSide');
-  
-  //     // Update the scales accordingly
-  //     if (isOnUnionistSide) {
-  //       setPeaceScales((prevScales) => prevScales.placeOnUnionist(draggedIssue));
-  //     } else if (isOnNationalistSide) {
-  //       setPeaceScales((prevScales) => prevScales.placeOnNationalist(draggedIssue));
-  //     }
-  
-  //     // Clear the dragged issue state after the drop
-  //     setDraggedIssue(null);
-  //   }
-  // };
-  //  =================  =================  =================
