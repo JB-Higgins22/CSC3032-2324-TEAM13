@@ -17,7 +17,7 @@ const ConfirmQuitDialog = ({ isOpen, handleClose}) => {
             className = "dialogueBox" 
             TransitionComponent={Zoom} 
             transitionDuration={500}>
-      <DialogTitle>Are You Sure You Want to Quit?</DialogTitle>
+      <DialogTitle style = {{color: 'black'}}>Are You Sure You Want to Quit?</DialogTitle>
       <DialogContent>
         <DialogContentText>
           All Progress Will Be Lost.
