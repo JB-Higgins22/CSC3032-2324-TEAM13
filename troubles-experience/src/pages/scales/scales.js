@@ -119,12 +119,13 @@ const Scales = () => {
 
     if (currentPhase === 1) {
       setPhaseTwoResult(balancePercentage);
-      navigate('/results', { state: { balancePercentages: [phaseOneResult, phaseTwoResult] } });
+      navigate('/results', { state: { balancePercentages: [phaseOneResult, balancePercentage] } });
     } else {
       setPhaseOneResult(balancePercentage);
       setShowContents(prevShowContents => !prevShowContents); // Make the Contents Disappear
 
       setTimeout(() => {
+        setBalancePercentage(100);
         setCurrentPhase(prevPhase => prevPhase + 1);
         setIssues(phaseTwoIssues);
         initialiseIssues(issues);
@@ -177,76 +178,7 @@ const fetchIssues = async () => {
     .catch(error => {
       console.error('Error fetching issues:', error);
     });
-};
-
-
-  //1998 PHASE ISSUES
-  const decommissioningIssue = new Issue('Paramilitary Weapons Decomissioning ', 
-                                            'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
-                                            'For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  ',
-                                            '/guns.avif',
-                                            'Decommission Now',
-                                            -10,
-                                            'Lets go to the peace talks',
-                                            8,
-                                            'Np more IRA - class',
-                                            'Install Commission',
-                                            10,
-                                            'understandable',
-                                            14,
-                                            'ideal folks',
-                                            'No Decommissioning',
-                                            10,
-                                            'no peace talks',
-                                            -5,
-                                            'aw dear',
-                                            3,
-                                            'X'
-                                            );
-
-  // const northSouthCouncilIssue = new Issue('North/South Council', 
-  //                                             'The North/South Ministerial Council (NSMC) is a body established under the Good Friday Agreement to co-ordinate activity and exercise certain governmental powers across the whole island of Ireland. The Council takes the form of meetings between ministers from both the Republic of Ireland and Northern Ireland and is responsible for twelve policy areas. Six of these areas are the responsibility of corresponding North/South Implementation Bodies. The body is based in the city of Armagh in Northern Ireland.', 
-  //                                             'The North/South Ministerial Council and the Northern Ireland Assembly are "mutually inter-dependent" institutions: one cannot exist without the other.',
-  //                                             '/north-south-council.jpeg',
-  //                                             10);
-
-  // const britishIrishCouncilIssue = new Issue('British/Irish Council', 
-  //                                             'The British and Irish governments, and political parties in Northern Ireland, agreed to form a council under the British–Irish Agreement, part of the Good Friday Agreement reached in 1998. The council was formally established on 2 December 1999, when the Agreement came into effect. The councils stated aim is to "promote the harmonious and mutually beneficial development of the totality of relationships among the peoples of these islands".', 
-  //                                             'At its June 2010 summit, the Council decided to move forward on recommendations to enhance the relationship between it and the British-Irish Parliamentary Assembly (BIPA).',
-  //                                             '/british-irish-council.jpeg',
-  //                                             10);
-
-  // const selfDeterminationIssue = new Issue('The Right to Self-Determination', 
-  //                                           'Under the terms of the British-Irish Agreement, both governments Recognised that it was the right of all persons born in Northern Ireland to identify as Irish or British, or both, and to hold both Irish and British citizenship if they so choose. This right is to continue regardless of any change in the status of Northern Ireland', 
-  //                                           'Desc Two',
-  //                                           '/self-determination.webp',
-  //                                           10);
-
-  // 2020 PHASE ISSUES
-  const irishSeaBorderIssue = new Issue('Paramilitary Weapons Decomissioning ', 
-  'There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. ', 
-  'For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  ',
-  '/guns.avif',
-  'Decommission Now',
-  -10,
-  'Lets go to the peace talks',
-  10,
-  'Np more IRA - class',
-  'Install Commission',
-  10,
-  'understandable',
-  10,
-  'ideal folks',
-  'No Decommissioning',
-  10,
-  'no peace talks',
-  -10,
-  'aw dear',
-  3,
-  'X'
-  );
-
-  const phase2020Issues = [irishSeaBorderIssue];
+};                                    
 
   // COMPOSITE ARRAY OF PHASES
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
@@ -339,17 +271,6 @@ const fetchIssues = async () => {
   }
 
 
- const updateHeight = () => {
-    const totalWeight = peaceScales.getUnionistWeight() + peaceScales.getNationalistWeight();
-    
-    // Calculate percentages based on weights
-    const unionistPercentage = (peaceScales.getUnionistWeight() / totalWeight) * 100;
-    const nationalistPercentage = (peaceScales.getNationalistWeight() / totalWeight) * 100;
-
-    setUnionistHeight(unionistPercentage);
-    setNationalistHeight(nationalistPercentage);
-};
-
   const updateBalance = (scales) => {
 
     const unionistWeight = scales.getUnionistWeight();
@@ -428,13 +349,13 @@ const fetchIssues = async () => {
         <div style={{ position: 'relative', zIndex: 2 }}>
 
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-          <HomeIcon className="homeButton" sx={{ fontSize: 60, marginRight: '10px' }} onClick={displayConfirmQuitDialog} />
+          <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
           
-          <SettingsIcon className="settingsButton" sx={{ fontSize: 60 }} onClick={displaySettingsDialog}/>
+          <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white' }} onClick={displaySettingsDialog}/>
           
 
-          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: 60, marginRight: '10px', paddingLeft: '10px' }} onClick={SubmitScales} />
+          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
         </div>
 
           <div className="titleAndBalanceContainer">
@@ -442,6 +363,7 @@ const fetchIssues = async () => {
               <h1>{pageTitle}</h1>
             </Slide>
 
+            <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
             <h3>
               <AnimatedNumber
                 value={balancePercentage}
@@ -450,6 +372,7 @@ const fetchIssues = async () => {
               />
               % Balance Achieved
             </h3>
+            </Slide>
           </div>
 
           <div className="shelf-and-scale-wrapper">
@@ -464,7 +387,7 @@ const fetchIssues = async () => {
                       <img
                         src={process.env.PUBLIC_URL + '/IMG_2965.png'}
                           alt="Bookshelf"
-                          style={{ width: '2em', 
+                          style={{ width: '5vmin', 
                                     height: 'auto',
                                     display: 'block',
                                     margin: 'auto' }} />
@@ -476,7 +399,7 @@ const fetchIssues = async () => {
                   <img
                   src={process.env.PUBLIC_URL + '/shelf.png'}
                     alt="Bookshelf"
-                    style={{ width: '80%', 
+                    style={{ width: '70vmin', 
                               height: 'auto',
                               display: 'block',
                               margin: 'auto' }} />
