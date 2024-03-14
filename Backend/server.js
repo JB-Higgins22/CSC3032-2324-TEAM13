@@ -215,6 +215,7 @@ app.get("/issues", (req, res) => {
         .query("SELECT * FROM issues")
         .then((response) => {
             res.status(200).json(response.rows); // Send the retrieved issues as response
+            console.log("Issues Retrieved");
         })
         .catch((err) => {
             console.error("Error retrieving issues:", err);

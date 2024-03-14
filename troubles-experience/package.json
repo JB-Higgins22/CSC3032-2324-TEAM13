@@ -8,8 +8,7 @@
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
     "@mui/x-data-grid": "^6.19.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/dom": "^9.3.4",
     "@testing-library/user-event": "^13.5.0",
     "@visx/visx": "^3.8.0",
     "animated-number-react": "^0.1.2",
@@ -26,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-with-coverage": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,6 +54,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
     "eslint-plugin-react-hooks": "^4.6.0"
   }
 }

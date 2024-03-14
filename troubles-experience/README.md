@@ -80,6 +80,10 @@ npm i bad-words
 
 npm install @mui/x-data-grid
 
+NEEDED FOR TESTING:
+npm install @testing-library/user-event @testing-library/dom
+
+
 
 ### IMAGE STYLING
 Newspaper image: https://pixabay.com/photos/bundle-jute-rope-newspaper-1853667/
