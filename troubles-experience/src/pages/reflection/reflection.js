@@ -29,6 +29,8 @@ const Reflection = () => {
   // ANIMATION STATES
   const [showReflectionForm, setShowReflectionForm] = useState(true);
   const [showWordCloud, setShowWordCloud] = useState(false);
+  const maxLength = 250;
+  const remainingChars = maxLength - thoughts.length;
 
 
   useEffect(() => {
@@ -84,7 +86,7 @@ const Reflection = () => {
     }, 1200);
   };
 
-  const fetchReflections = async () => {  // retrive the reflections from the DB
+  const fetchReflections = async () => {
     try {
       const response = await fetch('http://localhost:4000/getapprovedreflections');
       if (!response.ok) {
@@ -92,11 +94,18 @@ const Reflection = () => {
       }
       const data = await response.json();
   
+      let reflectionsToDisplay = data;
+      if (data.length > 33) {
+        // If there are more than 33 reflections, randomly select 33
+        let shuffled = data.sort(() => 0.5 - Math.random());
+        reflectionsToDisplay = shuffled.slice(0, 33);
+      }
+  
       let concatenatedContent = "";
-      data.forEach(reflection => {
+      reflectionsToDisplay.forEach(reflection => {
         concatenatedContent += reflection.content + " ";
       });
-
+  
       // words to exclude from the word cloud
       const stopWords = new Set(["the", "a", "I", "an", "you", "me", "on", "in", "at", "by", "with",
                                 "this", "that", "these", "those",
@@ -104,11 +113,11 @@ const Reflection = () => {
                                 "he", "she", "it", "they", "we", "us", "them",
                                 "is", "are", "was", "were", "have", "has", "had", "do", "does", "did",
                                 "oh", "hey", "hi", "hello", "ah", "hmm"]);
-
+  
       // Split the concatenated content into words
       const wordsArray = concatenatedContent.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
-
-      // Calculate word occurence values
+  
+      // Calculate word occurrence values
       const freqMap = {};
       wordsArray.forEach(word => {
         if (!stopWords.has(word)) {
@@ -116,15 +125,15 @@ const Reflection = () => {
           freqMap[word] += 1;
         }
       });
-
+  
       const wordsToSet = Object.keys(freqMap).map(word => ({ text: word, value: freqMap[word] }));
-
+  
       setWords(wordsToSet);
-      setReflections(data);
+      setReflections(reflectionsToDisplay);
     } catch (error) {
       console.error('Error fetching reflections:', error);
     }
-};
+  };
 
 
 // STYLE CONSTANTS
@@ -179,9 +188,10 @@ const reflectionContainerStyle = {
                 value={thoughts}
                 onChange={(event) => setThoughts(event.target.value)}
                 placeholder="Share your thoughts..."
-                maxLength={250}
+                maxLength={maxLength}
                 required
               ></textarea>
+              <div>{remainingChars} Characters Remaining</div>
               <button type="submit">Submit</button>
             </form>
         </div>
@@ -205,16 +215,21 @@ const reflectionContainerStyle = {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
+        <div style={{ display: 'flex', 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      color: 'red',
+                      paddingBottom: '4%' }}>*Reflections are randomly selected to reduce bias*</div>
+      </Slide>
+
+      <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
       <Grid container spacing={2}>
                 {reflections.map(reflection => (
                   <Grid item xs={12} sm={6} md={4} key={reflection.id}>
-                    <Card>
+                    <Card style={{ backgroundColor: '#d3e0ed' }}>
                       <CardContent>
-                        <Typography variant="h6" gutterBottom>
-                          {reflection.username}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          Location: {reflection.location}
+                        <Typography variant="h6" gutterBottom style = {{fontFamily: 'Anton'}}>
+                          {reflection.username} | {reflection.location}
                         </Typography>
                         <Typography variant="body1">
                           {reflection.content}
