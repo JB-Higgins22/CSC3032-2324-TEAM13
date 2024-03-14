@@ -48,11 +48,13 @@ const Reflection = () => {
     
     // Filter out bad words
     const filter = new BadWordsFilter();
+    const filteredName = filter.clean(name);
+    const filteredLocation = filter.clean(location);
     const filteredThoughts = filter.clean(thoughts);
 
     const reflectionData = {
-      userName: name,
-      userLocation: location,
+      userName: filteredName,
+      userLocation: filteredLocation,
       userReflection: filteredThoughts // Using the filtered thoughts
     };
 
@@ -78,12 +80,7 @@ const Reflection = () => {
       console.error('Error submitting reflection:', error);
     });
 
-    // Change page contents
-    setShowReflectionForm(false);
-
-    setTimeout(() => {
-      setShowWordCloud(true);
-    }, 1200);
+    skipForm();
   };
 
   const fetchReflections = async () => {
@@ -134,6 +131,15 @@ const Reflection = () => {
       console.error('Error fetching reflections:', error);
     }
   };
+
+  function skipForm() {
+    // Change page contents
+    setShowReflectionForm(false);
+
+    setTimeout(() => {              // Allow enough time for contents to disappear before introducing WordCloud
+      setShowWordCloud(true);
+    }, 1200);
+  }
 
 
 // STYLE CONSTANTS
@@ -193,6 +199,7 @@ const reflectionContainerStyle = {
               ></textarea>
               <div>{remainingChars} Characters Remaining</div>
               <button type="submit">Submit</button>
+              <button style = {{fontFamily: 'Anton'}} onClick={skipForm}>I Don't Want To Leave a Reflection</button>
             </form>
         </div>
       </Slide>

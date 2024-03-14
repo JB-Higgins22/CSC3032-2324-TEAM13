@@ -54,16 +54,16 @@ const titleWrapperStyle = {
 };
 
 const titleStyle = {
-    paddingLeft: '5%',
-    fontSize: '7vw',
+    fontSize: '14vmin',
     color: 'white',
     textAlign: 'left',
+    paddingLeft: '3%'
 };
 
 const informationWrapperStyle = {
-    fontSize: '2vw',
     textAlign: 'left',
     color: 'white',
+    fontSize: '10vmin',
     paddingLeft: '5%'
 };
 
@@ -92,13 +92,13 @@ return (
                     </Slide>
                     <div className="informationWrapper" style={informationWrapperStyle}>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1300}>
-                            <h3>1998 Peace Talks - {balancePercentages[0]}% Balance Achieved</h3>
+                            <h3 style = {{fontSize: '4vmin'}}>1998 Peace Talks - {balancePercentages[0]}% Balance Achieved</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1300}>
-                            <h3>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
+                            <h3 style = {{fontSize: '4vmin'}}>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1500}>
-                            <h3>{averageResult}% Balance Achieved Overall</h3>
+                            <h3 style = {{fontSize: '8vmin'}}>{averageResult}% Balance Achieved Overall</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1800}>
                       <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
