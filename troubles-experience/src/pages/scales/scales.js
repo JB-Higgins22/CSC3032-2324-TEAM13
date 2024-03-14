@@ -68,12 +68,12 @@ const Scales = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchIssues();     // Wait for issues to be retrieved from DB
+      await fetchIssues(); // Wait for issues to be retrieved from the DB
       setDataFetched(true);
     };
-
+  
     fetchData();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     initialiseScales();
@@ -145,6 +145,7 @@ const fetchIssues = async () => {
       throw new Error('Failed to fetch issues');
     })
     .then(data => {
+      console.log(data);
       // Create Issue objects for each issue received
       const parsedIssues = data.map(issue => {
         return new Issue(
