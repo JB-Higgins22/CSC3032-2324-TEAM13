@@ -8,6 +8,7 @@ import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 import RotateDeviceMessage from '../../components/rotate-device-message';
 import { Link, useNavigate } from 'react-router-dom';
 import AnimatedNumber from "animated-number-react";
+import SettingsDialog from '../../dialogs/settingsDialog';
 
 
 // MUI IMPORTS
@@ -59,6 +60,7 @@ const Scales = () => {
   // STATE OF DIALOGS
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
 
   //MUI 
   const [checked, setChecked] = React.useState(false);
@@ -232,6 +234,15 @@ const fetchIssues = async () => {
     setDialogOpen(false);
   };
 
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
+
+
 
   // Scale Handling
   const selectOptionA = () => {
@@ -327,13 +338,6 @@ const fetchIssues = async () => {
     setUnionistHeight(newUnionistHeight);
     setNationalistHeight(newNationalistHeight);
   };
-  
-
-  function logScales() {
-    console.log(peaceScales);
-    console.log(peaceScales.getNationalistIssues);
-    console.log(peaceScales.getUnionistIssues);
-  }
 
   return assetsInitialised ? (
     <div className="page" style={containerStyle}>
@@ -343,9 +347,9 @@ const fetchIssues = async () => {
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
           <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
-          <Link to="..\settings">
-          <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin' }} />
-          </Link>
+
+          <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+        
 
           <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
         </div>
@@ -520,6 +524,11 @@ const fetchIssues = async () => {
         <ConfirmQuitDialog 
           isOpen={isConfirmQuitDialogOpen}
           handleClose={handleCloseConfirmQuitDialog}/>
+
+        <SettingsDialog 
+          isOpen={isSettingsDialogOpen}
+          handleClose={handleCloseSettingsDialog}/>
+
 
         <RotateDeviceMessage />
     </div>

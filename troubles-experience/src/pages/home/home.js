@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
     <div className="Container">
       <Link to="..\settings" aria-label='Settings'>
-      <SettingsIcon className="SettingsIcon"/></Link>
+      <SettingsIcon className="SettingsIcon" style={{ fontSize: '8vmin', color: 'white'}}/></Link>
       <header className="Header">
         <h1>
           Museum Of The Troubles and Peace Process

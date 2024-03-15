@@ -64,7 +64,7 @@ function applyFontStyling() {
   root.classList.toggle('font-increase');
 }
 */
-export default function BasicTabs({ onFontSizeChange}) {
+export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   
   //Defining state variables
@@ -156,7 +156,7 @@ export default function BasicTabs({ onFontSizeChange}) {
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-          <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
+          <FontSizeRadioButtons />
         </Box>
       </CustomTabPanel>
 
@@ -179,13 +179,13 @@ const marks = [
   { value: 125, label: 'Large', size: 25},
 ];
 
-function FontSizeRadioButtons({ onFontSizeChange }) {
+function FontSizeRadioButtons() {
   const [selectedValue, setSelectedValue] = React.useState(90); // Default to Medium
 
   const handleChange = (event) => {
     const newValue = parseInt(event.target.value);
     setSelectedValue(newValue);
-    onFontSizeChange(newValue); // Call the parent function to change font size
+    //onFontSizeChange(newValue); // Call the parent function to change font size
     document.body.style.fontSize = `${newValue}%`; // Apply font size globally
   };
 

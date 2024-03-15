@@ -4,11 +4,17 @@ import React, { useState, useEffect } from "react";
 // COMPONENT IMPORTS
 import WordCloudComponent from "../../components/word-cloud";
 import RotateDeviceMessage from "../../components/rotate-device-message";
+import ConfirmQuitDialog from "../../dialogs/issueDialog/confirmQuitDialog";
+import SettingsDialog from "../../dialogs/settingsDialog";
 
 // EXTERNAL LIBRARIES
 import { Slide } from "@mui/material";
 import BadWordsFilter from 'bad-words';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
+
+//MUI MATERIAL ICONS IMPORTS
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // CSS IMPORT
 import './reflection.css';
@@ -31,6 +37,10 @@ const Reflection = () => {
   const [showWordCloud, setShowWordCloud] = useState(false);
   const maxLength = 250;
   const remainingChars = maxLength - thoughts.length;
+
+  //DIALOG STATES
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+  const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
 
 
   useEffect(() => {
@@ -141,6 +151,22 @@ const Reflection = () => {
     }, 1200);
   }
 
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
+  
+  const displayConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(true);
+  };
+
+  const handleCloseConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(false);
+  };
+
 
 // STYLE CONSTANTS
 const containerStyle = {
@@ -171,6 +197,12 @@ const reflectionContainerStyle = {
   return (
     <div style = {{containerStyle}} >
       <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" style={imageStyle} />
+      <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+        <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+
+
+        <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+      </div>
 
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>
         <div className="reflection-container" style = {{reflectionContainerStyle}}>
@@ -248,6 +280,13 @@ const reflectionContainerStyle = {
               </Grid>
       </Slide>
 
+      <ConfirmQuitDialog 
+              isOpen={isConfirmQuitDialogOpen}
+              handleClose={handleCloseConfirmQuitDialog}/>
+
+      <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
 
       <RotateDeviceMessage />
     </div>

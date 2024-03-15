@@ -5,8 +5,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import './pre-game-info.css';
 import { Padding } from '@mui/icons-material';
 import RotateDeviceMessage from '../../components/rotate-device-message';
+import SettingsDialog from '../../dialogs/settingsDialog';
+import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
+
+//MUI MATERIAL ICONS IMPORTS
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const PreGameInfo = () => {
+    const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+    const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
     const [showContent, setShowContent] = useState(true);
     const [currentContent, setCurrentContent] = useState(0);
     const navigate = useNavigate();
@@ -26,6 +34,22 @@ const PreGameInfo = () => {
     function playTutorial() {
         navigate('/tutorial');
     }
+
+    const displaySettingsDialog = () => {
+        setSettingsDialogOpen(true);
+      };
+    
+      const handleCloseSettingsDialog = () => {
+        setSettingsDialogOpen(false);
+      };
+      
+      const displayConfirmQuitDialog = () => {
+        setConfirmQuitDialogOpen(true);
+      };
+    
+      const handleCloseConfirmQuitDialog = () => {
+        setConfirmQuitDialogOpen(false);
+      };
 
     const allContent = ["The Troubles were an ethno-nationalist conflict in Northern Ireland that lasted for about 30 years from the late 1960s to 1998. Also known internationally as the Northern Ireland conflict, it is sometimes described as an 'irregular war' or 'low-level war'. The conflict began in the late 1960s and is usually deemed to have ended with the Good Friday Agreement of 1998. Although the Troubles mostly took place in Northern Ireland, at times violence spilled over into parts of the Republic of Ireland, England, and mainland Europe.",
                         "The conflict was primarily political and nationalistic, fuelled by historical events. It also had an ethnic or sectarian dimension[36] but despite use of the terms Protestant and Catholic to refer to the two sides, it was not a religious conflict. A key issue was the status of Northern Ireland. Unionists and loyalists, who for historical reasons were mostly Ulster Protestants, wanted Northern Ireland to remain within the United Kingdom. Irish nationalists and republicans, who were mostly Irish Catholics, wanted Northern Ireland to leave the United Kingdom and join a united Ireland.",
@@ -49,7 +73,7 @@ const PreGameInfo = () => {
 
     const titleWrapperStyle = {
         position: 'absolute',
-        top: 0,
+        top: '9%',
         left: 0,
         zIndex: 2,
         fontFamily: 'Anton, sans-serif',
@@ -111,6 +135,12 @@ const PreGameInfo = () => {
 return ( 
         <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
+            <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+              <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+
+
+              <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+            </div>
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -136,6 +166,14 @@ return (
                     </div>       
                 </div>
             </div>
+
+            <ConfirmQuitDialog 
+              isOpen={isConfirmQuitDialogOpen}
+              handleClose={handleCloseConfirmQuitDialog}/>
+
+            <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
 
             <RotateDeviceMessage />
         </div>
