@@ -3,6 +3,16 @@ import { Text } from '@visx/text';
 import { scaleLog } from '@visx/scale';
 import Wordcloud from '@visx/wordcloud/lib/Wordcloud';
 
+/*
+
+
+THIS CODE IS LARGELY SOURCED FROM https://airbnb.io/visx/wordcloud
+
+
+
+
+*/
+
 const colors = ['#143059', '#2F6B9A', '#82a6c2'];
 
 function getRotationDegree() {

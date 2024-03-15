@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import RotateDeviceMessage from '../../components/rotate-device-message';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import SettingsDialog from '../../dialogs/settingsDialog';
+import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 
 import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
 
+//MUI MATERIAL ICONS IMPORTS
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 const ResultsPage = () => {
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+  const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
+
   const location = useLocation();
   const { balancePercentages } = location.state;
   const navigate = useNavigate();
@@ -26,7 +35,22 @@ const ResultsPage = () => {
   function leaveReflection() {
     navigate('/reflection');
   }
+
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
   
+  const displayConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(true);
+  };
+
+  const handleCloseConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(false);
+  };
 
   const containerStyle = {
     position: 'relative',
@@ -46,7 +70,7 @@ const imageStyle = {
 
 const titleWrapperStyle = {
     position: 'absolute',
-    top: 0,
+    top: '7%',
     left: 0,
     zIndex: 2,
     fontFamily: 'Anton, sans-serif',
@@ -54,16 +78,16 @@ const titleWrapperStyle = {
 };
 
 const titleStyle = {
-    paddingLeft: '5%',
-    fontSize: '7vw',
+    fontSize: '14vmin',
     color: 'white',
     textAlign: 'left',
+    paddingLeft: '3%'
 };
 
 const informationWrapperStyle = {
-    fontSize: '2vw',
     textAlign: 'left',
     color: 'white',
+    fontSize: '10vmin',
     paddingLeft: '5%'
 };
 
@@ -85,6 +109,12 @@ const ButtonStyle = {
 return (
     <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
+            <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+              <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+
+
+              <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+            </div>
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -92,13 +122,13 @@ return (
                     </Slide>
                     <div className="informationWrapper" style={informationWrapperStyle}>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1300}>
-                            <h3>1998 Peace Talks - {balancePercentages[0]}% Balance Achieved</h3>
+                            <h3 style = {{fontSize: '4vmin'}}>1998 Peace Talks - {balancePercentages[0]}% Balance Achieved</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1300}>
-                            <h3>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
+                            <h3 style = {{fontSize: '4vmin'}}>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1500}>
-                            <h3>{averageResult}% Balance Achieved Overall</h3>
+                            <h3 style = {{fontSize: '8vmin'}}>{averageResult}% Balance Achieved Overall</h3>
                     </Slide>
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1800}>
                       <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
@@ -106,6 +136,14 @@ return (
                     </div>       
                 </div>
             </div>
+
+            <ConfirmQuitDialog 
+              isOpen={isConfirmQuitDialogOpen}
+              handleClose={handleCloseConfirmQuitDialog}/>
+
+            <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
 
             <RotateDeviceMessage />
         </div>

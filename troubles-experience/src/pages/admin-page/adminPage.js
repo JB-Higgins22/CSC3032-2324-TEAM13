@@ -38,6 +38,31 @@ const AdminPage = ({ onFontSizeChange}) => {
     fetchReflections();
   }, []);
 
+  // Function to reset all form fields
+  const resetFormFields = () => {
+    setName("");
+    setDescriptionOne("");
+    setDescriptionTwo("");
+    setImageURL("");
+    setNumberOfOptions(0);
+    setSelectedOption("X");
+    setOptionA("");
+    setOptionANationalistWeight(0);
+    setOptionANationalistPerspective("");
+    setOptionAUnionistWeight(0);
+    setOptionAUnionistPerspective("");
+    setOptionB("");
+    setOptionBNationalistWeight(0);
+    setOptionBNationalistPerspective("");
+    setOptionBUnionistWeight(0);
+    setOptionBUnionistPerspective("");
+    setOptionC("");
+    setOptionCNationalistWeight(0);
+    setOptionCNationalistPerspective("");
+    setOptionCUnionistWeight(0);
+    setOptionCUnionistPerspective("");
+};
+
 // Function to fetch reflections from the server
   const fetchReflections = () => {
     fetch('http://localhost:4000/reflections')
@@ -155,6 +180,8 @@ const handleSubmit = (e) => {
     .then((response) => {
       if (response.ok) {
         console.log("Issue added successfully");
+        alert("Issue Added Successfully");
+        resetFormFields();
         // Hide the form if the 8th row has been added
         fetch("http://localhost:4000/issueCount")
           .then((response) => {
@@ -283,6 +310,7 @@ useEffect(() => {
                     onChange={(event) => setOptionANationalistWeight(event.target.value)}
                     placeholder="Option A Nationalist Weight"
                     required
+                    min="0" 
                 />
                 <input
                     type="text"
@@ -298,6 +326,7 @@ useEffect(() => {
                     onChange={(event) => setOptionAUnionistWeight(event.target.value)}
                     placeholder="Option A Unionist Weight"
                     required
+                    min="0" 
                 />
                 <input
                     type="text"
@@ -323,6 +352,7 @@ useEffect(() => {
                     onChange={(event) => setOptionBNationalistWeight(event.target.value)}
                     placeholder="Option B Nationalist Weight"
                     required
+                    min="0" 
                 />
                 <input
                     type="text"
@@ -338,6 +368,7 @@ useEffect(() => {
                     onChange={(event) => setOptionBUnionistWeight(event.target.value)}
                     placeholder="Option B Unionist Weight"
                     required
+                    min="0" 
                 />
                 <input
                     type="text"
@@ -363,6 +394,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCNationalistWeight(event.target.value)}
                     placeholder="Option C Nationalist Weight"
                     required
+                    min="0" 
                 />
                 <input
                     type="text"
@@ -377,6 +409,7 @@ useEffect(() => {
                     value={optionCUnionistWeight}
                     onChange={(event) => setOptionCUnionistWeight(event.target.value)}
                     placeholder="Option C Unionist Weight"
+                    min="0" 
                     required
                 />
                 <input

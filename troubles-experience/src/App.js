@@ -9,7 +9,7 @@ import Reflection from './pages/reflection/reflection';
 import Login from './pages/login/login';
 import AdminPage from './pages/admin-page/adminPage';
 import Tutorial from './pages/tutorial/tutorial';
-
+import SettingsDialog from './dialogs/settingsDialog';
 
 //Imports needed to use sound, functionality for playing sound on loop below
 /*
@@ -47,11 +47,12 @@ function App() {
 
 
   return (
-    <div className="App" style={{ fontSize: `${fontSize}%` }}>
+    <div className="App">
       <Router>
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route path='/scales' element={<Scales />} />
+          <Route path='/settingsDialog' element={<SettingsDialog/>} />
           <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange}/>} />
           <Route path='/results' element={<ResultsPage />} />
           <Route path='/pre-game-info' element={<PreGameInfo />} />

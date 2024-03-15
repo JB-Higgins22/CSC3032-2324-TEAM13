@@ -64,17 +64,19 @@ function applyFontStyling() {
   root.classList.toggle('font-increase');
 }
 */
-export default function BasicTabs({ onFontSizeChange}) {
+export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
   
   //Defining state variables
     const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(false); 
     const [highContrastMode, setHighContrastMode] = useState(false);
     const [fontIncrease, setFontIncrease] = useState(false);
+    
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
   
     //Toggling states 'on' and calling relevant functions
     const toggleBlackAndWhiteMode = () => {
@@ -156,7 +158,7 @@ export default function BasicTabs({ onFontSizeChange}) {
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-          <FontSizeRadioButtons onFontSizeChange={onFontSizeChange} />
+          <FontSizeRadioButtons />
         </Box>
       </CustomTabPanel>
 
@@ -174,20 +176,46 @@ export default function BasicTabs({ onFontSizeChange}) {
 
 // Font sizes for use on radio buttons
 const marks = [
-  { value: 75, label: 'Small', size: 15 },
-  { value: 90, label: 'Medium', size: 20 },
-  { value: 125, label: 'Large', size: 25},
+  { value: 50, label: 'Small', size: 15 },
+  { value: 100, label: 'Medium', size: 20 },
+  { value: 150, label: 'Large', size: 25},
 ];
 
-function FontSizeRadioButtons({ onFontSizeChange }) {
-  const [selectedValue, setSelectedValue] = React.useState(90); // Default to Medium
+function FontSizeRadioButtons() {
+
+  const currentBaseFontSizeVmin = parseFloat(getComputedStyle(document.documentElement)
+                              .getPropertyValue('--base-font-size'));
+
+  let currentPercentage = Math.round(currentBaseFontSizeVmin * 100);
+
+
+  const [selectedValue, setSelectedValue] = React.useState(currentPercentage); // Default to Medium
+
+  // const handleChange = (event) => {
+  //   const newValue = parseInt(event.target.value);
+  //   setSelectedValue(newValue);
+  //   //onFontSizeChange(newValue); // Call the parent function to change font size
+
+  //   document.body.style.fontSize = `${newValue}%`; // Apply font size globally
+  // };
 
   const handleChange = (event) => {
+    // Get the current base font size
+    const currentBaseFontSize = getComputedStyle(document.documentElement)
+      .getPropertyValue('--base-font-size');
+    // Log the current base font size
+    console.log(`Current base font size: ${currentBaseFontSize}`);
+  
     const newValue = parseInt(event.target.value);
-    setSelectedValue(newValue);
-    onFontSizeChange(newValue); // Call the parent function to change font size
-    document.body.style.fontSize = `${newValue}%`; // Apply font size globally
+    if (!isNaN(newValue)) { // Simple validation to check if newValue is a number
+      const newFontSize = newValue / 100; // Convert percentage to vmin
+      document.documentElement.style.setProperty('--base-font-size', `${newFontSize}vmin`);
+      setSelectedValue(newValue);
+    } else {
+      console.error("Invalid input for font size.");
+    }
   };
+  
 
   return (
     <FormGroup style={{ display: 'flex', flexDirection: 'row', fontFamily: 'Anton'}}>
