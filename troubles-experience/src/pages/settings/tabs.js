@@ -19,6 +19,7 @@ import Radio from '@mui/material/Radio';
 import { green } from '@mui/material/colors';
 import { alpha, styled } from '@mui/material/styles';
 
+
 function accessabilityProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -46,16 +47,25 @@ function CustomTabPanel(props) {
   );
 }
 
-//Styling functions - applies styling from global.css to the root contained in index.js
-function applyBlackAndWhiteStyling() {
-  const root = document.getElementById('root');
-  root.classList.toggle('black-white-mode');
+//Styling functions - applies styling directly to .body in index.css 
+function applyBlackAndWhiteStyling(apply) {
+  const body = document.body;
+  if (apply) {
+    body.style.filter = 'grayscale(100%)';
+  } else {
+    body.style.filter = 'none';
+  }
 }
 
-function applyHighContrastStyling() {
-  const root = document.getElementById('root');
-  root.classList.toggle('high-contrast-mode');
+function applyHighContrastStyling(apply) {
+  const body = document.body;
+  if (apply) {
+    body.style.filter = 'contrast(200%)';
+  } else {
+    body.style.filter = 'none';
+  }
 }
+
 
 //Potential to change backend functionality of font increase to apply styling via global.css
 /*
@@ -76,19 +86,19 @@ export default function BasicTabs() {
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-
   
     //Toggling states 'on' and calling relevant functions
     const toggleBlackAndWhiteMode = () => {
       setBlackAndWhiteMode(!blackAndWhiteMode); // Toggle blackAndWhiteMode state
-      applyBlackAndWhiteStyling(); // Apply black and white styles
+      applyBlackAndWhiteStyling(!blackAndWhiteMode); // Apply black and white styles
     };
     
     const toggleHighContrastMode = () => {
       setHighContrastMode(!highContrastMode);
-      applyHighContrastStyling(); 
+      applyHighContrastStyling(!highContrastMode); 
 
     };
+
 
     const GreenSwitch = styled(Switch)(({ theme }) => ({
       '& .MuiSwitch-switchBase.Mui-checked': {
@@ -121,15 +131,15 @@ export default function BasicTabs() {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-      {/* Unused mute volume UI  
+      
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
-        <VolumeUp sx={{ marginRight: 2 }} />
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1 }}>Mute Volume</Typography>
+        <VolumeUp sx={{ marginRight: 1 }} />
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton'  }}>Mute Volume</Typography>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<Switch />} sx={{ marginLeft: 2 }}/>
+         <FormControlLabel control={<Switch/>} sx={{ marginLeft: 2 }} />
         </Box>
-*/}
+        
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
           <ContrastIcon />
           <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton' }}>Black and White (Dark) Mode</Typography>

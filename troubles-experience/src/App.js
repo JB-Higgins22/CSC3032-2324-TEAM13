@@ -12,22 +12,22 @@ import Tutorial from './pages/tutorial/tutorial';
 import SettingsDialog from './dialogs/settingsDialog';
 
 //Imports needed to use sound, functionality for playing sound on loop below
-/*
+
 import useSound from "use-sound";
 import { useEffect } from 'react';
-import clickSound from "./sounds/";
-*/
+import placeholderSound from "./sounds/placeholderSound.mp3";
+
 
 function App() {
   const [fontSize, setFontSize] = useState(90); // Initial font size
- /*
-  const [playSound, { stop }] = useSound(clickSound, { volume: 1, loop: true }); // Initialize the playSound function with loop option set to true
-*/
+ 
+  const [playSound, { stop }] = useSound(placeholderSound, { volume: 1, loop: true }); // Initialize the playSound function with loop option set to true
+  
   const handleFontSizeChange = (newSize) => {
     setFontSize(newSize);
   };
 
-  /*
+  
   useEffect(() => {
     // Cleanup function to stop the sound and clear the interval when component unmounts
     return () => {
@@ -43,7 +43,7 @@ function App() {
       stop();
     };
   }, [playSound, stop]); // Run this effect whenever playSound or stop change
-*/
+
 
 
   return (
@@ -53,7 +53,7 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route path='/scales' element={<Scales />} />
           <Route path='/settingsDialog' element={<SettingsDialog/>} />
-          <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange}/>} />
+          <Route path='/settings' element={<Settings onFontSizeChange={handleFontSizeChange} />} />
           <Route path='/results' element={<ResultsPage />} />
           <Route path='/pre-game-info' element={<PreGameInfo />} />
           <Route path='/reflection' element={<Reflection />} />
