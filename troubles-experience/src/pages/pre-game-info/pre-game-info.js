@@ -77,21 +77,10 @@ const PreGameInfo = () => {
         left: 0,
         zIndex: 2,
         fontFamily: 'Anton, sans-serif',
-    };
-
-    const informationWrapperStyle = {
-        fontSize: '4vmin',
-        textAlign: 'left',
-        color: 'white',
-        padding: '15px',
-    };
-    
-    const titleStyle = {
-        fontSize: '6vw',
-        color: 'white',
-        textAlign: 'left',
-        padding: '15px',
-    };
+        textAlign: 'left', // Ensure text aligns left
+        width: '100%', // Ensure the container spans the full width
+      };
+      
 
     const buttonstyle = {
         fontFamily: 'Anton',
@@ -144,9 +133,9 @@ return (
             <div style={titleWrapperStyle}>
                 <div className="titleWrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-                        <h1 style={titleStyle}>A BACKGROUND ON THE TROUBLES</h1>
+                        <h1 className = "title">A BACKGROUND ON THE TROUBLES</h1>
                     </Slide>
-                    <div className="informationWrapper" style={informationWrapperStyle}>
+                    <div className="informationWrapper">
                         <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
                             <p>{allContent[currentContent]}</p>
                             

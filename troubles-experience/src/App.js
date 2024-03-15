@@ -11,7 +11,6 @@ import AdminPage from './pages/admin-page/adminPage';
 import Tutorial from './pages/tutorial/tutorial';
 import SettingsDialog from './dialogs/settingsDialog';
 
-
 //Imports needed to use sound, functionality for playing sound on loop below
 /*
 import useSound from "use-sound";
@@ -48,7 +47,7 @@ function App() {
 
 
   return (
-    <div className="App" style={{ fontSize: `${fontSize}%` }}>
+    <div className="App">
       <Router>
         <Routes>
           <Route exact path='/' element={<HomePage />} />

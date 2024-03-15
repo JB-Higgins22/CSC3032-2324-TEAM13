@@ -18,8 +18,8 @@ const HomePage = () => {
       </header>
       <section className="Section">
         <h2>Peace Process Puzzle Game</h2>
-        <p>Explore the history and events of Northern Ireland through our interactive puzzle game.</p>
-        <p>Can you find the balance to make a successful Peace Process?</p>
+        <p className='textBody'>Explore the history and events of Northern Ireland through our interactive puzzle game.</p>
+        <p className='textBody'>Can you find the balance to make a successful Peace Process?</p>
         <Link to="..\pre-game-info" aria-label='PreGameInfo'>
           <button className='Button'>Start Puzzle</button>
         </Link>
