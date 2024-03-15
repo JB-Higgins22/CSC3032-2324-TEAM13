@@ -71,10 +71,12 @@ export default function BasicTabs() {
     const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(false); 
     const [highContrastMode, setHighContrastMode] = useState(false);
     const [fontIncrease, setFontIncrease] = useState(false);
+    
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
   
     //Toggling states 'on' and calling relevant functions
     const toggleBlackAndWhiteMode = () => {

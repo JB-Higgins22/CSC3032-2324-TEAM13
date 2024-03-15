@@ -80,7 +80,7 @@ const PreGameInfo = () => {
     };
 
     const informationWrapperStyle = {
-        fontSize: '2vw',
+        fontSize: '4vmin',
         textAlign: 'left',
         color: 'white',
         padding: '15px',
