@@ -37,7 +37,7 @@
     padding: 10px; 
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 90%;
+    font-size: calc(var(--base-font-size) + 1vmin);
   }
   
   .reflection-container textarea {
@@ -49,12 +49,13 @@
     color: #fff; 
     border: none;
     cursor: pointer;
+    font-size: calc(var(--base-font-size) + 1vmin);
   }
 
   .reflectionContentContainer h1 {
     color: white;
     text-align: center;
-    font-size: 3vw;
+    font-size: calc(var(--base-font-size) + 5vmin);
   }
   
   .reflection-container button:hover {
@@ -69,11 +70,20 @@
   }
 
   .wordCloudContainer {
-    width: 100vw; /* Make the container span the entire viewport width */
+    width: 100vw; 
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-bottom: 3vw;
+}
+
+.biasNotice {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  color: red;
+  padding-bottom: 4%;
+  font-size: calc(var(--base-font-size) + 2vmin);
 }
   
