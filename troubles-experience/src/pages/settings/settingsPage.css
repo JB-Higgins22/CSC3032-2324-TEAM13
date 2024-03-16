@@ -44,8 +44,12 @@
   color: #F0FFFF; 
 }
 
-.foreground .fontSize{
+.foreground{
   font-size: 90%;
+}
+
+.fontSize {
+  font-size: calc(var(--base-font-size));
 }
 
 .foreground .loginButton {
