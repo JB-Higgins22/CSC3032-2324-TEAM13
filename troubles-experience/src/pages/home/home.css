@@ -2,17 +2,21 @@
 
 .Container {
   width: 100%;
+  height: 100vh;
   margin: 0 auto;
   padding: 20px;
-  height: 100vh;
+  box-sizing: border-box; 
   background-color: #0b6ea5;
   background-image: url("../../../public/newspaperDark.jpeg");
+  background-size: cover;
+  background-position: center;
   position: relative;
-  overflow: auto;
+  overflow: auto; 
   white-space: normal;
-  object-fit: cover;
   z-index: 0;
 }
+
+
 
 .Container .SettingsIcon {
   font-size: 32px;
@@ -43,7 +47,7 @@
   background-color: #F0FFFF;
   color: #007bff;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: calc(var(--base-font-size) + 1vmin);
   cursor: pointer;
   border-style: ridge;
   border-color: #007bff;
@@ -72,13 +76,13 @@ a:active {
   color: #F8F8FF;
 }
 
-h1 {
-  font-size: 100px;
+.title {
+  font-size: calc(var(--base-font-size));
   font-weight: bold;
 }
 
-h2 {
-  font-size: 35px;
+.subTitle {
+  font-size: calc(var(--base-font-size) + 4vmin);
   font-weight: bold;
 }
 

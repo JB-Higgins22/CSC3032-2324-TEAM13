@@ -254,11 +254,7 @@ const reflectionContainerStyle = {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
-        <div style={{ display: 'flex', 
-                      justifyContent: 'center', 
-                      alignItems: 'center', 
-                      color: 'red',
-                      paddingBottom: '4%' }}>*Reflections are randomly selected to reduce bias*</div>
+        <div className="biasNotice">*Reflections are randomly selected to reduce bias*</div>
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
@@ -267,10 +263,10 @@ const reflectionContainerStyle = {
                   <Grid item xs={12} sm={6} md={4} key={reflection.id}>
                     <Card style={{ backgroundColor: '#d3e0ed' }}>
                       <CardContent>
-                        <Typography variant="h6" gutterBottom style = {{fontFamily: 'Anton'}}>
+                        <Typography variant="h6" gutterBottom style = {{fontFamily: 'Anton'}} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
                           {reflection.username} | {reflection.location}
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant="body1" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>
                           {reflection.content}
                         </Typography>
                       </CardContent>

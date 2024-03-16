@@ -130,12 +130,12 @@
 
 h1 {
   font-family: 'Anton';
-  font-size: 10vmin;
+  font-size: calc(var(--base-font-size) + 8vmin);
   margin: 2%;
 }
 
 h3 {
   font-family: 'Anton';
-  font-size: 3vmin;
+  font-size: calc(var(--base-font-size) + 3vmin);
   padding-bottom: 1%;
 }

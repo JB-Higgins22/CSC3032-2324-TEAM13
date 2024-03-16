@@ -12,12 +12,12 @@ const HomePage = () => {
       <Link to="..\settings" aria-label='Settings'>
       <SettingsIcon className="SettingsIcon" style={{ fontSize: '8vmin', color: 'white'}}/></Link>
       <header className="Header">
-        <h1>
+        <h1 className="title">
           Museum Of The Troubles and Peace Process
         </h1>
       </header>
       <section className="Section">
-        <h2>Peace Process Puzzle Game</h2>
+        <h2 className='subTitle'>Peace Process Puzzle Game</h2>
         <p className='textBody'>Explore the history and events of Northern Ireland through our interactive puzzle game.</p>
         <p className='textBody'>Can you find the balance to make a successful Peace Process?</p>
         <Link to="..\pre-game-info" aria-label='PreGameInfo'>
@@ -25,8 +25,8 @@ const HomePage = () => {
         </Link>
       </section>
       <section className="Section">
-        <h2 className='h2'>Contact Us</h2>
-        <p className='p'>Have questions or feedback? Reach out to us!</p>
+        <h2 className='subTitle'>Contact Us</h2>
+        <p className='textBody'>Have questions or feedback? Reach out to us!</p>
         <a href="http://museumofthetroubles.org/" target="_blank" rel="noopener noreferrer">
           Museum Of The Troubles and Peace Process Home Page
         </a>
