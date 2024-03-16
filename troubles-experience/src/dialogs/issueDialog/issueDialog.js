@@ -25,18 +25,18 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
             TransitionComponent={Zoom}
             transitionDuration={500}
             PaperProps={{ style: { ...dialogStyles } }}>
-      <DialogTitle style = {{color: 'black'}}>
+      <DialogTitle style = {{color: 'black'}} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
         {issue && issue.name}
         <IconButton aria-label="close" onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)' }}>
           {issue && issue.descriptionOne}
         </DialogContentText>
         <br />
-        <DialogContentText>
+        <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)' }}>
           {issue && issue.descriptionTwo}
         </DialogContentText>
         <br />
@@ -58,10 +58,10 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
                        scale: '100%',
                        paddingBottom: '20px'
                      }}>
-          <Button onClick={handleOptionA} style = {{width: '30%'}}>{issue?.optionA}</Button>
-          <Button onClick={handleOptionB} style = {{width: '30%'}} >{issue?.optionB}</Button>
+          <Button onClick={handleOptionA} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionA}</Button>
+          <Button onClick={handleOptionB} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }} >{issue?.optionB}</Button>
           { (issue?.numberOfOptions === 3) && (
-            <Button onClick={handleOptionC} style = {{width: '30%'}}>{issue?.optionC}</Button>
+            <Button onClick={handleOptionC} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionC}</Button>
           )}
         </ButtonGroup>
       </DialogActions>

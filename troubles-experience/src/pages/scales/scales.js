@@ -58,9 +58,9 @@ const Scales = () => {
   const [phaseIssues, setPhaseIssues] = useState();
 
   // STATE OF DIALOGS
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
-  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
 
   //MUI 
   const [checked, setChecked] = React.useState(false);
@@ -70,12 +70,12 @@ const Scales = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchIssues(); // Wait for issues to be retrieved from the DB
+      await fetchIssues();     // Wait for issues to be retrieved from DB
       setDataFetched(true);
     };
-  
+
     fetchData();
-  }, []);
+  }, []); 
 
   useEffect(() => {
     initialiseScales();
@@ -147,7 +147,6 @@ const fetchIssues = async () => {
       throw new Error('Failed to fetch issues');
     })
     .then(data => {
-      console.log(data);
       // Create Issue objects for each issue received
       const parsedIssues = data.map(issue => {
         return new Issue(
@@ -241,8 +240,6 @@ const fetchIssues = async () => {
   const handleCloseSettingsDialog = () => {
     setSettingsDialogOpen(false);
   };
-
-
 
   // Scale Handling
   const selectOptionA = () => {
@@ -338,6 +335,13 @@ const fetchIssues = async () => {
     setUnionistHeight(newUnionistHeight);
     setNationalistHeight(newNationalistHeight);
   };
+  
+
+  function logScales() {
+    console.log(peaceScales);
+    console.log(peaceScales.getNationalistIssues);
+    console.log(peaceScales.getUnionistIssues);
+  }
 
   return assetsInitialised ? (
     <div className="page" style={containerStyle}>
@@ -347,9 +351,7 @@ const fetchIssues = async () => {
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
           <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
-
           <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
-        
 
           <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
         </div>
@@ -521,14 +523,13 @@ const fetchIssues = async () => {
           issue={selectedIssue}
         />
 
+        <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
+
         <ConfirmQuitDialog 
           isOpen={isConfirmQuitDialogOpen}
           handleClose={handleCloseConfirmQuitDialog}/>
-
-        <SettingsDialog 
-          isOpen={isSettingsDialogOpen}
-          handleClose={handleCloseSettingsDialog}/>
-
 
         <RotateDeviceMessage />
     </div>
