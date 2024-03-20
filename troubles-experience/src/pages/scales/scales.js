@@ -40,6 +40,7 @@ const Scales = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverContent, setPopoverContent] = useState('');
   const [popoverContentLineTwo, setPopoverContentLineTwo] = useState('');
+  const [popoverTitle, setPopoverTitle] = useState('');
   const [bookName, setBookName] = useState({ show: false, x: 0, y: 0, text: '' });
 
   const [issues, setIssues] = useState([]);
@@ -72,13 +73,13 @@ const Scales = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchIssues();     // Wait for issues to be retrieved from DB
-      setDataFetched(true);
-    };
-
     fetchData();
   }, []); 
+
+  async function fetchData() {
+      await fetchIssues();     // Wait for issues to be retrieved from DB
+      setDataFetched(true);
+  }
 
   useEffect(() => {
     initialiseScales();
@@ -93,10 +94,11 @@ const Scales = () => {
   }, [balancePercentage]);
 
 
-  const handlePopoverOpen = (event, content) => {
+  const handlePopoverOpen = (event, content, title) => {
     setAnchorEl(event.currentTarget);
     setPopoverContent(content.issue.name);
     setPopoverContentLineTwo(content.headline);
+    setPopoverTitle(title);
   };
 
   const handlePopoverClose = () => {
@@ -490,7 +492,7 @@ const fetchIssues = async () => {
                             cursor: 'pointer'
                           }}
                           aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue)}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE ORANGE HERALD')}
                           // onMouseLeave={handlePopoverClose}
                         />
                         <Popover
@@ -516,7 +518,7 @@ const fetchIssues = async () => {
                             <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
                             <div className="newspaperPopover">
                             <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
-                              THE ORANGE HERALD
+                              {popoverTitle}
                             </Typography>
                             <hr />
                             <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
@@ -562,7 +564,7 @@ const fetchIssues = async () => {
                             cursor: 'pointer' // Add cursor pointer for hover effect
                           }}
                           aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue)}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NORTHERN STAR')}
                           // onMouseLeave={handlePopoverClose}
                         />
                         <Popover
@@ -588,7 +590,7 @@ const fetchIssues = async () => {
                             <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
                             <div className="newspaperPopover">
                             <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
-                              THE NORTHERN STAR
+                              {popoverTitle}
                             </Typography>
                             <hr />
                             <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
