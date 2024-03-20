@@ -32,13 +32,14 @@
   text-align: center;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
+  width: 40vmin;
+  height: 8vmin;
+  font-size: 3vmin;
 }
 
-.unionistBooks {
-  display: flex;
-  height: auto;
-  width: auto;
-  justify-content: center;
+.unionistPlatform h4 {
+  margin: auto;
+  padding-top: 5%;
 }
 
 .nationalistSide {
@@ -49,12 +50,21 @@
 
 .nationalistPlatform {
   background-color: rgb(39, 157, 3);
-  border: 2px dashed #aaa;
+  /* background-color: grey; */
+  border: 2px dashed #ffffff;
   color: white;
   text-align: center;
   font-family: 'Anton';
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
+  width: 40vmin;
+  height: 8vmin;
+  font-size: 3vmin;
+}
+
+.nationalistPlatform h4 {
+  margin: auto;
+  padding-top: 5%;
 }
 
 
@@ -83,17 +93,20 @@
   height: auto;
   width: auto;
   justify-content: center;
-  bottom: 0;
 }
 
 .booksOnShelf {
   display: flex;
   align-items: flex-start;
+  z-index: 2;
+  margin-top: -20px;
 }
 
 .shelf {
+  position: relative;
   margin: auto;
   height: auto;
+  z-index: 1;
 }
 
 .drop-zone {
@@ -106,21 +119,14 @@
   transition: height 0.5s ease; /* Add transition property for height */
 }
 
-.unionistBooks {
-  display: flex;
-  flex-direction: row; /* Display items side-by-side */
-  justify-content: center; /* Center items horizontally */
-  align-items: flex-end; /* Align items to the bottom */
-}
-
-.nationalistBooks {
+.nationalistBooks, .unionistBooks {
   display: flex;
   flex-direction: column-reverse; /* Stack rows from bottom to top */
   align-items: center; /* Align rows horizontally in the center */
   height: 100%; /* Set to the desired height */
 }
 
-.nationalistRow {
+.nationalistRow, .unionistRow {
   display: flex;
   flex-direction: row; /* Align newspapers in a row */
   justify-content: center; /* Center newspapers within the row */
@@ -129,13 +135,23 @@
   margin-top: -5%;
 }
 
-.nationalistIssue {
+.nationalistIssue, .unionistIssue {
   flex: 0 0 20%; /* Each item will take up 20% of the container's width */
   position: relative; /* Allow z-index to take effect for overlap */
   z-index: 1; /* Set base z-index to ensure stacking context */
 }
 
 .nationalistIssue img {
+  width: 4em; /* Adjust as needed */
+  height: auto;
+  display: block;
+  margin: '0 auto';
+  cursor: 'pointer';
+  position: relative; /* Position each image relatively within the issue container */
+  z-index: 2; /* Ensures that the image will stack on top of the one below it */
+}
+
+.unionistIssue img {
   width: 4em; /* Adjust as needed */
   height: auto;
   display: block;
@@ -157,7 +173,16 @@
   z-index: 1;
 }
 
-
+.unionistRow::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Same as bottom offset of img for a consistent overlap */
+  left: 0;
+  right: 0;
+  height: 10px; /* Same as bottom offset of img */
+  background-color: transparent; /* Change this to the background color of your images if needed */
+  z-index: 1;
+}
 
 
 
