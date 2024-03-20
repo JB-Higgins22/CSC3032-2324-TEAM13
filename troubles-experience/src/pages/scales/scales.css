@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=UnifrakturCook:wght@700&display=swap');
+
 .parent {
     margin: 1rem;
     padding: 2rem 2rem;
@@ -55,13 +57,6 @@
   border-bottom-right-radius: 50%;
 }
 
-.nationalistBooks {
-  display: flex;
-  height: auto;
-  width: auto;
-  justify-content: center;
-}
-
 
 .homeButton:hover {
   cursor: pointer;
@@ -74,7 +69,7 @@
 .shelf-and-scale-wrapper {
   display: flex;
   width: 100%;
-  height: 50vh; /* Adjust height as needed */
+  height: 50vh;
 }
 
 .shelf-zone {
@@ -111,13 +106,60 @@
   transition: height 0.5s ease; /* Add transition property for height */
 }
 
-.unionistBooks,
-.nationalistBooks {
+.unionistBooks {
   display: flex;
   flex-direction: row; /* Display items side-by-side */
   justify-content: center; /* Center items horizontally */
   align-items: flex-end; /* Align items to the bottom */
 }
+
+.nationalistBooks {
+  display: flex;
+  flex-direction: column-reverse; /* Stack rows from bottom to top */
+  align-items: center; /* Align rows horizontally in the center */
+  height: 100%; /* Set to the desired height */
+}
+
+.nationalistRow {
+  display: flex;
+  flex-direction: row; /* Align newspapers in a row */
+  justify-content: center; /* Center newspapers within the row */
+  width: 100%; /* Set row to full width of the container */
+  position: relative; /* Needed for absolute positioning of children */
+  margin-top: -5%;
+}
+
+.nationalistIssue {
+  flex: 0 0 20%; /* Each item will take up 20% of the container's width */
+  position: relative; /* Allow z-index to take effect for overlap */
+  z-index: 1; /* Set base z-index to ensure stacking context */
+}
+
+.nationalistIssue img {
+  width: 4em; /* Adjust as needed */
+  height: auto;
+  display: block;
+  margin: '0 auto';
+  cursor: 'pointer';
+  position: relative; /* Position each image relatively within the issue container */
+  z-index: 2; /* Ensures that the image will stack on top of the one below it */
+}
+
+/* This pseudoelement creates the overlap effect for each row */
+.nationalistRow::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Same as bottom offset of img for a consistent overlap */
+  left: 0;
+  right: 0;
+  height: 10px; /* Same as bottom offset of img */
+  background-color: transparent; /* Change this to the background color of your images if needed */
+  z-index: 1;
+}
+
+
+
+
 
 .titleAndBalanceContainer {
   display: flex;
@@ -138,4 +180,31 @@ h3 {
   font-family: 'Anton';
   font-size: calc(var(--base-font-size) + 3vmin);
   padding-bottom: 1%;
+}
+
+
+/*================================*/
+
+.newspaperPopover {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the heading text */
+  text-align: center;
+  width: 90%;
+}
+
+.newspaperPopoverContainer {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the heading text */
+  width: 100%;
+}
+
+.line {
+  height: 1px;
+  background-color: #000;
+  width: 80%; /* Adjust the width as needed */
+  margin: 2px 0; /* Spacing above and below the line */
 }

@@ -39,6 +39,8 @@ const Scales = () => {
   const [prevBalancePercentage, setPrevBalancePercentage] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverContent, setPopoverContent] = useState('');
+  const [popoverContentLineTwo, setPopoverContentLineTwo] = useState('');
+
   const [issues, setIssues] = useState([]);
   const [phaseTwoIssues, setPhaseTwoIssues] = useState([]);
   const [dataFetched, setDataFetched] = useState(false);
@@ -92,7 +94,8 @@ const Scales = () => {
 
   const handlePopoverOpen = (event, content) => {
     setAnchorEl(event.currentTarget);
-    setPopoverContent(content); // Set the content for this popover
+    setPopoverContent(content.issue.name);
+    setPopoverContentLineTwo(content.headline);
   };
 
   const handlePopoverClose = () => {
@@ -343,6 +346,17 @@ const fetchIssues = async () => {
     console.log(peaceScales.getUnionistIssues);
   }
 
+  const rows = peaceScales.getNationalistIssues()
+  .reduce((acc, issue, idx) => {
+    // Create a new row for every 5 issues
+    const rowNum = Math.floor(idx / 5);
+    if (!acc[rowNum]) {
+      acc[rowNum] = [];
+    }
+    acc[rowNum].push(issue);
+    return acc;
+  }, []);
+
   return assetsInitialised ? (
     <div className="page" style={containerStyle}>
       <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />
@@ -421,7 +435,7 @@ const fetchIssues = async () => {
                         key={issue.id}
                       >
                         <img
-                          src={process.env.PUBLIC_URL + '/single-book.png'}
+                          src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                           alt="Bookshelf"
                           style={{ 
                             width: '2em', 
@@ -464,23 +478,22 @@ const fetchIssues = async () => {
                   <div className="nationalistSide" >
 
                   <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
-                    {peaceScales.getNationalistIssues().map((issue) => (
-                      <div
-                        className="nationalistIssue"
-                        key={issue.id}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + '/single-book.png'}
+                      {rows.map((rowIssues, idx) => (
+                        <div className="nationalistRow" key={idx}>
+                          {rowIssues.map(issue => (
+                            <div className="nationalistIssue" key={issue.id}>
+                              <img
+                          src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                           alt="Bookshelf"
                           style={{ 
-                            width: '2em', 
+                            width: '8vmin', 
                             height: 'auto',
                             display: 'block',
                             margin: 'auto',
                             cursor: 'pointer' // Add cursor pointer for hover effect
                           }}
                           aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue)}
                           // onMouseLeave={handlePopoverClose}
                         />
                         <Popover
@@ -496,12 +509,36 @@ const fetchIssues = async () => {
                             vertical: 'top',
                             horizontal: 'center',
                           }}
+                          sx={{
+                            '.MuiPopover-paper': {
+                              width: '300px', 
+                            }
+                          }}
                         >
-                          <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
-                        </Popover>
-                      </div>
-                    ))}
-                  </div>
+                          <div className='newspaperPopoverContainer'>
+                            <Typography sx={{ p: 1, color: 'red' }}>{popoverContent}</Typography>
+                            <div className="newspaperPopover">
+                            <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
+                              THE NORTHERN STAR
+                            </Typography>
+                            <hr />
+                            <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
+                              "{popoverContentLineTwo}"
+                            </Typography>
+                            <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                          </div>
+                          </div>
+                        </Popover> 
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
 
 
                       <div className = "nationalistPlatform">
@@ -537,3 +574,7 @@ const fetchIssues = async () => {
 };
 
 export default Scales;
+
+
+
+
