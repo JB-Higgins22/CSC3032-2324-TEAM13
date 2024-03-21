@@ -1,0 +1,80 @@
+.page {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(30%);
+    z-index: -1;
+  }
+  
+  .navBar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+  }
+
+  .homeButton:hover {
+    cursor: pointer;
+  }
+  
+  .settingsButton:hover {
+    cursor: pointer;
+  } 
+  
+  .titleWrapper {
+    position: absolute;
+    top: 7%;
+    left: 0;
+    z-index: 2;
+    font-family: 'Anton, sans-serif';
+    width: 100%;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: calc(var(--base-font-size) + 13vmin);
+    color: white;
+    text-align: center;
+  }
+  
+  .informationWrapper {
+    color: white;
+    font-size: 10vmin;
+  }
+  
+  .informationHeader {
+    font-size: calc(var(--base-font-size) + 3vmin);
+  }
+  
+  .header2020 {
+    margin-top: -3%;
+  }
+  
+  .averageResultHeader {
+    font-size: calc(var(--base-font-size) + 7vmin);
+    margin-top: -1%;
+  }
+  
+  .reflectionButton.MuiButton-root {
+    font-family: 'Anton';
+    padding: 10px;
+    font-size: calc(var(--base-font-size) + 1vmin);
+    border-radius: 4px;
+    background-color: #F0FFFF;
+    color: #007bff;
+    border: 1px solid #007bff;
+  }
+  
+  .reflectionButton.MuiButton-root:hover {
+    background-color: #04aa23;
+    color: #fff;
+  }
+  

@@ -194,33 +194,6 @@ const fetchIssues = async () => {
   // RESULTS ARRAY
   let resultsArray = [0, 0];
 
-  // Page Styling
-  const containerStyle = {
-    position: 'relative',
-    height: '100vh',
-    overflow: 'hidden',
-  };
-
-  const imageStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    filter: 'brightness(50%)', // Adjust brightness to darken the image
-    zIndex: 0
-  };
-
-  const overlayStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
-  };
-
   // Dialog Handling
   const displayIssueInfo = (issue) => {
     setSelectedIssue(issue);
@@ -384,6 +357,33 @@ const fetchIssues = async () => {
     return acc;
   }, []);
 
+  // Page Styling
+  const containerStyle = {
+    position: 'relative',
+    height: '100vh',
+    overflow: 'hidden',
+  };
+
+  const imageStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    filter: 'brightness(50%)', // Adjust brightness to darken the image
+    zIndex: 0
+  };
+
+  const overlayStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+  };
+  
   return assetsInitialised ? (
     <div className="page" style={containerStyle}>
       <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />

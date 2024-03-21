@@ -182,7 +182,7 @@ const imageStyle = {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    filter: 'brightness(20%)',
+    filter: 'brightness(30%)',
     zIndex: -1
 };
 

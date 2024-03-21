@@ -12,13 +12,15 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 
+import './results.css';
+
 
 const ResultsPage = () => {
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
 
   const location = useLocation();
-  const { balancePercentages } = location.state;
+  const { balancePercentages = [0, 0] } = location.state || {};
   const navigate = useNavigate();
 
   const averageResult = calculateAverageResult(balancePercentages);
@@ -52,101 +54,49 @@ const ResultsPage = () => {
     setConfirmQuitDialogOpen(false);
   };
 
-  const containerStyle = {
-    position: 'relative',
-    height: '100vh',
-    overflow: 'hidden',
-};
-
-const imageStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    zIndex: 0
-};
-
-const titleWrapperStyle = {
-    position: 'absolute',
-    top: '7%',
-    left: 0,
-    zIndex: 2,
-    fontFamily: 'Anton, sans-serif',
-    width: '100%'
-};
-
-const titleStyle = {
-    fontSize: '14vmin',
-    color: 'white',
-    textAlign: 'left',
-    paddingLeft: '3%'
-};
-
-const informationWrapperStyle = {
-    textAlign: 'left',
-    color: 'white',
-    fontSize: '10vmin',
-    paddingLeft: '5%'
-};
-
-const ButtonStyle = {
-  fontFamily: 'Anton',
-  padding: '10px',
-  fontSize: '16px',
-  borderRadius: '4px',
-  backgroundColor: '#F0FFFF',
-  color: '#007bff',
-  border: '1px solid #007bff',
-  '&:hover': {
-      backgroundColor: '#04aa23',
-      color: '#fff',
-  }
-}
-
-  
-return (
-    <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
-            <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-              <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-
-
-              <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
-            </div>
-            <div style={titleWrapperStyle}>
-                <div className="titleWrapper">
-                    <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-                        <h1 style={titleStyle}>RESULTS</h1>
-                    </Slide>
-                    <div className="informationWrapper" style={informationWrapperStyle}>
-                    <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1300}>
-                            <h3 style = {{fontSize: '4vmin'}}>1998 Peace Talks - {balancePercentages[0]}% Balance Achieved</h3>
-                    </Slide>
-                    <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1300}>
-                            <h3 style = {{fontSize: '4vmin'}}>2020 Restoration Talks - {balancePercentages[1]}% Balance Achieved</h3>
-                    </Slide>
-                    <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1500}>
-                            <h3 style = {{fontSize: '8vmin'}}>{averageResult}% Balance Achieved Overall</h3>
-                    </Slide>
-                    <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1800}>
-                      <Button style={ButtonStyle} onClick={leaveReflection}>Leave a Reflection</Button>
-                    </Slide>
-                    </div>       
-                </div>
-            </div>
-
-            <ConfirmQuitDialog 
-              isOpen={isConfirmQuitDialogOpen}
-              handleClose={handleCloseConfirmQuitDialog}/>
-
-            <SettingsDialog 
-              isOpen={isSettingsDialogOpen}
-              handleClose={handleCloseSettingsDialog}/>
-
-            <RotateDeviceMessage />
+  return (
+    <div className="page">
+      <img 
+        src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} 
+        alt="background" 
+        className="background-image" 
+      />
+      <div className="navBar">
+        <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+      </div>
+      <div className="titleWrapper">
+        <div>
+          <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+            <h1 className="title">RESULTS</h1>
+          </Slide>
+          <div className="informationWrapper">
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+              <h3 className="informationHeader header1998">1998 Peace Talks - {balancePercentages[0]}%</h3>
+            </Slide>
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+              <h3 className="informationHeader header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3>
+            </Slide>
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+              <h3 className="informationHeader averageResultHeader">{averageResult}% Balance Achieved Overall</h3>
+            </Slide>
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+              <Button className="reflectionButton" onClick={leaveReflection}>Leave a Reflection</Button>
+            </Slide>
+          </div>       
         </div>
+      </div>
+
+      <ConfirmQuitDialog 
+        isOpen={isConfirmQuitDialogOpen}
+        handleClose={handleCloseConfirmQuitDialog}/>
+
+      <SettingsDialog 
+        isOpen={isSettingsDialogOpen}
+        handleClose={handleCloseSettingsDialog}/>
+
+      <RotateDeviceMessage />
+    </div>
   );
 };
 
