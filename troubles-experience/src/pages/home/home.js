@@ -2,15 +2,30 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './home.css';
+import RotateDeviceMessage from '../../components/rotate-device-message';
+import SettingsDialog from '../../dialogs/settingsDialog';
 
 const HomePage = () => {
   //const [settingsVisible, setSettingsVisible] = useState(false);
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
 
   
   return (
     <div className="Container">
-      <Link to="..\settings" aria-label='Settings'>
-      <SettingsIcon className="SettingsIcon" style={{ fontSize: '8vmin', color: 'white'}}/></Link>
+      <img 
+        src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} 
+        alt="background" 
+        className="background-image" 
+      />
+      <SettingsIcon className="SettingsIcon" onClick={displaySettingsDialog} style={{ fontSize: '8vmin', color: 'white'}}/>
       <header className="Header">
         <h1 className="title">
           Museum Of The Troubles and Peace Process
@@ -31,7 +46,14 @@ const HomePage = () => {
           Museum Of The Troubles and Peace Process Home Page
         </a>
       </section>
+
+      <SettingsDialog 
+        isOpen={isSettingsDialogOpen}
+        handleClose={handleCloseSettingsDialog}/>
+
+      <RotateDeviceMessage />
     </div>
+    
   );
 };
 

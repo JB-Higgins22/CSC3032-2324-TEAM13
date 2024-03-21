@@ -44,7 +44,12 @@ const Login = () => {
   };
 
   return (
-    <div className="loginBackground">
+    <div className="pageContainer">
+      <img 
+        src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} 
+        alt="background" 
+        className="background-image" 
+      />
       <div className="loginContainer">
         <Link to="../settings">
           <SettingsIcon className="SettingsIcon" />
