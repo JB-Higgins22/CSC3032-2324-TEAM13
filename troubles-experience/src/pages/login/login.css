@@ -12,6 +12,17 @@
   white-space: normal;
 }
 
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(30%);
+  z-index: -1;
+}
+
 .Container .SettingsIcon {
   font-size: 32px;
   color: #F0FFFF;
@@ -70,15 +81,14 @@ a:active {
   color: #F8F8FF;
 }
 
-.loginBackground {
+.pageContainer {
   width: 100%;
   overflow: hidden;
   margin: 0 auto;
   height: 100vh;
   background-color: #0b6ea5;
-  background-image: url("../../../public/newspaperDark.jpeg");
-  background-image: url("../../../public/newspaperDark.jpeg");
   position: relative;
+  z-index: 0;
 }
 
   /* Additional styles specific to the login component */

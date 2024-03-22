@@ -134,7 +134,7 @@ const Tutorial = () => {
 
     return ( 
         <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className='background-image' />
             
             <div style={titleWrapperStyle}>
                 

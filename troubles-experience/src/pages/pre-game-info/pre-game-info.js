@@ -61,16 +61,6 @@ const PreGameInfo = () => {
         overflow: 'hidden',
     };
 
-    const imageStyle = {
-        position: 'relative',
-        overflow: 'auto',
-        whiteSpace: 'normal',
-        width: '100%',
-        height: '100vh',
-        objectFit: 'cover',
-        zIndex: 0,
-    };
-
     const titleWrapperStyle = {
         position: 'absolute',
         top: '9%',
@@ -123,7 +113,7 @@ const PreGameInfo = () => {
 
 return ( 
         <div className="page" style={containerStyle}>
-            <img src={`${process.env.PUBLIC_URL}/newspaperDark.jpeg`} alt="background" style={imageStyle} />
+            <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className='background-image' />
             <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
               <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
