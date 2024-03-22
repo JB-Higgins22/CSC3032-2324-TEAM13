@@ -28,6 +28,9 @@
     "test-with-coverage": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "resetMocks": "false"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

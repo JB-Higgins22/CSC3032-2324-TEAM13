@@ -423,6 +423,8 @@ const fetchIssues = async () => {
                 {bookshelfObject.getIssues().map((issue, index) => (
                   <div
                     className='bookOnShelf'
+                    aria-label={`BookOnShelf`}
+                    role="button"
                     key={index}
                     onMouseEnter={(e) => handleMouseEnter(e, issue)}
                     onMouseLeave={handleMouseLeave}
@@ -430,8 +432,11 @@ const fetchIssues = async () => {
                   >
                     <img
                       src={process.env.PUBLIC_URL + '/IMG_2965.png'}
-                      alt="Bookshelf"
-                      style={{ width: '5vmin', height: 'auto', display: 'block', margin: 'auto' }}
+                      alt= {`BookOnShelf ${issue.name}`}
+                      style={{ width: '5vmin', 
+                                height: 'auto', 
+                                display: 'block', 
+                                margin: 'auto' }}
                     />
                   </div>
                 ))}
