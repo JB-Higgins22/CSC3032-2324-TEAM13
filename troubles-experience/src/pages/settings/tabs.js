@@ -133,8 +133,8 @@ export default function BasicTabs() {
       <CustomTabPanel value={value} index={0}>
       
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
-        <VolumeUp sx={{ marginRight: 1 }} />
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton'  }}>Mute Volume</Typography>
+        <VolumeUp sx={{ marginRight: 1, fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white'  }} />
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
          <FormControlLabel control={<Switch/>} sx={{ marginLeft: 2 }} />
