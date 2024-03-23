@@ -65,8 +65,8 @@ export default class ScalesObject {
             // Reverse changes for option B
             this.unionistWeight -= issue.optionBUnionistWeight;
             this.nationalistWeight -= issue.optionBNationalistWeight;
+            
             // Remove perspectives
-    
             this.nationalistIssues = this.nationalistIssues.filter(paper => paper.headline !== issue.optionBNationalistPerspective);
             this.unionistIssues = this.unionistIssues.filter(paper => paper.headline !== issue.optionBUnionistPerspective);
         } else if (issue?.selectedOption == 'C') {

@@ -30,7 +30,7 @@ const SettingsDialog = ({ isOpen, handleClose }) => {
       transitionDuration={500}
       PaperProps={{ style: { ...dialogStyles } }} 
     >
-        <DialogTitle>Settings</DialogTitle>
+        <DialogTitle sx = {{fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 4vmin)'}}>Settings</DialogTitle>
         <DialogContent>
         <BasicTabs/>
         </DialogContent>

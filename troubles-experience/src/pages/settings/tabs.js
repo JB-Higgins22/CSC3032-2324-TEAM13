@@ -141,8 +141,8 @@ export default function BasicTabs() {
         </Box>
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
-          <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton' }}>Black and White (Dark) Mode</Typography>
+          <ContrastIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Black and White (Dark) Mode</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
@@ -152,8 +152,8 @@ export default function BasicTabs() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px', fontFamily: 'Anton' }}>
-          <ContrastIcon />
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton'  }}>High Contrast</Typography>
+          <ContrastIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>High Contrast</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px', fontFamily: 'Anton'}}>
@@ -163,8 +163,8 @@ export default function BasicTabs() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
-        <AbcIcon/>
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton'  }}>Adjust Font Size</Typography>
+        <AbcIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Adjust Font Size</Typography>
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>

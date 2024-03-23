@@ -39,6 +39,10 @@ const Scales = () => {
   const [prevBalancePercentage, setPrevBalancePercentage] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverContent, setPopoverContent] = useState('');
+  const [popoverContentLineTwo, setPopoverContentLineTwo] = useState('');
+  const [popoverTitle, setPopoverTitle] = useState('');
+  const [bookName, setBookName] = useState({ show: false, x: 0, y: 0, text: '' });
+
   const [issues, setIssues] = useState([]);
   const [phaseTwoIssues, setPhaseTwoIssues] = useState([]);
   const [dataFetched, setDataFetched] = useState(false);
@@ -58,9 +62,9 @@ const Scales = () => {
   const [phaseIssues, setPhaseIssues] = useState();
 
   // STATE OF DIALOGS
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
-  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
 
   //MUI 
   const [checked, setChecked] = React.useState(false);
@@ -69,13 +73,13 @@ const Scales = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchIssues(); // Wait for issues to be retrieved from the DB
-      setDataFetched(true);
-    };
-  
     fetchData();
-  }, []);
+  }, []); 
+
+  async function fetchData() {
+      await fetchIssues();     // Wait for issues to be retrieved from DB
+      setDataFetched(true);
+  }
 
   useEffect(() => {
     initialiseScales();
@@ -90,9 +94,11 @@ const Scales = () => {
   }, [balancePercentage]);
 
 
-  const handlePopoverOpen = (event, content) => {
+  const handlePopoverOpen = (event, content, title) => {
     setAnchorEl(event.currentTarget);
-    setPopoverContent(content); // Set the content for this popover
+    setPopoverContent(content.issue.name);
+    setPopoverContentLineTwo(content.headline);
+    setPopoverTitle(title);
   };
 
   const handlePopoverClose = () => {
@@ -147,7 +153,6 @@ const fetchIssues = async () => {
       throw new Error('Failed to fetch issues');
     })
     .then(data => {
-      console.log(data);
       // Create Issue objects for each issue received
       const parsedIssues = data.map(issue => {
         return new Issue(
@@ -189,33 +194,6 @@ const fetchIssues = async () => {
   // RESULTS ARRAY
   let resultsArray = [0, 0];
 
-  // Page Styling
-  const containerStyle = {
-    position: 'relative',
-    height: '100vh',
-    overflow: 'hidden',
-  };
-
-  const imageStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    filter: 'brightness(50%)', // Adjust brightness to darken the image
-    zIndex: 0
-  };
-
-  const overlayStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
-  };
-
   // Dialog Handling
   const displayIssueInfo = (issue) => {
     setSelectedIssue(issue);
@@ -241,8 +219,6 @@ const fetchIssues = async () => {
   const handleCloseSettingsDialog = () => {
     setSettingsDialogOpen(false);
   };
-
-
 
   // Scale Handling
   const selectOptionA = () => {
@@ -304,7 +280,7 @@ const fetchIssues = async () => {
     const balanceRatio = balanceDifference / totalWeight;
     
     // Assuming max tilt of 30 degrees for full imbalance
-    const maxTiltDegrees = 30;
+    const maxTiltDegrees = 70;
     let tiltAngle = balanceRatio * maxTiltDegrees;
   
     // Adjust direction of tilt based on which side is heavier
@@ -317,14 +293,14 @@ const fetchIssues = async () => {
   };
 
   const updateHeightsBasedOnTilt = (tiltAngle) => {
-    const maxTiltDegrees = 30;
+    const maxTiltDegrees = 70;
     const baseHeight = 50; // Assuming both sides start at equal heights when balanced
 
     const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
     
     // Adjust heights inversely based on tilt
     // The side tilting down gets a height boost, the other side gets a reduction
-    const heightAdjustment = tiltRatio * 30; // Max adjustment of 20% for max tilt
+    const heightAdjustment = tiltRatio * 70; // Max adjustment of 20% for max tilt
     
     let newUnionistHeight, newNationalistHeight;
     if (tiltAngle > 0) { // Nationalist side tilts down
@@ -338,7 +314,76 @@ const fetchIssues = async () => {
     setUnionistHeight(newUnionistHeight);
     setNationalistHeight(newNationalistHeight);
   };
+  
 
+  function logScales() {
+    console.log(peaceScales);
+    console.log(peaceScales.getNationalistIssues);
+    console.log(peaceScales.getUnionistIssues);
+  }
+
+  const handleMouseEnter = (event, issue) => {
+    setBookName({
+      show: true,
+      x: event.clientX,
+      y: event.clientY,
+      text: issue.name // Assuming the issue object has a name property
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setBookName({ ...bookName, show: false });
+  };
+
+  const nationalistRows = peaceScales.getNationalistIssues()
+  .reduce((acc, issue, idx) => {
+    // Create a new row for every 5 issues
+    const rowNum = Math.floor(idx / 5);
+    if (!acc[rowNum]) {
+      acc[rowNum] = [];
+    }
+    acc[rowNum].push(issue);
+    return acc;
+  }, []);
+
+  const unionistRows = peaceScales.getUnionistIssues()
+  .reduce((acc, issue, idx) => {
+    // Create a new row for every 5 issues
+    const rowNum = Math.floor(idx / 5);
+    if (!acc[rowNum]) {
+      acc[rowNum] = [];
+    }
+    acc[rowNum].push(issue);
+    return acc;
+  }, []);
+
+  // Page Styling
+  const containerStyle = {
+    position: 'relative',
+    height: '100vh',
+    overflow: 'hidden',
+  };
+
+  const imageStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    filter: 'brightness(50%)', // Adjust brightness to darken the image
+    zIndex: 0
+  };
+
+  const overlayStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+  };
+  
   return assetsInitialised ? (
     <div className="page" style={containerStyle}>
       <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />
@@ -347,9 +392,7 @@ const fetchIssues = async () => {
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
           <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
-
           <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
-        
 
           <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
         </div>
@@ -376,20 +419,46 @@ const fetchIssues = async () => {
             <Slide direction="right" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
               <div className="shelf-zone">
             
-                  <div className='books'>
-                  {bookshelfObject.getIssues().map((issue) => (
-                    <div className='bookOnShelf'
-                    onClick={displayIssueInfo.bind(this, issue)}>
-                      <img
-                        src={process.env.PUBLIC_URL + '/IMG_2965.png'}
-                          alt="Bookshelf"
-                          style={{ width: '5vmin', 
-                                    height: 'auto',
-                                    display: 'block',
-                                    margin: 'auto' }} />
-                    </div>
-                  ))}
+              <div className='books'>
+                {bookshelfObject.getIssues().map((issue, index) => (
+                  <div
+                    className='bookOnShelf'
+                    aria-label={`BookOnShelf`}
+                    role="button"
+                    key={index}
+                    onMouseEnter={(e) => handleMouseEnter(e, issue)}
+                    onMouseLeave={handleMouseLeave}
+                    onClick={displayIssueInfo.bind(this, issue)}
+                  >
+                    <img
+                      src={process.env.PUBLIC_URL + '/IMG_2965.png'}
+                      alt= {`BookOnShelf ${issue.name}`}
+                      style={{ width: '5vmin', 
+                                height: 'auto', 
+                                display: 'block', 
+                                margin: 'auto' }}
+                    />
                   </div>
+                ))}
+                {bookName.show && (
+                  <div
+                    className="bookName"
+                    style={{
+                      fontFamily: 'Anton',
+                      position: 'fixed',
+                      left: `${bookName.x}px`,
+                      top: `${bookName.y}px`,
+                      backgroundColor: '#555',
+                      color: 'white',
+                      borderRadius: '6px',
+                      padding: '5px 10px',
+                      zIndex: 1000
+                    }}
+                  >
+                    {bookName.text}
+                  </div>
+                )}
+              </div>
 
                 <div className = "shelf" >
                   <img
@@ -413,23 +482,22 @@ const fetchIssues = async () => {
                   <div className="unionistSide">
 
                   <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
-                    {peaceScales.getUnionistIssues().map((issue) => (
-                      <div
-                        className="unionistIssue"
-                        key={issue.id}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + '/single-book.png'}
+                      {unionistRows.map((rowIssues, idx) => (
+                        <div className="unionistRow" key={idx}>
+                          {rowIssues.map(issue => (
+                            <div className="unionistIssue" key={issue.id}>
+                              <img
+                          src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                           alt="Bookshelf"
                           style={{ 
-                            width: '2em', 
+                            width: '8vmin', 
                             height: 'auto',
                             display: 'block',
                             margin: 'auto',
-                            cursor: 'pointer' // Add cursor pointer for hover effect
+                            cursor: 'pointer'
                           }}
                           aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE ORANGE HERALD')}
                           // onMouseLeave={handlePopoverClose}
                         />
                         <Popover
@@ -445,16 +513,40 @@ const fetchIssues = async () => {
                             vertical: 'top',
                             horizontal: 'center',
                           }}
+                          sx={{
+                            '.MuiPopover-paper': {
+                              width: '300px', 
+                            }
+                          }}
                         >
-                          <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
-                        </Popover>
-                      </div>
-                    ))}
-                  </div>
+                          <div className='newspaperPopoverContainer'>
+                            <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
+                            <div className="newspaperPopover">
+                            <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
+                              {popoverTitle}
+                            </Typography>
+                            <hr />
+                            <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
+                              "{popoverContentLineTwo}"
+                            </Typography>
+                            <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                          </div>
+                          </div>
+                        </Popover> 
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
 
 
                       <div className = "unionistPlatform">
-                        <h4>{peaceScales.getUnionistWeight()}</h4>
+                        <h4>UNIONIST</h4>
                       </div>
                   </div>
 
@@ -462,23 +554,22 @@ const fetchIssues = async () => {
                   <div className="nationalistSide" >
 
                   <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
-                    {peaceScales.getNationalistIssues().map((issue) => (
-                      <div
-                        className="nationalistIssue"
-                        key={issue.id}
-                      >
-                        <img
-                          src={process.env.PUBLIC_URL + '/single-book.png'}
+                      {nationalistRows.map((rowIssues, idx) => (
+                        <div className="nationalistRow" key={idx}>
+                          {rowIssues.map(issue => (
+                            <div className="nationalistIssue" key={issue.id}>
+                              <img
+                          src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                           alt="Bookshelf"
                           style={{ 
-                            width: '2em', 
+                            width: '8vmin', 
                             height: 'auto',
                             display: 'block',
                             margin: 'auto',
                             cursor: 'pointer' // Add cursor pointer for hover effect
                           }}
                           aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue.headline)}
+                          onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NORTHERN STAR')}
                           // onMouseLeave={handlePopoverClose}
                         />
                         <Popover
@@ -494,16 +585,40 @@ const fetchIssues = async () => {
                             vertical: 'top',
                             horizontal: 'center',
                           }}
+                          sx={{
+                            '.MuiPopover-paper': {
+                              width: '300px', 
+                            }
+                          }}
                         >
-                          <Typography sx={{ p: 1 }}>{popoverContent}</Typography>
-                        </Popover>
-                      </div>
-                    ))}
-                  </div>
+                          <div className='newspaperPopoverContainer'>
+                            <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
+                            <div className="newspaperPopover">
+                            <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
+                              {popoverTitle}
+                            </Typography>
+                            <hr />
+                            <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
+                              "{popoverContentLineTwo}"
+                            </Typography>
+                            <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                          </div>
+                          </div>
+                        </Popover> 
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
 
 
                       <div className = "nationalistPlatform">
-                        <h4>{peaceScales.getNationalistWeight()}</h4>
+                        <h4>NATIONALIST</h4>
                       </div>
                   </div>
 
@@ -521,14 +636,13 @@ const fetchIssues = async () => {
           issue={selectedIssue}
         />
 
+        <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
+
         <ConfirmQuitDialog 
           isOpen={isConfirmQuitDialogOpen}
           handleClose={handleCloseConfirmQuitDialog}/>
-
-        <SettingsDialog 
-          isOpen={isSettingsDialogOpen}
-          handleClose={handleCloseSettingsDialog}/>
-
 
         <RotateDeviceMessage />
     </div>
@@ -536,3 +650,7 @@ const fetchIssues = async () => {
 };
 
 export default Scales;
+
+
+
+

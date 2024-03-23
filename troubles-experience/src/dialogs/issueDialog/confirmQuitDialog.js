@@ -17,9 +17,9 @@ const ConfirmQuitDialog = ({ isOpen, handleClose}) => {
             className = "dialogueBox" 
             TransitionComponent={Zoom} 
             transitionDuration={500}>
-      <DialogTitle style = {{color: 'black'}}>Are You Sure You Want to Quit?</DialogTitle>
+      <DialogTitle style = {{color: 'black'}} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>Are You Sure You Want to Quit?</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)' }}>
           All Progress Will Be Lost.
           </DialogContentText>
       </DialogContent>
@@ -28,9 +28,9 @@ const ConfirmQuitDialog = ({ isOpen, handleClose}) => {
                       aria-label="outlined button group"
                       style={{ margin: 'auto', scale: '100%', paddingBottom: '20px' }}>
         <Link to="..\">
-            <Button color="error">Quit</Button>
+            <Button color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Quit</Button>
         </Link>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Cancel</Button>
         </ButtonGroup>
       </DialogActions>
     </Dialog>
