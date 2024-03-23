@@ -19,6 +19,7 @@ import Radio from '@mui/material/Radio';
 import { green } from '@mui/material/colors';
 import { alpha, styled } from '@mui/material/styles';
 
+import { useSoundContext } from '../../sounds/soundContext.js';
 
 function accessabilityProps(index) {
   return {
@@ -76,6 +77,7 @@ function applyFontStyling() {
 */
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const { toggleMute } = useSoundContext();
   
   //Defining state variables
     const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(false); 
@@ -137,7 +139,7 @@ export default function BasicTabs() {
         <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-         <FormControlLabel control={<Switch/>} sx={{ marginLeft: 2 }} />
+         <FormControlLabel control={<Switch onChange={toggleMute}/>} sx={{ marginLeft: 2 }} />
         </Box>
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
