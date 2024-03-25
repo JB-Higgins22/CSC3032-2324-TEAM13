@@ -28,9 +28,6 @@
     "test-with-coverage": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject"
   },
-  "jest": {
-    "resetMocks": "false"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -61,5 +58,8 @@
     "@testing-library/react": "^14.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest-fetch-mock": "^3.0.3"
+  },
+  "jest": {
+    "resetMocks": false
   }
 }

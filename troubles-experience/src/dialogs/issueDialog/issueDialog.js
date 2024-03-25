@@ -27,7 +27,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
             PaperProps={{ style: { ...dialogStyles } }}>
       <DialogTitle style = {{color: 'black'}} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
         {issue && issue.name}
-        <IconButton aria-label="close" onClick={handleClose}>
+        <IconButton role = "button" aria-label="close" onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -58,10 +58,10 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
                        scale: '100%',
                        paddingBottom: '20px'
                      }}>
-          <Button onClick={handleOptionA} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionA}</Button>
-          <Button onClick={handleOptionB} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }} >{issue?.optionB}</Button>
+          <Button role = "button" aria-label="optionA" onClick={handleOptionA} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionA}</Button>
+          <Button role = "button" aria-label="optionB" onClick={handleOptionB} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }} >{issue?.optionB}</Button>
           { (issue?.numberOfOptions === 3) && (
-            <Button onClick={handleOptionC} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionC}</Button>
+            <Button role = "button" aria-label="optionC" onClick={handleOptionC} style = {{width: '30%'}} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionC}</Button>
           )}
         </ButtonGroup>
       </DialogActions>

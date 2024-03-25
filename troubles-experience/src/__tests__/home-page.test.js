@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import HomePage from '../pages/home/home';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
@@ -35,14 +35,21 @@ test('Page displays options correctly: TC02', () => {
       </MemoryRouter>
     );
   
-    const settingsLink = screen.getByRole('link', { name: 'Settings' });
+    //const settingsLink = screen.getByRole('link', { name: 'Settings' });
+    const settingsIcon = screen.getByLabelText(/SettingsIcon/i);
+
+    act(() => {
+      fireEvent.click(settingsIcon);
+    });
+
+    expect(screen.getByText('Settings')).toBeInTheDocument();
   
     // User clicking the link
-    await act(async () => {
-      await userEvent.click(settingsLink);
-    });
+    // await act(async () => {
+    //   await userEvent.click(settingsLink);
+    // });
   
-    expect(settingsLink).toHaveAttribute('href', expect.stringContaining('settings'));
+    // expect(settingsLink).toHaveAttribute('href', expect.stringContaining('settings'));
   });
 
   test('Clicking the `Play Game` button navigates to the pre-game-info page: TC04', async () => {

@@ -28,9 +28,9 @@ const ConfirmQuitDialog = ({ isOpen, handleClose}) => {
                       aria-label="outlined button group"
                       style={{ margin: 'auto', scale: '100%', paddingBottom: '20px' }}>
         <Link to="..\">
-            <Button color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Quit</Button>
+            <Button role = "button" aria-label="confirmQuit" color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Quit</Button>
         </Link>
-          <Button onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Cancel</Button>
+          <Button role = "button" aria-label="closeConfirmQuit" onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Cancel</Button>
         </ButtonGroup>
       </DialogActions>
     </Dialog>

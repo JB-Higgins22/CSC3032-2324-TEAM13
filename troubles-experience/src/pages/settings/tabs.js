@@ -124,7 +124,7 @@ export default function BasicTabs() {
   return (
     <Box sx={{ width: '100%', fontFamily: 'Anton' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', fontFamily: 'Anton'}}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs" textColor="white">
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
           <Tab label="General" {...accessabilityProps(0)} />
           <Tab label="Admin" {...accessabilityProps(1)} />
         </Tabs>

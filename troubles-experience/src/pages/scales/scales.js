@@ -390,11 +390,11 @@ const fetchIssues = async () => {
         <div style={{ position: 'relative', zIndex: 2 }}>
 
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-          <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+          <HomeIcon aria-label = "HomeIcon" className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
-          <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+          <SettingsIcon aria-label = "SettingsIcon" className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
 
-          <CheckCircleOutlineIcon className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
+          <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
         </div>
 
           <div className="titleAndBalanceContainer">
@@ -423,7 +423,7 @@ const fetchIssues = async () => {
                 {bookshelfObject.getIssues().map((issue, index) => (
                   <div
                     className='bookOnShelf'
-                    aria-label={`BookOnShelf`}
+                    aria-label={`BookOnShelf ${issue.name}`}
                     role="button"
                     key={index}
                     onMouseEnter={(e) => handleMouseEnter(e, issue)}
@@ -485,10 +485,11 @@ const fetchIssues = async () => {
                       {unionistRows.map((rowIssues, idx) => (
                         <div className="unionistRow" key={idx}>
                           {rowIssues.map(issue => (
-                            <div className="unionistIssue" key={issue.id}>
+                            <div className="unionistIssue" key={`${idx}-${issue.id}`}>
                               <img
                           src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                           alt="Bookshelf"
+                          aria-label= {`unionistIssue ${issue.issue.name}`}
                           style={{ 
                             width: '8vmin', 
                             height: 'auto',
@@ -557,10 +558,11 @@ const fetchIssues = async () => {
                       {nationalistRows.map((rowIssues, idx) => (
                         <div className="nationalistRow" key={idx}>
                           {rowIssues.map(issue => (
-                            <div className="nationalistIssue" key={issue.id}>
+                            <div className="nationalistIssue" key={`${idx}-${issue.id}`}>
                               <img
                           src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                           alt="Bookshelf"
+                          aria-label = {`nationalistIssue ${issue.issue.name}`}
                           style={{ 
                             width: '8vmin', 
                             height: 'auto',
@@ -634,15 +636,18 @@ const fetchIssues = async () => {
           handleOptionC={selectOptionC}
           handleClose={handleCloseDialog}
           issue={selectedIssue}
+          aria-label="Issue-Dialog"
         />
 
         <SettingsDialog 
               isOpen={isSettingsDialogOpen}
-              handleClose={handleCloseSettingsDialog}/>
+              handleClose={handleCloseSettingsDialog}
+              aria-label="Settings-Dialog"/>
 
         <ConfirmQuitDialog 
           isOpen={isConfirmQuitDialogOpen}
-          handleClose={handleCloseConfirmQuitDialog}/>
+          handleClose={handleCloseConfirmQuitDialog}
+          aria-label="Confirm-Quit-Dialog"/>
 
         <RotateDeviceMessage />
     </div>
