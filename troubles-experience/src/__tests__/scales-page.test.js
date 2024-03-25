@@ -352,3 +352,35 @@ describe('Scales Component', () => {
     const messageElement = screen.getByText(/Please rotate your device to landscape mode/i);
     expect(messageElement).toBeInTheDocument();
   });
+
+
+  it('Nationalist Weight updates when completely outweighing UnionistWeight', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(mockData));
+    render(
+      <Router>
+        <Scales />
+      </Router>
+    );
+
+    // Wait for the mock data to be fetched
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(12));
+    // simulate the click.
+    const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+    fireEvent.click(bookDiv);
+  
+    // Find the select button for Option A
+    const optionAButton = screen.getByLabelText('optionA');
+    fireEvent.click(optionAButton);
+
+    // Access the component's internal state or props
+    const { currentStateOrProps } = Scales;
+
+    await waitFor(() => {
+      const titleElement = screen.getByRole('heading', { level: 1 });
+      expect(titleElement).toHaveTextContent('1998 Peace Talks');
+    });
+
+    // Assert that the nationalist weight is updated correctly in the component's state or props
+    expect(currentStateOrProps.peaceScales.nationalistWeight).toEqual(100);
+  });
+
