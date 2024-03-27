@@ -13,12 +13,6 @@ import SettingsDialog from '../../dialogs/settingsDialog';
 
 // MUI IMPORTS
 import Slide from '@mui/material/Slide';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 
@@ -36,7 +30,6 @@ const Scales = () => {
   const [bookshelfObject, setBookshelfObject] = useState(new BookshelfObject([]));
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [balancePercentage, setBalancePercentage] = useState(100);
-  const [prevBalancePercentage, setPrevBalancePercentage] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverContent, setPopoverContent] = useState('');
   const [popoverContentLineTwo, setPopoverContentLineTwo] = useState('');
@@ -89,11 +82,6 @@ const Scales = () => {
     initialiseIssues(issues);
     setAssetsInitialised(true);
   }, [issues]);
-
-  useEffect(() => {
-    // Update prevBalancePercentage whenever balancePercentage changes
-    setPrevBalancePercentage(balancePercentage);
-  }, [balancePercentage]);
 
 
   const handlePopoverOpen = (event, content, title) => {
