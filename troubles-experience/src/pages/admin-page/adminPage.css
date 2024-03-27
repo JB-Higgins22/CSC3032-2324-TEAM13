@@ -43,7 +43,7 @@
    
 
   table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
 }
 
@@ -58,4 +58,29 @@ td {
 
 th {
     background-color: rgb(85, 85, 183);
+}
+
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  padding-bottom: 20%;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+form {
+  width: 120vmin;
+}
+
+h2 {
+  font-size: 8vmin;
 }

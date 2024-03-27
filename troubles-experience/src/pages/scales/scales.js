@@ -280,7 +280,7 @@ const fetchIssues = async () => {
     const balanceRatio = balanceDifference / totalWeight;
     
     // Assuming max tilt of 30 degrees for full imbalance
-    const maxTiltDegrees = 70;
+    const maxTiltDegrees = 30;
     let tiltAngle = balanceRatio * maxTiltDegrees;
   
     // Adjust direction of tilt based on which side is heavier
@@ -293,14 +293,14 @@ const fetchIssues = async () => {
   };
 
   const updateHeightsBasedOnTilt = (tiltAngle) => {
-    const maxTiltDegrees = 70;
+    const maxTiltDegrees = 30;
     const baseHeight = 50; // Assuming both sides start at equal heights when balanced
 
     const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
     
     // Adjust heights inversely based on tilt
     // The side tilting down gets a height boost, the other side gets a reduction
-    const heightAdjustment = tiltRatio * 70; // Max adjustment of 20% for max tilt
+    const heightAdjustment = tiltRatio * 30; // Max adjustment of 20% for max tilt
     
     let newUnionistHeight, newNationalistHeight;
     if (tiltAngle > 0) { // Nationalist side tilts down
