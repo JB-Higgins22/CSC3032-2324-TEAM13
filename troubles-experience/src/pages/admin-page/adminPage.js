@@ -244,9 +244,9 @@ useEffect(() => {
       <h1 className="title">ADMIN</h1>
 
       {showForm && (
-    <div>
+    <div className="formContainer">
       <h2>1998 Issue Form</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
                 <input
                     type="text"
                     value={name}
@@ -386,6 +386,7 @@ useEffect(() => {
                     onChange={(event) => setOptionC(event.target.value)}
                     placeholder="Option C"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <label>Option C Nationalist Weight:</label>
                 <input
@@ -395,6 +396,7 @@ useEffect(() => {
                     placeholder="Option C Nationalist Weight"
                     required
                     min="0" 
+                    disabled={numberOfOptions === '2'}
                 />
                 <input
                     type="text"
@@ -402,6 +404,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCNationalistPerspective(event.target.value)}
                     placeholder="Option C Nationalist Perspective"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <label>Option C Unionist Weight:</label>
                 <input
@@ -411,6 +414,7 @@ useEffect(() => {
                     placeholder="Option C Unionist Weight"
                     min="0" 
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <input
                     type="text"
@@ -418,6 +422,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCUnionistPerspective(event.target.value)}
                     placeholder="Option C Unionist Perspective"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 
                 <button type="submit">Submit</button>
@@ -567,6 +572,7 @@ useEffect(() => {
                     onChange={(event) => setOptionC(event.target.value)}
                     placeholder="Option C"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <label>Option C Nationalist Weight:</label>
                 <input
@@ -575,6 +581,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCNationalistWeight(event.target.value)}
                     placeholder="Option C Nationalist Weight"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <input
                     type="text"
@@ -582,6 +589,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCNationalistPerspective(event.target.value)}
                     placeholder="Option C Nationalist Perspective"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <label>Option C Unionist Weight:</label>
                 <input
@@ -590,6 +598,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCUnionistWeight(event.target.value)}
                     placeholder="Option C Unionist Weight"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 <input
                     type="text"
@@ -597,6 +606,7 @@ useEffect(() => {
                     onChange={(event) => setOptionCUnionistPerspective(event.target.value)}
                     placeholder="Option C Unionist Perspective"
                     required
+                    disabled={numberOfOptions === '2'}
                 />
                 
                 <button type="submit">Submit</button>
@@ -605,30 +615,33 @@ useEffect(() => {
       )}
 
       <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
-      <table>
-                <thead>
-                    <tr>
-                        <th>ReflectionID</th>
-                        <th>Username</th>
-                        <th>Location</th>
-                        <th>Content</th>
-                        <th>Approve</th>
-                        <th>Reject</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {reflections.map(reflection => (
-                        <tr key={reflection.id}>
-                            <td>{reflection.id}</td>
-                            <td>{reflection.username}</td>
-                            <td>{reflection.location}</td>
-                            <td>{reflection.content}</td>
-                            <td><Button onClick={() => handleApproveReflection(reflection)}>Approve</Button></td>
-                            <td><Button onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+      <div className="tableContainer">
+      <h2>Reflection Approval Table</h2>
+        <table>
+                  <thead>
+                      <tr>
+                          <th>ReflectionID</th>
+                          <th>Username</th>
+                          <th>Location</th>
+                          <th>Content</th>
+                          <th>Approve</th>
+                          <th>Reject</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {reflections.map(reflection => (
+                          <tr key={reflection.id}>
+                              <td>{reflection.id}</td>
+                              <td>{reflection.username}</td>
+                              <td>{reflection.location}</td>
+                              <td>{reflection.content}</td>
+                              <td><Button onClick={() => handleApproveReflection(reflection)}>Approve</Button></td>
+                              <td><Button onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button></td>
+                          </tr>
+                      ))}
+                  </tbody>
+              </table>
+            </div>
     </div>
   );
 };

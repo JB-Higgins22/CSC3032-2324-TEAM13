@@ -40,7 +40,7 @@ const SettingsDialog = ({ isOpen, handleClose }) => {
             aria-label="outlined button group"
             style={{ margin: 'auto', scale: '100%', paddingBottom: '20px' }}
           >
-            <Button onClick={handleClose}>Close</Button>
+            <Button onClick={handleClose}role = "button" aria-label="closeSettings">Close</Button>
           </ButtonGroup>
         </DialogActions>
       </Dialog>

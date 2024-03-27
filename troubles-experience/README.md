@@ -89,3 +89,155 @@ npm install @testing-library/user-event @testing-library/dom
 Newspaper image: https://pixabay.com/photos/bundle-jute-rope-newspaper-1853667/
 
 Shelf Image: https://pixabay.com/vectors/shelf-wood-wall-hanging-wooden-575408/ 
+
+
+
+
+
+
+
+# NEW README IN PROGRESS HERE
+
+
+
+
+MUSEUM OF THE TROUBLES & PEACE PROCESS - INTERACTIVE EXPERIENCE // QUB
+
+# Introduction
+The product vision for this project is as follows:
+
+"
+We propose to develop an interactive experience to be embedded on the ‘Museum of the Troubles and Peace’ website, prior to the opening of the museum. Our proposed solution, is an interactive conflict resolution ‘puzzle’, that encourages the user to learn about various concerns that were crucial during the 1998 peace talks, and how they were perceived on both sides of the political divide. The user is asked to achieve ‘balance’ by placing issues on either side of a ‘peace scale’, with the ideal outcome stressing that reasonable balance was difficult to achieve given the wider context of the Troubles. The user is encouraged to reflect on what they have learned, and leave comments for other users to consider.
+This differs from other online museum experiences in that it has no dependence on the infrastructure of the museum itself. Instead, the solution is designed for users to learn and interact in a similar way to the proposed museum, so they can gauge their own interest in the project.
+Anyone with an interest in the history of the troubles could be considered a beneficiary of this solution, however, we have formulated this idea specifically with potential investors in mind. They may want to interact with the solution to get a feel for the kind of lessons and conversations the museum can inspire. The ability to view the comments and reflections of other users could help investors gauge interest in the project, with a view to attracting more funding.
+"
+
+There are several key components to this project:
+
+SCALES PAGE: The 'main' page of the application, the user is able to read about issues relating to peace in 
+             Northern Ireland and can select actions in an attempt to bring us closer to peace. The perception
+             of their actions are reflected on the scales. The user can hover over the scales to view quotes
+             that surmise the attitudes of a particular side of the conflict. 
+
+REFLECTIONS SPACE: The reflection space allows the user to leave reflections based on the lessons or thoughts
+                   inspired by using the application. They are also able to view the reflections of others
+                   which are visualised in a word cloud. These reflections are randomly retrieved from the 
+                   database to eliminate bias. 
+
+SETTINGS: The Settings can be accessed from every page in the application and allows the user to adjust
+          the font size of text on screen, apply dark mode, apply high contrast mode, mute the soundtrack
+          and access the login facility for the admin page.
+
+ADMIN CONTROL: This page allows the system admin to approve or reject reflections submitted by users.
+               It also provides the facility to populate the scales page with the desired 'Issue' data.
+
+DATABASE: The facility through which data for the application is held
+
+
+# Installing The Project
+
+
+# Populating the Application with Content
+
+CONTEXTUAL CONTENT:
+We have included a page for the user to view prior to engaging with the scales that provides the user with some context on the Troubles themselves.
+We have accomodated for `THREE PARAGRAPHS` of content on this page. This content should be replaced with a version the Museum feels best provides
+the user with an unbiased understanding of the context of the troubles/peace process. 
+
+This content can be found in a constant names `allContent` at the following file path:
+`CSC3032-2324-TEAM13/troubles-experience/src/pages/pre-game-info/pre-game-info.js`
+
+ISSUE CONTENT: 
+The main content that must be populated within the application is the content for the actual Issues the user will be asked to work through.
+Populating this content will require an understanding of the format of each Issue:
+
+Each Issue must contain a `Name`, `two paragraphs to serve as a description`, `an Image`, and `2 - 3 options for the user to choose from`.
+
+Each Option within an issue must contain a `Name`, `positive impact on Nationalist Weight`, `positive impact on Unionist Weight` and `how the option could have been percieved on each side`.
+
+We have provided facilities for `two phases of Issues`, ideally with Phase One focusing on the 1998 Peace Talks, and the second focusing on maintaining peace post-1998.
+However, if you want to change the descriptions of these phases this can be done on line `191` in file:
+`CSC3032-2324-TEAM13/troubles-experience/src/pages/scales/scales.js`
+
+The system is built for `8 issues per phase. This is required`.
+
+The issues themselves are populated via a form on the Admin Page, meaning there is minimal need to alter the code. You should however include the desired images in the `public` folder.
+This means you can enter the image URLS on the form with ease (e.g. `image.png`).
+
+It is highly advised that you plan and discuss the issues you plan to include on paper before using the form. You will ideally want to design a combination of issues that are challenging
+for the user to solve, giving consideration to the issue weights. Beneath is data for a very basic example issue:
+
+Name: Dummy Issue 1 
+
+Description One: This is a test issue. 
+
+Description Two: This is a test issue. 
+
+ImageURL: /dummyimage.jpeg 
+
+-------------- 
+
+Option A: Option A (Representative of total imbalance, + Nationalist) 
+
+Option A Nationalist Weight: 100 
+
+Option A Nationalist Perspective: Scales tipped totally in our favour. 
+
+Option A Unionist Weight: 0 
+
+Option A Unionist Perspective: No Weight Here. 
+
+-------------- 
+
+Option B: Option B (Representative of total balance) 
+
+Option B Nationalist Weight: 100 
+
+Option B Nationalist Perspective: Even 
+
+Option B Unionist Weight: 100 
+
+Option B Unionist Perspective: Even 
+
+-------------- 
+
+Option C: Option C (Representative of partial balance, + Unionist) 
+
+Option C Nationalist Weight: 20 
+
+Option C Nationalist Perspective: A little weight on this side 
+
+Option C Unionist Weight: 80 
+
+Option C Unionist Perspective: Lots of weight on this side. 
+
+REFLECTION CONTENT: 
+You may want to consider allowing members of the board to interact with the system and leave reflections so that the reflection page is populated before being deployed.
+Note that the reflection page displays a maximum of 33 reflections at a time. If there are more than 33 in the database, the system will display 33 randomly selected reflections.
+
+`As mentioned, every reflection needs to be approved or rejected through the Admin page before it populates the Word Cloud.`
+
+
+# Credits
+THIS PROJECT WAS ITERATIVELY DEVELOPED BY:
+
+BEN HETHERINGTON
+JOHN HIGGINS
+ADAM LYNCH
+RORY McARDLE
+THOMAS MORREN
+
+COMPONENT CREDITS:
+Word Cloud - VisX Word Cloud by AirBnB / https://airbnb.io/visx/wordcloud
+Bad Words - https://www.npmjs.com/package/bad-words
+
+IMAGE CREDITS:
+Newspaper Background image - https://pixabay.com/photos/bundle-jute-rope-newspaper-1853667/ 
+
+Shelf Image - https://pixabay.com/vectors/shelf-wood-wall-hanging-wooden-575408/ 
+
+Newspaper Stack Image - https://pixabay.com/vectors/newspaper-news-journal-headline-152320/
+
+Book Image - Anthony Keyes
+
+# Licence

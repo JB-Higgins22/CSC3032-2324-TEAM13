@@ -25,7 +25,7 @@ const HomePage = () => {
         alt="background" 
         className="background-image" 
       />
-      <SettingsIcon className="SettingsIcon" onClick={displaySettingsDialog} style={{ fontSize: '8vmin', color: 'white'}}/>
+      <SettingsIcon aria-label = "SettingsIcon" className="SettingsIcon" onClick={displaySettingsDialog} style={{ fontSize: '8vmin', color: 'white'}}/>
       <header className="Header">
         <h1 className="title">
           Museum Of The Troubles and Peace Process
