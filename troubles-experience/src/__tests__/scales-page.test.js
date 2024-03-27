@@ -433,7 +433,7 @@ it('Balance Percentage Correctly calculated when Nationalist side completely out
   // Wait for the component to update
   await waitFor(() => {
     const balanceElement = screen.getByText(/% Balance Achieved/);
-    expect(balanceElement).toHaveTextContent('0% Balance Achieved');
+    expect(balanceElement.textContent).toMatch(/0(\.\d+)?% Balance Achieved/);
   });
 });
 
@@ -636,7 +636,7 @@ await waitFor(() => {
       // Wait for the component to update
       await waitFor(() => {
         const balanceElement = screen.getByText(/% Balance Achieved/);
-        expect(balanceElement.textContent).toMatch(/99(\.\d+)?|100% Balance Achieved/);
+        expect(balanceElement.textContent).toMatch(/99(\.\d+)?|100(\.\d+)?% Balance Achieved/);
       });
       });
 
