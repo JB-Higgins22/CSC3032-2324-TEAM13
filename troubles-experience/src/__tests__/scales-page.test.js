@@ -354,6 +354,11 @@ describe('Scales Component', () => {
   });
 
 
+    //-------------------------------------------------------------------- //
+   //------------------------ ECP BLACK BOX TESTS ------------------------//
+  //-------------------------------------------------------------------- //
+
+  // ---------------------------- N1U5 ----------------------------//
   it('Nationalist Weight updates when completely outweighing UnionistWeight', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockData));
     render(
@@ -364,6 +369,7 @@ describe('Scales Component', () => {
 
     // Wait for the mock data to be fetched
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(12));
+
     // simulate the click.
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
     fireEvent.click(bookDiv);
@@ -372,15 +378,378 @@ describe('Scales Component', () => {
     const optionAButton = screen.getByLabelText('optionA');
     fireEvent.click(optionAButton);
 
-    // Access the component's internal state or props
-    const { currentStateOrProps } = Scales;
-
+    // Wait for the component to update
     await waitFor(() => {
-      const titleElement = screen.getByRole('heading', { level: 1 });
-      expect(titleElement).toHaveTextContent('1998 Peace Talks');
+      const nationalistWeight = screen.getByLabelText(/invisibleNationalistWeight/i).textContent;
+      expect(Number(nationalistWeight)).toEqual(100);
     });
+});
 
-    // Assert that the nationalist weight is updated correctly in the component's state or props
-    expect(currentStateOrProps.peaceScales.nationalistWeight).toEqual(100);
+it('Unionist Weight updates when completely outweighed by Nationalist Weight', async () => {
+  fetchMock.mockResponseOnce(JSON.stringify(mockData));
+  render(
+    <Router>
+      <Scales />
+    </Router>
+  ); 
+
+  // Wait for the mock data to be fetched
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(13));
+
+  // simulate the click.
+  const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+  fireEvent.click(bookDiv);
+
+  // Find the select button for Option A
+  const optionAButton = screen.getByLabelText('optionA');
+  fireEvent.click(optionAButton);
+
+  // Wait for the component to update
+  await waitFor(() => {
+    const unionistWeight = screen.getByLabelText(/invisibleUnionistWeight/i).textContent;
+    expect(Number(unionistWeight)).toEqual(0);
+  });
+});
+
+it('Balance Percentage Correctly calculated when Nationalist side completely outweighs Unionist Side', async () => {
+  fetchMock.mockResponseOnce(JSON.stringify(mockData));
+  render(
+    <Router>
+      <Scales />
+    </Router>
+  ); 
+
+  // Wait for the mock data to be fetched
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(14));
+
+  // simulate the click.
+  const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+  fireEvent.click(bookDiv);
+
+  // Find the select button for Option A
+  const optionAButton = screen.getByLabelText('optionA');
+  fireEvent.click(optionAButton);
+
+  // Wait for the component to update
+  await waitFor(() => {
+    const balanceElement = screen.getByText(/% Balance Achieved/);
+    expect(balanceElement).toHaveTextContent('0% Balance Achieved');
+  });
+});
+
+it('Scales Update Correctly When Nationalist side completely outweighs Unionist Side', async () => {
+  fetchMock.mockResponseOnce(JSON.stringify(mockData));
+  render(
+    <Router>
+      <Scales />
+    </Router>
+  ); 
+
+  // Wait for the mock data to be fetched
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(15));
+
+  // simulate the click.
+  const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+  fireEvent.click(bookDiv);
+
+  // Find the select button for Option A
+  const optionAButton = screen.getByLabelText('optionA');
+  fireEvent.click(optionAButton);
+
+  // Wait for the component to update
+  await waitFor(() => {
+    const unionistScale = screen.getByLabelText('unionistBooks');
+    const nationalistScale = screen.getByLabelText('nationalistBooks');
+
+    // Assert that the heights of the scales represent the balance correctly
+    expect(unionistScale).toHaveStyle({ height: '0%' });
+    expect(nationalistScale).toHaveStyle({ height: '100%' });
+  });
+});
+
+
+ // ---------------------------- N2U3 ----------------------------//
+
+it('Unionist Weight updates when being partially outweighed', async () => {
+fetchMock.mockResponseOnce(JSON.stringify(mockData));
+render(
+  <Router>
+    <Scales />
+  </Router>
+); 
+
+// Wait for the mock data to be fetched
+await waitFor(() => expect(fetch).toHaveBeenCalledTimes(16));
+
+// simulate the click.
+const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
+fireEvent.click(bookDiv);
+
+// Find the select button for Option C
+const optionAButton = screen.getByLabelText('optionC');
+fireEvent.click(optionAButton);
+
+// Wait for the component to update
+await waitFor(() => {
+  const unionistWeight = screen.getByLabelText(/invisibleUnionistWeight/i).textContent;
+  expect(Number(unionistWeight)).toEqual(20);
+});
+});
+
+it('Balance Percentage Correctly calculated when Nationalist side partially outweighs Unionist Side', async () => {
+fetchMock.mockResponseOnce(JSON.stringify(mockData));
+render(
+  <Router>
+    <Scales />
+  </Router>
+); 
+
+// Wait for the mock data to be fetched
+await waitFor(() => expect(fetch).toHaveBeenCalledTimes(17));
+
+// simulate the click.
+const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
+fireEvent.click(bookDiv);
+
+// Find the select button for Option c
+const optionAButton = screen.getByLabelText('optionC');
+fireEvent.click(optionAButton);
+
+// Wait for the component to update
+await waitFor(() => {
+  const balanceElement = screen.getByText(/% Balance Achieved/);
+  expect(balanceElement.textContent).toMatch(/24|25|26% Balance Achieved/);
+});
+});
+
+it('Scales Update Correctly When Nationalist side partially outweighs Unionist Side', async () => {
+fetchMock.mockResponseOnce(JSON.stringify(mockData));
+render(
+  <Router>
+    <Scales />
+  </Router>
+); 
+
+// Wait for the mock data to be fetched
+await waitFor(() => expect(fetch).toHaveBeenCalledTimes(18));
+
+// simulate the click.
+const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
+fireEvent.click(bookDiv);
+
+// Find the select button for Option A
+const optionCButton = screen.getByLabelText('optionC');
+fireEvent.click(optionCButton);
+
+// Wait for the component to update
+await waitFor(() => {
+  const unionistScale = screen.getByLabelText('unionistBooks');
+  const nationalistScale = screen.getByLabelText('nationalistBooks');
+
+  // Assert that the heights of the scales represent the balance correctly
+  expect(unionistScale).toHaveStyle({ height: '20%' });
+  expect(nationalistScale).toHaveStyle({ height: '80%' });
+});
+});
+
+
+
+ // ---------------------------- N3U2 ----------------------------//
+
+ it('Balance Percentage Correctly calculated when Unionist side partially outweighs Nationalist Side', async () => {
+  fetchMock.mockResponseOnce(JSON.stringify(mockData));
+  render(
+    <Router>
+      <Scales />
+    </Router>
+  ); 
+  
+  // Wait for the mock data to be fetched
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(19));
+  
+  // simulate the click.
+  const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+  fireEvent.click(bookDiv);
+  
+  // Find the select button for Option B
+  const optionCButton = screen.getByLabelText('optionC');
+  fireEvent.click(optionCButton);
+  
+  // Wait for the component to update
+  await waitFor(() => {
+    const balanceElement = screen.getByText(/% Balance Achieved/);
+    expect(balanceElement.textContent).toMatch(/24|25|26% Balance Achieved/);
+  });
   });
 
+  it('Scales Update Correctly When Nationalist side partially outweighs Unionist Side', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(mockData));
+    render(
+      <Router>
+        <Scales />
+      </Router>
+    ); 
+    
+    // Wait for the mock data to be fetched
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(20));
+    
+    // simulate the click.
+    const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+    fireEvent.click(bookDiv);
+    
+    // Find the select button for Option B
+    const optionCButton = screen.getByLabelText('optionC');
+    fireEvent.click(optionCButton);
+    
+    // Wait for the component to update
+    await waitFor(() => {
+      const unionistScale = screen.getByLabelText('unionistBooks');
+      const nationalistScale = screen.getByLabelText('nationalistBooks');
+    
+      // Assert that the heights of the scales represent the balance correctly
+      expect(unionistScale).toHaveStyle({ height: '80%' });
+      expect(nationalistScale).toHaveStyle({ height: '20%' });
+    });
+    });
+
+    // ---------------------------- N4U4 ----------------------------//
+
+    it('Balance Percentage Correctly calculated when perfect alance achieved', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify(mockData));
+      render(
+        <Router>
+          <Scales />
+        </Router>
+      ); 
+      
+      // Wait for the mock data to be fetched
+      await waitFor(() => expect(fetch).toHaveBeenCalledTimes(21));
+      
+      // simulate the click.
+      const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+      fireEvent.click(bookDiv);
+      
+      // Find the select button for Option B
+      const optionBButton = screen.getByLabelText('optionB');
+      fireEvent.click(optionBButton);
+      
+      // Wait for the component to update
+      await waitFor(() => {
+        const balanceElement = screen.getByText(/% Balance Achieved/);
+        expect(balanceElement.textContent).toMatch(/99(\.\d+)?|100% Balance Achieved/);
+      });
+      });
+
+      it('Scales Update Correctly When perfect balance achieved', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(mockData));
+        render(
+          <Router>
+            <Scales />
+          </Router>
+        ); 
+        
+        // Wait for the mock data to be fetched
+        await waitFor(() => expect(fetch).toHaveBeenCalledTimes(22));
+        
+        // simulate the click.
+        const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
+        fireEvent.click(bookDiv);
+        
+        // Find the select button for Option B
+        const optionBButton = screen.getByLabelText('optionB');
+        fireEvent.click(optionBButton);
+        
+        // Wait for the component to update
+        await waitFor(() => {
+          const unionistScale = screen.getByLabelText('unionistBooks');
+          const nationalistScale = screen.getByLabelText('nationalistBooks');
+        
+          // Assert that the heights of the scales represent the balance correctly
+          expect(unionistScale).toHaveStyle({ height: '50%' });
+          expect(nationalistScale).toHaveStyle({ height: '50%' });
+        });
+        });
+
+        // ---------------------------- N5U1 ----------------------------//
+
+        it('Nationalist Weight updates when completely outweighed by UnionistWeight', async () => {
+          fetchMock.mockResponseOnce(JSON.stringify(mockData));
+          render(
+            <Router>
+              <Scales />
+            </Router>
+          );
+      
+          // Wait for the mock data to be fetched
+          await waitFor(() => expect(fetch).toHaveBeenCalledTimes(23));
+      
+          // simulate the click.
+          const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
+          fireEvent.click(bookDiv);
+        
+          // Find the select button for Option A
+          const optionAButton = screen.getByLabelText('optionA');
+          fireEvent.click(optionAButton);
+      
+          // Wait for the component to update
+          await waitFor(() => {
+            const nationalistWeight = screen.getByLabelText(/invisibleNationalistWeight/i).textContent;
+            expect(Number(nationalistWeight)).toEqual(0);
+          });
+      });
+
+      it('Balance Percentage Correctly calculated when Unionist completely outweighs nationalist', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(mockData));
+        render(
+          <Router>
+            <Scales />
+          </Router>
+        ); 
+        
+        // Wait for the mock data to be fetched
+        await waitFor(() => expect(fetch).toHaveBeenCalledTimes(24));
+        
+        // simulate the click.
+        const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
+        fireEvent.click(bookDiv);
+        
+        // Find the select button for Option A
+        const optionAButton = screen.getByLabelText('optionA');
+        fireEvent.click(optionAButton);
+        
+        // Wait for the component to update
+        await waitFor(() => {
+          const balanceElement = screen.getByText(/% Balance Achieved/);
+          expect(balanceElement.textContent).toMatch(/0(\.\d+)?% Balance Achieved/);
+        });
+        });
+
+        it('Scales Update Correctly When Unionist completely outweighs nationalist', async () => {
+          fetchMock.mockResponseOnce(JSON.stringify(mockData));
+          render(
+            <Router>
+              <Scales />
+            </Router>
+          ); 
+          
+          // Wait for the mock data to be fetched
+          await waitFor(() => expect(fetch).toHaveBeenCalledTimes(25));
+          
+          // simulate the click.
+          const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
+          fireEvent.click(bookDiv);
+        
+        // Find the select button for Option A
+        const optionAButton = screen.getByLabelText('optionA');
+        fireEvent.click(optionAButton);
+          
+          // Wait for the component to update
+          await waitFor(() => {
+            const unionistScale = screen.getByLabelText('unionistBooks');
+            const nationalistScale = screen.getByLabelText('nationalistBooks');
+          
+            // Assert that the heights of the scales represent the balance correctly
+            expect(unionistScale).toHaveStyle({ height: '100%' });
+            expect(nationalistScale).toHaveStyle({ height: '0%' });
+          });
+          });

@@ -237,3 +237,6 @@ h3 {
 
 /*================================*/
 
+.invisibleWeights {
+  display: none;
+}

@@ -42,6 +42,8 @@ const Scales = () => {
   const [popoverContentLineTwo, setPopoverContentLineTwo] = useState('');
   const [popoverTitle, setPopoverTitle] = useState('');
   const [bookName, setBookName] = useState({ show: false, x: 0, y: 0, text: '' });
+  const [nationalistWeight, setNationalistWeight] = useState(0);
+  const [unionistWeight, setUnionistWeight] = useState(0);
 
   const [issues, setIssues] = useState([]);
   const [phaseTwoIssues, setPhaseTwoIssues] = useState([]);
@@ -228,6 +230,8 @@ const fetchIssues = async () => {
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     updateBalanceAndTilt(updatedScales);
     //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
+    setNationalistWeight(updatedScales?.getNationalistWeight());
+    setUnionistWeight(updatedScales?.getUnionistWeight());
     handleCloseDialog();
   }
 
@@ -237,6 +241,8 @@ const fetchIssues = async () => {
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     updateBalanceAndTilt(updatedScales);
     //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
+    setNationalistWeight(updatedScales?.getNationalistWeight());
+    setUnionistWeight(updatedScales?.getUnionistWeight());
     handleCloseDialog();
   }
 
@@ -246,6 +252,8 @@ const fetchIssues = async () => {
     updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
     updateBalanceAndTilt(updatedScales);
     //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
+    setNationalistWeight(updatedScales?.getNationalistWeight());
+    setUnionistWeight(updatedScales?.getUnionistWeight());
     handleCloseDialog();
   }
 
@@ -280,7 +288,7 @@ const fetchIssues = async () => {
     const balanceRatio = balanceDifference / totalWeight;
     
     // Assuming max tilt of 30 degrees for full imbalance
-    const maxTiltDegrees = 30;
+    const maxTiltDegrees = 50;
     let tiltAngle = balanceRatio * maxTiltDegrees;
   
     // Adjust direction of tilt based on which side is heavier
@@ -293,14 +301,14 @@ const fetchIssues = async () => {
   };
 
   const updateHeightsBasedOnTilt = (tiltAngle) => {
-    const maxTiltDegrees = 30;
+    const maxTiltDegrees = 50;
     const baseHeight = 50; // Assuming both sides start at equal heights when balanced
 
     const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
     
     // Adjust heights inversely based on tilt
     // The side tilting down gets a height boost, the other side gets a reduction
-    const heightAdjustment = tiltRatio * 30; // Max adjustment of 20% for max tilt
+    const heightAdjustment = tiltRatio * 50; // Max adjustment of 20% for max tilt
     
     let newUnionistHeight, newNationalistHeight;
     if (tiltAngle > 0) { // Nationalist side tilts down
@@ -481,7 +489,7 @@ const fetchIssues = async () => {
               >
                   <div className="unionistSide">
 
-                  <div className="unionistBooks" style={{ height: `${unionistHeight}%` }}>
+                  <div className="unionistBooks" aria-label = "unionistBooks" style={{ height: `${unionistHeight}%` }}>
                       {unionistRows.map((rowIssues, idx) => (
                         <div className="unionistRow" key={idx}>
                           {rowIssues.map(issue => (
@@ -548,13 +556,14 @@ const fetchIssues = async () => {
 
                       <div className = "unionistPlatform">
                         <h4>UNIONIST</h4>
+                        <span aria-label = "invisibleUnionistWeight" className='invisibleWeights'>{unionistWeight}</span>
                       </div>
                   </div>
 
 
                   <div className="nationalistSide" >
 
-                  <div className="nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+                  <div className="nationalistBooks" aria-label = "nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
                       {nationalistRows.map((rowIssues, idx) => (
                         <div className="nationalistRow" key={idx}>
                           {rowIssues.map(issue => (
@@ -621,6 +630,7 @@ const fetchIssues = async () => {
 
                       <div className = "nationalistPlatform">
                         <h4>NATIONALIST</h4>
+                        <span aria-label = "invisibleNationalistWeight" className='invisibleWeights'>{nationalistWeight}</span>
                       </div>
                   </div>
 
