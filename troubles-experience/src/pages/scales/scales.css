@@ -67,9 +67,9 @@
 }
 
 .unionistPlatform {
-  background-color: blue;
+  background-color: rgba(76, 79, 255, 0.765);
   font-family: 'Anton';
-  border: 2px dashed #aaa;
+  border: 2px dashed #ffffff;
   color: white;
   text-align: center;
   border-bottom-left-radius: 50%;
@@ -91,7 +91,7 @@
 }
 
 .nationalistPlatform {
-  background-color: rgb(39, 157, 3);
+  background-color: rgba(149, 255, 111, 0.575);
   /* background-color: grey; */
   border: 2px dashed #ffffff;
   color: white;
@@ -187,7 +187,7 @@
 }
 
 .nationalistIssue img {
-  width: 4em; /* Adjust as needed */
+  width: 8vmin; /* Adjust as needed */
   height: auto;
   display: block;
   margin: '0 auto';
@@ -197,7 +197,7 @@
 }
 
 .unionistIssue img {
-  width: 4em; /* Adjust as needed */
+  width: 8vmin; /* Adjust as needed */
   height: auto;
   display: block;
   margin: '0 auto';
@@ -279,13 +279,13 @@ h3 {
   margin: 2px 0; /* Spacing above and below the line */
 }
 
-.newspaper-img {
+/* .newspaper-img {
   width: 8vmin;
   height: auto;
   display: block;
   margin: auto;
   cursor: pointer;
-}
+} */
 
 
 /*================================*/

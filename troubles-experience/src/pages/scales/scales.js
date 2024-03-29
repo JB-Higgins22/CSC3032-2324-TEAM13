@@ -309,7 +309,7 @@ const fetchIssues = async () => {
     setBookName({ ...bookName, show: false });
   };
 
-  
+
 
   const nationalistRows = peaceScales.getNationalistIssues()
   .reduce((acc, issue, idx) => {
@@ -341,7 +341,7 @@ const fetchIssues = async () => {
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
         <HomeIcon aria-label = "HomeIcon" className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
         <SettingsIcon aria-label = "SettingsIcon" className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
-        <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
+        <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={SubmitScales} />
     </div>
     <div className="titleAndBalanceContainer">
         <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
