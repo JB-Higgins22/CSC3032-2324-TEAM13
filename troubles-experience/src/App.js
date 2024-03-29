@@ -16,35 +16,36 @@ import SettingsDialog from './dialogs/settingsDialog';
 import useSound from "use-sound";
 import { useEffect } from 'react';
 import placeholderSound from "./sounds/placeholderSound.mp3";
+import { SoundProvider } from './sounds/soundContext.js';
+import { useSoundContext } from './sounds/soundContext.js';
 
 
 function App() {
   const [fontSize, setFontSize] = useState(90); // Initial font size
  
-  const [playSound, { stop }] = useSound(placeholderSound, { volume: 1, loop: true }); // Initialize the playSound function with loop option set to true
   
   const handleFontSizeChange = (newSize) => {
     setFontSize(newSize);
   };
 
-  
+const { isMuted } = useSoundContext(); // Get isMuted state from context
+
+  const [playSound, { stop }] = useSound(placeholderSound, {
+    volume: 1,
+    loop: true,
+  });
+
   useEffect(() => {
-    // Cleanup function to stop the sound and clear the interval when component unmounts
+    if (!isMuted) {
+      playSound();
+    } else {
+      stop();
+    }
+
     return () => {
       stop();
     };
-  }, [stop]);
-
-  useEffect(() => {
-    playSound();
-    
-    // Cleanup function to stop the sound and clear the interval when component unmounts
-    return () => {
-      stop();
-    };
-  }, [playSound, stop]); // Run this effect whenever playSound or stop change
-
-
+  }, [isMuted, playSound, stop]);
 
   return (
     <div className="App">
@@ -66,4 +67,8 @@ function App() {
   );
 }
 
-export default App;
+export default () => (
+  <SoundProvider>
+    <App />
+  </SoundProvider>
+);
