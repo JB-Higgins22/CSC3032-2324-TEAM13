@@ -16,7 +16,49 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(60%);
+  z-index: 0;
+}
+
+.contentsContainer {
+  position: 'relative';
+  z-index: 2;
+}
+
+.book-img {
+  width: 5vmin;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+.book-name {
+  font-family: 'Anton';
+  position: fixed;
+  background-color: #555;
+  color: white;
+  border-radius: 6px;
+  padding: 5px 10px;
+  z-index: 1000;
+}
+
+.bookshelf-img {
+  width: 70vmin;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
 
 .unionistSide {
   width: 40vmin;
@@ -113,6 +155,9 @@
   flex: 1;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .unionistBooks, .nationalistBooks {
@@ -234,9 +279,29 @@ h3 {
   margin: 2px 0; /* Spacing above and below the line */
 }
 
+.newspaper-img {
+  width: 8vmin;
+  height: auto;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+}
+
 
 /*================================*/
 
 .invisibleWeights {
   display: none;
+}
+
+.navBar .homeButton:hover {
+  color: #04aa23;
+}
+
+.navBar .settingsButton:hover {
+  color: #04aa23;
+}
+
+.navBar .submitButton:hover {
+  color: #04aa23;
 }
