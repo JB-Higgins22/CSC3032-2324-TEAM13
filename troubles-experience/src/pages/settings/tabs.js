@@ -125,50 +125,50 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%', fontFamily: 'Anton' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', fontFamily: 'Anton'}}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
-          <Tab label="General" {...accessabilityProps(0)} />
-          <Tab label="Admin" {...accessabilityProps(1)} />
+          <Tab label="General" {...accessabilityProps(0)} aria-label="general tab"/>
+          <Tab label="Admin" {...accessabilityProps(1)} aria-label="admin tab"/>
         </Tabs>
       </Box>
 
       <CustomTabPanel value={value} index={0}>
       
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
-        <VolumeUp sx={{ marginRight: 1, fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white'  }} />
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
+        <VolumeUp aria-label="mute icon" sx={{ marginRight: 1, fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white'  }} />
+        <Typography className="fontSize" aria-label="mute label" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-         <FormControlLabel control={<Switch/>} sx={{ marginLeft: 2 }} />
+         <FormControlLabel control={<Switch aria-label="mute switch"/>} sx={{ marginLeft: 2 }} />
         </Box>
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
-          <ContrastIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Black and White (Dark) Mode</Typography>
+          <ContrastIcon aria-label="black and white icon" sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+          <Typography className="fontSize" aria-label="black and white label" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Black and White (Dark) Mode</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<GreenSwitch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
+          <FormControlLabel  control={<GreenSwitch aria-label="black and white switch" checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
             sx={{ marginLeft: 2 }}
           />
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px', fontFamily: 'Anton' }}>
-          <ContrastIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
-          <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>High Contrast</Typography>
+          <ContrastIcon aria-label="contrast icon" sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+          <Typography className="fontSize" aria-label="contrast label" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>High Contrast</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px', fontFamily: 'Anton'}}>
-          <FormControlLabel  control={<GreenSwitch checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
+          <FormControlLabel  control={<GreenSwitch aria-label="contrast switch" checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
             sx={{ marginLeft: 2, fontFamily: 'Anton'  }}
           />
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
-        <AbcIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
-        <Typography className="fontSize" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Adjust Font Size</Typography>
+        <AbcIcon aria-label="font icon" sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+        <Typography className="fontSize" aria-label="font label" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Adjust Font Size</Typography>
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-          <FontSizeRadioButtons />
+          <FontSizeRadioButtons aria-label="font radio buttons"/>
         </Box>
       </CustomTabPanel>
 
@@ -176,7 +176,7 @@ export default function BasicTabs() {
         {/* Content within Admin tab   */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
         <Link to="..\login">
-            <Button className = "loginButton" variant="contained">Login</Button>
+            <Button className = "loginButton" aria-label="admin login button" variant="contained">Login</Button>
           </Link>
         </Box>
       </CustomTabPanel>
@@ -186,7 +186,7 @@ export default function BasicTabs() {
 
 // Font sizes for use on radio buttons
 const marks = [
-  { value: 50, label: 'Small', size: 15 },
+  { value: 50,  label: 'Small', size: 15 },
   { value: 100, label: 'Medium', size: 20 },
   { value: 150, label: 'Large', size: 25},
 ];
@@ -235,6 +235,7 @@ function FontSizeRadioButtons() {
           value={mark.value.toString()}
           control={<Radio  className = "Mui" sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size} }} />}
           label=""
+          aria-label = {mark.label.toString()}
           onChange={handleChange}
           checked={selectedValue === mark.value}
           name="size-radio-button"
