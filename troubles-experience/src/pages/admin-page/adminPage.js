@@ -73,6 +73,7 @@ const AdminPage = ({ onFontSizeChange}) => {
         throw new Error('Failed to fetch reflections');
       })
       .then(data => {
+        // Set the requested reflections
         setReflections(data);
       })
       .catch(error => {
@@ -80,6 +81,7 @@ const AdminPage = ({ onFontSizeChange}) => {
       });
   };
 
+  // Handle the rejection of reflections from the table
   const handleDeleteReflection = (reflectionId) => {
     fetch(`http://localhost:4000/deletereflection/${reflectionId}`, {
         method: 'DELETE',
@@ -94,6 +96,7 @@ const AdminPage = ({ onFontSizeChange}) => {
     .catch(error => console.error("Error deleting reflection:", error));
 };
 
+// Handle the approval of reflections from the table
 const handleApproveReflection = (reflection) => {
     // Prepare the reflection data object
     const reflectionData = {
@@ -124,6 +127,7 @@ const handleApproveReflection = (reflection) => {
     handleDeleteReflection(reflection.id)
 }
 
+// Handle the deletion of approved reflections - MAY NEED REMOVED
 const handleClearApprovedReflections = () => {
   fetch('http://localhost:4000/removeapprovedreflections', {
       method: 'DELETE',
@@ -140,6 +144,7 @@ const handleClearApprovedReflections = () => {
   });
 };
 
+// Handle form submission
 const handleSubmit = (e) => {
   setSelectedOption("X");
   e.preventDefault();
@@ -192,6 +197,7 @@ const handleSubmit = (e) => {
           })
           .then((data) => {
             console.log(data.count);
+            // Checking how many issues currently added by Admin
             if (data.count >= 8 && data.count < 16) {
               setShowForm(false);
               setShowSecondForm(true);
@@ -205,12 +211,10 @@ const handleSubmit = (e) => {
           });
       } else {
         console.error("Failed to add issue");
-        // Handle error cases here
       }
     })
     .catch((error) => {
       console.error("Error:", error);
-      // Handle network errors here
     });
 };
 
@@ -243,6 +247,7 @@ useEffect(() => {
     <div className="background">
       <h1 className="title">ADMIN</h1>
 
+      {/* Render form for first 8 issues conditionally */}
       {showForm && (
     <div className="formContainer">
       <h2>1998 Issue Form</h2>
@@ -431,10 +436,11 @@ useEffect(() => {
       )}
 
 
+      {/* Render form for second 8 issues conditionally */}
       {/*SECOND FORM */}
 
       {showSecondForm && (
-    <div>
+    <div className="formContainer">
       <h2>POST 1998 Issue Form</h2>
             <form onSubmit={handleSubmit}>
                 <input
@@ -615,6 +621,8 @@ useEffect(() => {
       )}
 
       <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
+
+      {/* Render the table for approving/rejecting reflections */}
       <div className="tableContainer">
       <h2>Reflection Approval Table</h2>
         <table>

@@ -49,6 +49,7 @@ const { isMuted } = useSoundContext(); // Get isMuted state from context
 
   return (
     <div className="App">
+      {/* Application Routes */}
       <Router>
         <Routes>
           <Route exact path='/' element={<HomePage />} />

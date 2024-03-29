@@ -10,31 +10,44 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Zoom from '@mui/material/Zoom';
 import { Link } from "react-router-dom";
 
-const ConfirmQuitDialog = ({ isOpen, handleClose}) => {
+const ConfirmQuitDialog = ({ isOpen, handleClose }) => {
   return (
-    <Dialog open={isOpen} 
-            onClose={handleClose} 
-            className = "dialogueBox" 
-            TransitionComponent={Zoom} 
-            transitionDuration={500}>
-      <DialogTitle style = {{color: 'black'}} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>Are You Sure You Want to Quit?</DialogTitle>
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+      className="dialogueBox"
+      TransitionComponent={Zoom}
+      transitionDuration={500}
+    >
+      {/* Font Size based on Global base size*/}
+      <DialogTitle style={{ color: 'black' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
+        Are You Sure You Want to Quit?
+      </DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)' }}>
           All Progress Will Be Lost.
-          </DialogContentText>
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <ButtonGroup variant="outlined" 
-                      aria-label="outlined button group"
-                      style={{ margin: 'auto', scale: '100%', paddingBottom: '20px' }}>
-        <Link to="..\">
-            <Button role = "button" aria-label="confirmQuit" color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Quit</Button>
-        </Link>
-          <Button role = "button" aria-label="closeConfirmQuit" onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>Cancel</Button>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined button group"
+          style={{ margin: 'auto', scale: '100%', paddingBottom: '20px' }}
+        >
+          {/* Can choose to close dialog or return to Home Screen */}
+          <Link to="..\">
+            <Button role="button" aria-label="confirmQuit" color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>
+              Quit
+            </Button>
+          </Link>
+          <Button role="button" aria-label="closeConfirmQuit" onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>
+            Cancel
+          </Button>
         </ButtonGroup>
       </DialogActions>
     </Dialog>
   );
 };
+
 
 export default ConfirmQuitDialog;

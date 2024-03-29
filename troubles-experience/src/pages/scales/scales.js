@@ -6,7 +6,7 @@ import Issue from '../../classes/issue';
 import IssueDialog from '../../dialogs/issueDialog/issueDialog';
 import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 import RotateDeviceMessage from '../../components/rotate-device-message';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AnimatedNumber from "animated-number-react";
 import SettingsDialog from '../../dialogs/settingsDialog';
 
@@ -40,29 +40,22 @@ const Scales = () => {
 
   const [issues, setIssues] = useState([]);
   const [phaseTwoIssues, setPhaseTwoIssues] = useState([]);
-  const [dataFetched, setDataFetched] = useState(false);
   const [assetsInitialised, setAssetsInitialised] = useState(false);
 
   // STATE OF SCALE HEIGHTS/WEIGHTS
   const [unionistHeight, setUnionistHeight] = useState(50);
   const [nationalistHeight, setNationalistHeight] = useState(50);
   const [phaseOneResult, setPhaseOneResult] = useState(0);
-  const [phaseTwoResult, setPhaseTwoResult] = useState(0);
-  const [scaleTiltAngle, setScaleTiltAngle] = useState(0); // Angle in degrees
 
 
   // STATE OF PHASE
   const [currentPhase, setCurrentPhase] = useState(0); // Initial Phase
   const [showContents, setShowContents] = useState(true); // Transitions
-  const [phaseIssues, setPhaseIssues] = useState();
 
   // STATE OF DIALOGS
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
-
-  //MUI 
-  const [checked, setChecked] = React.useState(false);
 
   // NAVIGATOR CONFIGURATION
   const navigate = useNavigate();
@@ -73,27 +66,14 @@ const Scales = () => {
 
   async function fetchData() {
       await fetchIssues();     // Wait for issues to be retrieved from DB
-      setDataFetched(true);
   }
 
-  useEffect(() => {
+  useEffect(() => {           // Executes after Issues retrieved from DB
     initialiseScales();
     initialiseBookshelfObject();
     initialiseIssues(issues);
-    setAssetsInitialised(true);
+    setAssetsInitialised(true); // Set assetsInitialised to true, allowing page contents to render
   }, [issues]);
-
-
-  const handlePopoverOpen = (event, content, title) => {
-    setAnchorEl(event.currentTarget);
-    setPopoverContent(content.issue.name);
-    setPopoverContentLineTwo(content.headline);
-    setPopoverTitle(title);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
 
 
   // Initialise Scales & Bookshelf & Issues
@@ -115,7 +95,6 @@ const Scales = () => {
   function SubmitScales() {
 
     if (currentPhase === 1) {
-      setPhaseTwoResult(balancePercentage);
       navigate('/results', { state: { balancePercentages: [phaseOneResult, balancePercentage] } });
     } else {
       setPhaseOneResult(balancePercentage);
@@ -180,9 +159,6 @@ const fetchIssues = async () => {
   // COMPOSITE ARRAY OF PHASES
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
   let pageTitle = phaseNames[currentPhase];
-
-  // RESULTS ARRAY
-  let resultsArray = [0, 0];
 
   // Dialog Handling
   const displayIssueInfo = (issue) => {
@@ -251,12 +227,10 @@ const fetchIssues = async () => {
     const unionistWeight = scales.getUnionistWeight();
     const nationalistWeight = scales.getNationalistWeight();
 
-    const totalWeight = nationalistWeight + unionistWeight;
-
     let percentage = 0;
     let roundedPercentage = 0;
 
-    if (unionistWeight == 0 || nationalistWeight == 0) {
+    if (unionistWeight === 0 || nationalistWeight === 0) {
       setBalancePercentage(0);
     } else if (unionistWeight >= nationalistWeight) {
       percentage = (nationalistWeight / unionistWeight) * 100;
@@ -283,8 +257,7 @@ const fetchIssues = async () => {
     if (scales.getUnionistWeight() > scales.getNationalistWeight()) {
       tiltAngle = -tiltAngle; // Tilt to the left for unionist heavier
     }
-    
-    setScaleTiltAngle(tiltAngle);
+
     updateHeightsBasedOnTilt(tiltAngle);
   };
 
@@ -310,13 +283,18 @@ const fetchIssues = async () => {
     setUnionistHeight(newUnionistHeight);
     setNationalistHeight(newNationalistHeight);
   };
-  
 
-  function logScales() {
-    console.log(peaceScales);
-    console.log(peaceScales.getNationalistIssues);
-    console.log(peaceScales.getUnionistIssues);
-  }
+  // POPOVER CONTROLS
+  const handlePopoverOpen = (event, content, title) => {
+    setAnchorEl(event.currentTarget);
+    setPopoverContent(content.issue.name);
+    setPopoverContentLineTwo(content.headline);
+    setPopoverTitle(title);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleMouseEnter = (event, issue) => {
     setBookName({
@@ -330,6 +308,8 @@ const fetchIssues = async () => {
   const handleMouseLeave = () => {
     setBookName({ ...bookName, show: false });
   };
+
+
 
   const nationalistRows = peaceScales.getNationalistIssues()
   .reduce((acc, issue, idx) => {
@@ -353,302 +333,222 @@ const fetchIssues = async () => {
     return acc;
   }, []);
 
-  // Page Styling
-  const containerStyle = {
-    position: 'relative',
-    height: '100vh',
-    overflow: 'hidden',
-  };
-
-  const imageStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    filter: 'brightness(50%)', // Adjust brightness to darken the image
-    zIndex: 0
-  };
-
-  const overlayStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
-  };
   
   return assetsInitialised ? (
-    <div className="page" style={containerStyle}>
-      <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" style={imageStyle} />
-        <div style={{ position: 'relative', zIndex: 2 }}>
-
+  <div className="page">
+    <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" className='background-image' />
+    <div className='contentsContainer'>
         <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-          <HomeIcon aria-label = "HomeIcon" className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-
-          <SettingsIcon aria-label = "SettingsIcon" className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
-
-          <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', paddingLeft: '10px', color: 'white' }} onClick={SubmitScales} />
-        </div>
-
-          <div className="titleAndBalanceContainer">
-            <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-              <h1>{pageTitle}</h1>
-            </Slide>
-
-            <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-            <h3>
+        <HomeIcon aria-label = "HomeIcon" className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon aria-label = "SettingsIcon" className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+        <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={SubmitScales} />
+    </div>
+    <div className="titleAndBalanceContainer">
+        <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+          <h1>{pageTitle}</h1>
+        </Slide>
+        <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+          <h3>
               <AnimatedNumber
                 value={balancePercentage}
-                formatValue={(value) => value.toFixed(2)}
-                duration={1000} // Duration in milliseconds
+                formatValue={(value) =>
+              value.toFixed(2)}
+              duration={1000} // Duration in milliseconds
               />
               % Balance Achieved
-            </h3>
-            </Slide>
-          </div>
-
-          <div className="shelf-and-scale-wrapper">
-
-            <Slide direction="right" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
-              <div className="shelf-zone">
-            
+          </h3>
+        </Slide>
+    </div>
+    <div className="shelf-and-scale-wrapper">
+        <Slide direction="right" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+          <div className="shelf-zone">
               <div className='books'>
                 {bookshelfObject.getIssues().map((issue, index) => (
-                  <div
-                    className='bookOnShelf'
-                    aria-label={`BookOnShelf ${issue.name}`}
-                    role="button"
-                    key={index}
-                    onMouseEnter={(e) => handleMouseEnter(e, issue)}
-                    onMouseLeave={handleMouseLeave}
-                    onClick={displayIssueInfo.bind(this, issue)}
-                  >
-                    <img
-                      src={process.env.PUBLIC_URL + '/IMG_2965.png'}
-                      alt= {`BookOnShelf ${issue.name}`}
-                      style={{ width: '5vmin', 
-                                height: 'auto', 
-                                display: 'block', 
-                                margin: 'auto' }}
-                    />
-                  </div>
-                ))}
-                {bookName.show && (
-                  <div
-                    className="bookName"
-                    style={{
-                      fontFamily: 'Anton',
-                      position: 'fixed',
-                      left: `${bookName.x}px`,
-                      top: `${bookName.y}px`,
-                      backgroundColor: '#555',
-                      color: 'white',
-                      borderRadius: '6px',
-                      padding: '5px 10px',
-                      zIndex: 1000
-                    }}
-                  >
-                    {bookName.text}
-                  </div>
-                )}
+                <div
+                className='bookOnShelf'
+                aria-label={`BookOnShelf ${issue.name}`}
+                role="button"
+                key={index}
+                onMouseEnter={(e) => handleMouseEnter(e, issue)}
+                onMouseLeave={handleMouseLeave}
+                onClick={displayIssueInfo.bind(this, issue)}
+                >
+                <img
+                src={process.env.PUBLIC_URL + '/IMG_2965.png'}
+                alt= {`BookOnShelf ${issue.name}`}
+                className='book-img'
+                />
               </div>
-
-                <div className = "shelf" >
-                  <img
-                  src={process.env.PUBLIC_URL + '/shelf.png'}
-                    alt="Bookshelf"
-                    style={{ width: '70vmin', 
-                              height: 'auto',
-                              display: 'block',
-                              margin: 'auto' }} />
-                </div>
-
-
-              </div>
-              </Slide>
-
-              <Slide direction="left" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+              ))}
+              {bookName.show && (
               <div
-                className="drop-zone"
-                style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
+              className="book-name" style={{ left: `${bookName.x}px`, top: `${bookName.y}px` }}
               >
-                  <div className="unionistSide">
-
-                  <div className="unionistBooks" aria-label = "unionistBooks" style={{ height: `${unionistHeight}%` }}>
-                      {unionistRows.map((rowIssues, idx) => (
-                        <div className="unionistRow" key={idx}>
-                          {rowIssues.map(issue => (
-                            <div className="unionistIssue" key={`${idx}-${issue.id}`}>
-                              <img
-                          src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
-                          alt="Bookshelf"
-                          aria-label= {`unionistIssue ${issue.issue.name}`}
-                          style={{ 
-                            width: '8vmin', 
-                            height: 'auto',
-                            display: 'block',
-                            margin: 'auto',
-                            cursor: 'pointer'
-                          }}
-                          aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE ORANGE HERALD')}
-                          // onMouseLeave={handlePopoverClose}
-                        />
-                        <Popover
-                          id={issue.id}
-                          open={Boolean(anchorEl)}
-                          anchorEl={anchorEl}
-                          onClose={handlePopoverClose}
-                          anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                          sx={{
-                            '.MuiPopover-paper': {
-                              width: '300px', 
-                            }
-                          }}
-                        >
-                          <div className='newspaperPopoverContainer'>
-                            <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
-                            <div className="newspaperPopover">
-                            <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
-                              {popoverTitle}
-                            </Typography>
-                            <hr />
-                            <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
-                              "{popoverContentLineTwo}"
-                            </Typography>
-                            <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                          </div>
-                          </div>
-                        </Popover> 
-                            </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-
-
-                      <div className = "unionistPlatform">
-                        <h4>UNIONIST</h4>
-                        <span aria-label = "invisibleUnionistWeight" className='invisibleWeights'>{unionistWeight}</span>
-                      </div>
-                  </div>
-
-
-                  <div className="nationalistSide" >
-
-                  <div className="nationalistBooks" aria-label = "nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
-                      {nationalistRows.map((rowIssues, idx) => (
-                        <div className="nationalistRow" key={idx}>
-                          {rowIssues.map(issue => (
-                            <div className="nationalistIssue" key={`${idx}-${issue.id}`}>
-                              <img
-                          src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
-                          alt="Bookshelf"
-                          aria-label = {`nationalistIssue ${issue.issue.name}`}
-                          style={{ 
-                            width: '8vmin', 
-                            height: 'auto',
-                            display: 'block',
-                            margin: 'auto',
-                            cursor: 'pointer' // Add cursor pointer for hover effect
-                          }}
-                          aria-describedby={issue.id}
-                          onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NORTHERN STAR')}
-                          // onMouseLeave={handlePopoverClose}
-                        />
-                        <Popover
-                          id={issue.id}
-                          open={Boolean(anchorEl)}
-                          anchorEl={anchorEl}
-                          onClose={handlePopoverClose}
-                          anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                          sx={{
-                            '.MuiPopover-paper': {
-                              width: '300px', 
-                            }
-                          }}
-                        >
-                          <div className='newspaperPopoverContainer'>
-                            <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
-                            <div className="newspaperPopover">
-                            <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
-                              {popoverTitle}
-                            </Typography>
-                            <hr />
-                            <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
-                              "{popoverContentLineTwo}"
-                            </Typography>
-                            <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                                <div className="line"></div>
-                          </div>
-                          </div>
-                        </Popover> 
-                            </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-
-
-                      <div className = "nationalistPlatform">
-                        <h4>NATIONALIST</h4>
-                        <span aria-label = "invisibleNationalistWeight" className='invisibleWeights'>{nationalistWeight}</span>
-                      </div>
-                  </div>
-
-                  </div>
-                  </Slide>
-              </div>
-            </div>
-    
-        <IssueDialog
-          isOpen={isDialogOpen}
-          handleOptionA={selectOptionA}
-          handleOptionB={selectOptionB}
-          handleOptionC={selectOptionC}
-          handleClose={handleCloseDialog}
-          issue={selectedIssue}
-          aria-label="Issue-Dialog"
-        />
-
-        <SettingsDialog 
-              isOpen={isSettingsDialogOpen}
-              handleClose={handleCloseSettingsDialog}
-              aria-label="Settings-Dialog"/>
-
-        <ConfirmQuitDialog 
-          isOpen={isConfirmQuitDialogOpen}
-          handleClose={handleCloseConfirmQuitDialog}
-          aria-label="Confirm-Quit-Dialog"/>
-
-        <RotateDeviceMessage />
+              {bookName.text}
+          </div>
+          )}
     </div>
+    <div className = "shelf" >
+    <img
+    src={process.env.PUBLIC_URL + '/shelf.png'}
+    alt="Bookshelf"
+    className="bookshelf-img" />
+    </div>
+  </div>
+  </Slide>
+  <Slide direction="left" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
+    <div
+        className="drop-zone"
+        >
+        <div className="unionistSide">
+          <div className="unionistBooks" aria-label = "unionistBooks" style={{ height: `${unionistHeight}%` }}>
+          {unionistRows.map((rowIssues, idx) => (
+          <div className="unionistRow" key={idx}>
+              {rowIssues.map(issue => (
+              <div className="unionistIssue" key={`${idx}-${issue.id}`}>
+                <img
+                src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
+                alt="Bookshelf"
+                aria-label= {`unionistIssue ${issue.issue.name}`}
+                className='newspaper-img'
+                aria-describedby={issue.id}
+                onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE ORANGE HERALD')}
+                // onMouseLeave={handlePopoverClose}
+                />
+                <Popover
+                id={issue.id}
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handlePopoverClose}
+                anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+                }}
+                transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+                }}
+                sx={{
+                '.MuiPopover-paper': {
+                width: '300px', 
+                }
+                }}
+                >
+                <div className='newspaperPopoverContainer'>
+                    <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
+                    <div className="newspaperPopover">
+                      <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
+                      {popoverTitle}
+                      </Typography>
+                      <hr />
+                      <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
+                      "{popoverContentLineTwo}"
+                      </Typography>
+                      <div className="line"></div>
+                      <div className="line"></div>
+                      <div className="line"></div>
+                      <div className="line"></div>
+                      <div className="line"></div>
+                      <div className="line"></div>
+                    </div>
+                </div>
+                </Popover> 
+              </div>
+              ))}
+          </div>
+          ))}
+        </div>
+        <div className = "unionistPlatform">
+          <h4>UNIONIST</h4>
+          <span aria-label = "invisibleUnionistWeight" className='invisibleWeights'>{unionistWeight}</span>
+        </div>
+    </div>
+    <div className="nationalistSide" >
+        <div className="nationalistBooks" aria-label = "nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+        {nationalistRows.map((rowIssues, idx) => (
+        <div className="nationalistRow" key={idx}>
+          {rowIssues.map(issue => (
+          <div className="nationalistIssue" key={`${idx}-${issue.id}`}>
+              <img
+              src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
+              alt="Bookshelf"
+              aria-label = {`nationalistIssue ${issue.issue.name}`}
+              className="newspaper-img"
+              aria-describedby={issue.id}
+              onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NORTHERN STAR')}
+              // onMouseLeave={handlePopoverClose}
+              />
+              <Popover
+              id={issue.id}
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+              }}
+              transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+              }}
+              sx={{
+              '.MuiPopover-paper': {
+              width: '300px', 
+              }
+              }}
+              >
+              <div className='newspaperPopoverContainer'>
+                <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
+                <div className="newspaperPopover">
+                    <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
+                    {popoverTitle}
+                    </Typography>
+                    <hr />
+                    <Typography sx={{ p: 0, fontSize: '20px', textTransform: 'uppercase' }}>
+                    "{popoverContentLineTwo}"
+                    </Typography>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                </div>
+              </div>
+              </Popover> 
+          </div>
+          ))}
+        </div>
+        ))}
+    </div>
+    <div className = "nationalistPlatform">
+        <h4>NATIONALIST</h4>
+        <span aria-label = "invisibleNationalistWeight" className='invisibleWeights'>{nationalistWeight}</span>
+    </div>
+    </div>
+    </div>
+  </Slide>
+  </div>
+  </div>
+  <IssueDialog
+    isOpen={isDialogOpen}
+    handleOptionA={selectOptionA}
+    handleOptionB={selectOptionB}
+    handleOptionC={selectOptionC}
+    handleClose={handleCloseDialog}
+    issue={selectedIssue}
+    aria-label="Issue-Dialog"
+    />
+  <SettingsDialog 
+    isOpen={isSettingsDialogOpen}
+    handleClose={handleCloseSettingsDialog}
+    aria-label="Settings-Dialog"/>
+  <ConfirmQuitDialog 
+    isOpen={isConfirmQuitDialogOpen}
+    handleClose={handleCloseConfirmQuitDialog}
+    aria-label="Confirm-Quit-Dialog"/>
+  <RotateDeviceMessage />
+  </div>
   ): null;
 };
 
