@@ -167,7 +167,7 @@ const Reflection = () => {
 
 
   return (
-<div className="container">
+  <div className="container">
       <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className="image" />     {/* Set the background image */}
       <div className="navBar">                                                                         {/* MUI Icons for Home/Settings */}
         <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
@@ -177,14 +177,16 @@ const Reflection = () => {
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>
         <div className="reflection-container">                                                        {/* Form for leaving reflections on experience */}
           <h1>Share Your Reflections</h1>
-          <form onSubmit={handleSubmit}>
-            <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required />
-            <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" required />
-            <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." required></textarea>
-            <div>{remainingChars} Characters Remaining</div>
-            <button type="submit">Submit</button>
-            <button style={{ fontFamily: 'Anton' }} onClick={skipForm}>I Don't Want To Leave a Reflection</button>
-          </form>
+          <div className="reflectionForm">
+            <form onSubmit={handleSubmit} style={{ width: '80vmin' }}>
+              <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required />
+              <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" required />
+              <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." required></textarea>
+              <div>{remainingChars} Characters Remaining</div>
+              <button type="submit">Submit</button>
+              <button style={{ fontFamily: 'Anton' }} onClick={skipForm}>I Don't Want To Leave a Reflection</button>
+            </form>
+            </div>
         </div>
       </Slide>
 

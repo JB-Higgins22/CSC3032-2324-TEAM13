@@ -6,49 +6,19 @@
   background-color: #0b6ea5;
 }
 
-.reflection-container {
-  width: 40vw;
-  margin: 0 auto;
-  padding: 2%;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
 .reflection-container h1 {
   text-align: center;
   color: #333;
-  margin-bottom: 20px;
 }
 
-.reflection-container form {
-  display: flex;
-  flex-direction: column;
-}
 
-.reflection-container input,
-.reflection-container textarea,
-.reflection-container button {
+input,
+textarea {
   margin-bottom: 15px;
-  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: calc(var(--base-font-size) + 1vmin);
-}
-
-.reflection-container textarea {
-  height: 100px;
-}
-
-.reflection-container button {
-  background-color: #0b6ea5;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-.reflection-container button:hover {
-  background-color: #094565;
+  width: 90%;
 }
 
 .reflectionContentContainer h1 {
@@ -74,10 +44,51 @@
   font-size: calc(var(--base-font-size) + 2vmin);
 }
 
+/* .container {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  overflow: auto;
+} */
+
 .container {
   position: relative;
   height: 100vh;
   overflow: auto;
+  align-items: center; 
+  justify-content: center;
+  margin: 0 auto;
+}
+
+
+.reflection-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100vmin;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5% 0;
+  margin-top: calc(50vh - 50vmin); /* Centers vertically if the height is fixed */
+}
+
+button {
+  background-color: #0b6ea5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: calc(var(--base-font-size) + 1vmin);
+  border-radius: 5px;
+  margin: 15px 0; /* Separation between elements */
+  width: 100%;
+}
+
+button:hover {
+  background-color: #094565;
 }
 
 .image {
@@ -96,13 +107,6 @@
   top: 20px;
   left: 20px;
   display: flex;
-}
-
-.navBar > * {
-  font-size: 8vmin;
-  color: white;
-  cursor: pointer;
-  margin-right: 10px;
 }
 
 .wordCloudContainer {

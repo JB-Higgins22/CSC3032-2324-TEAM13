@@ -95,3 +95,8 @@ a:active {
 .textBody {
   font-size: calc(var(--base-font-size) + 2vmin);
 }
+
+
+.SettingsIutton:hover {
+  color: #04aa23;
+}

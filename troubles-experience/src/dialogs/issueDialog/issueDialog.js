@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Zoom from '@mui/material/Zoom';
 import CloseIcon from '@mui/icons-material/Close';
 
-const dialogStyles = {
+const dialogStyles = {          // Dialog Styled to resemble A4 page
   background: '#EEEADC',
   maxWidth: '40vw',
   width: '40vw',
@@ -19,7 +19,7 @@ const dialogStyles = {
 
 const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB, handleOptionC }) => {
   return (
-    <Dialog                                                                   
+    <Dialog
       open={isOpen}
       onClose={handleClose}
       className="dialogueBox"
@@ -27,13 +27,15 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
       transitionDuration={500}
       PaperProps={{ style: { ...dialogStyles } }}
     >
+      {/* Font Sizes set relative to global base font size */}
       <DialogTitle style={{ color: 'black' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
         {issue && issue.name}
-        <IconButton role="button" aria-label="close" onClick={handleClose}>
+        <IconButton role="button" aria-label="close" onClick={handleClose} style={{display: 'none'}}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent>
+        {/* Access & Display Issue Data */}
         <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)' }}>
           {issue && issue.descriptionOne}
         </DialogContentText>
@@ -42,6 +44,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
           {issue && issue.descriptionTwo}
         </DialogContentText>
         <br />
+        {/* Point towards desired Image */}
         <img
           src={process.env.PUBLIC_URL + issue?.imageURL}
           alt="Issue Image"
@@ -66,6 +69,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
         >
           <Button role="button" aria-label="optionA" onClick={handleOptionA} style={{ width: '30%', height: 'auto' }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionA}</Button>
           <Button role="button" aria-label="optionB" onClick={handleOptionB} style={{ width: '30%' }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionB}</Button>
+          {/* Option C button rendered Conditionally */}
           {(issue?.numberOfOptions === 3) && (
             <Button role="button" aria-label="optionC" onClick={handleOptionC} style={{ width: '30%' }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionC}</Button>
           )}
@@ -74,5 +78,6 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
     </Dialog>
   );
 };
+
 
 export default IssueDialog;

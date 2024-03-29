@@ -78,3 +78,15 @@
     color: #fff;
   }
   
+
+  .navBar .homeButton:hover {
+    color: #04aa23;
+  }
+  
+  .navBar .settingsButton:hover {
+    color: #04aa23;
+  }
+  
+  .navBar .submitButton:hover {
+    color: #04aa23;
+  }
