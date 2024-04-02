@@ -3,11 +3,11 @@ export default class BookshelfObject {
       this.issues = issues;
     }
   
-    getIssues() {
+    getIssues() {               // Return issues belonging to the Bookshelf Object
       return this.issues;
     }
 
-    removeBook(issue) {
+    removeBook(issue) {                                 // Remove issue from Bookshelf
         if (this.checkIfOnBookshelf(issue)) {
             var index = this.issues.indexOf(issue);
             this.issues.splice(index, 1);
@@ -16,7 +16,7 @@ export default class BookshelfObject {
         return new BookshelfObject(this.issues);
     }
 
-    checkIfOnBookshelf(issue) {
+    checkIfOnBookshelf(issue) {                         // Checks if issue is on the Bookshelf
         if (this.issues.indexOf(issue) > -1) {
             return true;
         } else {

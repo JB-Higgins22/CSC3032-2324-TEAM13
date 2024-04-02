@@ -10,7 +10,7 @@ import SettingsDialog from "../../dialogs/settingsDialog";
 // EXTERNAL LIBRARIES
 import { Slide } from "@mui/material";
 import BadWordsFilter from 'bad-words';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Button } from '@mui/material';
 
 //MUI MATERIAL ICONS IMPORTS
 import HomeIcon from '@mui/icons-material/Home';
@@ -149,6 +149,16 @@ const Reflection = () => {
     }, 1200);
   }
 
+  function refreshWordCloud() {     // Allow the user to refresh the page to see a different collection of reflections
+    setShowWordCloud(prevShowContents => !prevShowContents)
+
+    setTimeout(() => {              
+      fetchReflections();
+      setShowWordCloud(prevShowContents => !prevShowContents)
+    }, 1200);
+
+  }
+
   const displaySettingsDialog = () => {                 // Handle Changing State of Settings Dialog
     setSettingsDialogOpen(true);
   };
@@ -170,19 +180,19 @@ const Reflection = () => {
   <div className="container">
       <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className="image" />     {/* Set the background image */}
       <div className="navBar">                                                                         {/* MUI Icons for Home/Settings */}
-        <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+        <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
       </div>
 
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>
         <div className="reflection-container">                                                        {/* Form for leaving reflections on experience */}
           <h1>Share Your Reflections</h1>
-          <div className="reflectionForm">
+          <div className="reflection-form">
             <form onSubmit={handleSubmit} style={{ width: '80vmin' }}>
               <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required />
               <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" required />
               <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." required></textarea>
-              <div>{remainingChars} Characters Remaining</div>
+              <div className="remaining-chars">{remainingChars} Characters Remaining</div>
               <button type="submit">Submit</button>
               <button style={{ fontFamily: 'Anton' }} onClick={skipForm}>I Don't Want To Leave a Reflection</button>
             </form>
@@ -191,10 +201,10 @@ const Reflection = () => {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
-        <div className="reflectionContentContainer">
+        <div className="reflection-content-container">
           <h1>USER REFLECTIONS</h1>
-          <div className="wordCloudContainer">
-            <div className="wordCloud">
+          <div className="word-cloud-container">
+            <div className="word-cloud">
             <WordCloudComponent words={words} width={400} height={400} />                           {/* Mount the VisX WordCloud Component */}
             </div>
           </div>
@@ -202,7 +212,7 @@ const Reflection = () => {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
-        <div className="biasNotice">*Reflections are randomly selected to reduce bias*</div>
+        <div className="bias-notice">*Reflections are randomly selected to reduce bias*</div>
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>         
@@ -222,6 +232,12 @@ const Reflection = () => {
             </Grid>
           ))}
         </Grid>
+      </Slide>
+
+      <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>  
+      <div className="refresh-container">
+        <Button className="refresh-button" onClick={refreshWordCloud}>Refresh The Word Cloud</Button>
+      </div>
       </Slide>
 
       <ConfirmQuitDialog isOpen={isConfirmQuitDialogOpen} handleClose={handleCloseConfirmQuitDialog} /> {/* Dialogs for Home/Settings */}

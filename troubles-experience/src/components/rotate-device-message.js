@@ -20,14 +20,16 @@ const RotateDeviceMessage = () => {
 
   return (
     <>
-      <div style={{ display: showMessage ? 'block' : 'none', 
+      <div style={{ display: showMessage ? 'block' : 'none',
+                    textAlign: 'center',
+                    fontFamily: 'Anton',
                     position: 'fixed', 
                     top: '50%', 
                     left: '50%', 
                     transform: 'translate(-50%, -50%)', 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+                    backgroundColor: 'rgba(0, 0, 0, 1)', 
                     color: '#fff', 
-                    padding: '20px', 
+                    padding: '10px', 
                     borderRadius: '10px', 
                     zIndex: '9999' }}>
         <p>Please rotate your device to landscape mode.</p>

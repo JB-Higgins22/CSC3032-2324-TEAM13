@@ -71,6 +71,7 @@
     background-color: #F0FFFF;
     color: #007bff;
     border: 1px solid #007bff;
+    width: 30%;
   }
   
   .reflectionButton.MuiButton-root:hover {

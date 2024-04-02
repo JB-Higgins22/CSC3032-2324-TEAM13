@@ -19,7 +19,7 @@
   position: relative;
 }
 
-.background-image {
+.background-image {           /* Setting background image of page */
   position: absolute;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@
   z-index: 0;
 }
 
-.contentsContainer {
+.contents-container {
   position: 'relative';
   z-index: 2;
 }
@@ -42,7 +42,7 @@
   margin: auto;
 }
 
-.book-name {
+.book-name {                  /* Book name Popover */
   font-family: 'Anton';
   position: fixed;
   background-color: #555;
@@ -60,13 +60,13 @@
 }
 
 
-.unionistSide {
+.unionist-side {
   width: 40vmin;
   padding: 10px;
   margin: 10px;
 }
 
-.unionistPlatform {
+.unionist-platform {
   background-color: rgba(76, 79, 255, 0.765);
   font-family: 'Anton';
   border: 2px dashed #ffffff;
@@ -79,20 +79,19 @@
   font-size: 3vmin;
 }
 
-.unionistPlatform h4 {
+.unionist-platform h4 {
   margin: auto;
   padding-top: 5%;
 }
 
-.nationalistSide {
+.nationalist-side {
   width: 40vmin;
   padding: 10px;
   margin: 10px;
 }
 
-.nationalistPlatform {
+.nationalist-platform {
   background-color: rgba(149, 255, 111, 0.575);
-  /* background-color: grey; */
   border: 2px dashed #ffffff;
   color: white;
   text-align: center;
@@ -104,19 +103,11 @@
   font-size: 3vmin;
 }
 
-.nationalistPlatform h4 {
+.nationalist-platform h4 {
   margin: auto;
   padding-top: 5%;
 }
 
-
-.homeButton:hover {
-  cursor: pointer;
-}
-
-.settingsButton:hover {
-  cursor: pointer;
-} 
 
 .shelf-and-scale-wrapper {
   display: flex;
@@ -137,12 +128,6 @@
   justify-content: center;
 }
 
-.booksOnShelf {
-  display: flex;
-  align-items: flex-start;
-  z-index: 2;
-  margin-top: -20px;
-}
 
 .shelf {
   position: relative;
@@ -160,78 +145,78 @@
   margin-top: 20px;
 }
 
-.unionistBooks, .nationalistBooks {
-  transition: height 0.5s ease; /* Add transition property for height */
+.unionist-books, .nationalist-books {
+  transition: height 0.5s ease;
 }
 
-.nationalistBooks, .unionistBooks {
+.nationalist-books, .unionist-books {
   display: flex;
-  flex-direction: column-reverse; /* Stack rows from bottom to top */
-  align-items: center; /* Align rows horizontally in the center */
-  height: 100%; /* Set to the desired height */
+  flex-direction: column-reverse; 
+  align-items: center;
+  height: 100%;
 }
 
-.nationalistRow, .unionistRow {
+.nationalist-row, .unionist-row {
   display: flex;
-  flex-direction: row; /* Align newspapers in a row */
-  justify-content: center; /* Center newspapers within the row */
-  width: 100%; /* Set row to full width of the container */
-  position: relative; /* Needed for absolute positioning of children */
+  flex-direction: row; 
+  justify-content: center; 
+  width: 100%; 
+  position: relative;
   margin-top: -5%;
 }
 
-.nationalistIssue, .unionistIssue {
-  flex: 0 0 20%; /* Each item will take up 20% of the container's width */
-  position: relative; /* Allow z-index to take effect for overlap */
-  z-index: 1; /* Set base z-index to ensure stacking context */
+.nationalist-issue, .unionist-issue {
+  flex: 0 0 20%; 
+  position: relative; 
+  z-index: 1;
 }
 
-.nationalistIssue img {
-  width: 8vmin; /* Adjust as needed */
+.nationalist-issue img {
+  width: 8vmin; 
   height: auto;
   display: block;
   margin: '0 auto';
   cursor: 'pointer';
-  position: relative; /* Position each image relatively within the issue container */
-  z-index: 2; /* Ensures that the image will stack on top of the one below it */
+  position: relative; 
+  z-index: 2;
 }
 
-.unionistIssue img {
-  width: 8vmin; /* Adjust as needed */
+.unionist-issue img {
+  width: 8vmin;
   height: auto;
   display: block;
   margin: '0 auto';
   cursor: 'pointer';
-  position: relative; /* Position each image relatively within the issue container */
-  z-index: 2; /* Ensures that the image will stack on top of the one below it */
+  position: relative;
+  z-index: 2;
 }
 
-/* This pseudoelement creates the overlap effect for each row */
-.nationalistRow::before {
+/* creates the overlap effect for each row */
+.nationalist-row::before {
   content: '';
   position: absolute;
-  top: -10px; /* Same as bottom offset of img for a consistent overlap */
+  top: -10px;
   left: 0;
   right: 0;
-  height: 10px; /* Same as bottom offset of img */
-  background-color: transparent; /* Change this to the background color of your images if needed */
+  height: 10px; 
+  background-color: transparent;
   z-index: 1;
 }
 
-.unionistRow::before {
+.unionist-row::before {
   content: '';
   position: absolute;
-  top: -10px; /* Same as bottom offset of img for a consistent overlap */
+  top: -10px;
   left: 0;
   right: 0;
-  height: 10px; /* Same as bottom offset of img */
-  background-color: transparent; /* Change this to the background color of your images if needed */
+  height: 10px;
+  background-color: transparent; 
   z-index: 1;
 }
 
 
 
-.titleAndBalanceContainer {
+.title-and-balance-container {
   display: flex;
   color: white;
   flex-direction: column;
@@ -252,56 +237,46 @@ h3 {
   padding-bottom: 1%;
 }
 
-
-/*================================*/
-
-.newspaperPopover {
+.newspaper-popover {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the heading text */
+  align-items: center;
   text-align: center;
   width: 90%;
 }
 
-.newspaperPopoverContainer {
+.newspaper-popover-container {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the heading text */
+  align-items: center;
   width: 100%;
 }
 
 .line {
   height: 1px;
   background-color: #000;
-  width: 80%; /* Adjust the width as needed */
-  margin: 2px 0; /* Spacing above and below the line */
+  width: 80%; 
+  margin: 2px 0;
 }
 
-/* .newspaper-img {
-  width: 8vmin;
-  height: auto;
-  display: block;
-  margin: auto;
-  cursor: pointer;
-} */
 
-
-/*================================*/
-
-.invisibleWeights {
+.invisible-weights {
   display: none;
 }
 
-.navBar .homeButton:hover {
+.nav-bar .home-button:hover {
   color: #04aa23;
+  cursor: pointer;
 }
 
-.navBar .settingsButton:hover {
+.nav-bar .settings-button:hover {
   color: #04aa23;
+  cursor: pointer;
 }
 
-.navBar .submitButton:hover {
+.nav-bar .submit-button:hover {
   color: #04aa23;
+  cursor: pointer;
 }
