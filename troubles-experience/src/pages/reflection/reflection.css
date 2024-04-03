@@ -19,6 +19,7 @@ textarea {
   border-radius: 5px;
   font-size: calc(var(--base-font-size) + 1vmin);
   width: 100%;
+  font-family: 'Anton';
 }
 
 .reflection-content-container h1 {
