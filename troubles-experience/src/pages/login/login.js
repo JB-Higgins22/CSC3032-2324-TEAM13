@@ -33,9 +33,12 @@ const Login = () => {
       if (response.ok) {
         // Login successful
         alert('Login successful!');
+const info = await response.json(); // Wait for response.json() to resolve
+        const token = info.token;
+        localStorage.setItem('token',token);
         navigate('/admin');
       } else {
-        // Login failed
+        alert('Login failed');        
         setError('Invalid username or password. Please try again.');
       }
     } catch (error) {
