@@ -250,7 +250,7 @@ useEffect(() => {
       {/* Render form for first 8 issues conditionally */}
       {showForm && (
     <div className="formContainer">
-      <h2>1998 Issue Form</h2>
+      <h2>Phase One Issue Form</h2>
             <form onSubmit={handleSubmit} >
                 <input
                     type="text"
@@ -283,6 +283,7 @@ useEffect(() => {
                 <label>Number Of Options:</label>
                 <label>
                 <input
+                    className="radio-input"
                     type="radio"
                     value="2"
                     checked={numberOfOptions === '2'}
@@ -292,6 +293,7 @@ useEffect(() => {
                 </label>
                 <label>
                     <input
+                        className="radio-input"
                         type="radio"
                         value="3"
                         checked={numberOfOptions === '3'}
@@ -310,6 +312,7 @@ useEffect(() => {
                 />
                 <label>Option A Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionANationalistWeight}
                     onChange={(event) => setOptionANationalistWeight(event.target.value)}
@@ -326,6 +329,7 @@ useEffect(() => {
                 />
                 <label>Option A Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionAUnionistWeight}
                     onChange={(event) => setOptionAUnionistWeight(event.target.value)}
@@ -352,6 +356,7 @@ useEffect(() => {
                 />
                 <label>Option B Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBNationalistWeight}
                     onChange={(event) => setOptionBNationalistWeight(event.target.value)}
@@ -368,6 +373,7 @@ useEffect(() => {
                 />
                 <label>Option B Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBUnionistWeight}
                     onChange={(event) => setOptionBUnionistWeight(event.target.value)}
@@ -395,6 +401,7 @@ useEffect(() => {
                 />
                 <label>Option C Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCNationalistWeight}
                     onChange={(event) => setOptionCNationalistWeight(event.target.value)}
@@ -413,6 +420,7 @@ useEffect(() => {
                 />
                 <label>Option C Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCUnionistWeight}
                     onChange={(event) => setOptionCUnionistWeight(event.target.value)}
@@ -440,8 +448,8 @@ useEffect(() => {
       {/*SECOND FORM */}
 
       {showSecondForm && (
-    <div className="formContainer">
-      <h2>POST 1998 Issue Form</h2>
+    <div className="form-container">
+      <h2>Phase Two Issue Form</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -474,6 +482,7 @@ useEffect(() => {
                 <label>Number Of Options:</label>
                 <label>
                 <input
+                    className="radio-input"
                     type="radio"
                     value="2"
                     checked={numberOfOptions === '2'}
@@ -483,6 +492,7 @@ useEffect(() => {
                 </label>
                 <label>
                     <input
+                        className="radio-input"
                         type="radio"
                         value="3"
                         checked={numberOfOptions === '3'}
@@ -501,6 +511,7 @@ useEffect(() => {
                 />
                 <label>Option A Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionANationalistWeight}
                     onChange={(event) => setOptionANationalistWeight(event.target.value)}
@@ -516,6 +527,7 @@ useEffect(() => {
                 />
                 <label>Option A Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionAUnionistWeight}
                     onChange={(event) => setOptionAUnionistWeight(event.target.value)}
@@ -541,6 +553,7 @@ useEffect(() => {
                 />
                 <label>Option B Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBNationalistWeight}
                     onChange={(event) => setOptionBNationalistWeight(event.target.value)}
@@ -556,6 +569,7 @@ useEffect(() => {
                 />
                 <label>Option B Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBUnionistWeight}
                     onChange={(event) => setOptionBUnionistWeight(event.target.value)}
@@ -582,6 +596,7 @@ useEffect(() => {
                 />
                 <label>Option C Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCNationalistWeight}
                     onChange={(event) => setOptionCNationalistWeight(event.target.value)}
@@ -599,6 +614,7 @@ useEffect(() => {
                 />
                 <label>Option C Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCUnionistWeight}
                     onChange={(event) => setOptionCUnionistWeight(event.target.value)}
@@ -623,7 +639,7 @@ useEffect(() => {
       <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
 
       {/* Render the table for approving/rejecting reflections */}
-      <div className="tableContainer">
+      <div className="table-container">
       <h2>Reflection Approval Table</h2>
         <table>
                   <thead>

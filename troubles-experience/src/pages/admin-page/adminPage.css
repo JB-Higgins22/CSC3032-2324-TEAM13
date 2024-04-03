@@ -23,7 +23,7 @@
     white-space: normal; 
   }
   
-  .background .homeIcon {
+  .background .home-icon {
     font-size: 32px;
     color: #F0FFFF;
     position: relative;
@@ -60,7 +60,7 @@ th {
     background-color: rgb(85, 85, 183);
 }
 
-.tableContainer {
+.table-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +69,7 @@ th {
   padding-bottom: 20%;
 }
 
-.formContainer {
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,4 +83,12 @@ form {
 
 h2 {
   font-size: 8vmin;
+}
+
+.radio-input {
+  width: 5%;
+}
+
+.number-input {
+  width: 10%;
 }

@@ -1,4 +1,4 @@
-export default class PaperObject {
+export default class PaperObject {              // Define structure for the 'Newspapers'
     constructor(headline, size, issue) {
         this.headline = headline;
         this.size = size;

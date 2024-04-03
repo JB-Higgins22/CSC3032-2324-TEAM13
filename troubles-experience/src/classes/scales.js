@@ -9,7 +9,7 @@ export default class ScalesObject {
       this.nationalistWeight = nationalistWeight;
     }
   
-    getUnionistIssues() {
+    getUnionistIssues() {                       // Getters
       return this.unionistIssues;
     }
 
@@ -25,7 +25,7 @@ export default class ScalesObject {
         return this.nationalistWeight;
     }  
 
-    // REVISIONS
+    // Option Selection Logic
     
     removePreviousSelection(issue) {
         const previousOption = issue.selectedOption;
@@ -80,12 +80,16 @@ export default class ScalesObject {
         }
             
         const updatedCentralisedIssues = [...this.centralisedIssues, issue];
+
+        // Update the scale weights
         const updatedUnionistWeight = this.unionistWeight + issue?.optionAUnionistWeight;
         const updatedNationalistWeight = this.nationalistWeight + issue?.optionANationalistWeight;
     
+        // Define new newspapers for display
         const nationalistPaper = new PaperObject(issue?.optionANationalistPerspective, 0, issue);
         const unionistPaper = new PaperObject(issue?.optionAUnionistPerspective, 0, issue);
             
+        // add newspapers to scales
         const updatedNationalistIssues = [...this.nationalistIssues, nationalistPaper];
         const updatedUnionistIssues = [...this.unionistIssues, unionistPaper];
     
@@ -116,12 +120,16 @@ export default class ScalesObject {
         }
             
         const updatedCentralisedIssues = [...this.centralisedIssues, issue];
+
+        // Update the scale weights
         const updatedUnionistWeight = this.unionistWeight + issue?.optionBUnionistWeight;
         const updatedNationalistWeight = this.nationalistWeight + issue?.optionBNationalistWeight;
     
+        // Define new newspapers for display
         const nationalistPaper = new PaperObject(issue?.optionBNationalistPerspective, 0, issue);
         const unionistPaper = new PaperObject(issue?.optionBUnionistPerspective, 0, issue);
             
+        // add newspapers to scales
         const updatedNationalistIssues = [...this.nationalistIssues, nationalistPaper];
         const updatedUnionistIssues = [...this.unionistIssues, unionistPaper];
     
@@ -152,12 +160,16 @@ export default class ScalesObject {
         }
             
         const updatedCentralisedIssues = [...this.centralisedIssues, issue];
+
+        // Update the scale weights
         const updatedUnionistWeight = this.unionistWeight + issue?.optionCUnionistWeight;
         const updatedNationalistWeight = this.nationalistWeight + issue?.optionCNationalistWeight;
     
+         // Define new newspapers for display
         const nationalistPaper = new PaperObject(issue?.optionCNationalistPerspective, 0, issue);
         const unionistPaper = new PaperObject(issue?.optionCUnionistPerspective, 0, issue);
-            
+           
+        // add newspapers to scales
         const updatedNationalistIssues = [...this.nationalistIssues, nationalistPaper];
         const updatedUnionistIssues = [...this.unionistIssues, unionistPaper];
     

@@ -56,7 +56,7 @@ const Login = () => {
         </Link>
         <h2>Login</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{width: '40vmin'}}>
           <div>
             <label htmlFor="username">Username:</label>
             <input

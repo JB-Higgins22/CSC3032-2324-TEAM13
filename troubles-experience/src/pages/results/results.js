@@ -31,7 +31,9 @@ const ResultsPage = () => {
       return 0;
     }
     const total = balancePercentages.reduce((acc, currentValue) => acc + currentValue, 0);
-    return total / balancePercentages.length;
+    const averagePercentage =  total / balancePercentages.length;
+    const roundedAveragePercentage = parseFloat(averagePercentage.toFixed(2));
+    return roundedAveragePercentage;
   }
 
   function leaveReflection() {
