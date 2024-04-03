@@ -35,8 +35,7 @@ const Reflection = () => {
   // ANIMATION STATES
   const [showReflectionForm, setShowReflectionForm] = useState(true);
   const [showWordCloud, setShowWordCloud] = useState(false);
-  const maxLength = 250;
-  const remainingChars = maxLength - thoughts.length;
+  const remainingChars = thoughts.length;
 
   //DIALOG STATES
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
@@ -57,9 +56,10 @@ const Reflection = () => {
     event.preventDefault();
     
     const filter = new BadWordsFilter(); // Filter out bad words using BadWordsFilter Library
-    const filteredName = filter.clean(name);
-    const filteredLocation = filter.clean(location);
-    const filteredThoughts = filter.clean(thoughts);
+    const filteredName = name ? filter.clean(name) : '';
+    const filteredLocation = location ? filter.clean(location) : '';
+    const filteredThoughts = thoughts ? filter.clean(thoughts) : '';
+
 
     const reflectionData = {          // Using the filtered data
       userName: filteredName,
@@ -117,7 +117,7 @@ const Reflection = () => {
                                 "and", "but", "or", "nor",
                                 "he", "she", "it", "they", "we", "us", "them",
                                 "is", "are", "was", "were", "have", "has", "had", "do", "does", "did",
-                                "oh", "hey", "hi", "hello", "ah", "hmm", "to", "of"]);
+                                "oh", "hey", "hi", "hello", "ah", "hmm", "to", "of", "its", "for"]);
   
       // Split the concatenated content into words
       const wordsArray = concatenatedContent.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
@@ -187,12 +187,12 @@ const Reflection = () => {
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>
         <div className="reflection-container">                                                        {/* Form for leaving reflections on experience */}
           <h1>Share Your Reflections</h1>
-          <div className="reflection-form">
+          <div className="reflection-form" aria-label="reflection-form">
             <form onSubmit={handleSubmit} style={{ width: '80vmin' }}>
               <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required />
               <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" required />
-              <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." required></textarea>
-              <div className="remaining-chars">{remainingChars} Characters Remaining</div>
+              <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." maxLength={250} required></textarea>
+              <div className="remaining-chars" aria-label = "remaining-chars">{remainingChars} / 250</div>
               <button type="submit">Submit</button>
               <button style={{ fontFamily: 'Anton' }} onClick={skipForm}>I Don't Want To Leave a Reflection</button>
             </form>
@@ -205,7 +205,7 @@ const Reflection = () => {
           <h1>USER REFLECTIONS</h1>
           <div className="word-cloud-container">
             <div className="word-cloud">
-            <WordCloudComponent words={words} width={400} height={400} />                           {/* Mount the VisX WordCloud Component */}
+            <WordCloudComponent words={words} width={400} height={400} aria-label = "word-cloud"/>                           {/* Mount the VisX WordCloud Component */}
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ const Reflection = () => {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>         
-        <Grid container spacing={2}>
+        <Grid container spacing={2} aria-label = "reflection-grid">
           {reflections.map(reflection => (
             <Grid item xs={12} sm={6} md={4} key={reflection.id}>                                 {/* Use MUI Grid to display the full reflections of users */}
               <Card style={{ backgroundColor: '#d3e0ed' }}>
@@ -236,7 +236,7 @@ const Reflection = () => {
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>  
       <div className="refresh-container">
-        <Button className="refresh-button" onClick={refreshWordCloud}>Refresh The Word Cloud</Button>
+        <Button className="refresh-button" onClick={refreshWordCloud} aria-label = "refresh-button">Refresh The Word Cloud</Button>
       </div>
       </Slide>
 
