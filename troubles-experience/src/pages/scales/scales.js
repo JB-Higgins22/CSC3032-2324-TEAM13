@@ -1,15 +1,18 @@
 // REACT IMPORTS
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// CLASS IMPORTS
 import ScalesObject from '../../classes/scales';
 import BookshelfObject from '../../classes/bookshelf';
 import Issue from '../../classes/issue';
-import IssueDialog from '../../dialogs/issueDialog/issueDialog';
-import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
-import RotateDeviceMessage from '../../components/rotate-device-message';
-import { useNavigate } from 'react-router-dom';
+
+// COMPONENT IMPORTS
+import IssueDialog from '../../dialogs/issueDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
+import DeviceOrientation from '../../components/device-orientation';
 import AnimatedNumber from "animated-number-react";
 import SettingsDialog from '../../dialogs/settingsDialog';
-
 
 // MUI IMPORTS
 import Slide from '@mui/material/Slide';
@@ -607,15 +610,17 @@ const fetchIssues = async () => {
     issue={selectedIssue}
     aria-label="Issue-Dialog"
     />
+
   <SettingsDialog 
     isOpen={isSettingsDialogOpen}
     handleClose={handleCloseSettingsDialog}
     aria-label="Settings-Dialog"/>
+    
   <ConfirmQuitDialog 
     isOpen={isConfirmQuitDialogOpen}
     handleClose={handleCloseConfirmQuitDialog}
     aria-label="Confirm-Quit-Dialog"/>
-  <RotateDeviceMessage />
+  <DeviceOrientation />
   </div>
   ): null;
 };

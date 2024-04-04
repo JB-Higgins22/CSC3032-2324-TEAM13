@@ -50,6 +50,7 @@
   border-radius: 6px;
   padding: 5px 10px;
   z-index: 1000;
+  font-size: calc(var(--base-font-size) + 1vmin);
 }
 
 .bookshelf-img {
@@ -122,12 +123,14 @@
 
 .books {
   margin-top: 20%;
+  margin-bottom: -1%;
+  position: relative;
+  z-index: 2;
   display: flex;
   height: auto;
   width: auto;
   justify-content: center;
 }
-
 
 .shelf {
   position: relative;

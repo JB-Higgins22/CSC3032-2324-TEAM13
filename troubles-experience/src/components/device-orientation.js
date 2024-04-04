@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const RotateDeviceMessage = () => {
+const DeviceOrientation = () => {
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -45,4 +45,4 @@ const RotateDeviceMessage = () => {
   );
 };
 
-export default RotateDeviceMessage;
+export default DeviceOrientation;

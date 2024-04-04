@@ -6,9 +6,9 @@ import HomeIcon from '@mui/icons-material/Home';
 
 const Settings = ({ onFontSizeChange}) => {
   return (
-    <div className="backGround">
+    <div className="background">
       <Link to="..\">
-        <HomeIcon className="HomeIcon"/>
+        <HomeIcon className="home-icon"/>
       </Link>
       
       <div className="foreground">

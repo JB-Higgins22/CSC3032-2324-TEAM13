@@ -40,9 +40,10 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: red;
+  color: rgb(255, 255, 255);
   padding: 4%;
   font-size: calc(var(--base-font-size) + 2vmin);
+  font-family: 'Anton';
 }
 
 

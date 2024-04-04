@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 
-.backGround {
+.background {
   background-image: url("../../../public/newspaperDark.jpeg");
   width: 100%;
   overflow: hidden;
@@ -27,11 +27,11 @@
   white-space: normal; 
 }
 
-.tabText {
+.tab-text {
   font-family: 'Anton';
 }
 
-.backGround .HomeIcon {
+.background .home-icon {
   font-size: 32px;
   color: #F0FFFF;
   position: relative;
@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 
-.backGround .HomeIcon:hover {
+.background .home-icon:hover {
   color: #F0FFFF; 
 }
 
@@ -48,11 +48,11 @@
   font-size: 90%;
 }
 
-.fontSize {
+.font-size {
   font-size: calc(var(--base-font-size));
 }
 
-.foreground .loginButton {
+.foreground .login-button {
   text-align: center;
   background-color: #F0FFFF;
   color: #094565;
@@ -66,7 +66,7 @@
   
 }
 
-.foreground .loginButton:hover {
+.foreground .login-button:hover {
   background-color: #04aa23; 
   color: white;
   border-style: ridge;

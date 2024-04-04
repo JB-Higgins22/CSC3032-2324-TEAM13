@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import Scales from '../pages/scales/scales';
 import fetchMock from 'jest-fetch-mock';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { SoundProvider } from '../sounds/soundContext';
 
 // Enable fetch mocking
 fetchMock.enableMocks();
@@ -143,7 +144,7 @@ describe('Scales Component', () => {
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
     fireEvent.click(bookDiv);
 
-    const closeButton = screen.getByRole('button', { name: 'close' });
+    const closeButton = screen.getByLabelText(/closeIssueDialog/i);
     fireEvent.click(closeButton)
 
     expect(screen.queryByLabelText('Issue-Dialog')).not.toBeInTheDocument();
@@ -245,26 +246,30 @@ describe('Scales Component', () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockData));
     render(
       <Router>
-        <Scales />
+        <SoundProvider>
+          <Scales />
+        </SoundProvider>
       </Router>
     );
 
     // Wait for the mock data to be fetched 
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(7));
   
-    // simulate the click.
-    // const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
-    // fireEvent.click(settingsIcon);
+   // simulate the click.
+    const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
+    fireEvent.click(settingsIcon);
 
-    // const settingsDialogContent = await screen.findByText(/Admin/);
-    // expect(settingsDialogContent).toBeInTheDocument();
+    const settingsDialogContent = await screen.findByText(/Admin/);
+    expect(settingsDialogContent).toBeInTheDocument();
   });
 
   it('Settings Dialog Can Be Closed', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockData));
     render(
       <Router>
-        <Scales />
+        <SoundProvider>
+          <Scales />
+        </SoundProvider>
       </Router>
     );
 
@@ -272,13 +277,13 @@ describe('Scales Component', () => {
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(8));
   
     // simulate the click.
-    // const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
-    // fireEvent.click(settingsIcon);
+    const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
+    fireEvent.click(settingsIcon);
 
-    // const closeButton = screen.getByRole('button', { name: 'closeSettings' });
-    // fireEvent.click(closeButton)
+    const closeButton = screen.getByRole('button', { name: 'closeSettings' });
+    fireEvent.click(closeButton)
 
-    // expect(screen.queryByLabelText('Settings-Dialog')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Settings-Dialog')).not.toBeInTheDocument();
   });
 
   it('First Submission Progresses The Phase', async () => {

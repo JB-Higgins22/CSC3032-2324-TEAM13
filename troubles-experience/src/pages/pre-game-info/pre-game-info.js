@@ -1,12 +1,18 @@
+// REACT IMPORTS
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+// MUI IMPORTS
 import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from 'react-router-dom';
+
+// CSS IMPORT
 import './pre-game-info.css';
-import { Padding } from '@mui/icons-material';
-import RotateDeviceMessage from '../../components/rotate-device-message';
+
+// COMPONENT IMPORTS
+import DeviceOrientation from '../../components/device-orientation';
 import SettingsDialog from '../../dialogs/settingsDialog';
-import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
 
 //MUI MATERIAL ICONS IMPORTS
 import HomeIcon from '@mui/icons-material/Home';
@@ -157,7 +163,7 @@ return (
               isOpen={isSettingsDialogOpen}
               handleClose={handleCloseSettingsDialog}/>
 
-            <RotateDeviceMessage />
+            <DeviceOrientation />
         </div>
     );
 };

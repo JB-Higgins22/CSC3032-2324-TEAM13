@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 
 // COMPONENT IMPORTS
 import WordCloudComponent from "../../components/word-cloud";
-import RotateDeviceMessage from "../../components/rotate-device-message";
-import ConfirmQuitDialog from "../../dialogs/issueDialog/confirmQuitDialog";
+import DeviceOrientation from "../../components/device-orientation";
+import ConfirmQuitDialog from "../../dialogs/confirmQuitDialog";
 import SettingsDialog from "../../dialogs/settingsDialog";
 
 // EXTERNAL LIBRARIES
@@ -242,7 +242,7 @@ const Reflection = () => {
 
       <ConfirmQuitDialog isOpen={isConfirmQuitDialogOpen} handleClose={handleCloseConfirmQuitDialog} /> {/* Dialogs for Home/Settings */}
       <SettingsDialog isOpen={isSettingsDialogOpen} handleClose={handleCloseSettingsDialog} />
-      <RotateDeviceMessage />
+      <DeviceOrientation />
     </div>
   );
 };
