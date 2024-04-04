@@ -10,6 +10,11 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Zoom from '@mui/material/Zoom';
 import { Link } from "react-router-dom";
 
+const dialogStyles = {
+  background: '#094565',
+  border: '2px solid rgb(255, 255, 255)'
+  };
+
 const ConfirmQuitDialog = ({ isOpen, handleClose }) => {
   return (
     <Dialog
@@ -18,13 +23,14 @@ const ConfirmQuitDialog = ({ isOpen, handleClose }) => {
       className="dialogueBox"
       TransitionComponent={Zoom}
       transitionDuration={500}
+      PaperProps={{ style: { ...dialogStyles } }} 
     >
       {/* Font Size based on Global base size*/}
-      <DialogTitle style={{ color: 'black' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
+      <DialogTitle style={{ color: 'white', fontFamily: 'Anton' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
         Are You Sure You Want to Quit?
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)' }}>
+      <DialogContent sx = {{textAlign: 'center'}}>
+        <DialogContentText sx={{ fontSize: 'calc(var(--base-font-size) + 1.5vmin)', color: 'white' }}>
           All Progress Will Be Lost.
         </DialogContentText>
       </DialogContent>
