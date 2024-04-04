@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import './tutorial.css';
 import { Padding } from '@mui/icons-material';
-import RotateDeviceMessage from '../../components/rotate-device-message';
+import DeviceOrientation from '../../components/device-orientation';
 
 const Tutorial = () => {
     const [showContent, setShowContent] = useState(true);
@@ -172,7 +172,7 @@ const Tutorial = () => {
                 </Slide>
                         
             </div>       
-        <RotateDeviceMessage />
+        <DeviceOrientation />
         </div>
     );
 };

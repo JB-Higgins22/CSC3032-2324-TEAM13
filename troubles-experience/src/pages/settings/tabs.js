@@ -1,9 +1,12 @@
+// REACT IMPORTS
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// CSS IMPORTS
 import '../../styles/global.css';
 import './settingsPage.css';
 
+// MUI IMPORTS
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -77,12 +80,24 @@ function applyFontStyling() {
 */
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-  const { toggleMute } = useSoundContext();
+  const { isMuted, toggleMute } = useSoundContext();
   
   //Defining state variables
-    const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(false); 
-    const [highContrastMode, setHighContrastMode] = useState(false);
-    const [fontIncrease, setFontIncrease] = useState(false);
+  const [blackAndWhiteMode, setBlackAndWhiteMode] = useState(isDarkModeApplied()); 
+  const [highContrastMode, setHighContrastMode] = useState(isHighContrastModeApplied());
+  const [soundMuted, setSoundMuted] = useState(isMuted);
+  const [fontIncrease, setFontIncrease] = useState(false);
+
+    // Existing Styling
+  function isDarkModeApplied() {
+    const bodyStyle = document.body.style.filter;
+    return bodyStyle.includes('grayscale(100%)');
+  }
+
+  function isHighContrastModeApplied() {
+    const bodyStyle = document.body.style.filter;
+    return bodyStyle.includes('contrast(200%)');
+  }
     
 
     const handleChange = (event, newValue) => {
@@ -92,13 +107,19 @@ export default function BasicTabs() {
     //Toggling states 'on' and calling relevant functions
     const toggleBlackAndWhiteMode = () => {
       setBlackAndWhiteMode(!blackAndWhiteMode); // Toggle blackAndWhiteMode state
+      setHighContrastMode(false); // Both Styles cant be true
       applyBlackAndWhiteStyling(!blackAndWhiteMode); // Apply black and white styles
     };
     
     const toggleHighContrastMode = () => {
       setHighContrastMode(!highContrastMode);
+      setBlackAndWhiteMode(false); // Both styles cant be true
       applyHighContrastStyling(!highContrastMode); 
+    };
 
+    const handleToggleMute = () => {
+      toggleMute(); // Call context function to toggle global mute state
+      setSoundMuted(!soundMuted); // Also toggle local state to reflect the change
     };
 
 
@@ -125,26 +146,43 @@ export default function BasicTabs() {
   //Tabs 
   return (
     <Box sx={{ width: '100%', fontFamily: 'Anton' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', fontFamily: 'Anton'}}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
-          <Tab label="General" {...accessabilityProps(0)} aria-label="general tab"/>
-          <Tab label="Admin" {...accessabilityProps(1)} aria-label="admin tab"/>
+      <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider', fontFamily: 'Anton'}}>
+      <Tabs
+          sx={{
+            '& .MuiTab-root': {
+              color: 'white', // Tab color
+              fontSize: 'calc(var(--base-font-size) + 1vmin)', // Adjust font size
+              width: '50%', // Adjust width to 50% for each tab
+            },
+            '& .Mui-selected': {
+              color: 'white', // White color for selected tab
+            },
+            '& .MuiTabs-indicator': {
+              backgroundColor: 'white', // White indicator
+            },
+          }}
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs"
+        >
+          <Tab label="General" {...accessabilityProps(0)} />
+          <Tab label="Admin" {...accessabilityProps(1)} />
         </Tabs>
       </Box>
 
       <CustomTabPanel value={value} index={0}>
       
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px' }}>
-        <VolumeUp aria-label="mute icon" sx={{ marginRight: 1, fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white'  }} />
-        <Typography className="fontSize" aria-label="mute label" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
+        <VolumeUp sx={{ marginRight: 1, fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white'  }} />
+        <Typography className="font-size" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-         <FormControlLabel control={<Switch onChange={toggleMute} aria-label="mute switch"/>} sx={{ marginLeft: 2 }} />
+         <FormControlLabel control={<GreenSwitch checked = {soundMuted} onChange={handleToggleMute}/>} sx={{ marginLeft: 2 }} />
         </Box>
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
-          <ContrastIcon aria-label="black and white icon" sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
-          <Typography className="fontSize" aria-label="black and white label" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Black and White (Dark) Mode</Typography>
+          <ContrastIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+          <Typography className="font-size" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Black and White (Dark) Mode</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
@@ -154,8 +192,8 @@ export default function BasicTabs() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px', fontFamily: 'Anton' }}>
-          <ContrastIcon aria-label="contrast icon" sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
-          <Typography className="fontSize" aria-label="contrast label" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>High Contrast</Typography>
+          <ContrastIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+          <Typography className="font-size" variant="subtitle1" sx={{ marginLeft: 2, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>High Contrast</Typography>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px', fontFamily: 'Anton'}}>
@@ -165,8 +203,8 @@ export default function BasicTabs() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
-        <AbcIcon aria-label="font icon" sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
-        <Typography className="fontSize" aria-label="font label" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Adjust Font Size</Typography>
+        <AbcIcon sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}/>
+        <Typography className="font-size" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Adjust Font Size</Typography>
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
@@ -178,7 +216,7 @@ export default function BasicTabs() {
         {/* Content within Admin tab   */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
         <Link to="..\login">
-            <Button className = "loginButton" aria-label="admin login button" variant="contained">Login</Button>
+            <Button className = "login-button" variant="contained">Login</Button>
           </Link>
         </Box>
       </CustomTabPanel>
@@ -235,7 +273,25 @@ function FontSizeRadioButtons() {
         <FormControlLabel
           key={index}
           value={mark.value.toString()}
-          control={<Radio  className = "Mui" sx={{ '& .MuiSvgIcon-root': { width: mark.size, height: mark.size} }} />}
+          control={<Radio
+            className="Mui"
+            sx={{
+              '& .MuiSvgIcon-root': { 
+                width: mark.size, 
+                height: mark.size,
+              },
+              color: 'white', // default color set to white
+              '&.Mui-checked': {
+                color: 'white', // color when checked, set to white
+              },
+              '&:hover': {
+                bgcolor: alpha('#ffffff', 0.04), // use hexadecimal color for white
+              }
+            }}
+            checked={selectedValue === mark.value}
+            onChange={handleChange}
+            name="size-radio-button"
+          />}
           label=""
           aria-label = {mark.label.toString()}
           onChange={handleChange}

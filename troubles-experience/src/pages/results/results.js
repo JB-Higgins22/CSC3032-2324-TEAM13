@@ -1,10 +1,14 @@
+// REACT IMPORTS
 import React, { useState } from 'react';
-import RotateDeviceMessage from '../../components/rotate-device-message';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import SettingsDialog from '../../dialogs/settingsDialog';
-import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
 
+// COMPONENT IMPORTS
+import DeviceOrientation from '../../components/device-orientation';
+import SettingsDialog from '../../dialogs/settingsDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
+
+// MUI IMPORTS
 import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
 
@@ -31,7 +35,9 @@ const ResultsPage = () => {
       return 0;
     }
     const total = balancePercentages.reduce((acc, currentValue) => acc + currentValue, 0);
-    return total / balancePercentages.length;
+    const averagePercentage =  total / balancePercentages.length;
+    const roundedAveragePercentage = parseFloat(averagePercentage.toFixed(2));
+    return roundedAveragePercentage;
   }
 
   function leaveReflection() {
@@ -61,27 +67,27 @@ const ResultsPage = () => {
         alt="background" 
         className="background-image" 
       />
-      <div className="navBar">
-        <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+      <div className="nav-bar">
+        <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
       </div>
-      <div className="titleWrapper">
+      <div className="title-wrapper">
         <div>
           <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
             <h1 className="title">RESULTS</h1>
           </Slide>
-          <div className="informationWrapper">
+          <div className="information-wrapper">
             <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <h3 className="informationHeader header1998">1998 Peace Talks - {balancePercentages[0]}%</h3>
+              <h3 className="information-header header1998">1998 Peace Talks - {balancePercentages[0]}%</h3>
             </Slide>
             <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <h3 className="informationHeader header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3>
+              <h3 className="information-header header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3>
             </Slide>
             <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <h3 className="informationHeader averageResultHeader">{averageResult}% Balance Achieved Overall</h3>
+              <h3 className="information-header average-result-header">{averageResult}% Balance Achieved Overall</h3>
             </Slide>
             <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <Button className="reflectionButton" onClick={leaveReflection}>Leave a Reflection</Button>
+              <Button className="reflection-button" onClick={leaveReflection}>Leave a Reflection</Button>
             </Slide>
           </div>       
         </div>
@@ -95,7 +101,7 @@ const ResultsPage = () => {
         isOpen={isSettingsDialogOpen}
         handleClose={handleCloseSettingsDialog}/>
 
-      <RotateDeviceMessage />
+      <DeviceOrientation />
     </div>
   );
 };

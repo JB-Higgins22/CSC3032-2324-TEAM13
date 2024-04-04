@@ -1,12 +1,18 @@
+// REACT IMPORTS
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+// MUI IMPORTS
 import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from 'react-router-dom';
+
+// CSS IMPORT
 import './pre-game-info.css';
-import { Padding } from '@mui/icons-material';
-import RotateDeviceMessage from '../../components/rotate-device-message';
+
+// COMPONENT IMPORTS
+import DeviceOrientation from '../../components/device-orientation';
 import SettingsDialog from '../../dialogs/settingsDialog';
-import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
 
 //MUI MATERIAL ICONS IMPORTS
 import HomeIcon from '@mui/icons-material/Home';
@@ -80,7 +86,8 @@ const PreGameInfo = () => {
         '&:hover': {
             backgroundColor: '#04aa23',
             color: '#fff',
-        }
+        },
+        width: '30%',
     };
 
     const buttonNextstyle = {
@@ -91,7 +98,8 @@ const PreGameInfo = () => {
         '&:hover': {
             backgroundColor: '#04aa23',
             color: '#fff',
-        }
+        },
+        width: '30%',
     };
 
     const buttonPlaystyle = {
@@ -102,7 +110,8 @@ const PreGameInfo = () => {
         '&:hover': {
             backgroundColor: '#04aa23',
             color: '#fff',
-        }
+        },
+        width: '30%',
     };
 
     const invisibleButtonstyle = {
@@ -114,18 +123,18 @@ const PreGameInfo = () => {
 return ( 
         <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className='background-image' />
-            <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-              <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+            <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+              <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
 
 
-              <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+              <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
             </div>
             <div style={titleWrapperStyle}>
-                <div className="titleWrapper">
+                <div className="title-wrapper">
                     <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
                         <h1 className = "title">A BACKGROUND ON THE TROUBLES</h1>
                     </Slide>
-                    <div className="informationWrapper">
+                    <div className="information-wrapper">
                         <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
                             <p>{allContent[currentContent]}</p>
                             
@@ -154,7 +163,7 @@ return (
               isOpen={isSettingsDialogOpen}
               handleClose={handleCloseSettingsDialog}/>
 
-            <RotateDeviceMessage />
+            <DeviceOrientation />
         </div>
     );
 };

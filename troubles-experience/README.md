@@ -135,7 +135,35 @@ DATABASE: The facility through which data for the application is held
 
 
 # Installing The Project
+NEEDED FOR BACKEND:
 
+
+NEEDED FOR FRONTEND:
+npm i @visx/visx
+
+npm i bad-words
+
+npm install @mui/material @emotion/react @emotion/styled
+
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+
+npm install @mui/x-data-grid
+
+NEEDED FOR TESTING:
+npm install @testing-library/user-event @testing-library/dom
+
+npm i jest-fetch-mock
+
+# Running/Serving The Project
+LOCAL SERVE BACKEND:
+In the terminal, cd into the 'Backend' directory and run the command `npm run dev`
+
+LOCAL SERVE FRONTEND:
+In the terminal, cd into the 'troubles-experience' directory and run the command `npm run start`
+
+LOCAL SERVE TESTS:
+In the terminal, cd into the 'troubles-experience' directory and run the command `npm run test`.
+Note that there should be no local serve of the database or frontend when running the test suite.
 
 # Populating the Application with Content
 

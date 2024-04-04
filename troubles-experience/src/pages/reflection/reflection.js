@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 
 // COMPONENT IMPORTS
 import WordCloudComponent from "../../components/word-cloud";
-import RotateDeviceMessage from "../../components/rotate-device-message";
-import ConfirmQuitDialog from "../../dialogs/issueDialog/confirmQuitDialog";
+import DeviceOrientation from "../../components/device-orientation";
+import ConfirmQuitDialog from "../../dialogs/confirmQuitDialog";
 import SettingsDialog from "../../dialogs/settingsDialog";
 
 // EXTERNAL LIBRARIES
 import { Slide } from "@mui/material";
 import BadWordsFilter from 'bad-words';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Button } from '@mui/material';
 
 //MUI MATERIAL ICONS IMPORTS
 import HomeIcon from '@mui/icons-material/Home';
@@ -35,8 +35,7 @@ const Reflection = () => {
   // ANIMATION STATES
   const [showReflectionForm, setShowReflectionForm] = useState(true);
   const [showWordCloud, setShowWordCloud] = useState(false);
-  const maxLength = 250;
-  const remainingChars = maxLength - thoughts.length;
+  const remainingChars = thoughts.length;
 
   //DIALOG STATES
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
@@ -57,9 +56,10 @@ const Reflection = () => {
     event.preventDefault();
     
     const filter = new BadWordsFilter(); // Filter out bad words using BadWordsFilter Library
-    const filteredName = filter.clean(name);
-    const filteredLocation = filter.clean(location);
-    const filteredThoughts = filter.clean(thoughts);
+    const filteredName = name ? filter.clean(name) : '';
+    const filteredLocation = location ? filter.clean(location) : '';
+    const filteredThoughts = thoughts ? filter.clean(thoughts) : '';
+
 
     const reflectionData = {          // Using the filtered data
       userName: filteredName,
@@ -117,7 +117,7 @@ const Reflection = () => {
                                 "and", "but", "or", "nor",
                                 "he", "she", "it", "they", "we", "us", "them",
                                 "is", "are", "was", "were", "have", "has", "had", "do", "does", "did",
-                                "oh", "hey", "hi", "hello", "ah", "hmm", "to", "of"]);
+                                "oh", "hey", "hi", "hello", "ah", "hmm", "to", "of", "its", "for"]);
   
       // Split the concatenated content into words
       const wordsArray = concatenatedContent.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
@@ -149,6 +149,16 @@ const Reflection = () => {
     }, 1200);
   }
 
+  function refreshWordCloud() {     // Allow the user to refresh the page to see a different collection of reflections
+    setShowWordCloud(prevShowContents => !prevShowContents)
+
+    setTimeout(() => {              
+      fetchReflections();
+      setShowWordCloud(prevShowContents => !prevShowContents)
+    }, 1200);
+
+  }
+
   const displaySettingsDialog = () => {                 // Handle Changing State of Settings Dialog
     setSettingsDialogOpen(true);
   };
@@ -170,19 +180,19 @@ const Reflection = () => {
   <div className="container">
       <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className="image" />     {/* Set the background image */}
       <div className="navBar">                                                                         {/* MUI Icons for Home/Settings */}
-        <HomeIcon className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+        <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
       </div>
 
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>
         <div className="reflection-container">                                                        {/* Form for leaving reflections on experience */}
           <h1>Share Your Reflections</h1>
-          <div className="reflectionForm">
+          <div className="reflection-form" aria-label="reflection-form">
             <form onSubmit={handleSubmit} style={{ width: '80vmin' }}>
               <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required />
               <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" required />
-              <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." required></textarea>
-              <div>{remainingChars} Characters Remaining</div>
+              <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." maxLength={250} required></textarea>
+              <div className="remaining-chars" aria-label = "remaining-chars">{remainingChars} / 250</div>
               <button type="submit">Submit</button>
               <button style={{ fontFamily: 'Anton' }} onClick={skipForm}>I Don't Want To Leave a Reflection</button>
             </form>
@@ -191,22 +201,22 @@ const Reflection = () => {
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
-        <div className="reflectionContentContainer">
+        <div className="reflection-content-container">
           <h1>USER REFLECTIONS</h1>
-          <div className="wordCloudContainer">
-            <div className="wordCloud">
-            <WordCloudComponent words={words} width={400} height={400} />                           {/* Mount the VisX WordCloud Component */}
+          <div className="word-cloud-container">
+            <div className="word-cloud">
+            <WordCloudComponent words={words} width={400} height={400} aria-label = "word-cloud"/>                           {/* Mount the VisX WordCloud Component */}
             </div>
           </div>
         </div>
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>
-        <div className="biasNotice">*Reflections are randomly selected to reduce bias*</div>
+        <div className="bias-notice">*Reflections are randomly selected to reduce bias*</div>
       </Slide>
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>         
-        <Grid container spacing={2}>
+        <Grid container spacing={2} aria-label = "reflection-grid">
           {reflections.map(reflection => (
             <Grid item xs={12} sm={6} md={4} key={reflection.id}>                                 {/* Use MUI Grid to display the full reflections of users */}
               <Card style={{ backgroundColor: '#d3e0ed' }}>
@@ -224,9 +234,15 @@ const Reflection = () => {
         </Grid>
       </Slide>
 
+      <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>  
+      <div className="refresh-container">
+        <Button className="refresh-button" onClick={refreshWordCloud} aria-label = "refresh-button">Refresh The Word Cloud</Button>
+      </div>
+      </Slide>
+
       <ConfirmQuitDialog isOpen={isConfirmQuitDialogOpen} handleClose={handleCloseConfirmQuitDialog} /> {/* Dialogs for Home/Settings */}
       <SettingsDialog isOpen={isSettingsDialogOpen} handleClose={handleCloseSettingsDialog} />
-      <RotateDeviceMessage />
+      <DeviceOrientation />
     </div>
   );
 };

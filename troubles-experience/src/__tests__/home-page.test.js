@@ -4,6 +4,7 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
+import { SoundProvider } from '../sounds/soundContext';
 
 test('Home Screen Renders: TC01', () => {
     render(
@@ -31,7 +32,9 @@ test('Page displays options correctly: TC02', () => {
   test('Clicking the settings icon navigates to the settings page: TC03', async () => {
     render(
       <MemoryRouter>
-        <HomePage />
+        <SoundProvider>
+          <HomePage />
+          </SoundProvider>
       </MemoryRouter>
     );
   

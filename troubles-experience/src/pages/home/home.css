@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
-.Container {
+.container {
   width: 100%;
   height: 100vh;
   margin: 0 auto;
@@ -24,7 +24,7 @@
 }
 
 
-.Container .SettingsIcon {
+.container .settings-icon {
   font-size: 32px;
   color: #F0FFFF;
   position: absolute;
@@ -33,7 +33,7 @@
   cursor: pointer;
 }
 
-.Header {
+.header {
   text-align: center;
   font-family: 'Anton';
   margin-bottom: 20px;
@@ -41,14 +41,14 @@
   top: 5%;
 }
 
-.Section {
+.section {
   color: #F0FFFF;
   text-align: center;
   margin-bottom: 40px;
   font-family: 'Anton';
 }
 
-.Section .Button {
+.start-puzzle-button {
   text-align: center;
   background-color: #F0FFFF;
   color: #007bff;
@@ -59,9 +59,10 @@
   border-color: #007bff;
   border-radius: 4px;
   font-family: 'Anton';
+  width: 30%;
 }
 
-.Section .Button:hover {
+.start-puzzle-button:hover {
   background-color: #04aa23; 
   color: #F0FFFF;
   border-color: #F0FFFF;
@@ -87,16 +88,16 @@ a:active {
   font-weight: bold;
 }
 
-.subTitle {
+.sub-title {
   font-size: calc(var(--base-font-size) + 4vmin);
   font-weight: bold;
 }
 
-.textBody {
+.text-body {
   font-size: calc(var(--base-font-size) + 2vmin);
 }
 
 
-.SettingsIutton:hover {
+.settings-button:hover {
   color: #04aa23;
 }

@@ -1,7 +1,16 @@
 import React from "react";
 import './adminPage.css';
 import { useState, useEffect } from "react";
+
+// MUI Imports
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Button } from "@mui/material";
+
+//Component Imports
+import DeviceOrientation from "../../components/device-orientation";
+import ConfirmQuitDialog from "../../dialogs/confirmQuitDialog";
+import SettingsDialog from "../../dialogs/settingsDialog";
 
 
 const AdminPage = ({ onFontSizeChange}) => {
@@ -9,6 +18,10 @@ const AdminPage = ({ onFontSizeChange}) => {
     const [reflections, setReflections] = useState([]);
     const [showForm, setShowForm] = useState(true);
     const [showSecondForm, setShowSecondForm] = useState(false);
+
+    // STATE OF DIALOGS
+    const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+    const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
 
     //ISSUE DATA
     const [name, setName] = useState("");
@@ -62,6 +75,31 @@ const AdminPage = ({ onFontSizeChange}) => {
     setOptionCUnionistWeight(0);
     setOptionCUnionistPerspective("");
 };
+
+  /*
+
+      --------------- DIALOG HANDLING ---------------
+
+  */
+
+
+  // DIALOG HANDLING - Confirm Quit Dialog
+  const displayConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(true);
+  };
+
+  const handleCloseConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(false);
+  };
+
+  // DIALOG HANDLING - Settings Dialog
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
 
 // Function to fetch reflections from the server
   const fetchReflections = () => {
@@ -126,23 +164,6 @@ const handleApproveReflection = (reflection) => {
 
     handleDeleteReflection(reflection.id)
 }
-
-// Handle the deletion of approved reflections - MAY NEED REMOVED
-const handleClearApprovedReflections = () => {
-  fetch('http://localhost:4000/removeapprovedreflections', {
-      method: 'DELETE',
-  })
-  .then(response => {
-      if (response.ok) {
-          console.log('All approved reflections cleared successfully');
-      } else {
-          console.error('Failed to clear approved reflections');
-      }
-  })
-  .catch(error => {
-      console.error('Error:', error);
-  });
-};
 
 // Handle form submission
 const handleSubmit = (e) => {
@@ -245,12 +266,17 @@ useEffect(() => {
 
   return (
     <div className="background">
+      {/* Navigation Bar - Home Buttonn, Settings Button, Submit Button */}
+        <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+        <HomeIcon aria-label = "HomeIcon" className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon aria-label = "SettingsIcon" className="settings-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white'}} onClick={displaySettingsDialog} />
+      </div>
       <h1 className="title">ADMIN</h1>
 
       {/* Render form for first 8 issues conditionally */}
       {showForm && (
     <div className="formContainer">
-      <h2>1998 Issue Form</h2>
+      <h2>Phase One Issue Form</h2>
             <form onSubmit={handleSubmit} >
                 <input
                     type="text"
@@ -283,6 +309,7 @@ useEffect(() => {
                 <label>Number Of Options:</label>
                 <label>
                 <input
+                    className="radio-input"
                     type="radio"
                     value="2"
                     checked={numberOfOptions === '2'}
@@ -292,6 +319,7 @@ useEffect(() => {
                 </label>
                 <label>
                     <input
+                        className="radio-input"
                         type="radio"
                         value="3"
                         checked={numberOfOptions === '3'}
@@ -310,6 +338,7 @@ useEffect(() => {
                 />
                 <label>Option A Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionANationalistWeight}
                     onChange={(event) => setOptionANationalistWeight(event.target.value)}
@@ -326,6 +355,7 @@ useEffect(() => {
                 />
                 <label>Option A Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionAUnionistWeight}
                     onChange={(event) => setOptionAUnionistWeight(event.target.value)}
@@ -352,6 +382,7 @@ useEffect(() => {
                 />
                 <label>Option B Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBNationalistWeight}
                     onChange={(event) => setOptionBNationalistWeight(event.target.value)}
@@ -368,6 +399,7 @@ useEffect(() => {
                 />
                 <label>Option B Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBUnionistWeight}
                     onChange={(event) => setOptionBUnionistWeight(event.target.value)}
@@ -395,6 +427,7 @@ useEffect(() => {
                 />
                 <label>Option C Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCNationalistWeight}
                     onChange={(event) => setOptionCNationalistWeight(event.target.value)}
@@ -413,6 +446,7 @@ useEffect(() => {
                 />
                 <label>Option C Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCUnionistWeight}
                     onChange={(event) => setOptionCUnionistWeight(event.target.value)}
@@ -440,8 +474,8 @@ useEffect(() => {
       {/*SECOND FORM */}
 
       {showSecondForm && (
-    <div className="formContainer">
-      <h2>POST 1998 Issue Form</h2>
+    <div className="form-container">
+      <h2>Phase Two Issue Form</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -474,6 +508,7 @@ useEffect(() => {
                 <label>Number Of Options:</label>
                 <label>
                 <input
+                    className="radio-input"
                     type="radio"
                     value="2"
                     checked={numberOfOptions === '2'}
@@ -483,6 +518,7 @@ useEffect(() => {
                 </label>
                 <label>
                     <input
+                        className="radio-input"
                         type="radio"
                         value="3"
                         checked={numberOfOptions === '3'}
@@ -501,6 +537,7 @@ useEffect(() => {
                 />
                 <label>Option A Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionANationalistWeight}
                     onChange={(event) => setOptionANationalistWeight(event.target.value)}
@@ -516,6 +553,7 @@ useEffect(() => {
                 />
                 <label>Option A Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionAUnionistWeight}
                     onChange={(event) => setOptionAUnionistWeight(event.target.value)}
@@ -541,6 +579,7 @@ useEffect(() => {
                 />
                 <label>Option B Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBNationalistWeight}
                     onChange={(event) => setOptionBNationalistWeight(event.target.value)}
@@ -556,6 +595,7 @@ useEffect(() => {
                 />
                 <label>Option B Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionBUnionistWeight}
                     onChange={(event) => setOptionBUnionistWeight(event.target.value)}
@@ -582,6 +622,7 @@ useEffect(() => {
                 />
                 <label>Option C Nationalist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCNationalistWeight}
                     onChange={(event) => setOptionCNationalistWeight(event.target.value)}
@@ -599,6 +640,7 @@ useEffect(() => {
                 />
                 <label>Option C Unionist Weight:</label>
                 <input
+                    className="number-input"
                     type="number"
                     value={optionCUnionistWeight}
                     onChange={(event) => setOptionCUnionistWeight(event.target.value)}
@@ -620,36 +662,48 @@ useEffect(() => {
       </div>
       )}
 
-      <button onClick={(handleClearApprovedReflections)}>Clear Approved Reflections</button>
-
       {/* Render the table for approving/rejecting reflections */}
-      <div className="tableContainer">
+      <div className="table-container">
       <h2>Reflection Approval Table</h2>
         <table>
                   <thead>
                       <tr>
-                          <th>ReflectionID</th>
-                          <th>Username</th>
-                          <th>Location</th>
-                          <th>Content</th>
-                          <th>Approve</th>
-                          <th>Reject</th>
+                      <th className="table-header other-header">ReflectionID</th>
+                      <th className="table-header other-header">Username</th>
+                      <th className="table-header other-header">Location</th>
+                      <th className="table-header content-header">Content</th>
+                      <th className="table-header other-header">Approve</th>
+                      <th className="table-header other-header">Reject</th>
                       </tr>
                   </thead>
                   <tbody>
                       {reflections.map(reflection => (
                           <tr key={reflection.id}>
-                              <td>{reflection.id}</td>
-                              <td>{reflection.username}</td>
-                              <td>{reflection.location}</td>
-                              <td>{reflection.content}</td>
-                              <td><Button onClick={() => handleApproveReflection(reflection)}>Approve</Button></td>
-                              <td><Button onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button></td>
-                          </tr>
+                          <td className="table-cell other-cell">{reflection.id}</td>
+                          <td className="table-cell other-cell">{reflection.username}</td>
+                          <td className="table-cell other-cell">{reflection.location}</td>
+                          <td className="table-cell content-cell">{reflection.content}</td> {/* This is your content cell */}
+                          <td className="table-cell other-cell">
+                              <Button sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleApproveReflection(reflection)}>Approve</Button>
+                          </td>
+                          <td className="table-cell other-cell">
+                              <Button sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button>
+                          </td>
+                      </tr>
                       ))}
                   </tbody>
               </table>
             </div>
+
+            <ConfirmQuitDialog 
+              isOpen={isConfirmQuitDialogOpen}
+              handleClose={handleCloseConfirmQuitDialog}/>
+
+            <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
+
+            <DeviceOrientation />
     </div>
   );
 };
