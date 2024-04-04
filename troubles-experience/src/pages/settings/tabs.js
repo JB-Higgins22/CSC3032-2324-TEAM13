@@ -186,7 +186,7 @@ export default function BasicTabs() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-          <FormControlLabel  control={<GreenSwitch checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
+          <FormControlLabel  control={<GreenSwitch aria-label="black and white switch" checked={blackAndWhiteMode} onChange={toggleBlackAndWhiteMode} />} 
             sx={{ marginLeft: 2 }}
           />
         </Box>
@@ -197,7 +197,7 @@ export default function BasicTabs() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px', fontFamily: 'Anton'}}>
-          <FormControlLabel  control={<GreenSwitch checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
+          <FormControlLabel  control={<GreenSwitch aria-label="contrast switch" checked={highContrastMode} onChange={toggleHighContrastMode}/>} 
             sx={{ marginLeft: 2, fontFamily: 'Anton'  }}
           />
         </Box>
@@ -208,7 +208,7 @@ export default function BasicTabs() {
          </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'flex-start'}}>
-          <FontSizeRadioButtons />
+          <FontSizeRadioButtons aria-label="font radio buttons"/>
         </Box>
       </CustomTabPanel>
 
@@ -226,7 +226,7 @@ export default function BasicTabs() {
 
 // Font sizes for use on radio buttons
 const marks = [
-  { value: 50, label: 'Small', size: 15 },
+  { value: 50,  label: 'Small', size: 15 },
   { value: 100, label: 'Medium', size: 20 },
   { value: 150, label: 'Large', size: 25},
 ];
@@ -293,6 +293,7 @@ function FontSizeRadioButtons() {
             name="size-radio-button"
           />}
           label=""
+          aria-label = {mark.label.toString()}
           onChange={handleChange}
           checked={selectedValue === mark.value}
           name="size-radio-button"

@@ -8,7 +8,7 @@ const Settings = ({ onFontSizeChange}) => {
   return (
     <div className="background">
       <Link to="..\">
-        <HomeIcon className="home-icon"/>
+        <HomeIcon className="home-icon" aria-label="HomeIcon"/>
       </Link>
       
       <div className="foreground">
