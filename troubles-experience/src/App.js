@@ -10,7 +10,7 @@ import Login from './pages/login/login';
 import AdminPage from './pages/admin-page/adminPage';
 import Tutorial from './pages/tutorial/tutorial';
 import SettingsDialog from './dialogs/settingsDialog';
-
+import PrivateRoutes from './components/PrivateRoutes.js';
 //Imports needed to use sound, functionality for playing sound on loop below
 
 import useSound from "use-sound";
@@ -60,13 +60,17 @@ const { isMuted } = useSoundContext(); // Get isMuted state from context
           <Route path='/pre-game-info' element={<PreGameInfo />} />
           <Route path='/reflection' element={<Reflection />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/admin' element={<AdminPage />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path='/admin' element={<AdminPage />} />
+          </Route>
           <Route path='/tutorial' element={<Tutorial />} />
         </Routes>
       </Router>
     </div>
   );
 }
+
+
 
 export default () => (
   <SoundProvider>

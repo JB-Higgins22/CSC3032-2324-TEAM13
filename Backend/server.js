@@ -34,6 +34,9 @@ app.post("/addreflection", (req, res) => {
         });
 });
 
+app.get("/checkUser", authenticateToken, (req,res)=>{
+    res.status(200).json({boolean: true});
+})
 
 app.get("/reflections", authenticateToken,(req, res) => {
 
