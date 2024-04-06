@@ -171,6 +171,7 @@ const checkPassword = 'Select password FROM login WHERE username = $1';
         userId:'1',
         username: 'admin',
         role:'admin',
+        date: Date.now()
     };
     
     pool
@@ -287,7 +288,7 @@ const compareHash = (password,hashFromDB) => {
 }
 // call at login to generate jwt token for user
 function generateJWT (payload){
-    const options= {expiresIn: '1h',};
+    const options= {expiresIn: '1h'};
     const token = jwt.sign(payload,config.jwtSecret,options);
     return token;
 }
