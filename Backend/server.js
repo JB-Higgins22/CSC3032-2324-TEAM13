@@ -125,32 +125,6 @@ app.delete("/deletereflection/:reflectionId",authenticateToken, (req, res) => {
         });
 });
 
-
-app.post("/addlogin",authenticateToken, (req, res) => {
-    const loginUsername = req.body["loginUsername"];
-    const password = req.body["loginPassword"];
-console.log(password);
-    // Encrpyts password using a salt as an additional randomising factor
-    const loginPassword = hashFunction(req.body ["loginPassword"]);
-    console.log(loginPassword);
-    
-
-    // Use parameterized queries to prevent SQL injection
-    const insertLoginCommand = `INSERT INTO login (username, password) VALUES ($1, $2) RETURNING *`;
-    
-    pool
-        .query(insertLoginCommand, [loginUsername, loginPassword])
-        .then((response) => {
-            console.log("Login details Saved");
-            console.log(response.rows[0]); // Assuming you want to log the inserted login data
-            //res.status(201).json(response.rows[0]); // Send the inserted login data back as response
-        })
-        .catch((err) => {
-            console.error("Error saving login:", err);
-            res.status(500).send("Error saving login");
-        });
-});
-
 app.get("/login", (req, res) => {
     pool
         .query("SELECT * FROM login")

@@ -136,6 +136,48 @@ DATABASE: The facility through which data for the application is held
 
 # Installing The Project
 
+### Step 1 - Installing libraries in front end:
+
+Open the terminal and change directory until you are in the troubles-experience directory. This is the front end of the system.
+
+Input the following command:
+`npm install @mui`
+
+### Step 2 - Installing libraries in the backend:
+Change directory in the terminal until you are in the Backend directory. This is the backend of the system.
+
+Input the following commands:
+
+`npm install bcrypt`
+
+`npm install jsonwebtoken`
+
+`npm install dotenv`
+
+### Step 3 - Setting up your secret token:
+
+In the Backend directory, create a file called ".env". This file will contain a secret key required for encrypting tokens for authorisation of users. You now need to create the secret key itself. 
+It is simply a random string of letters and characters and symbols with no spaces.
+
+***You could type one in randomly by selecting random keys on the keyboard or input the below code to the terminal.
+
+In the terminal input the following code to create your secret key:
+
+`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+
+Place your key in the .env file as shown:
+
+`JWT_SECRET=YourKeyGoesHere`
+
+### Step 4 - Creating your first user
+
+In the terminal, make sure you are still in the /Backend directory.
+input the following line into the terminal and run it.
+
+`node .\setupUser.js`
+
+Once you have created your user, you should delete the setupUser.js file from the directory to remove any risk of anyone using it without authorisation. You can keep a copy of it elsewhere on your machine if needed. Remember your username and password as it cannot be changed or recovered if misplaced.
+
 
 # Populating the Application with Content
 
