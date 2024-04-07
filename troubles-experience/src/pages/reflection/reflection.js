@@ -179,9 +179,9 @@ const Reflection = () => {
   return (
   <div className="container">
       <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className="image" />     {/* Set the background image */}
-      <div className="navBar">                                                                         {/* MUI Icons for Home/Settings */}
-        <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+      <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>                                                                         {/* MUI Icons for Home/Settings */}
+        <HomeIcon className="home-button" sx={{ fontSize: '8vmin', color: 'white', "&:hover": {color: '#04aa23'} }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white', "&:hover": {color: '#04aa23'} }} onClick={displaySettingsDialog} />
       </div>
 
       <Slide direction="down" in={showReflectionForm} mountOnEnter unmountOnExit timeout={1000}>

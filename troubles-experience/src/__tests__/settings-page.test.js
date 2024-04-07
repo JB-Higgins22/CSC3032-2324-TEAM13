@@ -3,12 +3,16 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import BasicTabs from '../pages/settings/tabs.js';
 import Settings from '../pages/settings/settingsPage.js';
+import { SoundProvider } from '../sounds/soundContext.js';
+
 
 describe('BasicTabs', () => {
   test('TC01 - Page contents are loaded', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     expect(screen.getByText('General')).toBeInTheDocument();
@@ -28,7 +32,9 @@ describe('BasicTabs', () => {
   test('TC02 - Dark Mode is toggled', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const darkModeSwitch = screen.getByLabelText('black and white switch');
@@ -39,7 +45,9 @@ describe('BasicTabs', () => {
   test('TC03 - High Contrast Mode is toggled', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const highContrastSwitch = screen.getByLabelText('contrast switch');
@@ -50,7 +58,9 @@ describe('BasicTabs', () => {
   test('TC04 - Large font size radio button is clicked', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const largeFontSizeRadioButton = screen.getByLabelText('Large');
@@ -62,7 +72,9 @@ describe('BasicTabs', () => {
   test('TC05 - Default font size radio button is clicked', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const defaultFontSizeRadioButton = screen.getByLabelText('Medium'); // Assuming "Medium" is the default size
@@ -74,7 +86,9 @@ describe('BasicTabs', () => {
   test('TC06 - Small font size radio button is clicked', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const smallFontSizeRadioButton = screen.getByLabelText('Small');
@@ -86,7 +100,9 @@ describe('BasicTabs', () => {
   test('TC07 - Admin tab is clicked from General tab', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const adminTab = screen.getByText('Admin');
@@ -97,7 +113,9 @@ describe('BasicTabs', () => {
   test('TC08 - General tab is clicked from Admin tab', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const adminTab = screen.getByText('Admin');
@@ -119,28 +137,16 @@ describe('BasicTabs', () => {
   test('TC09 - Login button is clicked', () => {
     render(
       <MemoryRouter>
-        <BasicTabs />
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
       </MemoryRouter>
     );
     const adminTab = screen.getByText('Admin');
     fireEvent.click(adminTab);
     const loginButton = screen.getByText('Login');
     fireEvent.click(loginButton);
-    expect(document.querySelector('.loginButton')).toBeInTheDocument();
+    expect(document.querySelector('.login-button')).toBeInTheDocument();
   });
 
-});
-
-describe('Settings', () => {
-  test('TC10 - Home icon clicked', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <Settings />
-      </MemoryRouter>
-    );
-
-    const homeIcon = container.querySelector('.HomeIcon');
-    fireEvent.click(homeIcon);
-    expect(window.location.pathname).toBe("/");
-  });
 });

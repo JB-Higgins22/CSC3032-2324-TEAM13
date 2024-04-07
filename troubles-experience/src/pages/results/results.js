@@ -69,9 +69,9 @@ const ResultsPage = () => {
   };
 
   const allContent = [
-    'Example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info',
-    'Example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info',    
-    <div><p><h3 className="information-header header1998">1998 Peace Talks - {balancePercentages[0]}%</h3><h3 className="information-header header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3><h3 className="information-header average-result-header">{averageResult}% Balance Achieved Overall</h3></p></div>
+    <div><p><h3 className="information-header header1998">1998 Peace Talks - {balancePercentages[0]}%</h3><h3 className="information-header header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3><h3 className="information-header average-result-header">{averageResult}% Balance Achieved Overall</h3></p></div>,
+    'The peace process in Northern Ireland, culminating in the historic Good Friday Agreement of 1998, has left a profound and enduring legacy on the region and its people. It marked the beginning of a new era characterized by the cessation of widespread violence, the decommissioning of arms, and the establishment of shared political institutions. The peace process also set the stage for improved relations between the communities, fostering dialogue and understanding where there was once mistrust and hostility. Additionally, it paved the way for economic development and investment in Northern Ireland, contributing to a more stable and prosperous society.',
+    'However, the legacy of the peace process is not without its challenges. The path to reconciliation has been slow and complex, with societal divisions and sectarianism still present in some areas. The delicate balance of peace has required ongoing effort and negotiation to maintain, highlighting the need for continued commitment to the principles of the agreement. Despite these challenges, the peace process in Northern Ireland remains a powerful example of conflict resolution and peacebuilding, offering lessons and inspiration for other regions experiencing similar conflicts.'
   ]
 
 
