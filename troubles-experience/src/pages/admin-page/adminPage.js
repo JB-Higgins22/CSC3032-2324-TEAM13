@@ -103,7 +103,15 @@ const AdminPage = ({ onFontSizeChange}) => {
 
 // Function to fetch reflections from the server
   const fetchReflections = () => {
-    fetch('http://localhost:4000/reflections')
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:4000/reflections', {
+      method: 'GET',
+      headers: {
+        'token':`Bearer ${token}`,
+        'Authorization':`Bearer ${token}`,
+      },
+      
+    })
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -121,8 +129,12 @@ const AdminPage = ({ onFontSizeChange}) => {
 
   // Handle the rejection of reflections from the table
   const handleDeleteReflection = (reflectionId) => {
+const token = localStorage.getItem('token');
     fetch(`http://localhost:4000/deletereflection/${reflectionId}`, {
         method: 'DELETE',
+headers: {
+          'token' : `Bearer ${token}`
+        },
     })
     .then(response => {
         if (response.ok) {
@@ -142,12 +154,14 @@ const handleApproveReflection = (reflection) => {
       userLocation: reflection.location,
       userReflection: reflection.content
     };
-
+const token = localStorage.getItem('token');
     // POST REQUEST
     fetch('http://localhost:4000/approvereflection', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'token' : `Bearer ${token}`
+
       },
       body: JSON.stringify(reflectionData)
     })
@@ -165,10 +179,33 @@ const handleApproveReflection = (reflection) => {
     handleDeleteReflection(reflection.id)
 }
 
+// Handle the deletion of approved reflections - MAY NEED REMOVED
+const handleClearApprovedReflections = () => {
+const token = localStorage.getItem('token');
+  fetch('http://localhost:4000/removeapprovedreflections', {
+      method: 'DELETE',
+headers: {
+        'token' : `Bearer ${token}`
+      },
+  })
+  .then(response => {
+      if (response.ok) {
+          console.log('All approved reflections cleared successfully');
+      } else {
+          console.error('Failed to clear approved reflections');
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
+};
+
 // Handle form submission
 const handleSubmit = (e) => {
   setSelectedOption("X");
   e.preventDefault();
+const token = localStorage.getItem('token');
+
 
   // Prepare the issue data object
   const issueData = {
@@ -200,10 +237,13 @@ const handleSubmit = (e) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+"token" : `Bearer ${token}`
     },
     body: JSON.stringify(issueData),
   })
     .then((response) => {
+
+      
       if (response.ok) {
         console.log("Issue added successfully");
         alert("Issue Added Successfully");
@@ -232,6 +272,7 @@ const handleSubmit = (e) => {
           });
       } else {
         console.error("Failed to add issue");
+// Handle error cases here
       }
     })
     .catch((error) => {

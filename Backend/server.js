@@ -1,8 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const pool = require("./database");
-
+const bcrypt = require("bcrypt");
 const app = express();
+const jwt = require("jsonwebtoken");
+
+require('dotenv').config();
+const config = require('./config.js');
+
 
 app.use(express.json());
 app.use(cors());
@@ -29,8 +34,12 @@ app.post("/addreflection", (req, res) => {
         });
 });
 
+app.get("/checkUser", authenticateToken, (req,res)=>{
+    res.status(200).json({boolean: true});
+})
 
-app.get("/reflections", (req, res) => {
+app.get("/reflections", authenticateToken,(req, res) => {
+
     pool
         .query("SELECT * FROM reflections")
         .then((response) => {
@@ -64,7 +73,7 @@ app.post("/approvereflection", (req, res) => {
         });
 });
 
-app.get("/getapprovedreflections", (req, res) => {
+app.get("/getapprovedreflections", authenticateToken, (req, res) => {
     pool
         .query("SELECT * FROM approvedReflections")
         .then((response) => {
@@ -76,7 +85,7 @@ app.get("/getapprovedreflections", (req, res) => {
         });
 });
 
-app.delete("/removeapprovedreflections", (req, res) => {
+app.delete("/removeapprovedreflections",authenticateToken, (req, res) => {
     const deleteAllApprovedReflectionsCommand = `DELETE FROM approvedReflections`;
     
     pool
@@ -92,7 +101,7 @@ app.delete("/removeapprovedreflections", (req, res) => {
 });
 
 
-app.delete("/deletereflection/:reflectionId", (req, res) => {
+app.delete("/deletereflection/:reflectionId",authenticateToken, (req, res) => {
     const reflectionId = req.params.reflectionId;
 
     // Use parameterized queries to prevent SQL injection
@@ -117,9 +126,14 @@ app.delete("/deletereflection/:reflectionId", (req, res) => {
 });
 
 
-app.post("/addlogin", (req, res) => {
+app.post("/addlogin",authenticateToken, (req, res) => {
     const loginUsername = req.body["loginUsername"];
-    const loginPassword = req.body["loginPassword"];
+    const password = req.body["loginPassword"];
+console.log(password);
+    // Encrpyts password using a salt as an additional randomising factor
+    const loginPassword = hashFunction(req.body ["loginPassword"]);
+    console.log(loginPassword);
+    
 
     // Use parameterized queries to prevent SQL injection
     const insertLoginCommand = `INSERT INTO login (username, password) VALUES ($1, $2) RETURNING *`;
@@ -152,16 +166,36 @@ app.get("/login", (req, res) => {
 // Endpoint for user login
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
-
-    // Query the database to check if the username and password match
-    const checkLoginQuery = `SELECT * FROM login WHERE username = $1 AND password = $2`;
+const checkPassword = 'Select password FROM login WHERE username = $1';
+    const payload = {
+        userId:'1',
+        username: 'admin',
+        role:'admin',
+        date: Date.now()
+    };
     
     pool
-        .query(checkLoginQuery, [username, password])
+        .query(checkPassword, [username])
         .then((response) => {
             if (response.rows.length > 0) {
-                // If login credentials are valid, send a success message
-                res.status(200).json({ message: 'Login successful' });
+                for(let row =0; row <response.rows.length; row++){
+                const hashedPasswordFromDB = response.rows[row].password;
+                matchedPassword = compareHash(password, hashedPasswordFromDB);
+                if (matchedPassword) break;
+            }
+            if(matchedPassword){
+                // If login credentials are valid, send a success message along with jwt token for authentication.
+                // this will allow user to use the authorised endpoints. 
+                const token = generateJWT(payload);
+                //console.log(token);
+                
+                res.status(200).json({ message: 'Login successful', token: token});
+
+            } else {
+                // If login credentials are invalid, send an error message
+                res.status(401).json({ message: 'Invalid username or password' });
+            }
+            
             } else {
                 // If login credentials are invalid, send an error message
                 res.status(401).json({ message: 'Invalid username or password' });
@@ -174,7 +208,7 @@ app.post("/login", (req, res) => {
 });
 
 // Endpoint to add a new issue
-app.post("/addissue", (req, res) => {
+app.post("/addissue", authenticateToken,(req, res) => {
     // Extract issue data from request body
     const { name, descriptionOne, descriptionTwo, imageURL, numberOfOptions, selectedOption,
             optionA, optionANationalistWeight, optionANationalistPerspective, optionAUnionistWeight, optionAUnionistPerspective,
@@ -242,3 +276,34 @@ app.get("/issueCount", (req, res) => {
 
 app.listen(4000, () => console.log("Server on localhost:4000"));
 
+// call when creating a user login account
+const hashFunction = (password) => {
+    result =  bcrypt.hashSync(password, 10);
+    return result;
+}
+//call when checking password
+const compareHash = (password,hashFromDB) => {
+    result = bcrypt.compareSync(password, hashFromDB);
+    return result;
+}
+// call at login to generate jwt token for user
+function generateJWT (payload){
+    const options= {expiresIn: '1h'};
+    const token = jwt.sign(payload,config.jwtSecret,options);
+    return token;
+}
+// call when recieving a request
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers["token"];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, config.jwtSecret, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        console.log("Authenticated")
+        next();
+    });
+}

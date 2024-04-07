@@ -10,7 +10,8 @@ import Login from './pages/login/login';
 import AdminPage from './pages/admin-page/adminPage';
 import Tutorial from './pages/tutorial/tutorial';
 import SettingsDialog from './dialogs/settingsDialog';
-
+import PrivateRoutes from './components/PrivateRoutes.js';
+import AuthenticateUser from './components/AuthenticateUser.js'
 //Imports needed to use sound, functionality for playing sound on loop below
 
 import useSound from "use-sound";
@@ -21,6 +22,9 @@ import { useSoundContext } from './sounds/soundContext.js';
 
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+
+
   const [fontSize, setFontSize] = useState(90); // Initial font size
  
   
@@ -34,6 +38,10 @@ const { isMuted } = useSoundContext(); // Get isMuted state from context
     volume: 1,
     loop: true,
   });
+
+  useEffect(() => {
+    setAuthenticated(true)
+  },[])
 
   useEffect(() => {
     if (!isMuted) {
@@ -60,13 +68,22 @@ const { isMuted } = useSoundContext(); // Get isMuted state from context
           <Route path='/pre-game-info' element={<PreGameInfo />} />
           <Route path='/reflection' element={<Reflection />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/admin' element={<AdminPage />} />
+          <Route 
+          path="admin"
+          element={
+            <PrivateRoutes authenticated={authenticated} children={<AdminPage />}>
+              <AdminPage />
+            </PrivateRoutes>
+          }
+          />
           <Route path='/tutorial' element={<Tutorial />} />
         </Routes>
       </Router>
     </div>
   );
 }
+
+
 
 export default () => (
   <SoundProvider>
