@@ -53,13 +53,13 @@
   background-color: #F0FFFF;
   color: #007bff;
   padding: 10px 20px;
-  font-size: calc(var(--base-font-size) + 1vmin);
+  font-size: calc(var(--base-font-size) + 2vmin);
   cursor: pointer;
   border-style: ridge;
   border-color: #007bff;
   border-radius: 4px;
   font-family: 'Anton';
-  width: 30%;
+  width: 20%;
 }
 
 .start-puzzle-button:hover {
@@ -97,7 +97,3 @@ a:active {
   font-size: calc(var(--base-font-size) + 2vmin);
 }
 
-
-.settings-button:hover {
-  color: #04aa23;
-}

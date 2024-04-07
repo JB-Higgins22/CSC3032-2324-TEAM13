@@ -523,7 +523,7 @@ const fetchIssues = async () => {
           ))}
         </div>
         <div className = "unionist-platform">
-          <h4>UNIONIST</h4>
+          <h4>Unionist</h4>
           <span aria-label = "invisibleUnionistWeight" className='invisible-weights'>{unionistWeight}</span>
         </div>
     </div>
@@ -591,7 +591,7 @@ const fetchIssues = async () => {
         ))}
     </div>
     <div className = "nationalist-platform">
-        <h4>NATIONALIST</h4>
+        <h4>Nationalist</h4>
         <span aria-label = "invisibleNationalistWeight" className='invisible-weights'>{nationalistWeight}</span>
     </div>
     </div>

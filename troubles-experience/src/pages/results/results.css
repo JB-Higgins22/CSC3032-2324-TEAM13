@@ -66,17 +66,19 @@
   .reflection-button.MuiButton-root {
     font-family: 'Anton';
     padding: 10px;
-    font-size: calc(var(--base-font-size) + 1vmin);
+    font-size: calc(var(--base-font-size) + 2vmin);
     border-radius: 4px;
     background-color: #F0FFFF;
     color: #007bff;
     border: 1px solid #007bff;
-    width: 30%;
+    width: 20%;
+    text-transform: capitalize;
   }
   
   .reflection-button.MuiButton-root:hover {
     background-color: #04aa23;
     color: #fff;
+    border: 1px solid #fff;
   }
   
 
@@ -88,6 +90,3 @@
     color: #04aa23;
   }
   
-  .nav-bar .submit-button:hover {
-    color: #04aa23;
-  }

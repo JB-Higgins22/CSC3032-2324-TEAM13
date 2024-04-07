@@ -42,11 +42,16 @@ const ConfirmQuitDialog = ({ isOpen, handleClose }) => {
         >
           {/* Can choose to close dialog or return to Home Screen */}
           <Link to="..\">
-            <Button role="button" aria-label="confirmQuit" color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>
+            <Button role="button" aria-label="confirmQuit" color="error" sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)', 
+                                                                              '&:hover': {   
+                                                                                backgroundColor: '#fff'}  }}>
               Quit
             </Button>
           </Link>
-          <Button role="button" aria-label="closeConfirmQuit" onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)' }}>
+          <Button role="button" aria-label="closeConfirmQuit" onClick={handleClose} sx={{ fontSize: 'calc(var(--base-font-size) + 1vmin)', 
+                                                                              '&:hover': {   
+                                                                                backgroundColor: '#fff'} 
+                                                                              }} >
             Cancel
           </Button>
         </ButtonGroup>

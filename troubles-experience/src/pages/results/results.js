@@ -22,13 +22,21 @@ import './results.css';
 const ResultsPage = () => {
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
   const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
-
+  const [showContent, setShowContent] = useState(true);
+  const [currentContent, setCurrentContent] = useState(0);
   const location = useLocation();
   const { balancePercentages = [0, 0] } = location.state || {};
   const navigate = useNavigate();
 
   const averageResult = calculateAverageResult(balancePercentages);
 
+  const nextInfo = () => {
+    setShowContent(prevState => !prevState);
+    setTimeout(() => {
+        setCurrentContent(currentContent + 1);
+        setShowContent(prevState => !prevState);
+      }, 1200);
+  }
 
   function calculateAverageResult(balancePercentages) {
     if (balancePercentages.length === 0) {
@@ -60,6 +68,13 @@ const ResultsPage = () => {
     setConfirmQuitDialogOpen(false);
   };
 
+  const allContent = [
+    'Example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info',
+    'Example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info example post-game info',    
+    <div><p><h3 className="information-header header1998">1998 Peace Talks - {balancePercentages[0]}%</h3><h3 className="information-header header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3><h3 className="information-header average-result-header">{averageResult}% Balance Achieved Overall</h3></p></div>
+  ]
+
+
   return (
     <div className="page">
       <img 
@@ -77,18 +92,21 @@ const ResultsPage = () => {
             <h1 className="title">RESULTS</h1>
           </Slide>
           <div className="information-wrapper">
-            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <h3 className="information-header header1998">1998 Peace Talks - {balancePercentages[0]}%</h3>
+
+            <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
+              <p>{allContent[currentContent]}</p>                            
             </Slide>
             <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <h3 className="information-header header2020">2020 Restoration Talks - {balancePercentages[1]}%</h3>
+              <Button 
+                className="reflection-button"
+                disabled={currentContent === 2 && currentContent !== 2} 
+                onClick={currentContent === 2 ? leaveReflection : nextInfo}                
+              >
+                {currentContent === 2 ? "Leave a Reflection" : "Next"}
+
+              </Button>
             </Slide>
-            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <h3 className="information-header average-result-header">{averageResult}% Balance Achieved Overall</h3>
-            </Slide>
-            <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <Button className="reflection-button" onClick={leaveReflection}>Leave a Reflection</Button>
-            </Slide>
+
           </div>       
         </div>
       </div>

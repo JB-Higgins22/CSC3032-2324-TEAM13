@@ -1,12 +1,26 @@
+// REACT IMPORTS
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+// MUI IMPORTS
 import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from 'react-router-dom';
+
+// CSS IMPORT
 import './tutorial.css';
-import { Padding } from '@mui/icons-material';
+
+// COMPONENT IMPORTS
 import DeviceOrientation from '../../components/device-orientation';
+import SettingsDialog from '../../dialogs/settingsDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
+
+//MUI MATERIAL ICONS IMPORTS
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const Tutorial = () => {
+    const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+    const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
     const [showContent, setShowContent] = useState(true);
     const [currentContent, setCurrentContent] = useState(0);
     const navigate = useNavigate();
@@ -27,14 +41,31 @@ const Tutorial = () => {
         navigate('/scales');
     }
 
-    const allContent = ["Step 1 - Select an issue by clicking on a book - tutorial tutorial tutorial tutorial tutorial tutorial tutorial tutorial",
-                        "Step 2 - Choose which solution you think is best for each issue tutorial tutorial tutorial tutorial tutorial",
-                        "Step 3 - Balance the issues on the scales - click on books to repoen them and change which side they're on tutorial tutorial tutorial tutorial tutorial"]
+    
+
+    const allContent = ["Step 1 - Select an issue by clicking on a book - each book represents a key issue with multiple hypothetical solutions",
+                        "Step 2 - Choose which solution you think is best for each issue while trying to avoid bias",
+                        "Step 3 - Balance the issues on the scales - click on books to repoen them and change which side they're on"]
 
     const images = [`${process.env.PUBLIC_URL}/Tutorial_Step1.png`,
                     `${process.env.PUBLIC_URL}/Tutorial_Step2.png`,
                     `${process.env.PUBLIC_URL}/Tutorial_Step3.png`];
 
+      const displaySettingsDialog = () => {
+        setSettingsDialogOpen(true);
+      };
+    
+      const handleCloseSettingsDialog = () => {
+        setSettingsDialogOpen(false);
+      };
+      
+      const displayConfirmQuitDialog = () => {
+        setConfirmQuitDialogOpen(true);
+      };
+    
+      const handleCloseConfirmQuitDialog = () => {
+        setConfirmQuitDialogOpen(false);
+      };
 
     const containerStyle = {
         position: 'relative',
@@ -59,12 +90,20 @@ const Tutorial = () => {
         padding: '4px'
     };
 
+    const titleStyle = {
+        fontSize: 'calc(var(--base-font-size) + 10vmin)',
+        color: 'white',
+        left: 0,
+        textAlign: 'center',
+    }
     const titleWrapperStyle = {
         position: 'absolute',
-        top: 0,
+        top: '9%',
         left: 0,
         zIndex: 2,
-        fontFamily: 'Anton',
+        fontFamily: 'Anton, sans-serif',
+        textAlign: 'left', // Ensure text aligns left
+        width: '100%', // Ensure the container spans the full width
     };
 
     const informationWrapperStyle = {
@@ -73,105 +112,65 @@ const Tutorial = () => {
         padding: '15px',
         color: 'white',
     };
-    
-    const titleStyle = {
-        fontSize: '6vw',
-        color: 'white',
-        textAlign: 'left',
-        padding: '15px',
-    };
-
-    const column = {
-        width: '49%'
-    };
-
-    const row = {
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'flex-start',
-    };
-
-    const buttonstyle = {
-        fontFamily: 'Anton',
-        padding: '10px',
-        fontSize: '16px',
-        borderRadius: '4px',
-        '&:hover': {
-            backgroundColor: '#04aa23',
-            color: '#fff',
-        }
-    };
-
-    const buttonNextstyle = {
-        ...buttonstyle,
-        backgroundColor: '#F0FFFF',
-        color: '#007bff',
-        border: '1px solid #007bff',
-        '&:hover': {
-            backgroundColor: '#04aa23',
-            color: '#fff',
-        }
-    };
-
-    const buttonPlaystyle = {
-        ...buttonstyle,
-        backgroundColor: '#F0FFFF',
-        color: '#007bff',
-        border: '1px solid #007bff',
-        '&:hover': {
-            backgroundColor: '#04aa23',
-            color: '#fff',
-        }
-    };
-
-    const invisibleButtonstyle = {
-        ...buttonstyle,
-        visibility: 'hidden',
-    };
-
 
     return ( 
         <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className='background-image' />
-            
-            <div style={titleWrapperStyle}>
-                
-                <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
-                <p>
-                    <div style={row}>
-                        <div style={column}>
-                            <div className="titleWrapper">
-                                <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-                                    <h1 style={titleStyle}>HOW TO PLAY GAME</h1>
-                                </Slide>
-                                <div className="informationWrapper" style={informationWrapperStyle}>    
-                                    {allContent[currentContent]}<br/>
-                                    <Button 
-                                        style={currentContent !== 2 ? buttonNextstyle : invisibleButtonstyle} 
-                                        disabled={currentContent === 2} 
-                                        onClick={nextInfo}>
-                                        Next
-                                    </Button><br/>
-                                    <Button 
-                                        style={currentContent === 2 ? buttonPlaystyle : invisibleButtonstyle} 
-                                        disabled={currentContent !== 2} 
-                                        onClick={playGame}>
-                                        Play Game
-                                    </Button>
-                                </div>
-                                
-                            </div>
-                        </div>            
-                        <div style={column}>
-                            <img src={images[currentContent]} alt={`Step ${currentContent + 1}`} style={tutorialImageStyle} />
-                        </div>
-                    </div>                         
-                </p>
+            <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+              <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+              <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+            </div>
+            <div className="titleWrapper" style={titleWrapperStyle}>
+                <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
+                    <h1 style={titleStyle}>HOW TO PLAY GAME</h1>
                 </Slide>
-                        
-            </div>       
+                <div className="informationWrapper" style={informationWrapperStyle} >         
+                    <div className="columns">
+                        <div className="column">
+                            <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1200}>
+                                <p>{allContent[currentContent]}<br/></p>
+                            </Slide>
+                            <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
+                                <Button 
+                                    sx={{
+                                    width: '40%',
+                                    fontFamily: 'Anton',
+                                    textTransform: 'capitalize',
+                                    padding: '10px 20px',
+                                    backgroundColor: '#F0FFFF',
+                                    color: '#007bff',
+                                    border: '2px solid #007bff',
+                                    fontSize: 'calc(var(--base-font-size) + 2vmin)',
+                                    '&:hover': {
+                                        backgroundColor: '#04aa23',
+                                        color: '#fff',                                            
+                                        border: '1px solid #fff',
+                                    }
+                                    }}
+                                    disabled={currentContent === 2 && currentContent !== 2} 
+                                    onClick={currentContent === 2 ? playGame : nextInfo}
+                                    >
+                                    {currentContent === 2 ? "Play Game" : "Next"}
+                                </Button>
+                            </Slide>
+                        </div>
+                        <div className="column2">
+                            <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1450}>
+                                <p>
+                                    <img src={images[currentContent]} alt={`Step ${currentContent + 1}`} style={tutorialImageStyle} />
+                                </p>
+                            </Slide>
+                        </div>
+                    </div>
+                </div>
+            </div>              
+            <ConfirmQuitDialog 
+              isOpen={isConfirmQuitDialogOpen}
+              handleClose={handleCloseConfirmQuitDialog}/>
+
+            <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>     
         <DeviceOrientation />
         </div>
     );
