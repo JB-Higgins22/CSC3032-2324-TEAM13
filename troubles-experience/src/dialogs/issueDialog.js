@@ -30,7 +30,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
       {/* Font Sizes set relative to global base font size */}
       <DialogTitle style={{ color: 'black' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
         {issue && issue.name}
-        <IconButton role="button" aria-label="close" onClick={handleClose} style={{display: 'none'}}>
+        <IconButton role="button" aria-label="closeIssueDialog" onClick={handleClose} style = {{display: 'none'}}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>

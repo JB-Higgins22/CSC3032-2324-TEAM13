@@ -1,15 +1,18 @@
 // REACT IMPORTS
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// CLASS IMPORTS
 import ScalesObject from '../../classes/scales';
 import BookshelfObject from '../../classes/bookshelf';
 import Issue from '../../classes/issue';
-import IssueDialog from '../../dialogs/issueDialog/issueDialog';
-import ConfirmQuitDialog from '../../dialogs/issueDialog/confirmQuitDialog';
-import RotateDeviceMessage from '../../components/rotate-device-message';
-import { useNavigate } from 'react-router-dom';
+
+// COMPONENT IMPORTS
+import IssueDialog from '../../dialogs/issueDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
+import DeviceOrientation from '../../components/device-orientation';
 import AnimatedNumber from "animated-number-react";
 import SettingsDialog from '../../dialogs/settingsDialog';
-
 
 // MUI IMPORTS
 import Slide from '@mui/material/Slide';
@@ -60,31 +63,32 @@ const Scales = () => {
   // NAVIGATOR CONFIGURATION
   const navigate = useNavigate();
 
+  /*
+
+      --------------- INITIALISATION LOGIC ---------------
+
+  */
+
   useEffect(() => {
+    // Request Issues from DB upon component mount
     fetchData();
   }, []); 
 
   async function fetchData() {
-      await fetchIssues();     // Wait for issues to be retrieved from DB
+    // Wait for issues to be retrieved from DB
+      await fetchIssues();
   }
 
-  useEffect(() => {           // Executes after Issues retrieved from DB
-    initialiseScales();
-    initialiseBookshelfObject();
+  // Executes after Issues retrieved from DB
+  useEffect(() => {
     initialiseIssues(issues);
-    setAssetsInitialised(true); // Set assetsInitialised to true, allowing page contents to render
+
+    // Set assetsInitialised to true, allowing page contents to render
+    setAssetsInitialised(true);
   }, [issues]);
 
 
-  // Initialise Scales & Bookshelf & Issues
-  function initialiseScales() {           
-    setPeaceScales(new ScalesObject([], [], [], 0, 0));
-  }
-
-  function initialiseBookshelfObject() {
-    setBookshelfObject(new BookshelfObject([]));
-  }
-
+  // Initialise the Scales & Bookshelf objects
   function initialiseIssues(issues) {
     setPeaceScales(new ScalesObject([], [], [], 0, 0));
     setBookshelfObject(new BookshelfObject(issues));
@@ -95,6 +99,7 @@ const Scales = () => {
   function SubmitScales() {
 
     if (currentPhase === 1) {
+      // Pass balance percentages to Results page
       navigate('/results', { state: { balancePercentages: [phaseOneResult, balancePercentage] } });
     } else {
       setPhaseOneResult(balancePercentage);
@@ -148,6 +153,8 @@ const fetchIssues = async () => {
           "X"
         );
       });
+
+      // Split Issues into two phases
       setPhaseTwoIssues(parsedIssues.slice(8));
       setIssues(parsedIssues.slice(0,8));
     })
@@ -160,12 +167,23 @@ const fetchIssues = async () => {
   const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
   let pageTitle = phaseNames[currentPhase];
 
-  // Dialog Handling
+  /*
+
+      --------------- DIALOG HANDLING ---------------
+
+  */
+
+  // DIALOG HANDLING - Issue Dialog
   const displayIssueInfo = (issue) => {
     setSelectedIssue(issue);
     setDialogOpen(true);
   };
 
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  // DIALOG HANDLING - Confirm Quit Dialog
   const displayConfirmQuitDialog = () => {
     setConfirmQuitDialogOpen(true);
   };
@@ -174,10 +192,7 @@ const fetchIssues = async () => {
     setConfirmQuitDialogOpen(false);
   };
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
-
+  // DIALOG HANDLING - Settings Dialog
   const displaySettingsDialog = () => {
     setSettingsDialogOpen(true);
   };
@@ -186,42 +201,59 @@ const fetchIssues = async () => {
     setSettingsDialogOpen(false);
   };
 
-  // Scale Handling
+  /*
+
+      --------------- SCALES HANDLING ---------------
+
+  */
+
+  // SCALES HANDLING - Option A
   const selectOptionA = () => {
     const updatedScales = peaceScales.selectOptionA(selectedIssue);
-
     setPeaceScales(updatedScales);
-    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+
+    // Call updateBalance to recalculate the scale balance
+    updateBalance(updatedScales);
     updateBalanceAndTilt(updatedScales);
-    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
+    
+    // Set Weights on scale object
     setNationalistWeight(updatedScales?.getNationalistWeight());
     setUnionistWeight(updatedScales?.getUnionistWeight());
     handleCloseDialog();
   }
 
+  // SCALES HANDLING - Option B
   const selectOptionB = () => {
     const updatedScales = peaceScales.selectOptionB(selectedIssue);
     setPeaceScales(updatedScales);
-    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+
+    // Call updateBalance to recalculate the scale balance
+    updateBalance(updatedScales);
     updateBalanceAndTilt(updatedScales);
-    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
+
+    // Set Weights on scale object
     setNationalistWeight(updatedScales?.getNationalistWeight());
     setUnionistWeight(updatedScales?.getUnionistWeight());
     handleCloseDialog();
   }
 
+  // SCALES HANDLING - Option C
   const selectOptionC = () => {
     const updatedScales = peaceScales.selectOptionC(selectedIssue);
     setPeaceScales(updatedScales);
-    updateBalance(updatedScales) // Call updateBalance to recalculate the scale balance
+
+    // Call updateBalance to recalculate the scale balance
+    updateBalance(updatedScales);
     updateBalanceAndTilt(updatedScales);
-    //updateHeightsBasedOnTilt(scaleTiltAngle); // Call updateHeight to recalculate heights
+    
+    // Set Weights on scale object
     setNationalistWeight(updatedScales?.getNationalistWeight());
     setUnionistWeight(updatedScales?.getUnionistWeight());
     handleCloseDialog();
   }
 
 
+  // Update the balance based on scale weights
   const updateBalance = (scales) => {
 
     const unionistWeight = scales.getUnionistWeight();
@@ -230,6 +262,7 @@ const fetchIssues = async () => {
     let percentage = 0;
     let roundedPercentage = 0;
 
+    // Calculate as a percentage of the weight of the heavier side
     if (unionistWeight === 0 || nationalistWeight === 0) {
       setBalancePercentage(0);
     } else if (unionistWeight >= nationalistWeight) {
@@ -262,14 +295,17 @@ const fetchIssues = async () => {
   };
 
   const updateHeightsBasedOnTilt = (tiltAngle) => {
+    // Both sides start at equal heights when balanced
     const maxTiltDegrees = 50;
-    const baseHeight = 50; // Assuming both sides start at equal heights when balanced
+    const baseHeight = 50;
 
-    const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees; // Normalize tilt to [0, 1]
+    // Normalize tilt to [0, 1]
+    const tiltRatio = Math.abs(tiltAngle) / maxTiltDegrees;
     
     // Adjust heights inversely based on tilt
     // The side tilting down gets a height boost, the other side gets a reduction
-    const heightAdjustment = tiltRatio * 50; // Max adjustment of 20% for max tilt
+    // Max adjustment of 50% for max tilt
+    const heightAdjustment = tiltRatio * 50;
     
     let newUnionistHeight, newNationalistHeight;
     if (tiltAngle > 0) { // Nationalist side tilts down
@@ -283,6 +319,12 @@ const fetchIssues = async () => {
     setUnionistHeight(newUnionistHeight);
     setNationalistHeight(newNationalistHeight);
   };
+
+  /*
+
+      --------------- POPOVER HANDLING ---------------
+
+  */
 
   // POPOVER CONTROLS
   const handlePopoverOpen = (event, content, title) => {
@@ -310,6 +352,11 @@ const fetchIssues = async () => {
   };
 
 
+  /*
+
+      --------------- NEWSPAPER STACKING ---------------
+
+  */
 
   const nationalistRows = peaceScales.getNationalistIssues()
   .reduce((acc, issue, idx) => {
@@ -333,20 +380,30 @@ const fetchIssues = async () => {
     return acc;
   }, []);
 
+  /*
+
+      --------------- JSX (Rendered if assetsInitialised is True) ---------------
+
+  */
   
   return assetsInitialised ? (
   <div className="page">
+    {/* Background Image */}
     <img src={`${process.env.PUBLIC_URL}/stormont.jpg`} alt="background" className='background-image' />
-    <div className='contentsContainer'>
-        <div className="navBar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-        <HomeIcon aria-label = "HomeIcon" className="homeButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon aria-label = "SettingsIcon" className="settingsButton" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
-        <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submitButton" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={SubmitScales} />
+    <div className='contents-container'>
+      {/* Navigation Bar - Home Buttonn, Settings Button, Submit Button */}
+        <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+        <HomeIcon aria-label = "HomeIcon" className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon aria-label = "SettingsIcon" className="settings-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white'}} onClick={displaySettingsDialog} />
+        <CheckCircleOutlineIcon aria-label = "SubmitIcon" className="submit-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={SubmitScales} />
     </div>
-    <div className="titleAndBalanceContainer">
+
+    <div className="title-and-balance-container">
         <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
           <h1>{pageTitle}</h1>
         </Slide>
+
+        {/* Animated Number displaying Balance Percentage */}
         <Slide direction="down" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
           <h3>
               <AnimatedNumber
@@ -359,17 +416,19 @@ const fetchIssues = async () => {
           </h3>
         </Slide>
     </div>
+
     <div className="shelf-and-scale-wrapper">
         <Slide direction="right" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
           <div className="shelf-zone">
+            {/* Map over every issue in current phase and display on bookshelf */}
               <div className='books'>
                 {bookshelfObject.getIssues().map((issue, index) => (
                 <div
-                className='bookOnShelf'
+                className='book-on-shelf'
                 aria-label={`BookOnShelf ${issue.name}`}
                 role="button"
                 key={index}
-                onMouseEnter={(e) => handleMouseEnter(e, issue)}
+                onMouseEnter={(e) => handleMouseEnter(e, issue)}    // Popover Logic
                 onMouseLeave={handleMouseLeave}
                 onClick={displayIssueInfo.bind(this, issue)}
                 >
@@ -388,6 +447,7 @@ const fetchIssues = async () => {
           </div>
           )}
     </div>
+
     <div className = "shelf" >
     <img
     src={process.env.PUBLIC_URL + '/shelf.png'}
@@ -396,16 +456,19 @@ const fetchIssues = async () => {
     </div>
   </div>
   </Slide>
+
   <Slide direction="left" in={showContents} mountOnEnter unmountOnExit timeout={1000}>
     <div
         className="drop-zone"
         >
-        <div className="unionistSide">
-          <div className="unionistBooks" aria-label = "unionistBooks" style={{ height: `${unionistHeight}%` }}>
+        <div className="unionist-side">
+          {/* Set height of unionist-books based on calculations in updateBalance function */}
+          <div className="unionist-books" aria-label = "unionistBooks" style={{ height: `${unionistHeight}%` }}>
+            {/* Map over the issues in 'rows' so the newspapers stack appropriately */}
           {unionistRows.map((rowIssues, idx) => (
-          <div className="unionistRow" key={idx}>
+          <div className="unionist-row" key={idx}>
               {rowIssues.map(issue => (
-              <div className="unionistIssue" key={`${idx}-${issue.id}`}>
+              <div className="unionist-issue" key={`${idx}-${issue.id}`}>
                 <img
                 src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
                 alt="Bookshelf"
@@ -413,8 +476,8 @@ const fetchIssues = async () => {
                 className='newspaper-img'
                 aria-describedby={issue.id}
                 onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE ORANGE HERALD')}
-                // onMouseLeave={handlePopoverClose}
                 />
+                {/* Newspaper Popover Logic */}
                 <Popover
                 id={issue.id}
                 open={Boolean(anchorEl)}
@@ -434,9 +497,10 @@ const fetchIssues = async () => {
                 }
                 }}
                 >
-                <div className='newspaperPopoverContainer'>
+                  {/* Newspaper Popover Content */}
+                <div className='newspaper-popover-container'>
                     <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
-                    <div className="newspaperPopover">
+                    <div className="newspaper-popover">
                       <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
                       {popoverTitle}
                       </Typography>
@@ -458,17 +522,21 @@ const fetchIssues = async () => {
           </div>
           ))}
         </div>
-        <div className = "unionistPlatform">
-          <h4>UNIONIST</h4>
-          <span aria-label = "invisibleUnionistWeight" className='invisibleWeights'>{unionistWeight}</span>
+        <div className = "unionist-platform">
+          <h4>Unionist</h4>
+          <span aria-label = "invisibleUnionistWeight" className='invisible-weights'>{unionistWeight}</span>
         </div>
     </div>
-    <div className="nationalistSide" >
-        <div className="nationalistBooks" aria-label = "nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+
+
+    <div className="nationalist-side" >
+      {/* Set height of unionist-books based on calculations in updateBalance function */}
+        <div className="nationalist-books" aria-label = "nationalistBooks" style={{ height: `${nationalistHeight}%` }}>
+          {/* Map over the issues in 'rows' so the newspapers stack appropriately */}
         {nationalistRows.map((rowIssues, idx) => (
-        <div className="nationalistRow" key={idx}>
+        <div className="nationalist-row" key={idx}>
           {rowIssues.map(issue => (
-          <div className="nationalistIssue" key={`${idx}-${issue.id}`}>
+          <div className="nationalist-issue" key={`${idx}-${issue.id}`}>
               <img
               src={process.env.PUBLIC_URL + '/newspaper-stack.png'}
               alt="Bookshelf"
@@ -476,8 +544,8 @@ const fetchIssues = async () => {
               className="newspaper-img"
               aria-describedby={issue.id}
               onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NORTHERN STAR')}
-              // onMouseLeave={handlePopoverClose}
               />
+              {/* Newspaper Popover Logic */}
               <Popover
               id={issue.id}
               open={Boolean(anchorEl)}
@@ -497,9 +565,10 @@ const fetchIssues = async () => {
               }
               }}
               >
-              <div className='newspaperPopoverContainer'>
+                {/* Newspaper Popover Content */}
+              <div className='newspaper-popover-container'>
                 <Typography sx={{ p: 1, color: 'red', fontFamily: 'Anton' }}>{popoverContent}</Typography>
-                <div className="newspaperPopover">
+                <div className="newspaper-popover">
                     <Typography sx={{ p: 0, fontSize: '20px', fontFamily: '"UnifrakturCook", cursive', textAlign: 'center'}}>
                     {popoverTitle}
                     </Typography>
@@ -521,15 +590,17 @@ const fetchIssues = async () => {
         </div>
         ))}
     </div>
-    <div className = "nationalistPlatform">
-        <h4>NATIONALIST</h4>
-        <span aria-label = "invisibleNationalistWeight" className='invisibleWeights'>{nationalistWeight}</span>
+    <div className = "nationalist-platform">
+        <h4>Nationalist</h4>
+        <span aria-label = "invisibleNationalistWeight" className='invisible-weights'>{nationalistWeight}</span>
     </div>
     </div>
     </div>
   </Slide>
   </div>
   </div>
+
+  {/* DIALOGS */}
   <IssueDialog
     isOpen={isDialogOpen}
     handleOptionA={selectOptionA}
@@ -539,15 +610,17 @@ const fetchIssues = async () => {
     issue={selectedIssue}
     aria-label="Issue-Dialog"
     />
+
   <SettingsDialog 
     isOpen={isSettingsDialogOpen}
     handleClose={handleCloseSettingsDialog}
     aria-label="Settings-Dialog"/>
+    
   <ConfirmQuitDialog 
     isOpen={isConfirmQuitDialogOpen}
     handleClose={handleCloseConfirmQuitDialog}
     aria-label="Confirm-Quit-Dialog"/>
-  <RotateDeviceMessage />
+  <DeviceOrientation />
   </div>
   ): null;
 };

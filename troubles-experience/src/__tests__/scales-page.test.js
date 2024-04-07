@@ -1,10 +1,11 @@
-// Import necessary utilities and your component
+// Import necessary utilities and component
 import React from 'react';
 import { render, waitFor, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Scales from '../pages/scales/scales';
 import fetchMock from 'jest-fetch-mock';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { SoundProvider } from '../sounds/soundContext';
 
 // Enable fetch mocking
 fetchMock.enableMocks();
@@ -143,7 +144,7 @@ describe('Scales Component', () => {
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
     fireEvent.click(bookDiv);
 
-    const closeButton = screen.getByRole('button', { name: 'close' });
+    const closeButton = screen.getByLabelText(/closeIssueDialog/i);
     fireEvent.click(closeButton)
 
     expect(screen.queryByLabelText('Issue-Dialog')).not.toBeInTheDocument();
@@ -245,14 +246,16 @@ describe('Scales Component', () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockData));
     render(
       <Router>
-        <Scales />
+        <SoundProvider>
+          <Scales />
+        </SoundProvider>
       </Router>
     );
 
     // Wait for the mock data to be fetched 
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(7));
   
-    // simulate the click.
+   // simulate the click.
     const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
     fireEvent.click(settingsIcon);
 
@@ -264,7 +267,9 @@ describe('Scales Component', () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockData));
     render(
       <Router>
-        <Scales />
+        <SoundProvider>
+          <Scales />
+        </SoundProvider>
       </Router>
     );
 
