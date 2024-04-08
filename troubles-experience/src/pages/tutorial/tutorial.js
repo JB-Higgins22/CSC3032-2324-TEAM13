@@ -47,9 +47,9 @@ const Tutorial = () => {
                         "Step 2 - Choose which solution you think is best for each issue while trying to avoid bias",
                         "Step 3 - Balance the issues on the scales - click on books to repoen them and change which side they're on"]
 
-    const images = [`${process.env.PUBLIC_URL}/Tutorial_Step1.png`,
-                    `${process.env.PUBLIC_URL}/Tutorial_Step2.png`,
-                    `${process.env.PUBLIC_URL}/Tutorial_Step3.png`];
+    const images = [`${process.env.PUBLIC_URL}/tutorial-1.png`,
+                    `${process.env.PUBLIC_URL}/tutorial-2.png`,
+                    `${process.env.PUBLIC_URL}/tutorial-3.png`];
 
       const displaySettingsDialog = () => {
         setSettingsDialogOpen(true);
