@@ -73,7 +73,7 @@ app.post("/approvereflection", (req, res) => {
         });
 });
 
-app.get("/getapprovedreflections", authenticateToken, (req, res) => {
+app.get("/getapprovedreflections", (req, res) => {
     pool
         .query("SELECT * FROM approvedReflections")
         .then((response) => {

@@ -96,12 +96,12 @@ button:hover {
   z-index: -1;
 }
 
-.nav-bar {
+/* .nav-bar {
   position: fixed;
   top: 20px;
   left: 20px;
   display: flex;
-}
+} */
 
 .word-cloud-container {
   display: flex;
@@ -136,4 +136,12 @@ button:hover {
   text-align: center;
   padding-top: 3%;
   padding-bottom: 3%;
+}
+
+.nav-bar .home-button:hover {
+  color: #04aa23;
+}
+
+.nav-bar .settings-button:hover {
+  color: #04aa23;
 }

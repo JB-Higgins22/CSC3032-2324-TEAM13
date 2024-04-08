@@ -23,7 +23,7 @@ test('Page displays options correctly: TC02', () => {
     </MemoryRouter>
   );
 
-    const settingsIcon = container.querySelector('.SettingsIcon');
+    const settingsIcon = container.querySelector('.settings-icon-home');
     expect(screen.getByText(/Start Puzzle/i)).toBeInTheDocument();
     expect(screen.getByText(/Museum Of The Troubles and Peace Process Home Page/i)).toBeInTheDocument();
     expect(settingsIcon).toBeInTheDocument();

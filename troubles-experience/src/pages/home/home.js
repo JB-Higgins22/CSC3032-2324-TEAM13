@@ -33,7 +33,9 @@ const HomePage = () => {
         alt="background" 
         className="background-image" 
       />
-      <SettingsIcon aria-label = "settingsIcon" className="settings-Icon" onClick={displaySettingsDialog} sx={{ fontSize: '8vmin', color: 'white', "&:hover": {color: '#04aa23'} }}/>
+      <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+        <SettingsIcon aria-label = "settingsIcon" className="settings-icon-home" onClick={displaySettingsDialog} sx={{ fontSize: '8vmin', color: 'white', "&:hover": {color: '#04aa23'} }}/>
+      </div>
       <header className="header">
         <h1 className="title">
           Museum Of The Troubles and Peace Process

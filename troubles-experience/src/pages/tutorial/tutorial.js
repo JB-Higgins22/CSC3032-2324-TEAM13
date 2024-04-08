@@ -43,13 +43,13 @@ const Tutorial = () => {
 
     
 
-    const allContent = ["Step 1 - Select an issue by clicking on a book - each book represents a key issue with multiple hypothetical solutions",
-                        "Step 2 - Choose which solution you think is best for each issue while trying to avoid bias",
-                        "Step 3 - Balance the issues on the scales - click on books to repoen them and change which side they're on"]
+    const allContent = ["Step 1 - Select an issue by clicking on a book - each book represents a key issue with multiple hypothetical solutions to choose from",
+                        "Step 2 - Choose which solution you think is best for each issue while trying to avoid bias - these are example solutions for the issue of the release of political prisoners affiliated with paramilitary groups",
+                        "Step 3 - Balance the issues on the scales - hover over books to see newpspaper clippings highlighting the results of your selections; click on books to re-open them and change your chosen solution"]
 
-    const images = [`${process.env.PUBLIC_URL}/Tutorial_Step1.png`,
-                    `${process.env.PUBLIC_URL}/Tutorial_Step2.png`,
-                    `${process.env.PUBLIC_URL}/Tutorial_Step3.png`];
+    const images = [`${process.env.PUBLIC_URL}/tutorial-1.png`,
+                    `${process.env.PUBLIC_URL}/tutorial-2.png`,
+                    `${process.env.PUBLIC_URL}/tutorial-3.png`];
 
       const displaySettingsDialog = () => {
         setSettingsDialogOpen(true);
