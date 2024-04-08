@@ -135,6 +135,7 @@ DATABASE: The facility through which data for the application is held
 
 
 # Installing The Project
+NEEDED FOR BACKEND:
 
 ### Step 1 - Installing libraries in front end:
 
@@ -178,6 +179,33 @@ input the following line into the terminal and run it.
 
 Once you have created your user, you should delete the setupUser.js file from the directory to remove any risk of anyone using it without authorisation. You can keep a copy of it elsewhere on your machine if needed. Remember your username and password as it cannot be changed or recovered if misplaced.
 
+
+NEEDED FOR FRONTEND:
+npm i @visx/visx
+
+npm i bad-words
+
+npm install @mui/material @emotion/react @emotion/styled
+
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+
+npm install @mui/x-data-grid
+
+NEEDED FOR TESTING:
+npm install @testing-library/user-event @testing-library/dom
+
+npm i jest-fetch-mock
+
+# Running/Serving The Project
+LOCAL SERVE BACKEND:
+In the terminal, cd into the 'Backend' directory and run the command `npm run dev`
+
+LOCAL SERVE FRONTEND:
+In the terminal, cd into the 'troubles-experience' directory and run the command `npm run start`
+
+LOCAL SERVE TESTS:
+In the terminal, cd into the 'troubles-experience' directory and run the command `npm run test`.
+Note that there should be no local serve of the database or frontend when running the test suite.
 
 # Populating the Application with Content
 

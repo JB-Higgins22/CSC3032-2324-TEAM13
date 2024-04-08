@@ -11,3 +11,51 @@
     filter: brightness(30%);
     z-index: -1;
   }
+
+  .information-wrapper {
+    font-size: calc(var(--base-font-size) + 3vmin);
+    color: white;
+    text-align: center; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-family: 'Anton';
+}
+
+.title {
+    font-size: calc(var(--base-font-size) + 10vmin);
+    color: white;
+    left:0;
+}
+
+.nav-bar .home-button:hover {
+    color: #04aa23;
+}
+  
+.nav-bar .settings-button:hover {
+    color: #04aa23;
+}
+
+.columns {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  text-align: center;
+  object-fit: cover;
+}
+
+.column2 {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+  height: 100%;
+  background-size: cover;
+
+}

@@ -15,21 +15,21 @@
     z-index: -1;
   }
   
-  .navBar {
+  .nav-bar {
     position: fixed;
     top: 20px;
     left: 20px;
   }
 
-  .homeButton:hover {
+  .home-button:hover {
     cursor: pointer;
   }
   
-  .settingsButton:hover {
+  .settings-button:hover {
     cursor: pointer;
   } 
   
-  .titleWrapper {
+  .title-wrapper {
     position: absolute;
     top: 7%;
     left: 0;
@@ -45,12 +45,12 @@
     text-align: center;
   }
   
-  .informationWrapper {
+  .information-wrapper {
     color: white;
     font-size: 10vmin;
   }
   
-  .informationHeader {
+  .information-header {
     font-size: calc(var(--base-font-size) + 3vmin);
   }
   
@@ -58,35 +58,35 @@
     margin-top: -3%;
   }
   
-  .averageResultHeader {
+  .average-result-header {
     font-size: calc(var(--base-font-size) + 7vmin);
     margin-top: -1%;
   }
   
-  .reflectionButton.MuiButton-root {
+  .reflection-button.MuiButton-root {
     font-family: 'Anton';
     padding: 10px;
-    font-size: calc(var(--base-font-size) + 1vmin);
+    font-size: calc(var(--base-font-size) + 2vmin);
     border-radius: 4px;
     background-color: #F0FFFF;
     color: #007bff;
     border: 1px solid #007bff;
+    width: 20%;
+    text-transform: capitalize;
   }
   
-  .reflectionButton.MuiButton-root:hover {
+  .reflection-button.MuiButton-root:hover {
     background-color: #04aa23;
     color: #fff;
+    border: 1px solid #fff;
   }
   
 
-  .navBar .homeButton:hover {
+  .nav-bar .home-button:hover {
     color: #04aa23;
   }
   
-  .navBar .settingsButton:hover {
+  .nav-bar .settings-button:hover {
     color: #04aa23;
   }
   
-  .navBar .submitButton:hover {
-    color: #04aa23;
-  }
