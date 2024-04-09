@@ -149,4 +149,95 @@ describe('BasicTabs', () => {
     expect(document.querySelector('.login-button')).toBeInTheDocument();
   });
 
+  test('TC10 - Dark Mode is toggled off', () => {
+    render(
+      <MemoryRouter>
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
+      </MemoryRouter>
+    );
+    
+    
+    const blackAndWhiteSwitch = screen.getByRole('checkbox', { name: 'black and white switch' });
+
+    expect(blackAndWhiteSwitch).not.toBeChecked();
+
+    // toggling the blackAndWhiteSwitch 
+    fireEvent.click(blackAndWhiteSwitch);
+    expect(blackAndWhiteSwitch).toBeChecked();
+
+    // Optionally, check if toggling it again unmutes
+    fireEvent.click(blackAndWhiteSwitch);
+    expect(blackAndWhiteSwitch).not.toBeChecked();
+  });
+
+  test('TC11 - High Contrast Mode is toggled off', () => {
+    render(
+      <MemoryRouter>
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
+      </MemoryRouter>
+    );
+    
+    
+    const contrastSwitch = screen.getByRole('checkbox', { name: 'contrast switch' });
+
+    expect(contrastSwitch).not.toBeChecked();
+
+    // toggling the contrastSwitch 
+    fireEvent.click(contrastSwitch);
+    expect(contrastSwitch).toBeChecked();
+
+    // Optionally, check if toggling it again unmutes
+    fireEvent.click(contrastSwitch);
+    expect(contrastSwitch).not.toBeChecked();
+  });
+
+  test('TC12 - Mute Volume is toggled on', () => {
+    render(
+      <MemoryRouter>
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
+      </MemoryRouter>
+    );
+    
+    
+    const muteSwitch = screen.getByRole('checkbox', { name: 'mute switch' });
+
+    expect(muteSwitch).not.toBeChecked();
+
+    // toggling the mute switch
+    fireEvent.click(muteSwitch);
+    expect(muteSwitch).toBeChecked();
+
+  });
+
+  test('TC13 - Mute Volume is toggled off', () => {
+    render(
+      <MemoryRouter>
+        <SoundProvider>
+          <BasicTabs />
+        </SoundProvider>
+      </MemoryRouter>
+    );
+    
+    
+    const muteSwitch = screen.getByRole('checkbox', { name: 'mute switch' });
+
+    expect(muteSwitch).not.toBeChecked();
+
+    // toggling the mute switch
+    fireEvent.click(muteSwitch);
+    expect(muteSwitch).toBeChecked();
+
+    // Optionally, check if toggling it again unmutes
+    fireEvent.click(muteSwitch);
+    expect(muteSwitch).not.toBeChecked();
+  });
+
+
+
 });

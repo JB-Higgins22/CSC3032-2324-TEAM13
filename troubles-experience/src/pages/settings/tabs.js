@@ -177,7 +177,7 @@ export default function BasicTabs() {
         <Typography aria-label="mute label" className="font-size" variant="subtitle1" sx={{ marginLeft: 1, fontFamily: 'Anton', fontSize: 'calc(var(--base-font-size) + 2vmin)', color: 'white' }}>Mute Volume</Typography>
          </Box>
          <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '20px', paddingBottom: '10px'}}>
-         <FormControlLabel control={<GreenSwitch aria-label="mute switch" checked = {soundMuted} onChange={handleToggleMute}/>} sx={{ marginLeft: 2 }} />
+         <FormControlLabel control={<GreenSwitch aria-label="mute switch" checked = {isMuted} onChange={handleToggleMute}/>} sx={{ marginLeft: 2 }} />
         </Box>
         
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', paddingBottom: '10px'}}>
