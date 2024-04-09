@@ -28,7 +28,7 @@ const AdminPage = ({ onFontSizeChange}) => {
     const [descriptionOne, setDescriptionOne] = useState("");
     const [descriptionTwo, setDescriptionTwo] = useState("");
     const [imageURL, setImageURL] = useState("");
-    const [numberOfOptions, setNumberOfOptions] = useState(0);
+    const [numberOfOptions, setNumberOfOptions] = useState('3');
     const [selectedOption, setSelectedOption] = useState("X");
     const [optionA, setOptionA] = useState("");
     const [optionANationalistWeight, setOptionANationalistWeight] = useState(0);
@@ -57,7 +57,7 @@ const AdminPage = ({ onFontSizeChange}) => {
     setDescriptionOne("");
     setDescriptionTwo("");
     setImageURL("");
-    setNumberOfOptions(0);
+    setNumberOfOptions('3');
     setSelectedOption("X");
     setOptionA("");
     setOptionANationalistWeight(0);
@@ -180,25 +180,25 @@ const token = localStorage.getItem('token');
 }
 
 // Handle the deletion of approved reflections - MAY NEED REMOVED
-const handleClearApprovedReflections = () => {
-const token = localStorage.getItem('token');
-  fetch('http://localhost:4000/removeapprovedreflections', {
-      method: 'DELETE',
-headers: {
-        'token' : `Bearer ${token}`
-      },
-  })
-  .then(response => {
-      if (response.ok) {
-          console.log('All approved reflections cleared successfully');
-      } else {
-          console.error('Failed to clear approved reflections');
-      }
-  })
-  .catch(error => {
-      console.error('Error:', error);
-  });
-};
+// const handleClearApprovedReflections = () => {
+// const token = localStorage.getItem('token');
+//   fetch('http://localhost:4000/removeapprovedreflections', {
+//       method: 'DELETE',
+// headers: {
+//         'token' : `Bearer ${token}`
+//       },
+//   })
+//   .then(response => {
+//       if (response.ok) {
+//           console.log('All approved reflections cleared successfully');
+//       } else {
+//           console.error('Failed to clear approved reflections');
+//       }
+//   })
+//   .catch(error => {
+//       console.error('Error:', error);
+//   });
+// };
 
 // Handle form submission
 const handleSubmit = (e) => {
@@ -291,7 +291,6 @@ useEffect(() => {
       throw new Error("Failed to fetch issue count");
     })
     .then((data) => {
-      console.log(data.count);
       if (data.count >= 8 && data.count < 16) {
         setShowForm(false);
         setShowSecondForm(true);
@@ -316,9 +315,9 @@ useEffect(() => {
 
       {/* Render form for first 8 issues conditionally */}
       {showForm && (
-    <div className="formContainer">
+    <div className="form-container">
       <h2>Phase One Issue Form</h2>
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} aria-label="phaseOneForm">
                 <input
                     type="text"
                     value={name}
@@ -517,7 +516,7 @@ useEffect(() => {
       {showSecondForm && (
     <div className="form-container">
       <h2>Phase Two Issue Form</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} aria-label="phaseTwoForm">
                 <input
                     type="text"
                     value={name}
@@ -706,7 +705,7 @@ useEffect(() => {
       {/* Render the table for approving/rejecting reflections */}
       <div className="table-container">
       <h2>Reflection Approval Table</h2>
-        <table>
+        <table aria-label="reflectionsApprovalTable">
                   <thead>
                       <tr>
                       <th className="table-header other-header">ReflectionID</th>
@@ -718,21 +717,22 @@ useEffect(() => {
                       </tr>
                   </thead>
                   <tbody>
-                      {reflections.map(reflection => (
-                          <tr key={reflection.id}>
-                          <td className="table-cell other-cell">{reflection.id}</td>
-                          <td className="table-cell other-cell">{reflection.username}</td>
-                          <td className="table-cell other-cell">{reflection.location}</td>
-                          <td className="table-cell content-cell">{reflection.content}</td> {/* This is your content cell */}
-                          <td className="table-cell other-cell">
-                              <Button sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleApproveReflection(reflection)}>Approve</Button>
-                          </td>
-                          <td className="table-cell other-cell">
-                              <Button sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button>
-                          </td>
-                      </tr>
-                      ))}
-                  </tbody>
+                  {reflections.length > 0 && reflections.map(reflection => (
+                    <tr key={reflection.id}>
+                      <td className="table-cell other-cell">{reflection.id}</td>
+                      <td className="table-cell other-cell">{reflection.username}</td>
+                      <td className="table-cell other-cell">{reflection.location}</td>
+                      <td className="table-cell content-cell">{reflection.content}</td>
+                      <td className="table-cell other-cell">
+                        <Button aria-label={`approveReflection ${reflection.id}`} sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleApproveReflection(reflection)}>Approve</Button>
+                      </td>
+                      <td className="table-cell other-cell">
+                        <Button aria-label={`deleteReflection ${reflection.id}`} sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+
               </table>
             </div>
 

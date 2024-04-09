@@ -217,8 +217,9 @@ const Reflection = () => {
 
       <Slide direction="up" in={showWordCloud} mountOnEnter unmountOnExit timeout={1000}>         
         <Grid container spacing={2} aria-label = "reflection-grid">
+          {/* Use MUI Grid to display the full reflections of users */}
           {reflections.map(reflection => (
-            <Grid item xs={12} sm={6} md={4} key={reflection.id}>                                 {/* Use MUI Grid to display the full reflections of users */}
+            <Grid item xs={12} sm={6} md={4} key={reflection.id}>                                 
               <Card style={{ backgroundColor: '#d3e0ed' }}>
                 <CardContent>
                   <Typography variant="h6" gutterBottom style={{ fontFamily: 'Anton' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
