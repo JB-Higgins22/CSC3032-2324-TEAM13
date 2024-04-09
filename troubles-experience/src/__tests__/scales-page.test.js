@@ -62,6 +62,7 @@ const mockData = [
 ]
 
 
+
 describe('Scales Component', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -104,7 +105,6 @@ describe('Scales Component', () => {
       expect(fetch).toHaveBeenCalledWith('http://localhost:4000/issues');
     });
   });
-});
 
   //TC03
   it('Issue Dialog opens upon clicking on a book', async () => {
@@ -116,7 +116,7 @@ describe('Scales Component', () => {
     );
   
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     // simulate the click.
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -138,7 +138,7 @@ describe('Scales Component', () => {
     );
   
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(3));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     // simulate the click.
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -150,36 +150,6 @@ describe('Scales Component', () => {
     expect(screen.queryByLabelText('Issue-Dialog')).not.toBeInTheDocument();
   });
 
-  //TC05
-  // it('Newspaper Popover correctly displays', async () => {
-  //   fetchMock.mockResponseOnce(JSON.stringify(mockData));
-  //   render(
-  //     <Router>
-  //       <Scales />
-  //     </Router>
-  //   );
-  
-  //   // Wait for the mock data to be fetched and the component to update.
-  //   await waitFor(() => expect(fetch).toHaveBeenCalledTimes(4));
-  
-  //   // After ensuring the component has the data, simulate the click.
-  //   const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
-  //   fireEvent.click(bookDiv);
-
-  //   const optionAButton = screen.getByRole('button', { name: 'optionA' });
-  //   fireEvent.click(optionAButton)
-
-  //   const nationalistNewspaper = await screen.getByLabelText(/nationalistIssue Dummy Issue 1/i);
-  //   fireEvent.mouseOver(nationalistNewspaper);
-
-
-
-  //   // 3. Assert that the popover content contains the desired text
-  //   const popoverContent = screen.getByText(/Scales tipped totally in our favour/i);
-  //   expect(popoverContent).toBeInTheDocument();
-      
-  // });
-
   it('Confirm Quit Dialog Opened When Home Icon Clicked', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockData));
     render(
@@ -189,7 +159,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(4));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     // simulate the click.
     const homeIcon = await screen.getByLabelText(/HomeIcon/i);
@@ -208,7 +178,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(5));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     // simulate the click.
     const homeIcon = await screen.getByLabelText(/HomeIcon/i);
@@ -229,7 +199,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(6));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     // simulate the click.
     const homeIcon = await screen.getByLabelText(/HomeIcon/i);
@@ -253,7 +223,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched 
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(7));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
    // simulate the click.
     const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
@@ -274,7 +244,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(8));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     // simulate the click.
     const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
@@ -295,7 +265,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(9));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
      // Find the submit button
       const submitButton = screen.getByLabelText(/SubmitIcon/i);
@@ -322,7 +292,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(10));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
      // Find the submit button
       const submitButton = screen.getByLabelText(/SubmitIcon/i);
@@ -352,7 +322,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(11));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
     const messageElement = screen.getByText(/Please rotate your device to landscape mode/i);
     expect(messageElement).toBeInTheDocument();
@@ -373,7 +343,7 @@ describe('Scales Component', () => {
     );
 
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(12));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
     // simulate the click.
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -399,7 +369,7 @@ it('Unionist Weight updates when completely outweighed by Nationalist Weight', a
   ); 
 
   // Wait for the mock data to be fetched
-  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(13));
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
   // simulate the click.
   const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -425,7 +395,7 @@ it('Balance Percentage Correctly calculated when Nationalist side completely out
   ); 
 
   // Wait for the mock data to be fetched
-  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(14));
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
   // simulate the click.
   const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -451,7 +421,7 @@ it('Scales Update Correctly When Nationalist side completely outweighs Unionist 
   ); 
 
   // Wait for the mock data to be fetched
-  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(15));
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
   // simulate the click.
   const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -484,7 +454,7 @@ render(
 ); 
 
 // Wait for the mock data to be fetched
-await waitFor(() => expect(fetch).toHaveBeenCalledTimes(16));
+await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
 // simulate the click.
 const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
@@ -510,7 +480,7 @@ render(
 ); 
 
 // Wait for the mock data to be fetched
-await waitFor(() => expect(fetch).toHaveBeenCalledTimes(17));
+await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
 // simulate the click.
 const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
@@ -536,7 +506,7 @@ render(
 ); 
 
 // Wait for the mock data to be fetched
-await waitFor(() => expect(fetch).toHaveBeenCalledTimes(18));
+await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
 // simulate the click.
 const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
@@ -570,7 +540,7 @@ await waitFor(() => {
   ); 
   
   // Wait for the mock data to be fetched
-  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(19));
+  await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   
   // simulate the click.
   const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -596,7 +566,7 @@ await waitFor(() => {
     ); 
     
     // Wait for the mock data to be fetched
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(20));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
     
     // simulate the click.
     const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -628,7 +598,7 @@ await waitFor(() => {
       ); 
       
       // Wait for the mock data to be fetched
-      await waitFor(() => expect(fetch).toHaveBeenCalledTimes(21));
+      await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
       
       // simulate the click.
       const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -654,7 +624,7 @@ await waitFor(() => {
         ); 
         
         // Wait for the mock data to be fetched
-        await waitFor(() => expect(fetch).toHaveBeenCalledTimes(22));
+        await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
         
         // simulate the click.
         const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 1/i });
@@ -686,7 +656,7 @@ await waitFor(() => {
           );
       
           // Wait for the mock data to be fetched
-          await waitFor(() => expect(fetch).toHaveBeenCalledTimes(23));
+          await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
       
           // simulate the click.
           const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
@@ -712,7 +682,7 @@ await waitFor(() => {
         ); 
         
         // Wait for the mock data to be fetched
-        await waitFor(() => expect(fetch).toHaveBeenCalledTimes(24));
+        await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
         
         // simulate the click.
         const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
@@ -738,7 +708,7 @@ await waitFor(() => {
           ); 
           
           // Wait for the mock data to be fetched
-          await waitFor(() => expect(fetch).toHaveBeenCalledTimes(25));
+          await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
           
           // simulate the click.
           const bookDiv = await screen.findByRole('button', { name: /bookOnShelf Dummy Issue 2/i });
@@ -757,4 +727,8 @@ await waitFor(() => {
             expect(unionistScale).toHaveStyle({ height: '100%' });
             expect(nationalistScale).toHaveStyle({ height: '0%' });
           });
-          });
+
+    });
+
+
+  });

@@ -10,17 +10,6 @@ import { MemoryRouter } from "react-router-dom";
 // Enable fetch mocking
 fetchMock.enableMocks();
 
-const lowIssueCount = {
-    "count": "1"
-}
-
-const middleIssueCount = {
-    "count": "10"
-}
-
-const highIssueCount = {
-    "count": "16"
-}
 
 describe('AdminPage Component', () => {
      beforeEach(() => {
@@ -506,6 +495,8 @@ describe('AdminPage Component', () => {
                     
                     return Promise.resolve(JSON.stringify({ success: true }));
                 }
+            } else if (req.url.endsWith(`/deletereflection/${1}`) && req.method === "DELETE") {
+                return Promise.resolve(JSON.stringify({ success: true }));
             }
             // Handle default or unexpected requests
             return Promise.reject(new Error('Unknown endpoint'));
