@@ -705,35 +705,40 @@ useEffect(() => {
       {/* Render the table for approving/rejecting reflections */}
       <div className="table-container">
       <h2>Reflection Approval Table</h2>
-        <table aria-label="reflectionsApprovalTable">
-                  <thead>
-                      <tr>
-                      <th className="table-header other-header">ReflectionID</th>
-                      <th className="table-header other-header">Username</th>
-                      <th className="table-header other-header">Location</th>
-                      <th className="table-header content-header">Content</th>
-                      <th className="table-header other-header">Approve</th>
-                      <th className="table-header other-header">Reject</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                  {reflections.length > 0 && reflections.map(reflection => (
+      <table aria-label="reflectionsApprovalTable">
+        <thead>
+            <tr>
+                <th className="table-header other-header">ReflectionID</th>
+                <th className="table-header other-header">Username</th>
+                <th className="table-header other-header">Location</th>
+                <th className="table-header content-header">Content</th>
+                <th className="table-header other-header">Approve</th>
+                <th className="table-header other-header">Reject</th>
+            </tr>
+        </thead>
+        <tbody>
+            {reflections.length > 0 ? (
+                reflections.map(reflection => (
                     <tr key={reflection.id}>
-                      <td className="table-cell other-cell">{reflection.id}</td>
-                      <td className="table-cell other-cell">{reflection.username}</td>
-                      <td className="table-cell other-cell">{reflection.location}</td>
-                      <td className="table-cell content-cell">{reflection.content}</td>
-                      <td className="table-cell other-cell">
-                        <Button aria-label={`approveReflection ${reflection.id}`} sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleApproveReflection(reflection)}>Approve</Button>
-                      </td>
-                      <td className="table-cell other-cell">
-                        <Button aria-label={`deleteReflection ${reflection.id}`} sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button>
-                      </td>
+                        <td className="table-cell other-cell">{reflection.id}</td>
+                        <td className="table-cell other-cell">{reflection.username}</td>
+                        <td className="table-cell other-cell">{reflection.location}</td>
+                        <td className="table-cell content-cell">{reflection.content}</td>
+                        <td className="table-cell other-cell">
+                            <Button aria-label={`approveReflection ${reflection.id}`} sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleApproveReflection(reflection)}>Approve</Button>
+                        </td>
+                        <td className="table-cell other-cell">
+                            <Button aria-label={`deleteReflection ${reflection.id}`} sx={{fontSize: 'calc(var(--base-font-size) + 2vmin)'}} onClick={() => handleDeleteReflection(reflection.id)}>Reject</Button>
+                        </td>
                     </tr>
-                  ))}
-                </tbody>
-
-              </table>
+                ))
+            ) : (
+                <tr>
+                    <td colSpan="6" className="table-cell other-cell" style={{ textAlign: 'center' }}>No reflections awaiting approval</td>
+                </tr>
+            )}
+        </tbody>
+    </table>
             </div>
 
             <ConfirmQuitDialog 

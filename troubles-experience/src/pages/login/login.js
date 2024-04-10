@@ -3,7 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './login.css';
 
+// COMPONENT IMPORTS
+import DeviceOrientation from '../../components/device-orientation';
+import SettingsDialog from '../../dialogs/settingsDialog';
+import ConfirmQuitDialog from '../../dialogs/confirmQuitDialog';
+
+//MUI MATERIAL ICONS IMPORTS
+import HomeIcon from '@mui/icons-material/Home';
+
 const Login = () => {
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+  const [isConfirmQuitDialogOpen, setConfirmQuitDialogOpen] = useState(false);
   // Variables instantiated
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +56,22 @@ const info = await response.json(); // Wait for response.json() to resolve
     }
   };
 
+  const displaySettingsDialog = () => {
+    setSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+  };
+  
+  const displayConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(true);
+  };
+
+  const handleCloseConfirmQuitDialog = () => {
+    setConfirmQuitDialogOpen(false);
+  };
+
   return (
     <div className="pageContainer">
       <img 
@@ -54,14 +80,15 @@ const info = await response.json(); // Wait for response.json() to resolve
         className="background-image" 
       />
       <div className="loginContainer">
-        <Link to="../settings">
-          <SettingsIcon className="SettingsIcon" />
-        </Link>
-        <h2>Login</h2>
+      <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
+              <HomeIcon aria-label = "home-icon" className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+              <SettingsIcon aria-label = "settings-icon" className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+            </div>
+        <h2 className='page-title'>Login</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <form onSubmit={handleSubmit} style={{width: '40vmin'}}>
+        <form onSubmit={handleSubmit} style={{width: '40vmin'}} aria-label = "login-form">
           <div>
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username" className='username-label'>Username:</label>
             <input
               type="text"
               id="username"
@@ -72,7 +99,7 @@ const info = await response.json(); // Wait for response.json() to resolve
             />
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password" className='password-label'>Password:</label>
             <input
               type="password"
               id="password"
@@ -82,9 +109,18 @@ const info = await response.json(); // Wait for response.json() to resolve
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button className='login-button' type="submit">Login</button>
         </form>
       </div>
+      <ConfirmQuitDialog 
+              isOpen={isConfirmQuitDialogOpen}
+              handleClose={handleCloseConfirmQuitDialog}/>
+
+            <SettingsDialog 
+              isOpen={isSettingsDialogOpen}
+              handleClose={handleCloseSettingsDialog}/>
+
+    <DeviceOrientation />
     </div>
   );
 };

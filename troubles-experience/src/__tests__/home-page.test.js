@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import { SoundProvider } from '../sounds/soundContext';
+import Home from '@mui/icons-material/Home';
 
 test('Home Screen Renders: TC01', () => {
     render(
@@ -29,30 +30,40 @@ test('Page displays options correctly: TC02', () => {
     expect(settingsIcon).toBeInTheDocument();
   });
 
-  test('Clicking the settings icon navigates to the settings page: TC03', async () => {
+  test('Settings Dialog Opened When Settings Icon Clicked', async () => {
     render(
       <MemoryRouter>
         <SoundProvider>
           <HomePage />
-          </SoundProvider>
+        </SoundProvider>
       </MemoryRouter>
     );
   
-    //const settingsLink = screen.getByRole('link', { name: 'Settings' });
-    const settingsIcon = screen.getByLabelText(/SettingsIcon/i);
+   // simulate the click.
+    const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
+    fireEvent.click(settingsIcon);
 
-    act(() => {
-      fireEvent.click(settingsIcon);
-    });
+    const settingsDialogContent = await screen.findByText(/Admin/);
+    expect(settingsDialogContent).toBeInTheDocument();
+  });
 
-    expect(screen.getByText('Settings')).toBeInTheDocument();
+  test('Settings Dialog Can Be Closed', async () => {
+    render(
+      <MemoryRouter>
+        <SoundProvider>
+          <HomePage />
+        </SoundProvider>
+      </MemoryRouter>
+    );
   
-    // User clicking the link
-    // await act(async () => {
-    //   await userEvent.click(settingsLink);
-    // });
-  
-    // expect(settingsLink).toHaveAttribute('href', expect.stringContaining('settings'));
+    // simulate the click.
+    const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
+    fireEvent.click(settingsIcon);
+
+    const closeButton = screen.getByRole('button', { name: 'closeSettings' });
+    fireEvent.click(closeButton)
+
+    expect(screen.queryByLabelText('Settings-Dialog')).not.toBeInTheDocument();
   });
 
   test('Clicking the `Play Game` button navigates to the pre-game-info page: TC04', async () => {
