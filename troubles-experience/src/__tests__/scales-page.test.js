@@ -279,7 +279,7 @@ describe('Scales Component', () => {
 
       await waitFor(() => {
         const titleElement = screen.getByRole('heading', { level: 1 });
-        expect(titleElement).toHaveTextContent('2020 Restoration Talks');
+        expect(titleElement).toHaveTextContent('Post-1998 Peace Talks');
       });
   });
 
