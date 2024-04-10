@@ -59,9 +59,9 @@ export default class ScalesObject {
 
 
     selectOptionA(issue) {
-        if (issue?.selectedOption == 'A') {
+        if (issue?.selectedOption === 'A') {
             return new ScalesObject(this.centralisedIssues, this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
-        } else if (issue?.selectedOption == 'B') {
+        } else if (issue?.selectedOption === 'B') {
             // Reverse changes for option B
             this.unionistWeight -= issue.optionBUnionistWeight;
             this.nationalistWeight -= issue.optionBNationalistWeight;
@@ -69,7 +69,7 @@ export default class ScalesObject {
             // Remove perspectives
             this.nationalistIssues = this.nationalistIssues.filter(paper => paper.headline !== issue.optionBNationalistPerspective);
             this.unionistIssues = this.unionistIssues.filter(paper => paper.headline !== issue.optionBUnionistPerspective);
-        } else if (issue?.selectedOption == 'C') {
+        } else if (issue?.selectedOption === 'C') {
             // Reverse changes for option C
             this.unionistWeight -= issue.optionCUnionistWeight;
             this.nationalistWeight -= issue.optionCNationalistWeight;
@@ -99,9 +99,9 @@ export default class ScalesObject {
     }
 
     selectOptionB(issue) {
-        if (issue?.selectedOption == 'B') {
+        if (issue?.selectedOption === 'B') {
             return new ScalesObject(this.centralisedIssues, this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
-        } else if (issue?.selectedOption == 'A') {
+        } else if (issue?.selectedOption === 'A') {
             // Reverse changes for option A
             this.unionistWeight -= issue.optionAUnionistWeight;
             this.nationalistWeight -= issue.optionANationalistWeight;
@@ -109,7 +109,7 @@ export default class ScalesObject {
 
             this.nationalistIssues = this.nationalistIssues.filter(paper => paper.headline !== issue.optionANationalistPerspective);
             this.unionistIssues = this.unionistIssues.filter(paper => paper.headline !== issue.optionAUnionistPerspective);
-        } else if (issue?.selectedOption == 'C') {
+        } else if (issue?.selectedOption === 'C') {
             // Reverse changes for option C
             this.unionistWeight -= issue.optionCUnionistWeight;
             this.nationalistWeight -= issue.optionCNationalistWeight;
@@ -139,9 +139,9 @@ export default class ScalesObject {
     }
 
     selectOptionC(issue) {
-        if (issue?.selectedOption == 'C') {
+        if (issue?.selectedOption === 'C') {
             return new ScalesObject(this.centralisedIssues, this.unionistIssues, this.nationalistIssues, this.unionistWeight, this.nationalistWeight);
-        } else if (issue?.selectedOption == 'B') {
+        } else if (issue?.selectedOption ==='B') {
             // Reverse changes for option B
             this.unionistWeight -= issue.optionBUnionistWeight;
             this.nationalistWeight -= issue.optionBNationalistWeight;
@@ -149,7 +149,7 @@ export default class ScalesObject {
 
             this.nationalistIssues = this.nationalistIssues.filter(paper => paper.headline !== issue.optionBNationalistPerspective);
             this.unionistIssues = this.unionistIssues.filter(paper => paper.headline !== issue.optionBUnionistPerspective);
-        } else if (issue?.selectedOption == 'A') {
+        } else if (issue?.selectedOption === 'A') {
             // Reverse changes for option A
             this.unionistWeight -= issue.optionAUnionistWeight;
             this.nationalistWeight -= issue.optionANationalistWeight;

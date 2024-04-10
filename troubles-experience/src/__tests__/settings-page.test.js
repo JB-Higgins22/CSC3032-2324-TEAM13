@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import BasicTabs from '../pages/settings/tabs.js';
-import Settings from '../pages/settings/settingsPage.js';
 import { SoundProvider } from '../sounds/soundContext.js';
 
 
@@ -157,8 +156,8 @@ describe('BasicTabs', () => {
         </SoundProvider>
       </MemoryRouter>
     );
-    
-    
+
+
     const blackAndWhiteSwitch = screen.getByRole('checkbox', { name: 'black and white switch' });
 
     expect(blackAndWhiteSwitch).not.toBeChecked();
@@ -180,8 +179,8 @@ describe('BasicTabs', () => {
         </SoundProvider>
       </MemoryRouter>
     );
-    
-    
+
+
     const contrastSwitch = screen.getByRole('checkbox', { name: 'contrast switch' });
 
     expect(contrastSwitch).not.toBeChecked();
@@ -203,8 +202,8 @@ describe('BasicTabs', () => {
         </SoundProvider>
       </MemoryRouter>
     );
-    
-    
+
+
     const muteSwitch = screen.getByRole('checkbox', { name: 'mute switch' });
 
     expect(muteSwitch).not.toBeChecked();
@@ -223,8 +222,8 @@ describe('BasicTabs', () => {
         </SoundProvider>
       </MemoryRouter>
     );
-    
-    
+
+
     const muteSwitch = screen.getByRole('checkbox', { name: 'mute switch' });
 
     expect(muteSwitch).not.toBeChecked();
