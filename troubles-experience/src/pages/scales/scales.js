@@ -164,7 +164,7 @@ const fetchIssues = async () => {
 };                                    
 
   // COMPOSITE ARRAY OF PHASES
-  const phaseNames = ["1998 Peace Talks", "2020 Restoration Talks"]
+  const phaseNames = ["1998 Peace Talks", "Post-1998 Peace Talks"]
   let pageTitle = phaseNames[currentPhase];
 
   /*
@@ -475,7 +475,7 @@ const fetchIssues = async () => {
                 aria-label= {`unionistIssue ${issue.issue.name}`}
                 className='newspaper-img'
                 aria-describedby={issue.id}
-                onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE ORANGE HERALD')}
+                onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE UNIONIST EXPRESS')}
                 />
                 {/* Newspaper Popover Logic */}
                 <Popover
@@ -543,7 +543,7 @@ const fetchIssues = async () => {
               aria-label = {`nationalistIssue ${issue.issue.name}`}
               className="newspaper-img"
               aria-describedby={issue.id}
-              onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NORTHERN STAR')}
+              onMouseEnter={(event) => handlePopoverOpen(event, issue, 'THE NATIONALIST EXPRESS')}
               />
               {/* Newspaper Popover Logic */}
               <Popover
