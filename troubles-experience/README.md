@@ -135,6 +135,13 @@ DATABASE: The facility through which data for the application is held
 
 
 # Installing The Project
+DATABASE INSTALLATION: 
+Navigate to PostgreSQL website (https://www.postgresql.org/download/) and select the appropriate installer. After installation, select and run the postgresql executable to open the wizard. Select the desired installation directory. Deselect tha Stack Builder component and click next. Select the desired data directory (within the previously selected one). Continue navigating the wizard to install. Upon installation click finish, and launch the pgAdmin application. 
+
+Right click on the 'Databases' header in the left-hand tab to create a new database, call this database `troubles-museum`
+
+
+
 NEEDED FOR BACKEND:
 
 
