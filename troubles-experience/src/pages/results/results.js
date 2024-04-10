@@ -33,9 +33,9 @@ const ResultsPage = () => {
   const nextInfo = () => {
     setShowContent(prevState => !prevState);
     setTimeout(() => {
-        setCurrentContent(currentContent + 1);
-        setShowContent(prevState => !prevState);
-      }, 1200);
+      setCurrentContent(currentContent + 1);
+      setShowContent(prevState => !prevState);
+    }, 1200);
   }
 
   function calculateAverageResult(balancePercentages) {
@@ -43,7 +43,7 @@ const ResultsPage = () => {
       return 0;
     }
     const total = balancePercentages.reduce((acc, currentValue) => acc + currentValue, 0);
-    const averagePercentage =  total / balancePercentages.length;
+    const averagePercentage = total / balancePercentages.length;
     const roundedAveragePercentage = parseFloat(averagePercentage.toFixed(2));
     return roundedAveragePercentage;
   }
@@ -59,7 +59,7 @@ const ResultsPage = () => {
   const handleCloseSettingsDialog = () => {
     setSettingsDialogOpen(false);
   };
-  
+
   const displayConfirmQuitDialog = () => {
     setConfirmQuitDialogOpen(true);
   };
@@ -77,14 +77,14 @@ const ResultsPage = () => {
 
   return (
     <div className="page">
-      <img 
-        src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} 
-        alt="background" 
-        className="background-image" 
+      <img
+        src={`${process.env.PUBLIC_URL}/newspaper.jpeg`}
+        alt="background"
+        className="background-image"
       />
       <div className="nav-bar">
         <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white' }} onClick={displaySettingsDialog} />
       </div>
       <div className="title-wrapper">
         <div>
@@ -93,31 +93,31 @@ const ResultsPage = () => {
           </Slide>
           <div className="information-wrapper">
 
-            <Slide direction= {showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
-              <p>{allContent[currentContent]}</p>                            
+            <Slide direction={showContent ? "left" : "right"} in={showContent} mountOnEnter unmountOnExit timeout={1300}>
+              <p>{allContent[currentContent]}</p>
             </Slide>
             <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
-              <Button 
+              <Button
                 className="reflection-button"
-                disabled={currentContent === 2 && currentContent !== 2} 
-                onClick={currentContent === 2 ? leaveReflection : nextInfo}                
+                disabled={currentContent === 2 && currentContent !== 2}
+                onClick={currentContent === 2 ? leaveReflection : nextInfo}
               >
                 {currentContent === 2 ? "Leave a Reflection" : "Next"}
 
               </Button>
             </Slide>
 
-          </div>       
+          </div>
         </div>
       </div>
 
-      <ConfirmQuitDialog 
+      <ConfirmQuitDialog
         isOpen={isConfirmQuitDialogOpen}
-        handleClose={handleCloseConfirmQuitDialog}/>
+        handleClose={handleCloseConfirmQuitDialog} />
 
-      <SettingsDialog 
+      <SettingsDialog
         isOpen={isSettingsDialogOpen}
-        handleClose={handleCloseSettingsDialog}/>
+        handleClose={handleCloseSettingsDialog} />
 
       <DeviceOrientation />
     </div>

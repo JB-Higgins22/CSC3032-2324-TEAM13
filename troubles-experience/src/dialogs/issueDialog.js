@@ -12,8 +12,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const dialogStyles = {          // Dialog Styled to resemble A4 page
   background: '#EEEADC',
-  maxWidth: '40vw',
-  width: '40vw',
+  maxWidth: '50vw',
+  width: '50vw',
   height: '29.7cm',
 };
 
@@ -30,7 +30,7 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
       {/* Font Sizes set relative to global base font size */}
       <DialogTitle style={{ color: 'black' }} sx={{ fontSize: 'calc(var(--base-font-size) + 2vmin)' }}>
         {issue && issue.name}
-        <IconButton role="button" aria-label="closeIssueDialog" onClick={handleClose} style = {{display: 'none'}}>
+        <IconButton role="button" aria-label="closeIssueDialog" onClick={handleClose} style={{ display: 'none' }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -67,11 +67,43 @@ const IssueDialog = ({ isOpen, handleClose, issue, handleOptionA, handleOptionB,
             paddingBottom: '20px'
           }}
         >
-          <Button role="button" aria-label="optionA" onClick={handleOptionA} style={{ width: '30%', height: 'auto' }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionA}</Button>
-          <Button role="button" aria-label="optionB" onClick={handleOptionB} style={{ width: '30%' }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionB}</Button>
+          <Button role="button"
+            aria-label="optionA"
+            onClick={handleOptionA} style={{
+              width: '30%',
+              height: 'auto',
+              wordBreak: 'normal',
+              overflowWrap: 'break-word',
+              hyphens: 'auto',
+              WebkitHyphens: 'auto',
+              MozHyphens: 'auto',
+              MsHyphens: 'auto'
+            }}
+            sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionA}</Button>
+          <Button role="button"
+            aria-label="optionB"
+            onClick={handleOptionB} style={{
+              width: '30%',
+              height: 'auto',
+              wordBreak: 'normal',
+              overflowWrap: 'break-word',
+              hyphens: 'auto',
+              WebkitHyphens: 'auto',
+              MozHyphens: 'auto',
+              MsHyphens: 'auto'
+            }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionB}</Button>
           {/* Option C button rendered Conditionally */}
           {(issue?.numberOfOptions === 3) && (
-            <Button role="button" aria-label="optionC" onClick={handleOptionC} style={{ width: '30%' }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionC}</Button>
+            <Button role="button" aria-label="optionC" onClick={handleOptionC} style={{
+              width: '30%',
+              height: 'auto',
+              wordBreak: 'normal',
+              overflowWrap: 'break-word',
+              hyphens: 'auto',
+              WebkitHyphens: 'auto',
+              MozHyphens: 'auto',
+              MsHyphens: 'auto'
+            }} sx={{ fontSize: 'calc(var(--base-font-size) + 0.9vmin)' }}>{issue?.optionC}</Button>
           )}
         </ButtonGroup>
       </DialogActions>

@@ -1,10 +1,10 @@
 export default class BookshelfObject {
     constructor(issues) {
-      this.issues = issues;
+        this.issues = issues;
     }
-  
+
     getIssues() {               // Return issues belonging to the Bookshelf Object
-      return this.issues;
+        return this.issues;
     }
 
     removeBook(issue) {                                 // Remove issue from Bookshelf
@@ -12,7 +12,7 @@ export default class BookshelfObject {
             var index = this.issues.indexOf(issue);
             this.issues.splice(index, 1);
         }
-        
+
         return new BookshelfObject(this.issues);
     }
 
@@ -24,5 +24,5 @@ export default class BookshelfObject {
         }
     }
 
-  }
+}
 

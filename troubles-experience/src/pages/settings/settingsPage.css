@@ -2,7 +2,6 @@
 
 
 .background {
-  background-image: url("../../../public/newspaperDark.jpeg");
   width: 100%;
   overflow: hidden;
   margin: 0 auto;
@@ -11,20 +10,20 @@
 }
 
 .foreground {
-  width:50%;
+  width: 50%;
   height: 80%;
   position: relative;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #094565; 
+  background-color: #094565;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 12px;
   font-family: 'Anton';
   padding: 10px;
   color: #F0FFFF;
   overflow: auto;
-  white-space: normal; 
+  white-space: normal;
 }
 
 .tab-text {
@@ -41,10 +40,10 @@
 }
 
 .background .home-icon:hover {
-  color: #F0FFFF; 
+  color: #F0FFFF;
 }
 
-.foreground{
+.foreground {
   font-size: 90%;
 }
 
@@ -63,21 +62,20 @@
   border-style: ridge;
   border-color: #007bff;
   border-radius: 4px;
-  
+
 }
 
 .foreground .login-button:hover {
-  background-color: #04aa23; 
+  background-color: #04aa23;
   color: white;
   border-style: ridge;
   border-color: white;
 }
 
-.foreground .Mui
-{
-color: #F0FFFF;
+.foreground .Mui {
+  color: #F0FFFF;
 }
 
 .foreground .Mui.Mui-checked {
-  color: #04aa23; 
+  color: #04aa23;
 }
