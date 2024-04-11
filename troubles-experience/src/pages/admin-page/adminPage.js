@@ -108,7 +108,6 @@ const AdminPage = ({ onFontSizeChange}) => {
       method: 'GET',
       headers: {
         'token':`Bearer ${token}`,
-        'Authorization':`Bearer ${token}`,
       },
       
     })

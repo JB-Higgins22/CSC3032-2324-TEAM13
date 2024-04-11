@@ -40,7 +40,7 @@ const { isMuted } = useSoundContext(); // Get isMuted state from context
   });
 
   useEffect(() => {
-    setAuthenticated(true)
+    setAuthenticated(AuthenticateUser)
   },[])
 
   useEffect(() => {

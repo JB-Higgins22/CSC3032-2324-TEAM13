@@ -52,7 +52,7 @@ app.get("/reflections", authenticateToken,(req, res) => {
 });
 
 
-app.post("/approvereflection", (req, res) => {
+app.post("/approvereflection",authenticateToken,(req, res) => {
     const reflectionUsername = req.body["userName"];
     const reflectionLocation = req.body["userLocation"];
     const reflectionContent = req.body["userReflection"];
@@ -73,7 +73,7 @@ app.post("/approvereflection", (req, res) => {
         });
 });
 
-app.get("/getapprovedreflections", authenticateToken, (req, res) => {
+app.get("/getapprovedreflections",  (req, res) => {
     pool
         .query("SELECT * FROM approvedReflections")
         .then((response) => {
@@ -122,18 +122,6 @@ app.delete("/deletereflection/:reflectionId",authenticateToken, (req, res) => {
         .catch((err) => {
             console.error("Error deleting reflection:", err);
             res.status(500).send("Error deleting reflection");
-        });
-});
-
-app.get("/login", (req, res) => {
-    pool
-        .query("SELECT * FROM login")
-        .then((response) => {
-            res.status(200).json(response.rows); // Send the retrieved logins as response
-        })
-        .catch((err) => {
-            console.error("Error retrieving login details:", err);
-            res.status(500).send("Error retrieving login details");
         });
 });
 
@@ -250,11 +238,7 @@ app.get("/issueCount", (req, res) => {
 
 app.listen(4000, () => console.log("Server on localhost:4000"));
 
-// call when creating a user login account
-const hashFunction = (password) => {
-    result =  bcrypt.hashSync(password, 10);
-    return result;
-}
+
 //call when checking password
 const compareHash = (password,hashFromDB) => {
     result = bcrypt.compareSync(password, hashFromDB);
