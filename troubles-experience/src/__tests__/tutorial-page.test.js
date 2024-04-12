@@ -126,7 +126,6 @@ describe('Tutorial Component', () => {
         expect(screen.queryByLabelText('Settings-Dialog')).not.toBeInTheDocument();
     });
 
-    */
 
     //TC06 Next button is clicked
     it('Next button is clicked', async () => {
@@ -149,7 +148,7 @@ describe('Tutorial Component', () => {
         
     });
     
-    /*
+
     //TC07 Next button is clicked for the second time
     it('Next button is clicked', async () => {
         render(
