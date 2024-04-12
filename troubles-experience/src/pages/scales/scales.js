@@ -127,8 +127,9 @@ const Scales = () => {
         throw new Error('Failed to fetch issues');
       })
       .then(data => {
+        const sortedData = data.sort((a, b) => a.id - b.id);
         // Create Issue objects for each issue received
-        const parsedIssues = data.map(issue => {
+        const parsedIssues = sortedData.map(issue => {
           return new Issue(
             issue.name,
             issue.description_one,

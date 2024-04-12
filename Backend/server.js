@@ -25,7 +25,7 @@ app.post("/addreflection", (req, res) => {
         .query(insertReflectionCommand, [reflectionUsername, reflectionLocation, reflectionContent])
         .then((response) => {
             console.log("Reflection Saved");
-            console.log(response.rows[0]); // Assuming you want to log the inserted reflection data
+            console.log(response.rows[0]);
             res.status(201).json(response.rows[0]); // Send the inserted reflection data back as response
         })
         .catch((err) => {
@@ -52,7 +52,7 @@ app.get("/reflections", authenticateToken,(req, res) => {
 });
 
 
-app.post("/approvereflection", (req, res) => {
+app.post("/approvereflection",authenticateToken,(req, res) => {
     const reflectionUsername = req.body["userName"];
     const reflectionLocation = req.body["userLocation"];
     const reflectionContent = req.body["userReflection"];
@@ -64,7 +64,7 @@ app.post("/approvereflection", (req, res) => {
         .query(insertReflectionCommand, [reflectionUsername, reflectionLocation, reflectionContent])
         .then((response) => {
             console.log("Reflection Saved");
-            console.log(response.rows[0]); // Assuming you want to log the inserted reflection data
+            console.log(response.rows[0]);
             res.status(201).json(response.rows[0]); // Send the inserted reflection data back as response
         })
         .catch((err) => {
@@ -73,7 +73,7 @@ app.post("/approvereflection", (req, res) => {
         });
 });
 
-app.get("/getapprovedreflections", (req, res) => {
+app.get("/getapprovedreflections",  (req, res) => {
     pool
         .query("SELECT * FROM approvedReflections")
         .then((response) => {
@@ -115,51 +115,13 @@ app.delete("/deletereflection/:reflectionId",authenticateToken, (req, res) => {
                 res.status(404).send("Reflection not found");
             } else {
                 console.log("Reflection Deleted");
-                console.log(response.rows[0]); // Assuming you want to log the deleted reflection data
+                console.log(response.rows[0]);
                 res.status(200).json(response.rows[0]); // Send the deleted reflection data back as response
             }
         })
         .catch((err) => {
             console.error("Error deleting reflection:", err);
             res.status(500).send("Error deleting reflection");
-        });
-});
-
-
-app.post("/addlogin",authenticateToken, (req, res) => {
-    const loginUsername = req.body["loginUsername"];
-    const password = req.body["loginPassword"];
-console.log(password);
-    // Encrpyts password using a salt as an additional randomising factor
-    const loginPassword = hashFunction(req.body ["loginPassword"]);
-    console.log(loginPassword);
-    
-
-    // Use parameterized queries to prevent SQL injection
-    const insertLoginCommand = `INSERT INTO login (username, password) VALUES ($1, $2) RETURNING *`;
-    
-    pool
-        .query(insertLoginCommand, [loginUsername, loginPassword])
-        .then((response) => {
-            console.log("Login details Saved");
-            console.log(response.rows[0]); // Assuming you want to log the inserted login data
-            //res.status(201).json(response.rows[0]); // Send the inserted login data back as response
-        })
-        .catch((err) => {
-            console.error("Error saving login:", err);
-            res.status(500).send("Error saving login");
-        });
-});
-
-app.get("/login", (req, res) => {
-    pool
-        .query("SELECT * FROM login")
-        .then((response) => {
-            res.status(200).json(response.rows); // Send the retrieved logins as response
-        })
-        .catch((err) => {
-            console.error("Error retrieving login details:", err);
-            res.status(500).send("Error retrieving login details");
         });
 });
 
@@ -276,11 +238,7 @@ app.get("/issueCount", (req, res) => {
 
 app.listen(4000, () => console.log("Server on localhost:4000"));
 
-// call when creating a user login account
-const hashFunction = (password) => {
-    result =  bcrypt.hashSync(password, 10);
-    return result;
-}
+
 //call when checking password
 const compareHash = (password,hashFromDB) => {
     result = bcrypt.compareSync(password, hashFromDB);

@@ -189,8 +189,8 @@ const Reflection = () => {
           <h1>Share Your Reflections</h1>
           <div className="reflection-form" aria-label="reflection-form">
             <form onSubmit={handleSubmit} style={{ width: '80vmin' }}>
-              <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required />
-              <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" required />
+              <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your Name" required maxLength={50}/>
+              <input type="text" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Where are you from?" maxLength={50} required />
               <textarea value={thoughts} onChange={(event) => setThoughts(event.target.value)} placeholder="Share your thoughts..." maxLength={250} required></textarea>
               <div className="remaining-chars" aria-label="remaining-chars">{remainingChars} / 250</div>
               <button type="submit">Submit</button>

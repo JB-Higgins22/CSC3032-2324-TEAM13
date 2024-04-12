@@ -1,64 +1,65 @@
 .background {
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-    background-color: #0b6ea5;
-    background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
-    position: relative;
-    height: 100vh;
-  }
-  
-  .foreground {
-    width:50%;
-    height: auto;
-    position: relative;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #094565;
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 12px;
-    padding: 10px;
-    color: #F0FFFF;
-    overflow: auto;
-    white-space: normal; 
-  }
-  
-  .background .home-icon {
-    font-size: 32px;
-    color: #F0FFFF;
-    position: relative;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-  }
-  
-  .foreground .fontSize{
-    font-size: 90%;
-  }
-
-  .title {
-    text-align: center;
-    color: white;
-  }
-   
-
-  table {
-    width: 80%;
-    border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  background-color: #0b6ea5;
+  background-image: linear-gradient(160deg, #0b6ea5 0%, #80D0C7 50%, #11920a 100%);
+  position: relative;
+  height: 100vh;
 }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
+.foreground {
+  width: 50%;
+  height: auto;
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #094565;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 10px;
+  color: #F0FFFF;
+  overflow: auto;
+  white-space: normal;
+}
+
+.background .home-icon {
+  font-size: 32px;
+  color: #F0FFFF;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+
+.foreground .fontSize {
+  font-size: 90%;
+}
+
+.title {
+  text-align: center;
+  color: white;
+}
+
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
 }
 
 td {
-    background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 }
 
 th {
-    background-color: rgb(85, 85, 183);
+  background-color: rgb(85, 85, 183);
 }
 
 .table-container {
@@ -117,10 +118,23 @@ h2 {
   font-size: calc(var(--base-font-size) + 2vmin);
 }
 
-.content-header, .content-cell {
+.content-header,
+.content-cell {
   width: 40%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
-.other-header, .other-cell {
+.other-header,
+.other-cell {
+  width: 12%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.other-header,
+.button-cell {
   width: 12%;
 }

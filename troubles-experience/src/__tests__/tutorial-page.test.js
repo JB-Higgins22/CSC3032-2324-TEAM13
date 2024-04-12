@@ -4,6 +4,7 @@ import { render, waitFor, screen, fireEvent, act, getByPlaceholderText } from '@
 import '@testing-library/jest-dom';
 import fetchMock from 'jest-fetch-mock';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { SoundProvider } from '../sounds/soundContext';
 
     //TC01 Page contents are loaded correctly
     //TC02 User clicks cancel on confirm quit dialog 
@@ -14,11 +15,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
     //TC07 Next button is clicked for the second time 
     //TC08 “Play Game” button is clicked 
 
-
-
-
-
-    
+  
 
 fetchMock.enableMocks();
 
@@ -27,7 +24,7 @@ describe('Tutorial Component', () => {
       fetchMock.resetMocks();
     });
   
-
+    
     //TC01 Page contents are loaded correctly
     it('Page Contents Correctly Loaded', async () => {
         // Render the Tutorial component
@@ -39,18 +36,16 @@ describe('Tutorial Component', () => {
 
         const settingsIcon = screen.getByLabelText(/SettingsIcon/i);
         expect(settingsIcon).toBeInTheDocument();
-        
-        //expect(homeIcon).toBeInTheDocument();
-        //const settingsIcon = container.querySelector('.settings-icon-tutorial');
-        
-        //const firstImage = container.querySelector('.tutorial-1.png');
-        //expect(firstImage).toBeInTheDocument();
+        const homeIcon = screen.getByLabelText(/HomeIcon/i);
+        expect(homeIcon).toBeInTheDocument();
+        const firstImage = screen.getByAltText(/Step 1/i);
+        expect(firstImage).toBeInTheDocument();
         expect(screen.getByText(/HOW TO PLAY GAME/i)).toBeInTheDocument();
         expect(screen.getByText(/Step 1 - Select an issue by clicking on a book/i)).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeInTheDocument();
 
     });
-    /*
+    
     //TC02 User clicks cancel on confirm quit dialog
     it('Confirm Quit Dialog Closes When Cancel is Clicked', async () => {
         render(
@@ -88,6 +83,7 @@ describe('Tutorial Component', () => {
         expect(window.location.pathname).toBe("/");
     });
 
+    /*
     //TC04 User clicks on Settings icon
     it('Settings Dialog Opened When Settings Icon Clicked', async () => {
         render(
@@ -99,11 +95,13 @@ describe('Tutorial Component', () => {
         );
 
         // simulate the click.
+        // Has been tested but doesn't seem to work here
         const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
-        fireEvent.click(settingsIcon);
+        act (() => {
+            fireEvent.click(settingsIcon);
+        });
 
-        const settingsDialogContent = await screen.findByText(/Admin/);
-        expect(settingsDialogContent).toBeInTheDocument();
+        await waitFor(() => expect(settingsDialogContent).toBeInTheDocument());
     });
 
     //TC05 User clicks out of Settings dialog 
@@ -117,6 +115,8 @@ describe('Tutorial Component', () => {
         );
 
         // simulate the click.
+        //Has been tested before but doesn't seem to work here
+
         const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
         fireEvent.click(settingsIcon);
 
@@ -126,7 +126,8 @@ describe('Tutorial Component', () => {
         expect(screen.queryByLabelText('Settings-Dialog')).not.toBeInTheDocument();
     });
 
-    //TC06 Next button is clicked - this one might not work
+
+    //TC06 Next button is clicked
     it('Next button is clicked', async () => {
         render(
           <Router>
@@ -135,13 +136,20 @@ describe('Tutorial Component', () => {
         );
 
         // simulate the click.
-        const nextButton = await screen.getByText(/Next/i);
-        fireEvent.click(nextButton);
-    
-        expect(screen.getByText(/Step 2 - Choose which solution you think is best/i)).toBeInTheDocument();
+        const nextButton = await screen.getByLabelText(/NextButton/i);
+        act (() => {
+            fireEvent.click(nextButton);
+        });
+
+        
+        //Don't know if this is a waiting issue because the components move in and out but this seems close
+        await waitFor(() => expect(screen.getByAltText(/Step 2/i)).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByText(/Step 2 - Choose which solution you think is best/i)).toBeInTheDocument());
+        
     });
- 
-    //TC07 Next button is clicked for the second time - may also not work
+    
+
+    //TC07 Next button is clicked for the second time
     it('Next button is clicked', async () => {
         render(
           <Router>
@@ -150,15 +158,16 @@ describe('Tutorial Component', () => {
         );
 
         // simulate the click.
-        const nextButton = await screen.getByText(/Next/i);
+        // This should suffer from the same issue as TC06
+        const nextButton = await screen.getByLabelText(/NextButton/i);
         fireEvent.click(nextButton);
-        expect(screen.getByText(/Step 2 - Choose which solution you think is best/i)).toBeInTheDocument();
+        expect(await screen.getByText(/Step 2 - Choose which solution you think is best/i)).toBeInTheDocument();
 
         fireEvent.click(nextButton);    
-        expect(screen.getByText(/Step 3 - Balance the issues on the scales/i)).toBeInTheDocument();
+        expect(await screen.getByText(/Step 3 - Balance the issues on the scales/i)).toBeInTheDocument();
         
     }); 
-
+    
     //TC08 “Play Game” button is clicked
     it('Next button is clicked', async () => {
         render(
@@ -168,6 +177,7 @@ describe('Tutorial Component', () => {
         );
 
         // simulate the click.
+        // Again this is to do with waiting for the final content to come in
         const finalButton = await screen.getByText(/Step 3 - Balance the issues on the scales/i);
         fireEvent.click(finalButton);
         const gameLink = screen.getByRole('link', { name: 'Tutorial' });
@@ -175,5 +185,4 @@ describe('Tutorial Component', () => {
         expect(gameLink).toHaveAttribute('href', expect.stringContaining('scales'));
     });
     */
-
 });

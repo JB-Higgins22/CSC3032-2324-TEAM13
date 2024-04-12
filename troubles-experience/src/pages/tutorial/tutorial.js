@@ -117,8 +117,8 @@ const Tutorial = () => {
         <div className="page" style={containerStyle}>
             <img src={`${process.env.PUBLIC_URL}/newspaper.jpeg`} alt="background" className='background-image' />
             <div className="nav-bar" style={{ position: 'fixed', top: '20px', left: '20px' }}>
-              <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-              <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+              <HomeIcon aria-label = "HomeIcon" className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+              <SettingsIcon aria-label = "SettingsIcon" className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
             </div>
             <div className="titleWrapper" style={titleWrapperStyle}>
                 <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={1000}>
@@ -147,6 +147,7 @@ const Tutorial = () => {
                                         border: '1px solid #fff',
                                     }
                                     }}
+                                    aria-label = "NextButton"
                                     disabled={currentContent === 2 && currentContent !== 2} 
                                     onClick={currentContent === 2 ? playGame : nextInfo}
                                     >

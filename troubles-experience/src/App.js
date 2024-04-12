@@ -10,6 +10,7 @@ import AdminPage from './pages/admin-page/adminPage';
 import Tutorial from './pages/tutorial/tutorial';
 import SettingsDialog from './dialogs/settingsDialog';
 import PrivateRoutes from './components/PrivateRoutes.js';
+import AuthenticateUser from './components/AuthenticateUser.js';
 //Imports needed to use sound, functionality for playing sound on loop below
 
 import useSound from "use-sound";
@@ -31,7 +32,7 @@ function App() {
   });
 
   useEffect(() => {
-    setAuthenticated(true)
+    setAuthenticated(AuthenticateUser)
   }, [])
 
   useEffect(() => {
