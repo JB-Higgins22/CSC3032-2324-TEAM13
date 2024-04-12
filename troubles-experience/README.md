@@ -104,6 +104,9 @@ In the terminal, cd into the 'troubles-experience' directory and run the command
 Note that there should be no local serve of the database or frontend when running the test suite.
 For a coverage report, run `npm run test-with-coverage`
 
+BACKEND TESTS:
+A collection of Postman tests for the backend have been provided at `Backend/backend-testing/Backend Testing.postman_collection.json`
+
 # Populating the Application with Contextual Content
 We have included a page for the user to view prior to engaging with the scales that provides the user with some context on the Troubles themselves.
 We have accomodated for `THREE PARAGRAPHS` of content on this page. This content should be replaced with a version the Museum feels best provides
@@ -199,6 +202,10 @@ THOMAS MORREN - tmorren01@qub.ac.uk
 # Component Credits
 Word Cloud - VisX Word Cloud by AirBnB / https://airbnb.io/visx/wordcloud
 Bad Words - https://www.npmjs.com/package/bad-words
+MUI - https://mui.com/
+BCRYPT - https://www.npmjs.com/package/bcrypt
+DOTENV - https://www.npmjs.com/package/dotenv
+JSONWEBTOKEN - https://www.npmjs.com/package/jsonwebtoken
 
 # Image Credits
 Newspaper Background image - https://pixabay.com/photos/bundle-jute-rope-newspaper-1853667/ 
