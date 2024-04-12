@@ -83,8 +83,8 @@ const ResultsPage = () => {
         className="background-image" 
       />
       <div className="nav-bar">
-        <HomeIcon className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
-        <SettingsIcon className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
+        <HomeIcon aria-label="HomeIcon" className="home-button" sx={{ fontSize: '8vmin', marginRight: '10px', color: 'white' }} onClick={displayConfirmQuitDialog} />
+        <SettingsIcon aria-label="SettingsIcon" className="settings-button" sx={{ fontSize: '8vmin', color: 'white'}} onClick={displaySettingsDialog} />
       </div>
       <div className="title-wrapper">
         <div>

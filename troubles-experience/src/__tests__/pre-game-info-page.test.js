@@ -1,25 +1,25 @@
-import Tutorial from '../pages/tutorial/tutorial';
 import React from 'react';
 import { render, waitFor, screen, fireEvent, act, getByPlaceholderText } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import fetchMock from 'jest-fetch-mock';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { SoundProvider } from '../sounds/soundContext';
+import PreGameInfo from '../pages/pre-game-info/pre-game-info';
 
-    //TC01 Page contents are loaded correctly
-    //TC02 User clicks cancel on confirm quit dialog 
-    //TC03 User clicks Quit on confirm quit dialog 
-    //TC04 User clicks on Settings icon 
-    //TC05 User clicks out of Settings dialog 
-    //TC06 Next button is clicked 
-    //TC07 Next button is clicked for the second time 
-    //TC08 “Play Game” button is clicked 
+// TC01 Page contents are loaded
+// TC02 User clicks Cancel on confirm quit dialog
+// TC03 User clicks Quit on confirm quit dialog
+// TC04 User clicks on Settings Icon
+// TC05 User clicks out of Settings dialog
+// TC06 Next button is clicked
+// TC07 Next button is clicked for second time
+// TC08 "How to Play Game" button is clicked
 
-  
+
+//Because test cases are the same as tutorial, those tests have been copied and reworked here
 
 fetchMock.enableMocks();
 
-describe('Tutorial Component', () => {
+describe('Pregameinfo Component', () => {
     beforeEach(() => {
       fetchMock.resetMocks();
     });
@@ -27,10 +27,10 @@ describe('Tutorial Component', () => {
     
     //TC01 Page contents are loaded correctly
     it('Page Contents Correctly Loaded', async () => {
-        // Render the Tutorial component
+        // Render the Pregame component
         render(
             <Router>
-                <Tutorial />
+                <PreGameInfo />
              </Router>
         );
 
@@ -38,10 +38,8 @@ describe('Tutorial Component', () => {
         expect(settingsIcon).toBeInTheDocument();
         const homeIcon = screen.getByLabelText(/HomeIcon/i);
         expect(homeIcon).toBeInTheDocument();
-        const firstImage = screen.getByAltText(/Step 1/i);
-        expect(firstImage).toBeInTheDocument();
-        expect(screen.getByText(/HOW TO PLAY GAME/i)).toBeInTheDocument();
-        expect(screen.getByText(/Step 1 - Select an issue by clicking on a book/i)).toBeInTheDocument();
+        expect(screen.getByText(/A BACKGROUND ON THE TROUBLES/i)).toBeInTheDocument();
+        expect(screen.getByText(/The Troubles, also known as the Northern Ireland conflict,/i)).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeInTheDocument();
 
     });
@@ -50,7 +48,7 @@ describe('Tutorial Component', () => {
     it('Confirm Quit Dialog Closes When Cancel is Clicked', async () => {
         render(
             <Router>
-                <Tutorial />
+                <PreGameInfo />
             </Router>
         );
 
@@ -68,7 +66,7 @@ describe('Tutorial Component', () => {
     it('User is redirected Home When Quit is Clicked', async () => {
         render(
             <Router>
-                <Tutorial />
+                <PreGameInfo />
             </Router>
         );
 
@@ -89,7 +87,7 @@ describe('Tutorial Component', () => {
         render(
             <Router>
                 <SoundProvider>
-                    <Tutorial />
+                    <Pregameinfo />
                 </SoundProvider>
             </Router>
         );
@@ -97,11 +95,10 @@ describe('Tutorial Component', () => {
         // simulate the click.
         // Has been tested but doesn't seem to work here
         const settingsIcon = await screen.getByLabelText(/SettingsIcon/i);
-        act (() => {
-            fireEvent.click(settingsIcon);
-        });
+        fireEvent.click(settingsIcon);
 
-        await waitFor(() => expect(settingsDialogContent).toBeInTheDocument());
+        expect(screen.queryByLabelText('Settings-Dialog')).toBeInTheDocument();
+
     });
 
     //TC05 User clicks out of Settings dialog 
@@ -109,7 +106,7 @@ describe('Tutorial Component', () => {
         render(
             <Router>
                 <SoundProvider>
-                    <Tutorial />
+                    <Pregameinfo />
                 </SoundProvider>
             </Router>
         );
@@ -126,35 +123,28 @@ describe('Tutorial Component', () => {
         expect(screen.queryByLabelText('Settings-Dialog')).not.toBeInTheDocument();
     });
 
-    */
-
     //TC06 Next button is clicked
     it('Next button is clicked', async () => {
         render(
           <Router>
-            <Tutorial />
+            <Pregameinfo />
           </Router>
         );
 
         // simulate the click.
         const nextButton = await screen.getByLabelText(/NextButton/i);
-        act (() => {
-            fireEvent.click(nextButton);
-        });
-
+        fireEvent.click(nextButton);
         
         //Don't know if this is a waiting issue because the components move in and out but this seems close
-        await waitFor(() => expect(screen.getByAltText(/Step 2/i)).toBeInTheDocument());
-        await waitFor(() => expect(screen.getByText(/Step 2 - Choose which solution you think is best/i)).toBeInTheDocument());
+        expect(screen.getByText(/At its core, the Troubles were driven by political,/i)).toBeInTheDocument();
         
     });
     
-    /*
     //TC07 Next button is clicked for the second time
     it('Next button is clicked', async () => {
         render(
           <Router>
-            <Tutorial />
+            <Pregameinfo />
           </Router>
         );
 
@@ -162,28 +152,28 @@ describe('Tutorial Component', () => {
         // This should suffer from the same issue as TC06
         const nextButton = await screen.getByLabelText(/NextButton/i);
         fireEvent.click(nextButton);
-        expect(await screen.getByText(/Step 2 - Choose which solution you think is best/i)).toBeInTheDocument();
+        expect(await screen.getByText(/At its core, the Troubles were driven by political,/i)).toBeInTheDocument();
 
         fireEvent.click(nextButton);    
-        expect(await screen.getByText(/Step 3 - Balance the issues on the scales/i)).toBeInTheDocument();
+        expect(await screen.getByText(/The primary actors in this conflict included republican/i)).toBeInTheDocument();
         
     }); 
     
-    //TC08 “Play Game” button is clicked
+    //TC08 “How to Play” button is clicked
     it('Next button is clicked', async () => {
         render(
           <Router>
-            <Tutorial />
+            <Pregameinfo />
           </Router>
         );
 
         // simulate the click.
         // Again this is to do with waiting for the final content to come in
-        const finalButton = await screen.getByText(/Step 3 - Balance the issues on the scales/i);
+        const finalButton = await screen.getByText(/The primary actors in this conflict included republican/i);
         fireEvent.click(finalButton);
-        const gameLink = screen.getByRole('link', { name: 'Tutorial' });
+        const gameLink = screen.getByRole('link', { name: 'Pregameinfo' });
     
-        expect(gameLink).toHaveAttribute('href', expect.stringContaining('scales'));
+        expect(gameLink).toHaveAttribute('href', expect.stringContaining('tutorial'));
     });
     */
 });
