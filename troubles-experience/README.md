@@ -89,7 +89,7 @@ If for whatever reason the above command does not execute, pay attention to your
 
 You should now be able to serve the backend via `npm run dev`. The backend should serve on a localhost port, but this can be changed via the `database.js` file.
 
-### Installing libraries in the backend:
+### Installing libraries in the frontend:
 You must run `npm install` inside both the top directory, and inside the `troubles-experience` directory. You should now be able to serve the frontend via `npm run start`.
 
 # Running/Serving The Project
