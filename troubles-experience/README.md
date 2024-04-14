@@ -118,6 +118,8 @@ Content must be similarly ammended for the Results page, which is intended to pr
 `CSC3032-2324-TEAM13/troubles-experience/src/pages/results/results.js`
 Do not remove the first item in this const array, as it will display the user's score on screen.
 
+Similarly, please replace `placeholderSound.mp3` in the `sounds` older, to a suitable alternative, and adjust the import statement on `line 18` in `App.js`.
+
 # Populating the Application with Issue Content
 The main content that must be populated within the application is the content for the actual Issues the user will be asked to work through.
 Populating this content will require an understanding of the format of each Issue:
