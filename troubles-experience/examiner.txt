@@ -1,0 +1,333 @@
+------------------- SQL STATEMENT FOR ISSUE DATA ------------------- :
+
+PHASE ONE:
+INSERT INTO issues (name, description_one, description_two, image_url, option_a, option_a_nationalist_weight, option_a_nationalist_perspective, option_a_unionist_weight, option_a_unionist_perspective, option_b, option_b_nationalist_weight, option_b_nationalist_perspective, option_b_unionist_weight, option_b_unionist_perspective, option_c, option_c_nationalist_weight, option_c_nationalist_perspective, option_c_unionist_weight, option_c_unionist_perspective, number_of_options, selected_option) VALUES
+('Decommissioning of Arms', 'Debate on the mechanisms for the decommissioning of paramilitary arms as a trust-building measure.', 'How should disarmament be verified to satisfy all parties?', '/demo-image.png', 'Immediate and Transparent Decommissioning', 30, 'Ensures a commitment to peace.', 10, 'Builds trust among communities.', 'Phased Decommissioning', 10, 'Allows verification and trust building.', 20, 'Ensures security concerns are addressed.', 'No Decommissioning Required', 5, 'Trust should be built through dialogue.', 5, 'Maintains a stance on self-defense.', 3, 'X'),
+('Police Reform', 'Discussion on reforming the Royal Ulster Constabulary (RUC) to create a police service representative of the entire community.', 'How to transform the police service to gain the trust of all communities?', '/demo-image.png', 'Comprehensive Reform and Renaming', 25, 'Symbolizes a new start.', 15, 'Acknowledges past and looks to future.', 'Moderate Reforms', 15, 'Improves relations gradually.', 25, 'Balances tradition with necessary changes.', 'Maintain Current Structure', 10, 'Preserves order and tradition.', 5, 'A cautious approach to change.', 3, 'X'),
+('Release of Political Prisoners', 'Negotiating the release of prisoners affiliated with paramilitary groups as part of peace-building efforts.', 'Balancing justice and reconciliation in the peace process.', '/demo-image.png', 'Immediate and Conditional Release', 20, 'Facilitates reconciliation.', 30, 'Shows commitment to peace.', 'Phased Release Based on Behavior', 30, 'Ensures safety and justice.', 20, 'Acknowledges progress towards peace.', 'No Release', 5, 'Justice must be served.', 5, 'Concerns over public safety.', 3, 'X'),
+('Cross-Border Cooperation', 'Enhancing cooperation between Northern Ireland and the Republic of Ireland on various policy areas.', 'Finding common ground for mutual benefit.', '/demo-image.png', 'Expanding Current Cooperation Mechanisms', 20, 'Strengthens ties and trust.', 25, 'Promotes economic and social development.', 'Limited Cooperation', 25, 'Focuses on non-sensitive areas.', 20, 'Maintains autonomy while benefiting from cooperation.', 'No Additional Cooperation', 5, 'Preserves current sovereignty.', 5, 'Minimizes external influence.', 3, 'X'),
+('Education and Reconciliation', 'Introducing initiatives in schools to educate the youth about the history of the conflict and the importance of reconciliation.', 'How to shape future generations’ understanding of peace.', '/demo-image.png', 'Compr;xc ,kehensive Peace Education Programs', 30, 'Builds a foundation for lasting peace.', 15, 'Educates on the importance of reconciliation.', 'Selective Topics on Peace', 15, 'Gradual introduction to sensitive topics.', 30, 'Balances educational content with community sensitivities.', 'Maintain Current Curriculum', 5, 'Stability in education system.', 5, 'Limits potential controversy.', 3, 'X'),
+('Victims’ Rights and Memorials', 'Addressing the needs of victims and establishing memorials to acknowledge the suffering of all communities.', 'How to honor the past while building a future?', '/demo-image.png', 'Establishing Comprehensive Victims’ Support', 25, 'Acknowledges and addresses suffering.', 20, 'Ensures a holistic approach to healing.', 'Creating Shared Memorials', 20, 'Fosters mutual understanding and respect.', 25, 'Promotes collective memory and healing.', 'Focusing on Future Reconciliation Efforts', 5, 'Prioritizes moving forward.', 5, 'Avoids dwelling on contentious past.', 3, 'X'),
+('Language and Cultural Rights', 'Promoting the rights to use and teach Irish and Ulster Scots languages as part of cultural heritage.', 'Ensuring cultural expression and preservation for all communities.', '/demo-image.png', 'Official Status for Irish and Ulster Scots', 25, 'Celebrates cultural diversity.', 20, 'Recognizes cultural heritage.', 'Supporting Language Education', 20, 'Facilitates cultural exchange.', 25, 'Encourages mutual respect through understanding.', 'No Change to Current Policy', 5, 'Maintains the status quo.', 5, 'Avoids potential political sensitivity.', 3, 'X'),
+('Economic Development Initiatives', 'Launching initiatives to spur economic development and address unemployment, particularly in areas affected by the conflict.', 'Balancing regional development and economic justice.', '/demo-image.png', 'Targeted Economic Support', 30, 'Drives growth in disadvantaged areas.', 25, 'Promotes economic equality and peace.', 'Broad Economic Policies', 25, 'Supports overall economic growth.', 30, 'Benefits all communities equally.', 'No Special Initiatives', 5, 'Relies on market forces.', 5, 'Minimizes government intervention.', 3, 'X');
+
+
+PHASE TWO:
+INSERT INTO issues (name, description_one, description_two, image_url, option_a, option_a_nationalist_weight, option_a_nationalist_perspective, option_a_unionist_weight, option_a_unionist_perspective, option_b, option_b_nationalist_weight, option_b_nationalist_perspective, option_b_unionist_weight, option_b_unionist_perspective, option_c, option_c_nationalist_weight, option_c_nationalist_perspective, option_c_unionist_weight, option_c_unionist_perspective, number_of_options, selected_option) VALUES
+('Brexit and the Irish Border', 'The impact of Brexit on the open border between Northern Ireland and the Republic of Ireland.', 'Concerns about the return of a hard border and its effects on peace.', '/demo-image.png', 'Maintain Open Border', 35, 'Supports peace and free movement.', 25, 'Preserves economic integration.', 'Technology-based Solutions', 25, 'Minimizes physical checks.', 35, 'Ensures border efficiency.', 'Customs Checks Away from Border', 15, 'Limits disruption.', 15, 'Practical approach to new trade rules.', 3, 'X'),
+('Digital Inclusion Initiatives', 'Expanding access to digital technology and internet connectivity across all communities.', 'Bridging the digital divide to ensure equal opportunities.', '/demo-image.png', 'Government-led Connectivity Projects', 30, 'Ensures widespread access.', 20, 'Promotes economic growth.', 'Public-Private Partnerships', 20, 'Leverages private sector innovation.', 30, 'Balances efficiency with coverage.', 'Community-driven Solutions', 15, 'Empowers local initiatives.', 15, 'Supports grassroots development.', 3, 'X'),
+('Renewable Energy Transition', 'Investing in renewable energy to promote sustainability and energy independence.', 'The debate over the pace and methods of transitioning to green energy.', '/demo-image.png', 'Accelerated Green Transition', 35, 'Addresses climate change urgently.', 15, 'Creates new industries.', 'Gradual Energy Transition', 15, 'Allows economic adaptation.', 35, 'Ensures energy security.', 'Focus on Traditional Energy', 15, 'Protects existing jobs.', 15, 'Prioritizes economic stability.', 3, 'X'),
+('Social Housing Development', 'Addressing housing shortages and affordability through social housing projects.', 'The balance between development and community impact.', '/demo-image.png', 'Expand Social Housing', 30, 'Increases affordable housing.', 25, 'Meets community needs.', 'Mixed Housing Solutions', 25, 'Balances social and private housing.', 30, 'Encourages diverse communities.', 'Incentivize Private Development', 15, 'Stimulates economy.', 15, 'Offers varied housing options.', 3, 'X'),
+('Mental Health Services Expansion', 'Improving access to mental health services for communities affected by the conflict.', 'Addressing the long-term psychological impact of the conflict.', '/demo-image.png', 'Comprehensive Mental Health Program', 35, 'Addresses widespread needs.', 20, 'Heals community traumas.', 'Targeted Support Programs', 20, 'Focuses on most affected groups.', 35, 'Ensures specialized care.', 'Enhance Existing Services', 15, 'Builds on current infrastructure.', 15, 'Cost-effective approach.', 3, 'X'),
+('Integrated Education Programs', 'Promoting integrated education to foster understanding and reconciliation among youth.', 'The challenge of integrating schools in historically divided communities.', '/demo-image.png', 'Full Integration Initiative', 30, 'Promotes unity from a young age.', 25, 'Builds a shared future.', 'Voluntary Integration Schemes', 25, 'Encourages schools to integrate.', 30, 'Respects community choice.', 'Strengthen Current System', 15, 'Improves existing educational framework.', 15, 'Maintains stability while adapting.', 3, 'X'),
+('Public Transportation Infrastructure', 'Upgrading public transportation to connect communities and boost the economy.', 'The role of transportation in economic development and community cohesion.', '/demo-image.png', 'Major Infrastructure Investment', 35, 'Enhances connectivity and growth.', 20, 'Supports sustainable development.', 'Incremental Upgrades', 20, 'Gradually improves system.', 35, 'Balances cost with benefits.', 'Focus on Urban Centers', 15, 'Prioritizes high-density areas.', 15, 'Boosts urban economic activity.', 3, 'X'),
+('Cultural Heritage Preservation', 'Protecting and promoting Northern Ireland’s cultural heritage and history.', 'Balancing heritage preservation with modern development.', '/demo-image.png', 'Comprehensive Preservation Program', 30, 'Safeguards cultural identity.', 25, 'Enhances tourism and education.', 'Selective Preservation Projects', 25, 'Targets significant sites.', 30, 'Allows for flexible development.', 'Encourage Private Sector Involvement', 15, 'Leverages investment for preservation.', 15, 'Promotes economic benefits of heritage.', 3, 'X');
+
+
+------------------- SQL STATEMENT FOR DEMO REFLECTION DATA ------------------- :
+
+INSERT INTO approvedReflections (username, location, content)
+VALUES 
+('User1', 'LocationA', 'Intrigued by the complexities of negotiation. Every voice carries weight.'),
+('User2', 'LocationB', 'The puzzle shows compromise isn''t easy but essential for peace.'),
+('User3', 'LocationC', 'History teaches us the value of understanding. This tool brings perspectives to life.'),
+('User4', 'LocationD', 'Reflection on past conflicts teaches hope for future resolutions.'),
+('User5', 'LocationE', 'The scale of peace is delicate. Balancing it requires wisdom and patience.'),
+('User6', 'LocationF', 'Learning about the Troubles through this puzzle added depth to my understanding.'),
+('User7', 'LocationG', 'Empathy is key in conflict resolution. This interactive experience highlights that.'),
+('User8', 'LocationH', 'The challenge of balancing diverse perspectives is eye-opening.'),
+('User9', 'LocationI', 'This tool demonstrates the power of dialogue in overcoming differences.'),
+('User10', 'LocationJ', 'Seeing both sides of the story has changed my perspective on the peace talks.'),
+('User11', 'LocationA', 'Compromise feels like an art after using this puzzle. It’s complex and nuanced.'),
+('User12', 'LocationB', 'The nuances of negotiation and the importance of every decision is well portrayed.'),
+('User13', 'LocationC', 'A reminder that peace is a journey, not a destination. Each step matters.'),
+('User14', 'LocationD', 'The interactive experience underlines the weight of historical context in resolutions.'),
+('User15', 'LocationE', 'Engagement with the puzzle is a lesson in patience and empathy.'),
+('User16', 'LocationF', 'Understanding comes from listening, and this puzzle forces us to listen.'),
+('User17', 'LocationG', 'Reflecting on the peace talks, it''s clear there are no easy answers, only hard-earned solutions.'),
+('User18', 'LocationH', 'The interactive puzzle is a testament to the complexity of human emotions and politics.'),
+('User19', 'LocationI', 'Realizing how intertwined issues are gives me new respect for negotiators.'),
+('User20', 'LocationJ', 'This experience is a powerful reminder of the value of peace and the effort it requires.'),
+('User21', 'LocationA', 'Every piece of the puzzle tells a story, a piece of history, a lesson to learn.'),
+('User22', 'LocationB', 'Balance is elusive, but striving for it brings us closer to peace.'),
+('User23', 'LocationC', 'The puzzle is a bridge between past conflicts and future hopes.'),
+('User24', 'LocationD', 'Insights gained here are invaluable for understanding conflict dynamics.'),
+('User25', 'LocationE', 'The interactivity adds a personal touch to historical events, making learning impactful.'),
+('User26', 'LocationF', 'It’s a unique way to visualize the complexity of peace negotiations.'),
+('User27', 'LocationG', 'Personal reflections on the Troubles through this puzzle are enlightening.'),
+('User28', 'LocationH', 'Finding balance in the puzzle mirrors the real challenges of peace processes.'),
+('User29', 'LocationI', 'This tool serves as a reminder that progress often comes from compromise.'),
+('User30', 'LocationJ', 'Engagement with historical issues through this puzzle fosters deep reflection.'),
+('User31', 'LocationA', 'The diversity of perspectives presented challenges preconceived notions.'),
+('User32', 'LocationB', 'A creative approach to understanding the art of negotiation and peace.'),
+('User33', 'LocationC', 'This experience emphasizes the importance of every voice in the conversation.'),
+('User34', 'LocationD', 'The puzzle highlights the difficulty of achieving consensus. It’s a valuable lesson.'),
+('User35', 'LocationE', 'I appreciate the emphasis on the complexity of historical conflicts and resolutions.'),
+('User36', 'LocationF', 'Through this puzzle, the concept of peace is demystified yet shown to be complex.'),
+('User37', 'LocationG', 'The interplay of different issues in the peace talks is well represented.'),
+('User38', 'LocationH', 'It’s enlightening to see the peace process from multiple angles.'),
+('User39', 'LocationI', 'This interactive tool brings to light the intricate dance of diplomacy.'),
+('User40', 'LocationJ', 'Reflecting through the puzzle, understanding is the first step towards resolution.'),
+('User41', 'LocationA', 'The puzzle portrays the fragility of peace and the strength needed to achieve it.'),
+('User42', 'LocationB', 'I gained new insights into the challenges of reconciling diverse perspectives.'),
+('User43', 'LocationC', 'The experience is a poignant reminder of the long road to peace.'),
+('User44', 'LocationD', 'This interactive puzzle is a microcosm of the broader peace process.'),
+('User45', 'LocationE', 'It’s fascinating to engage with the historical and political intricacies of the Troubles.'),
+('User46', 'LocationF', 'The puzzle piece of dialogue in peacebuilding is crucial. This tool illustrates that beautifully.'),
+('User47', 'LocationG', 'Seeing the balance of issues fluctuate in the puzzle is a powerful visual of peace efforts.'),
+('User48', 'LocationH', 'This form of interactive learning about the Troubles is innovative and engaging.'),
+('User49', 'LocationI', 'The puzzle emphasizes that while balance is ideal, it’s the pursuit that truly matters.'),
+('User50', 'LocationJ', 'Engaging with the puzzle, I feel more connected to the historical significance of the peace talks.'),
+('User51', 'LocationA', 'This tool effectively simulates the delicate balancing act of peace negotiations.'),
+('User52', 'LocationB', 'A compelling way to explore the intricate dynamics of the Troubles and peace efforts.'),
+('User53', 'LocationC', 'The puzzle enhances understanding of the multifaceted nature of conflict resolution.'),
+('User54', 'LocationD', 'By participating, I’ve seen the critical role of empathy in the peace process.'),
+('User55', 'LocationE', 'The puzzle’s interactive nature makes the history of the Troubles personally relevant.'),
+('User56', 'LocationF', 'Insight into the peace talks process through this puzzle is uniquely informative.'),
+('User57', 'LocationG', 'The challenge of finding balance in the puzzle mirrors real-world peace negotiations.'),
+('User58', 'LocationH', 'This interactive experience deepens appreciation for the complexities of peacebuilding.'),
+('User59', 'LocationI', 'A novel way to engage with and reflect on the historical context of the Troubles.'),
+('User60', 'LocationJ', 'The puzzle provides a tangible sense of the challenges faced during the peace talks.'),
+('User61', 'LocationA', 'Exploring the puzzle, I''m struck by the perseverance needed for peace.'),
+('User62', 'LocationB', 'This experience offers a unique lens on the delicate art of conflict resolution.'),
+('User63', 'LocationC', 'The interactive puzzle sheds light on the nuanced negotiations of the peace talks.'),
+('User64', 'LocationD', 'A thought-provoking tool that highlights the importance of compromise and dialogue.'),
+('User65', 'LocationE', 'The puzzle’s reflection on the Troubles offers a profound learning experience.'),
+('User66', 'LocationF', 'Understanding the layers of conflict and resolution through this puzzle is enlightening.');
+
+
+------------------- ORIGINAL RESEARCH ------------------- :
+Enabling Devolution of Powers from Westminster to Stormont –  
+
+Key requirements: 
+
+Freeing of those arrested. (DUP walked out over this issue due to lack of weapons decommissioning.) 
+
+Power sharing implementation. 
+
+Petition of Concern. – like above 
+
+Armed groups agreed to dispose of their weapons. (Related to first issue.) 
+
+Scaling back of military presence. 
+
+Right to self-determination regarding a united Ireland.  
+
+Dual nationality. (unlikely to have much against it) 
+
+Succession of the RUC with the PSNI, including the supervisory Board. 
+
+Establishment of the north south relationship and the East West relationships respectively. 
+
+-- Release of prisoners --
+
+Overview 
+
+There are currently hundreds in prison who have been arrested for involvement in paramilitary activities, most of these prisoners are seen as having ties to republican groups, however there are others seen as being part of loyalist militant groups. There is a decision to be made on whether to release these prisoners as part of the peace process. 
+
+For  
+
+This would greatly increase support, mainly from Republican groups who feel that many of the captives are innocent and wrongly arrested, although some on both sides are in favour or at least willing to allow the release of prisoners as a part of a peace deal. It is likely paramilitary groups will be more likely to join in peace talks if this agreement is made. 
+
+Against 
+
+The DUP feel that the release would be unjust for the families of the victims who are seeking justice. 
+
+It is unlikely the DUP will remain in talks if any paramilitary parties take part as these groups have not begun decommissioning their weaponry. 
+
+Options: 
+
+BEST - Begin the release conflict prisoners. 
+
+WORST - Do not release conflict prisoners. 
+
+ 
+
+Between 1998 and 2012 506 prisoners were granted early release. 
+
+Over 500 prisoners from both loyalist and nationalist groups will be released from prison in the years after the agreement.  
+
+https://peaceaccords.nd.edu/provision/prisoner-release-northern-ireland-good-friday-agreement 
+
+http://www.sentencereview.org.uk/ 
+
+
+
+-- Paramilitary Weapons Decomissioning --
+
+Overview 
+
+There are calls for a procedure to be put in place that would see the paramilitaries surrendering all weaponry, doing so would help signify an end to the violence of the troubles and allow paramilitary groups demonstrate their willingness to work toward peace. 
+
+For: Most people are in favour of this occurring. The main issues raised are with how the decommissioning would be implemented.  
+
+Against: Fringe parts of the paramilitary groups will be hesitant to give up their arms in case peace talks fail and hostilities resumed.   
+
+
+Options: 
+
+OK - Put Decomissioning into place immediately using the RUC to enforce it. 
+
+Best - Install a commission that would oversee the decommissioning of weaponry with paramilitary groups co-operation.  
+
+WORST - Do not put measures in place to bring about decommission.   
+
+ 
+
+NOTES: 
+
+During the process of decommissioning the Democratic Unionist Party demanded that the IRA release photographs of the decommissioning process in order to satisfy the unionist "man in the street". The IRA rejected these claims, claiming it would amount to "humiliation", and that two clergymen would oversee the process instead. 
+
+UVF and RHC forces would not decommission their weapons until 2007, fearing following in the IRAs footsteps would be “dancing to their tune”. 
+
+https://education.niassembly.gov.uk/post-16/snapshots-devolution/belfast-agreementgood-friday-agreement-1998 
+
+https://en.wikipedia.org/wiki/Decommissioning_in_Northern_Ireland#:~:text=10%20April%201998%20(Good%20Friday)%3A%20Belfast%20Agreement%20is%20signed,Ireland%20decommission%20by%20May%202000. 
+
+http://news.bbc.co.uk/1/hi/northern_ireland/4080697.stm - IRA say photos “never possible”. 
+
+https://www.irishtimes.com/news/paisley-decommissioning-claims-bizarre-says-sf-1.1280409 
+
+http://news.bbc.co.uk/1/hi/northern_ireland/8122375.stm 
+
+
+
+-- Normalisation of NI and Scaling back of Military Presence --
+
+Overview 
+
+As part of the peace process, military presence in Northern Ireland could be reduced to normal levels. This would mean the reduction of military installations in the state and a reduction in troops deployed.  This process has already begun with the numbers of both trending downward in line with peace talks. 
+
+ 
+
+For 
+
+Nationalist groups see demilitarisation as the key allowing day to day life in Northern Ireland return to normal. 
+
+ 
+
+  
+
+Against 
+
+Both the DUP and the UUP parties see the scaling back of the military presence as premature. 
+
+ 
+
+Options 
+
+BAD - Fully withdraw troops immediately. 
+
+WORST - Maintain Full military presence in Northern Ireland for the foreseeable. 
+
+BEST - Put plans in place to start demobilisation of the British military as part of the peace process. 
+
+
+
+-- Changes to Policing in Northern Ireland --
+
+Overview 
+
+A very controversial part of the peace negotiations revolves around whether to implement changes to policing in Northern Ireland.  The current police force – the RUC or Royal Ulster Constabulary has existed since 1922 and it had been involved in various scandals since the beginning of the troubles. Some still feel however that the RUC is more than capable of returning to a demilitarised state from which it could adequately serve the citizens of Northern Ireland. 
+
+For 
+
+Many Catholic residents in NI feel that the RUC is a Protestant organisation. For the police force to be able to work with the entire nation moving forward, it is felt that changes must be made. 
+
+Against 
+
+Others feel that the RUC is sufficient to continue as a civilian police force.  
+
+Options 
+
+GOOD – Replace the current Police Forces; the RUC; with a police force made up of an equal representation of Catholic and Protestant officers. 
+
+BEST - implement an independent commission to oversee an inquiry into policing in Northern Ireland.  
+
+WORST – Do not implement any changes to policing in Northern Ireland. 
+
+
+
+-- Power Sharing Implementation --
+
+Overview 
+
+In order to encourage cross community co-operation, plans are to be put in place to facilitate power-sharing within the main system of governance. This new system will act as a devolved government for those in Northern Ireland. There is a major decision to be made on if additional measures will be taken to ensure fair representation.  
+
+ 
+
+For 
+
+Both Unionists and nationalists favour a power sharing structure as they feel it is the best way to handle the complex political situation in Northern Ireland.  
+
+ 
+
+ 
+
+Against 
+
+Some groups argue that this approach is not true democracy and would allow a minority too much power over the majority. 
+
+ 
+
+Options 
+
+GOOD – Implementation of a Power-sharing coalition rule to ensure fair representation of both Unionist and Nationalists.  
+
+BAD – Implement the same system of government used by the United Kingdom. 
+
+
+-- Petition of Concern --
+
+Overview 
+
+Due to the Unionist majority in terms of population in Northern Ireland, another proposal has been put forward. It would entail an additional rule that would allow a minority party to designate any issue a cross-community issue, requiring that a bill must be decided for by a majority of both Unionist and Nationalist votes. 
+
+ 
+
+For 
+
+Some see this rule as key to allowing the sharing of power between unionist and Nationalist groups, preventing one group from simply outvoting the other on key issues. 
+
+Against 
+
+Some see this rule as troublesome and anti-democratic. It is felt that this rule may allow a minority of the government to hold the majority to ransom and essentially enable the vetoing of bills that would otherwise pass. 
+
+ 
+
+Options 
+
+GOOD – Implementation of a petition of concern requiring members of two separate parties to submit it.   
+
+BAD – Do not implement the petition of concern. 
+
+https://www.legislation.gov.uk/ukpga/2022/2/section/6 
+
+
+
+
+-- Right to Self Determination -- 
+
+Overview 
+
+A key part of the peace talks entails the contents of an agreement between the British and Irish governments. This discussion revolves around whether Northern Ireland will remain a part of the UK now and in the future. 
+
+For 
+
+Nationalists are strongly in favour of allowing the citizens of Northern Ireland a vote on becoming a United Ireland. They feel that a non-violent path to a united island is the correct way forward. 
+
+ 
+
+Against 
+
+Unionists strongly oppose any legislature that would allow a referendum on Northern Irelands status as part of the United Kingdom. 
+
+ 
+
+Options 
+
+Good – Put forward legislature that will reserve the right of the people of Northern Ireland to have a choice to agree to a united Ireland. They also have the choice to stay a part of the United Kingdom. 
+
+Bad – Put forward legislature that will keep Northern Ireland as a permanent state of the United Kingdom. 
+
+Bad – put forward legislature that will hand over control of Northern Ireland to the Irish Government.  
